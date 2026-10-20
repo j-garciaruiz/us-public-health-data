@@ -11,7 +11,7 @@ NADAC is the CMS survey estimate of the average invoice price retail community p
 | weekly snapshots | 42 |
 | first snapshot | 2026-01-07 |
 | latest snapshot | 2026-10-21 |
-| NDCs per snapshot (min / median / max) | 29,918 / 30,168 / 30,597 |
+| NDCs per snapshot (min / median / max) | 29,918 / 30,168.5 / 30,597 |
 | distinct NDCs in the year | 32,972 |
 | NDCs that are not 11 digits | 0 |
 | duplicate NDC rows within a snapshot | 0 |
@@ -46,8 +46,9 @@ Class: G = generic, B = brand, B-ANDA = brand-name product approved on an ANDA, 
 | NDCs in both of the last two snapshots | 29,992 |
 | NDCs with a new Effective Date | 29,138 |
 | NDCs whose NADAC changed | 28,712 |
-| of which by more than 1% | 20,165 |
-| of which increased | 14,883 |
+| changed by more than 1% (either direction) | 20,165 |
+| changed upward (any size) | 14,883 |
+| changed upward by more than 1% | 10,629 |
 | added (in latest only) | 103 |
 | dropped (in prior only) | 39 |
 

@@ -61,7 +61,8 @@ def download(url, dest):
     tmp = dest.with_suffix(dest.suffix + ".part")
     sha = hashlib.sha256()
     size = 0
-    rows = 0
+    lines = 0
+    last = b""
     with get(url, timeout=600) as r, open(tmp, "wb") as f:
         while True:
             chunk = r.read(1 << 20)
@@ -70,12 +71,15 @@ def download(url, dest):
             f.write(chunk)
             sha.update(chunk)
             size += len(chunk)
-            rows += chunk.count(b"\n")
+            lines += chunk.count(b"\n")
+            last = chunk[-1:]
     if size == 0:
         tmp.unlink(missing_ok=True)
         raise SystemExit(f"Empty download from {url}")
+    if last != b"\n":
+        lines += 1  # final record without a trailing newline
     tmp.replace(dest)
-    return size, sha.hexdigest(), rows
+    return size, sha.hexdigest(), lines
 
 
 def fetch(catalog, title, dest):

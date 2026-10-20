@@ -71,25 +71,30 @@ def main():
     weeks = cur.groupby("as_of").size()
     last_wk = weeks.index.max()
     last = cur[cur.as_of == last_wk]
-    prev_wk = weeks.index[-2]
-    prior = cur[cur.as_of == prev_wk]
+    prev_wk = weeks.index[-2] if len(weeks) > 1 else None
+    prior = cur[cur.as_of == prev_wk] if prev_wk is not None else None
 
     checks = {
         "rows": len(cur),
         "weekly snapshots": cur.as_of.nunique(),
         "first snapshot": weeks.index.min().date().isoformat(),
         "latest snapshot": last_wk.date().isoformat(),
-        "NDCs per snapshot (min / median / max)": f"{weeks.min():,} / {int(weeks.median()):,} / {weeks.max():,}",
+        "NDCs per snapshot (min / median / max)": f"{weeks.min():,} / {weeks.median():,g} / {weeks.max():,}",
         "distinct NDCs in the year": cur.NDC.nunique(),
         "NDCs that are not 11 digits": int((~cur.NDC.str.fullmatch(r"\d{11}")).sum()),
         "duplicate NDC rows within a snapshot": int(cur.duplicated(["as_of", "NDC"]).sum()),
         "rows with missing or non-positive NADAC": int((cur.nadac.isna() | (cur.nadac <= 0)).sum()),
         "pharmacy type values": ", ".join(sorted(cur["Pharmacy Type Indicator"].dropna().unique())),
     }
-    s = cur.sort_values(["NDC", "as_of"])
-    s = s[s.NDC.eq(s.NDC.shift())]  # rows that have a previous snapshot for the same NDC
-    new_eff = s["Effective Date"].ne(cur.sort_values(["NDC", "as_of"])["Effective Date"].shift().loc[s.index])
-    share = new_eff.groupby(s.as_of).mean()
+    # Compare each snapshot with the immediately preceding one, among NDCs present in both
+    # (an NDC missing for a week is not compared across the gap).
+    snap = list(weeks.index)
+    prev_of = dict(zip(snap[1:], snap[:-1]))
+    eff = cur[["NDC", "as_of", "Effective Date"]].assign(
+        prev_as_of=pd.to_datetime(cur.as_of.map(prev_of)).astype(cur.as_of.dtype))
+    adj = eff.merge(eff[["NDC", "as_of", "Effective Date"]], left_on=["NDC", "prev_as_of"],
+                    right_on=["NDC", "as_of"], suffixes=("", "_p"))
+    share = adj["Effective Date"].ne(adj["Effective Date_p"]).groupby(adj.as_of).mean()
     checks["snapshots where most NDCs got a new Effective Date (monthly survey refresh)"] = ", ".join(
         d.strftime("%m-%d") for d in share[share > 0.5].index)
     if prev is not None:
@@ -108,6 +113,9 @@ def main():
 
     # Week-over-week movement between the last two snapshots.
     # A monthly survey refresh moves the Effective Date for most NDCs at once; ordinary weeks touch few.
+    if prior is None:
+        prior = last.iloc[0:0]
+        prev_wk = last_wk
     m = last[["NDC", "nadac", "Effective Date"]].merge(
         prior[["NDC", "nadac", "Effective Date"]], on="NDC", suffixes=("", "_prev"))
     changed = m[m.nadac != m.nadac_prev]
@@ -116,8 +124,9 @@ def main():
         "NDCs in both of the last two snapshots": len(m),
         "NDCs with a new Effective Date": int((m["Effective Date"] != m["Effective Date_prev"]).sum()),
         "NDCs whose NADAC changed": len(changed),
-        "of which by more than 1%": int((rel > 0.01).sum()),
-        "of which increased": int((changed.nadac > changed.nadac_prev).sum()),
+        "changed by more than 1% (either direction)": int((rel > 0.01).sum()),
+        "changed upward (any size)": int((changed.nadac > changed.nadac_prev).sum()),
+        "changed upward by more than 1%": int(((changed.nadac > changed.nadac_prev) & (rel > 0.01)).sum()),
         "added (in latest only)": int((~last.NDC.isin(prior.NDC)).sum()),
         "dropped (in prior only)": int((~prior.NDC.isin(last.NDC)).sum()),
     }
