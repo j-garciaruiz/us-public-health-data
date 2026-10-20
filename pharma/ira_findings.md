@@ -1,6 +1,6 @@
 # Medicare drug price negotiation, first year: what moved in January 2026
 
-Status: draft, 2026-10-20. Descriptive analysis, triple-checked: Codex (GPT-6 Astra) replicated every number blind (PASS WITH FIXES, `reviews/pharma_ira_codex_astra/report.md`) and Agy (Gemini 4 Argon) recomputed blind and reviewed the method (PASS WITH FIXES, `reviews/pharma_ira_agy_argon/REPORT.md`). Both reviews' fixes are applied, and a Codex follow-up confirmed the revised numbers (8,542 comparisons, `reviews/pharma_ira_codex_astra/followup/report.md`). Numbers come from `pharma/scripts/ira_analysis.py`; tables in [outputs/ira/summary.md](outputs/ira/summary.md).
+Status: draft, 2026-10-20. Finding 4 (plan pricing files) added 2026-10-20 and under review (Codex replication, Agy method review). Findings 1 to 3 are descriptive and triple-checked: Codex (GPT-6 Astra) replicated every number blind (PASS WITH FIXES, `reviews/pharma_ira_codex_astra/report.md`) and Agy (Gemini 4 Argon) recomputed blind and reviewed the method (PASS WITH FIXES, `reviews/pharma_ira_agy_argon/REPORT.md`). Both reviews' fixes are applied, and a Codex follow-up confirmed the revised numbers (8,542 comparisons, `reviews/pharma_ira_codex_astra/followup/report.md`). Numbers come from `pharma/scripts/ira_analysis.py`; tables in [outputs/ira/summary.md](outputs/ira/summary.md).
 
 ## Question
 
@@ -29,6 +29,12 @@ This is what the payment rules would produce: for a selected drug, the law caps 
 This is a gap between an invoice benchmark and the MFP. CMS lets manufacturers effectuate the MFP prospectively or through retrospective refunds, by default computed as WAC minus MFP, with the Medicare Transaction Facilitator exchanging claim data ([CMS final guidance, sections 40.4 to 40.4.4](https://www.cms.gov/files/document/ipay-2028-final-guidance.pdf)). NADAC records invoice prices for purchases across all payers, so a refund paid outside the invoice does not change it directly; brand NADAC moves with list-price changes, monthly surveys and help-desk reviews ([NADAC methodology](https://www.medicaid.gov/medicaid-chip-program-information/by-topics/prescription-drugs/ful-nadac-downloads/nadacmethodology.pdf)). NADAC minus MFP is a benchmark gap, not a measured pharmacy receivable; the data here do not show actual pharmacy losses, refund timing or amounts. No NADAC observations matched the Imbruvica NDCs.
 
 ![NADAC relative to MFP](outputs/ira/chart_nadac_vs_mfp.png)
+
+**4. Part D plans price the negotiated drugs at the MFP from January 2026.** CMS's quarterly plan pricing files list each plan's unit cost for every product. For the ten drugs' products, plan unit costs were a median **2.77 times** the 2026 MFP in plan year 2025 (October 2025 release). In the January 2026 release, which already holds plan-year 2026 prices, the median was **1.000**: 92.7% of plan-product prices were within 0.5% of the MFP, 4.9% below it (the MFP is a ceiling) and 2.3% above. In the October 2026 release, 91.3% were at the MFP, 8.7% below and **none above**. Every drug moved, in both stand-alone and Medicare Advantage plans. The only prices above the MFP were on one Stelara product (45 mg/0.5 mL, NDC 57894-0440-03), about 2.5 times the MFP in the January release and corrected by October. The 15 drugs negotiated for 2027 stayed at a median 2.5 times their future MFP in both 2026 releases, as expected. This is the direct check that finding 1 lacked: the prices plans pay at the point of sale for these drugs are the negotiated prices.
+
+![Plan prices vs MFP](outputs/spuf/chart_plan_price_vs_mfp.png)
+
+Limits of finding 4: unweighted plan-product pairs (no enrollment weights), 30-day-supply rows only; plan unit costs exclude dispensing fees and say nothing about rebates or what plans net; CMS labels the January 2026 release "2025Q4", but its prices are plan-year 2026 (checked: Eliquis 5 mg at a median $4.1451 per tablet, the MFP, versus $10.05 in the 2025 file). Tables in [outputs/spuf/summary.md](outputs/spuf/summary.md); script `pharma/scripts/spuf_mfp_check.py`.
 
 ## What others have found (context)
 
