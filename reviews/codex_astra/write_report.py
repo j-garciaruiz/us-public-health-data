@@ -290,6 +290,51 @@ The more decisive algorithmic test would require CDC's fitted coefficients, join
 
 **Shortcuts taken:** the primary model uses six broad age bands; a post-freeze sensitivity uses all 38 available adult age-sex cells. Exact outcome-specific CDC predictor coding and fitted random effects were unavailable, so this is an empirical reconstruction rather than a rerun of PLACES. CV uses one prespecified partition per specification; repeated/spatial CV, ACS uncertainty propagation and a full common-support 40-measure rerun were not performed. No confidence intervals or causal significance claims are made. Original artifacts were left untouched under the write-only-in-review-folder instruction.
 """
+if (HERE/"updated_headline_comparison.csv").exists():
+    up=pd.read_csv(HERE/"updated_headline_comparison.csv").set_index("kind")
+    current_rows=[]
+    for kind,label in [("crudeprev","Crude"),("adjprev","Age-adjusted")]:
+        current_rows.extend([
+            [label+" median CV R²",
+             f'{own_r.loc[own_r.measure.str.endswith("_"+kind),"r2_cv_pooled"].median():.6f}',
+             f'{up.loc[kind,"updated_cv_median"]:.6f}'],
+            [label+" strong-pair median covariance remaining",
+             f'{own_p.loc[(own_p.kind==kind)&(own_p.raw_r.abs()>=.7),"covariance_share_remaining"].median():.6f}',
+             f'{up.loc[kind,"updated_strong_covariance_share_median"]:.6f}'],
+        ])
+    ut=md(["Metric","Frozen independent","Updated Claude"],current_rows)
+    snap=json.loads((HERE/"updated_source_hashes.json").read_text())
+    current_differences=len(pd.read_csv(HERE/"updated_numeric_disagreements.csv"))
+    update=f"""## Concurrent corrections checked
+
+During final verification, Claude changed `scripts/covariate_test.py` and regenerated the outputs. I preserved the initial comparison and separately checked the updated snapshot saved at **{snap["snapshot_utc"]}**. **The three numerical bugs described below are fixed in that snapshot:** pairs now use a common-sample refit, covariance shares are computed directly, and held-out DC receives the pooled-state fallback. I verified all **6,734 primary numeric output cells** against the independent matched-specification calculations within their saved rounding tolerance. The original bugs remain documented below as findings from the initial version, not unresolved defects in the updated version.
+
+{ut}
+
+The updated diabetes–food-insecurity partial r is **0.623479**, agreeing with the corrected matched-specification value; my frozen independently chosen covariates give **0.623695**. `updated_output_checks.csv` contains the full verification, and `updated_numeric_disagreements.csv` lists **{current_differences:,}** remaining non-rounding differences from my specification, including the alternative fits and duplicated highlight/summary views. These differences reflect age/race grouping and CV seed choices, rather than the three corrected bugs. `updated_source_snapshot/` and `updated_source_hashes.json` preserve the exact updated material checked.
+
+The updated script also removes the unsupported upper-bound/residual-component claims. Chart 2 now explicitly reports **1.2% of raw covariance remaining** and **residual r = 0.62**, and Chart 1's source headline includes state. One presentation defect remains in the inspected updated PNG: **Chart 1's longer headline is clipped at the right edge**. Wrap that title before using the chart. I did not edit the original files.
+
+To verify the corrected version, use `.venv/bin/python reviews/codex_astra/recheck_updated.py`. The initial `compare.py` and the initial-version sections below target the originally reviewed implementation, identified by `reviewed_source_hashes.json`; rerunning that original comparison requires the original source version. The independent Part A script and its frozen results remain unchanged.
+
+"""
+    report=report.replace(
+        "**The broad descriptive claim holds, but the pairwise calculations need correction and the causal wording is too strong.**",
+        "**The broad descriptive claim holds. The original numerical defects have now been corrected in a concurrent Claude update, and those corrections are independently verified below.**")
+    report=report.replace("## Headline comparison",update+"## Original-version headline comparison")
+    report=report.replace("## Bugs and code findings",
+                          "## Original bugs and code findings\n\nThe line numbers and defects in this section refer to the initial source version. Items 1–3 are fixed in the verified updated snapshot; the numerical inconsistency and wording in item 4 are corrected there, with the remaining title-clipping issue noted above.")
+    report=report.replace("Claude's figures below are unrounded reconstructions of the reviewed implementation",
+                          "Claude's figures below are unrounded reconstructions of the originally reviewed implementation")
+    report=report.replace("## Every numerical disagreement","## Every original-version numerical disagreement")
+    report=report.replace("Claude's “mostly the county random effect” and “upper bound” language",
+                          "The original Claude version's “mostly the county random effect” and “upper bound” language")
+    report=report.replace("is unverified.\n\n7.", "was unverified and is removed from the updated version.\n\n7.")
+    report=report.replace("Original artifacts were left untouched under the write-only-in-review-folder instruction.",
+                          "I left original artifacts untouched under the write-only-in-review-folder instruction; their concurrent changes are separately snapshotted and verified.")
+old=HERE/"REPORT_initial_review.md"
+if not old.exists() and (HERE/"REPORT.md").exists():
+    old.write_bytes((HERE/"REPORT.md").read_bytes())
 (HERE/"REPORT.md").write_text(report)
 print("Report written:",len(report.split()),"words")
 print("All numeric disagreement cells:",len(dis))

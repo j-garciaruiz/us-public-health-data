@@ -1,0 +1,39 @@
+{
+  "verified_utc": "2026-10-20T12:23:29.458031+00:00",
+  "python": "3.15.0",
+  "numpy": "2.5.4",
+  "pandas": "3.0.6",
+  "frozen_artifacts_unchanged": true,
+  "original_reviewed_sources_changed": [
+    "scripts/covariate_test.py",
+    "outputs/covariate_test/benchmark_uninsurance.csv",
+    "outputs/covariate_test/chart1_r2_by_measure.png",
+    "outputs/covariate_test/chart2_diabetes_foodinsecurity.png",
+    "outputs/covariate_test/highlight_pairs_adjprev.csv",
+    "outputs/covariate_test/pairs_adjprev.csv",
+    "outputs/covariate_test/pairs_crudeprev.csv",
+    "outputs/covariate_test/r2_by_measure_adjprev.csv",
+    "outputs/covariate_test/r2_by_measure_crudeprev.csv",
+    "outputs/covariate_test/run_log.txt",
+    "outputs/covariate_test/summary.txt"
+  ],
+  "updated_source_snapshot_verified": true,
+  "updated_live_files_match_snapshot": true,
+  "outcomes": 80,
+  "pairs": 1560,
+  "selected_pairs": 6,
+  "benchmark_samples": 2,
+  "numeric_disagreement_cells": 2065,
+  "prediction_rows": 229152,
+  "max_recalculated_r2_error": 4.440892098500626e-16,
+  "max_qr_pair_metric_error": 8.08242361927114e-13,
+  "raw_source_sha256": {
+    "data/raw/places_county_2025.csv": "202a0fb15da6566daea073de3dea67b5c72d5809d6e294d9147b991e4cf217e0",
+    "data/raw/acs_sf/acsdt5y2023-b01001.dat": "dc68a9b588cea042c73dfb4e5cd5e896a6f6c404a3e75be70a99dc514ed7bc35",
+    "data/raw/acs_sf/acsdt5y2023-b03002.dat": "cae53cb92e7ca446e990dde45b4d767e6399badf117b805503b2ba0bdcdf3a9c",
+    "data/raw/acs_sf/acsdt5y2023-b15003.dat": "2ba9e96ef098d313f24596943016e6c3ee837baa444278b5e3c37dadb4115f7e",
+    "data/raw/acs_sf/acsdt5y2023-b17024.dat": "f6533cc3b32a93c5b9ac815b7f1aacd7afc887486c405461e9f2bcc2c188b8b4",
+    "data/raw/acs_sf/acsdt5y2023-b27010.dat": "e115bf26e927ab2c711a62f60cdf4f39929d5a6c2734c41697a8a637746d6b77"
+  },
+  "final_report_sha256": "4f53639605adc0a4f7080f12669fc6f407788830abf4918429ec81f4becc5ab4"
+}

@@ -1,6 +1,6 @@
 # Independent replication and code review
 
-Reviewed 2026-10-20. **The broad descriptive claim holds, but the pairwise calculations need correction and the causal wording is too strong.** County covariates plus state reproduce a median 96.16% of crude and 97.09% of age-adjusted variation in held-out counties. Among pairs with |raw r| ≥ 0.7, the median residual covariance is 1.71% and 1.38% of the raw covariance, respectively. This does not mean that only that percentage of the correlation, real association, or causal effect remains.
+Reviewed 2026-10-20. **The broad descriptive claim holds. The original numerical defects have now been corrected in a concurrent Claude update, and those corrections are independently verified below.** County covariates plus state reproduce a median 96.16% of crude and 97.09% of age-adjusted variation in held-out counties. Among pairs with |raw r| ≥ 0.7, the median residual covariance is 1.71% and 1.38% of the raw covariance, respectively. This does not mean that only that percentage of the correlation, real association, or causal effect remains.
 
 ## Independence and execution
 
@@ -8,7 +8,7 @@ I read the brief first. I built the ACS covariates, fitted all 80 outcomes, calc
 
 Everything I wrote is under `reviews/codex_astra/`. I used the existing project Python, NumPy and pandas. No dependencies were installed, no credentials were accessed, and no original scripts or outputs were edited. I reproduced Claude's functions by extracting their definitions with Python's AST, without executing their top-level writes. I also independently fitted Claude's linear feature space from my raw-derived covariates; all 80 in-sample R² values agree within 1e-10. This is the independent matched-specification check, separate from merely re-executing Claude's functions.
 
-Run from the project root, in order:
+Commands run from the project root, in order (preserve the existing frozen review before rerunning, because these overwrite generated review files):
 
 ```sh
 .venv/bin/python reviews/codex_astra/replicate.py
@@ -17,24 +17,41 @@ Run from the project root, in order:
 .venv/bin/python reviews/codex_astra/write_report.py
 ```
 
-## Headline comparison
+## Concurrent corrections checked
 
-Claude's figures below are unrounded reconstructions of the reviewed implementation, verified against the saved three-decimal CSVs. Independent figures are the frozen Part A specification. “Strong” means |raw r| ≥ 0.7, classified before rounding.
+During final verification, Claude changed `scripts/covariate_test.py` and regenerated the outputs. I preserved the initial comparison and separately checked the updated snapshot saved at **2026-10-20T12:20:47.774868+00:00**. **The three numerical bugs described below are fixed in that snapshot:** pairs now use a common-sample refit, covariance shares are computed directly, and held-out DC receives the pooled-state fallback. I verified all **6,734 primary numeric output cells** against the independent matched-specification calculations within their saved rounding tolerance. The original bugs remain documented below as findings from the initial version, not unresolved defects in the updated version.
+
+| Metric | Frozen independent | Updated Claude |
+| --- | --- | --- |
+| Crude median CV R² | 0.961626 | 0.961801 |
+| Crude strong-pair median covariance remaining | 0.017090 | 0.017125 |
+| Age-adjusted median CV R² | 0.970902 | 0.971092 |
+| Age-adjusted strong-pair median covariance remaining | 0.013792 | 0.013699 |
+
+The updated diabetes–food-insecurity partial r is **0.623479**, agreeing with the corrected matched-specification value; my frozen independently chosen covariates give **0.623695**. `updated_output_checks.csv` contains the full verification, and `updated_numeric_disagreements.csv` lists **1,871** remaining non-rounding differences from my specification, including the alternative fits and duplicated highlight/summary views. These differences reflect age/race grouping and CV seed choices, rather than the three corrected bugs. `updated_source_snapshot/` and `updated_source_hashes.json` preserve the exact updated material checked.
+
+The updated script also removes the unsupported upper-bound/residual-component claims. Chart 2 now explicitly reports **1.2% of raw covariance remaining** and **residual r = 0.62**, and Chart 1's source headline includes state. One presentation defect remains in the inspected updated PNG: **Chart 1's longer headline is clipped at the right edge**. Wrap that title before using the chart. I did not edit the original files.
+
+To verify the corrected version, use `.venv/bin/python reviews/codex_astra/recheck_updated.py`. The initial `compare.py` and the initial-version sections below target the originally reviewed implementation, identified by `reviewed_source_hashes.json`; rerunning that original comparison requires the original source version. The independent Part A script and its frozen results remain unchanged.
+
+## Original-version headline comparison
+
+Claude's figures below are unrounded reconstructions of the originally reviewed implementation, verified against the saved three-decimal CSVs. Independent figures are the frozen Part A specification. “Strong” means |raw r| ≥ 0.7, classified before rounding.
 
 | Metric | Independent | Claude |
 | --- | --- | --- |
 | Crude: Median in-sample R² | 0.964389 | 0.964111 |
 | Crude: Median 10-fold CV R² | 0.961626 | 0.961926 |
 | Crude: Median absolute partial r | 0.171569 | 0.171188 |
-| Crude: Pairs with |raw r| ≥ 0.7 | 201 | 201 |
-| Crude: Of those, |partial r| ≥ 0.7 | 46 | 45 |
+| Crude: Pairs with \|raw r\| ≥ 0.7 | 201 | 201 |
+| Crude: Of those, \|partial r\| ≥ 0.7 | 46 | 45 |
 | Crude: Median covariance share remaining, strong pairs | 0.017090 | 0.017870 |
 | Crude: Maximum covariance share remaining, strong pairs | 0.042780 | 0.042427 |
 | Age-adjusted: Median in-sample R² | 0.973474 | 0.973504 |
 | Age-adjusted: Median 10-fold CV R² | 0.970902 | 0.971159 |
 | Age-adjusted: Median absolute partial r | 0.158916 | 0.160210 |
-| Age-adjusted: Pairs with |raw r| ≥ 0.7 | 279 | 279 |
-| Age-adjusted: Of those, |partial r| ≥ 0.7 | 65 | 65 |
+| Age-adjusted: Pairs with \|raw r\| ≥ 0.7 | 279 | 279 |
+| Age-adjusted: Of those, \|partial r\| ≥ 0.7 | 65 | 65 |
 | Age-adjusted: Median covariance share remaining, strong pairs | 0.013792 | 0.013683 |
 | Age-adjusted: Maximum covariance share remaining, strong pairs | 0.037866 | 0.037997 |
 
@@ -98,7 +115,7 @@ OLS uses complete observations for each outcome. Each pair is refitted on its ow
 
 The covariance fraction is calculated directly as cov(e₁,e₂) / cov(y₁,y₂), using the same counties and n−1 divisor for both. I checked cov(y₁,y₂) = cov(fitted₁,fitted₂) + cov(e₁,e₂) numerically for every pair. This signed ratio can be negative or greater than one; I do not clip it. Ratios with near-zero raw covariance should not be interpreted as percentages of an association.
 
-## Every numerical disagreement
+## Every original-version numerical disagreement
 
 `all_numeric_disagreements.csv` lists **2,065 differing reported cells**, including duplicate highlight and summary views, with source file, row key, metric, both values, signed difference and cause. A three-decimal number is treated as rounding-compatible when the difference is at most 0.0005; summary fields use their actual display precision. Counts are compared exactly. This is the exhaustive list, not a sample of disagreements.
 
@@ -136,7 +153,9 @@ The causes are separated in `pair_disagreement_attribution.csv` and the other au
 2. **Common-sample fitting and variance scaling bugs.** These affect 371 of the 780 pairs in each prevalence type because the three outcome supports differ. The matched-covariate refit and direct covariance isolate these errors from feature choices.
 3. **CV setup.** My seed is 20261020; Claude's is 0. Both datasets are in FIPS order. There is also the explicit versus implicit unseen-state handling described below. The R² definition itself agrees.
 
-## Bugs and code findings
+## Original bugs and code findings
+
+The line numbers and defects in this section refer to the initial source version. Items 1–3 are fixed in the verified updated snapshot; the numerical inconsistency and wording in item 4 are corrected there, with the remaining title-clipping issue noted above.
 
 **1. Pairwise residuals use different estimation samples.** In `scripts/covariate_test.py:92–106`, each outcome is residualized on its own support; lines 114–118 then intersect the residual series without refitting. This is not the requested partial correlation conditional on the common-sample design. With Claude's features held fixed, age-adjusted diabetes–food insecurity changes from **0.605910 to 0.623479**, and diabetes–transport barriers from **0.595123 to 0.612379**. The largest changes are access2–food insecurity: **0.359145 to 0.421293 crude**, and **0.352894 to 0.405620 age-adjusted**. Both outcomes must be regressed on the same X on the intersection counties. My pair CSV already implements that correction.
 
@@ -166,7 +185,7 @@ is valid with common-sample OLS and the same variance convention, but not with t
 
 5. **Nonlinearity modestly matters; in-sample flexible fit is not adequate evidence.** The original prediction step is logistic and aggregated; linear regression of county percentages is an approximation. I tested logit-outcome regression with predictions transformed back before scoring, richer age-sex cells, and squares/interactions. The table below shows genuine 10-fold CV, not only training improvement. These alternatives leave the main conclusion intact. They are sensitivity analyses, not a recreation of CDC's fitted multilevel model.
 
-6. **County shrinkage can make model estimates easier to reconstruct, without making the remainder a pure county effect.** County random effects with weak local survey support are expected to be shrunk, so the remaining county-specific signal can be small by design. OLS residuals also include approximation error, population-vintage differences, rounding and unrecovered shared structure; the fitted component can absorb correlated county effects. The available files do not identify the amount of shrinkage or decompose those sources. Claude's “mostly the county random effect” and “upper bound” language in `covariate_test.py:10–14` is unverified.
+6. **County shrinkage can make model estimates easier to reconstruct, without making the remainder a pure county effect.** County random effects with weak local survey support are expected to be shrunk, so the remaining county-specific signal can be small by design. OLS residuals also include approximation error, population-vintage differences, rounding and unrecovered shared structure; the fitted component can absorb correlated county effects. The available files do not identify the amount of shrinkage or decompose those sources. The original Claude version's “mostly the county random effect” and “upper bound” language in `covariate_test.py:10–14` was unverified and is removed from the updated version.
 
 7. **The direct benchmark has sampling noise and imperfect alignment.** Restricting to ≥20,000 adults raises ACS CV R² from **0.718861 to 0.838449**, while PLACES stays near 0.98; this is consistent with small-county noise contributing to the gap, although sample composition changes too. ACS is a survey estimate, not ground truth, and shares its data source with the covariates. Ages 19–64 versus 18–64, survey universes, question wording and 2019–2023 versus 2023 timing differ. ACS margins of error and their covariance with predictors are not propagated here. A reliability-aware comparison and multiple direct outcomes would be stronger.
 
@@ -207,4 +226,4 @@ The more decisive algorithmic test would require CDC's fitted coefficients, join
 * `sensitivity_r2.csv`, `sensitivity_benchmark.csv`: all supplementary specifications and benchmark results.
 * `PART_A_FROZEN.json`, `reviewed_source_hashes.json`, run logs, and `final_verification.json`: preserved independence, source identity and completion checks.
 
-**Shortcuts taken:** the primary model uses six broad age bands; a post-freeze sensitivity uses all 38 available adult age-sex cells. Exact outcome-specific CDC predictor coding and fitted random effects were unavailable, so this is an empirical reconstruction rather than a rerun of PLACES. CV uses one prespecified partition per specification; repeated/spatial CV, ACS uncertainty propagation and a full common-support 40-measure rerun were not performed. No confidence intervals or causal significance claims are made. Original artifacts were left untouched under the write-only-in-review-folder instruction.
+**Shortcuts taken:** the primary model uses six broad age bands; a post-freeze sensitivity uses all 38 available adult age-sex cells. Exact outcome-specific CDC predictor coding and fitted random effects were unavailable, so this is an empirical reconstruction rather than a rerun of PLACES. CV uses one prespecified partition per specification; repeated/spatial CV, ACS uncertainty propagation and a full common-support 40-measure rerun were not performed. No confidence intervals or causal significance claims are made. I left original artifacts untouched under the write-only-in-review-folder instruction; their concurrent changes are separately snapshotted and verified.

@@ -1,0 +1,9 @@
+{
+  "read_utc": "2026-10-20T12:27:06.116527+00:00",
+  "sha256": {
+    "scripts/expected_vs_observed.py": "35b4083d3181e9a311be1bcbd79048422db0fe65de8009aeb157d178cb6783ed",
+    "scripts/fetch_observed_outcomes.py": "a323b85b3f04ecb2d49c7667332f164fe80289b163e7076b9fee9d2a1a55dbe0",
+    "outputs/expected_vs_observed/places_vs_observed.csv": "bcfc34f7d24ae8d9f717dfa1b521097f069adcf0d8c354b98f252118350cd109",
+    "outputs/expected_vs_observed/observed_minus_expected_by_county.csv": "23186d3d06373857cf2ab51cafbd0c396601561340a75184d36e9388109cd89a"
+  }
+}

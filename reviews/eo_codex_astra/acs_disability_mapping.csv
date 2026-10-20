@@ -1,0 +1,97 @@
+table,kind,variable,label
+B18102,numerator,B18102_038E,Estimate!!Total:!!Female:!!75 years and over:!!With a hearing difficulty
+B18102,numerator,B18102_019E,Estimate!!Total:!!Male:!!75 years and over:!!With a hearing difficulty
+B18102,numerator,B18102_016E,Estimate!!Total:!!Male:!!65 to 74 years:!!With a hearing difficulty
+B18102,numerator,B18102_035E,Estimate!!Total:!!Female:!!65 to 74 years:!!With a hearing difficulty
+B18102,numerator,B18102_032E,Estimate!!Total:!!Female:!!35 to 64 years:!!With a hearing difficulty
+B18102,numerator,B18102_029E,Estimate!!Total:!!Female:!!18 to 34 years:!!With a hearing difficulty
+B18102,numerator,B18102_013E,Estimate!!Total:!!Male:!!35 to 64 years:!!With a hearing difficulty
+B18102,numerator,B18102_010E,Estimate!!Total:!!Male:!!18 to 34 years:!!With a hearing difficulty
+B18102,denominator,B18102_018E,Estimate!!Total:!!Male:!!75 years and over:
+B18102,denominator,B18102_015E,Estimate!!Total:!!Male:!!65 to 74 years:
+B18102,denominator,B18102_037E,Estimate!!Total:!!Female:!!75 years and over:
+B18102,denominator,B18102_034E,Estimate!!Total:!!Female:!!65 to 74 years:
+B18102,denominator,B18102_031E,Estimate!!Total:!!Female:!!35 to 64 years:
+B18102,denominator,B18102_028E,Estimate!!Total:!!Female:!!18 to 34 years:
+B18102,denominator,B18102_012E,Estimate!!Total:!!Male:!!35 to 64 years:
+B18102,denominator,B18102_009E,Estimate!!Total:!!Male:!!18 to 34 years:
+B18103,numerator,B18103_038E,Estimate!!Total:!!Female:!!75 years and over:!!With a vision difficulty
+B18103,numerator,B18103_035E,Estimate!!Total:!!Female:!!65 to 74 years:!!With a vision difficulty
+B18103,numerator,B18103_029E,Estimate!!Total:!!Female:!!18 to 34 years:!!With a vision difficulty
+B18103,numerator,B18103_032E,Estimate!!Total:!!Female:!!35 to 64 years:!!With a vision difficulty
+B18103,numerator,B18103_019E,Estimate!!Total:!!Male:!!75 years and over:!!With a vision difficulty
+B18103,numerator,B18103_013E,Estimate!!Total:!!Male:!!35 to 64 years:!!With a vision difficulty
+B18103,numerator,B18103_016E,Estimate!!Total:!!Male:!!65 to 74 years:!!With a vision difficulty
+B18103,numerator,B18103_010E,Estimate!!Total:!!Male:!!18 to 34 years:!!With a vision difficulty
+B18103,denominator,B18103_037E,Estimate!!Total:!!Female:!!75 years and over:
+B18103,denominator,B18103_034E,Estimate!!Total:!!Female:!!65 to 74 years:
+B18103,denominator,B18103_028E,Estimate!!Total:!!Female:!!18 to 34 years:
+B18103,denominator,B18103_031E,Estimate!!Total:!!Female:!!35 to 64 years:
+B18103,denominator,B18103_018E,Estimate!!Total:!!Male:!!75 years and over:
+B18103,denominator,B18103_015E,Estimate!!Total:!!Male:!!65 to 74 years:
+B18103,denominator,B18103_012E,Estimate!!Total:!!Male:!!35 to 64 years:
+B18103,denominator,B18103_009E,Estimate!!Total:!!Male:!!18 to 34 years:
+B18104,numerator,B18104_007E,Estimate!!Total:!!Male:!!18 to 34 years:!!With a cognitive difficulty
+B18104,numerator,B18104_032E,Estimate!!Total:!!Female:!!75 years and over:!!With a cognitive difficulty
+B18104,numerator,B18104_026E,Estimate!!Total:!!Female:!!35 to 64 years:!!With a cognitive difficulty
+B18104,numerator,B18104_029E,Estimate!!Total:!!Female:!!65 to 74 years:!!With a cognitive difficulty
+B18104,numerator,B18104_023E,Estimate!!Total:!!Female:!!18 to 34 years:!!With a cognitive difficulty
+B18104,numerator,B18104_013E,Estimate!!Total:!!Male:!!65 to 74 years:!!With a cognitive difficulty
+B18104,numerator,B18104_016E,Estimate!!Total:!!Male:!!75 years and over:!!With a cognitive difficulty
+B18104,numerator,B18104_010E,Estimate!!Total:!!Male:!!35 to 64 years:!!With a cognitive difficulty
+B18104,denominator,B18104_009E,Estimate!!Total:!!Male:!!35 to 64 years:
+B18104,denominator,B18104_006E,Estimate!!Total:!!Male:!!18 to 34 years:
+B18104,denominator,B18104_031E,Estimate!!Total:!!Female:!!75 years and over:
+B18104,denominator,B18104_025E,Estimate!!Total:!!Female:!!35 to 64 years:
+B18104,denominator,B18104_028E,Estimate!!Total:!!Female:!!65 to 74 years:
+B18104,denominator,B18104_022E,Estimate!!Total:!!Female:!!18 to 34 years:
+B18104,denominator,B18104_015E,Estimate!!Total:!!Male:!!75 years and over:
+B18104,denominator,B18104_012E,Estimate!!Total:!!Male:!!65 to 74 years:
+B18105,numerator,B18105_007E,Estimate!!Total:!!Male:!!18 to 34 years:!!With an ambulatory difficulty
+B18105,numerator,B18105_010E,Estimate!!Total:!!Male:!!35 to 64 years:!!With an ambulatory difficulty
+B18105,numerator,B18105_013E,Estimate!!Total:!!Male:!!65 to 74 years:!!With an ambulatory difficulty
+B18105,numerator,B18105_016E,Estimate!!Total:!!Male:!!75 years and over:!!With an ambulatory difficulty
+B18105,numerator,B18105_023E,Estimate!!Total:!!Female:!!18 to 34 years:!!With an ambulatory difficulty
+B18105,numerator,B18105_026E,Estimate!!Total:!!Female:!!35 to 64 years:!!With an ambulatory difficulty
+B18105,numerator,B18105_029E,Estimate!!Total:!!Female:!!65 to 74 years:!!With an ambulatory difficulty
+B18105,numerator,B18105_032E,Estimate!!Total:!!Female:!!75 years and over:!!With an ambulatory difficulty
+B18105,denominator,B18105_006E,Estimate!!Total:!!Male:!!18 to 34 years:
+B18105,denominator,B18105_009E,Estimate!!Total:!!Male:!!35 to 64 years:
+B18105,denominator,B18105_012E,Estimate!!Total:!!Male:!!65 to 74 years:
+B18105,denominator,B18105_015E,Estimate!!Total:!!Male:!!75 years and over:
+B18105,denominator,B18105_022E,Estimate!!Total:!!Female:!!18 to 34 years:
+B18105,denominator,B18105_025E,Estimate!!Total:!!Female:!!35 to 64 years:
+B18105,denominator,B18105_028E,Estimate!!Total:!!Female:!!65 to 74 years:
+B18105,denominator,B18105_031E,Estimate!!Total:!!Female:!!75 years and over:
+B18106,numerator,B18106_007E,Estimate!!Total:!!Male:!!18 to 34 years:!!With a self-care difficulty
+B18106,numerator,B18106_016E,Estimate!!Total:!!Male:!!75 years and over:!!With a self-care difficulty
+B18106,numerator,B18106_010E,Estimate!!Total:!!Male:!!35 to 64 years:!!With a self-care difficulty
+B18106,numerator,B18106_013E,Estimate!!Total:!!Male:!!65 to 74 years:!!With a self-care difficulty
+B18106,numerator,B18106_026E,Estimate!!Total:!!Female:!!35 to 64 years:!!With a self-care difficulty
+B18106,numerator,B18106_029E,Estimate!!Total:!!Female:!!65 to 74 years:!!With a self-care difficulty
+B18106,numerator,B18106_023E,Estimate!!Total:!!Female:!!18 to 34 years:!!With a self-care difficulty
+B18106,numerator,B18106_032E,Estimate!!Total:!!Female:!!75 years and over:!!With a self-care difficulty
+B18106,denominator,B18106_006E,Estimate!!Total:!!Male:!!18 to 34 years:
+B18106,denominator,B18106_009E,Estimate!!Total:!!Male:!!35 to 64 years:
+B18106,denominator,B18106_015E,Estimate!!Total:!!Male:!!75 years and over:
+B18106,denominator,B18106_012E,Estimate!!Total:!!Male:!!65 to 74 years:
+B18106,denominator,B18106_028E,Estimate!!Total:!!Female:!!65 to 74 years:
+B18106,denominator,B18106_022E,Estimate!!Total:!!Female:!!18 to 34 years:
+B18106,denominator,B18106_025E,Estimate!!Total:!!Female:!!35 to 64 years:
+B18106,denominator,B18106_031E,Estimate!!Total:!!Female:!!75 years and over:
+B18107,numerator,B18107_004E,Estimate!!Total:!!Male:!!18 to 34 years:!!With an independent living difficulty
+B18107,numerator,B18107_007E,Estimate!!Total:!!Male:!!35 to 64 years:!!With an independent living difficulty
+B18107,numerator,B18107_020E,Estimate!!Total:!!Female:!!35 to 64 years:!!With an independent living difficulty
+B18107,numerator,B18107_023E,Estimate!!Total:!!Female:!!65 to 74 years:!!With an independent living difficulty
+B18107,numerator,B18107_026E,Estimate!!Total:!!Female:!!75 years and over:!!With an independent living difficulty
+B18107,numerator,B18107_010E,Estimate!!Total:!!Male:!!65 to 74 years:!!With an independent living difficulty
+B18107,numerator,B18107_017E,Estimate!!Total:!!Female:!!18 to 34 years:!!With an independent living difficulty
+B18107,numerator,B18107_013E,Estimate!!Total:!!Male:!!75 years and over:!!With an independent living difficulty
+B18107,denominator,B18107_003E,Estimate!!Total:!!Male:!!18 to 34 years:
+B18107,denominator,B18107_009E,Estimate!!Total:!!Male:!!65 to 74 years:
+B18107,denominator,B18107_006E,Estimate!!Total:!!Male:!!35 to 64 years:
+B18107,denominator,B18107_022E,Estimate!!Total:!!Female:!!65 to 74 years:
+B18107,denominator,B18107_025E,Estimate!!Total:!!Female:!!75 years and over:
+B18107,denominator,B18107_012E,Estimate!!Total:!!Male:!!75 years and over:
+B18107,denominator,B18107_016E,Estimate!!Total:!!Female:!!18 to 34 years:
+B18107,denominator,B18107_019E,Estimate!!Total:!!Female:!!35 to 64 years:

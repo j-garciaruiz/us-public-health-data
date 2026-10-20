@@ -115,7 +115,7 @@ for ax, xv, yv, title in [
     ax.xaxis.set_major_formatter(lambda v, _: f"{v:.0f}%")
     ax.yaxis.set_major_formatter(lambda v, _: f"{v:.0f}%")
 axes[0].set_ylabel("Diabetes, % of adults (age-adjusted)")
-axes[1].annotate(f"{share*100:.1f}% of the raw covariance remains\n(residual correlation r = {r_res:.2f})",
+axes[1].annotate(f"Left-over spread: SD {np.std(y_res):.1f} pts (diabetes),\n{np.std(x_res):.1f} pts (food insecurity); residual r = {r_res:.2f}",
                  (x_raw.mean(), y_raw.mean()), xytext=(x_raw.mean() + 4, y_raw.mean() + 6),
                  color=INK, fontsize=9.5, arrowprops=dict(arrowstyle="-", color=INK2, lw=0.8))
 fig.text(0.02, 0.985, "Demographics and state reproduce almost all of the diabetes and food insecurity pattern",

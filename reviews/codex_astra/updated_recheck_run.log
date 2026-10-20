@@ -1,2 +1,10 @@
 /Users/hari/Documents/VSC Python/US Data/reviews/codex_astra/recheck_updated.py:28: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
   d=d.assign(
+Updated source checked: 6734 numeric cells; max rounding error 0.0004996920257749997
+     kind  updated_cv_median  updated_strong_covariance_share_median  updated_strong_partial_count  updated_partial_abs_median
+  adjprev           0.971092                                0.013699                            65                    0.160637
+crudeprev           0.961801                                0.017125                            46                    0.171711
+      sample    n    raw_r  partial_r  r2_places_on_inputs  r2_acs_direct_on_inputs  cv_r2_places  cv_r2_acs_direct
+all counties 2956 0.717227   0.108482             0.979840                 0.740188      0.978451          0.716951
+>=20k adults 1485 0.800029   0.243180             0.981734                 0.857373      0.979126          0.839060
+Updated numerical differences: 1871

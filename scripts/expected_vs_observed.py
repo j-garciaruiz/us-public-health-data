@@ -9,6 +9,9 @@ Observed: directly measured county outcomes.
     from PLACES (adults 18+ vs mostly 65+ Medicare FFS), so the question is
     whether PLACES ranks counties the way claims do, not whether levels match.
   - ACS 2019-2023 disability by type, adults 18+ (survey, not modeled).
+  - CDC WONDER deaths 2018-2024 as standardized mortality ratios (x100;
+    indirect age standardization, scripts/build_mortality_smr.py). Counties
+    with 9 or fewer deaths are suppressed and never published.
 
 For each pair, with 10-fold cross-validation on the counties both share:
   r_raw            correlation of PLACES with the observed outcome
@@ -20,7 +23,7 @@ For each pair, with 10-fold cross-validation on the counties both share:
   gain             cv_r2_demo_places - cv_r2_demo: what PLACES adds
   partial_r        PLACES vs observed after removing demographics + state
 Repeated for larger counties only (>= 5,000 Original Medicare beneficiaries,
-or >= 20,000 adults for ACS), where sampling noise in the observed rate is smaller.
+>= 20,000 adults for ACS, >= 100 expected deaths for WONDER), where sampling noise in the observed rate is smaller.
 
 Per-county observed-minus-expected residuals (the atlas layer) are saved too.
 Outputs in outputs/expected_vs_observed/.
@@ -41,6 +44,9 @@ acs = pd.read_csv("data/raw/acs_county_2023.csv", dtype={"fips": str})
 dis = pd.read_csv("data/raw/acs_disability_2023.csv", dtype={"fips": str})
 gv = pd.read_csv("data/raw/medicare_gv_county_2023.csv", dtype={"fips": str})
 mmd = pd.read_csv("data/raw/mmd_prevalence_2023.csv", dtype={"fips": str})
+smr = pd.read_csv("data/raw/wonder_county_smr.csv", dtype={"fips": str})
+smr_wide = (100 * smr.pivot_table(index="fips", columns="cause", values="smr")).add_prefix("smr_")
+smr_exp = smr.pivot_table(index="fips", columns="cause", values="expected").add_prefix("exp_")
 
 gv["om"] = pd.to_numeric(gv["BENES_OM_CNT"], errors="coerce")
 gv["ma"] = pd.to_numeric(gv["BENES_MA_CNT"], errors="coerce")
@@ -56,6 +62,8 @@ df = (
     .merge(dis, on="fips", how="left")
     .merge(gv[["fips", "om", "ma_share"]], on="fips", how="left")
     .merge(mmd_wide, left_on="fips", right_index=True, how="left")
+    .merge(smr_wide, left_on="fips", right_index=True, how="left")
+    .merge(smr_exp, left_on="fips", right_index=True, how="left")
     .set_index("fips")
 )
 print("counties:", len(df))
@@ -85,6 +93,10 @@ PAIRS = [
     ("Mobility disability", "mobility_crudeprev", "acs_mobility", "acs"),
     ("Self-care disability", "selfcare_crudeprev", "acs_selfcare", "acs"),
     ("Independent-living disability", "indeplive_crudeprev", "acs_indeplive", "acs"),
+    ("Diabetes deaths (SMR)", "diabetes_adjprev", "smr_diabetes", "wonder"),
+    ("Heart disease deaths (SMR)", "chd_adjprev", "smr_heart", "wonder"),
+    ("Stroke deaths (SMR)", "stroke_adjprev", "smr_stroke", "wonder"),
+    ("Chronic lower respiratory deaths (SMR)", "copd_adjprev", "smr_clrd", "wonder"),
 ]
 
 
@@ -151,7 +163,12 @@ def evaluate(label, pcol, ocol, source, rows):
 
 results, residuals = [], {}
 for label, pcol, ocol, source in PAIRS:
-    big = (df["om"] >= 5000) if source == "medicare" else (df["adults"] >= 20000)
+    if source == "medicare":
+        big = df["om"] >= 5000
+    elif source == "wonder":  # reliability of an SMR depends on expected deaths
+        big = df["exp_" + ocol.split("_", 1)[1]] >= 100
+    else:
+        big = df["adults"] >= 20000
     for sample, rows in {"all": df.index, "larger": df.index[big.fillna(False)]}.items():
         res, obs_minus_exp = evaluate(label, pcol, ocol, source, rows)
         res["sample"] = sample

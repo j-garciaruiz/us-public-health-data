@@ -12,11 +12,19 @@ frozen = json.loads((HERE/"PART_A_FROZEN.json").read_text())
 for file,digest in frozen["files_sha256"].items():
     assert hashlib.sha256((HERE/file).read_bytes()).hexdigest() == digest, file
 source_hashes = json.loads((HERE/"reviewed_source_hashes.json").read_text())
-for file,digest in source_hashes.items():
-    assert hashlib.sha256((ROOT/file).read_bytes()).hexdigest() == digest, file
-source_hashes["scripts/covariate_charts.py"] = hashlib.sha256(
-    (ROOT/"scripts/covariate_charts.py").read_bytes()).hexdigest()
-(HERE/"reviewed_source_hashes.json").write_text(json.dumps(source_hashes,indent=2))
+initial_changed=[file for file,digest in source_hashes.items()
+                 if hashlib.sha256((ROOT/file).read_bytes()).hexdigest()!=digest]
+# The analysis was intentionally corrected in another session after the first
+# report appeared. Preserve the original hashes; verify the later snapshot too.
+for file in ["scripts/fetch_acs_county.py","data/raw/acs_county_2023.csv"]:
+    assert file not in initial_changed
+updated=json.loads((HERE/"updated_source_hashes.json").read_text())
+updated_live_changes=[]
+for file,digest in updated["files_sha256"].items():
+    assert hashlib.sha256((HERE/"updated_source_snapshot"/file).read_bytes()).hexdigest()==digest,file
+    if hashlib.sha256((ROOT/file).read_bytes()).hexdigest()!=digest:
+        updated_live_changes.append(file)
+assert not updated_live_changes,updated_live_changes
 
 d=pd.read_csv(HERE/"analysis_data.csv",dtype={"countyfips":str})
 scores=pd.read_csv(HERE/"measure_r2.csv").set_index("measure")
@@ -79,7 +87,8 @@ for path in raw_paths:
 checks=dict(
     verified_utc=datetime.now(timezone.utc).isoformat(),
     python=platform.python_version(),numpy=np.__version__,pandas=pd.__version__,
-    frozen_artifacts_unchanged=True,reviewed_sources_unchanged=True,
+    frozen_artifacts_unchanged=True,original_reviewed_sources_changed=initial_changed,
+    updated_source_snapshot_verified=True,updated_live_files_match_snapshot=True,
     outcomes=80,pairs=1560,selected_pairs=6,benchmark_samples=2,
     numeric_disagreement_cells=len(ledger),prediction_rows=len(pred),
     max_recalculated_r2_error=max_score_error,max_qr_pair_metric_error=max(errors),

@@ -1,0 +1,17 @@
+[
+  {
+    "series": "diabetes_fltr1",
+    "rows": 3241,
+    "mismatches": 0
+  },
+  {
+    "series": "diabetes_fltr2",
+    "rows": 3241,
+    "mismatches": 0
+  },
+  {
+    "series": "asthma_fltr1",
+    "rows": 3241,
+    "mismatches": 0
+  }
+]

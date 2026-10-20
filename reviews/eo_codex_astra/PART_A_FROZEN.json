@@ -1,0 +1,35 @@
+{
+  "frozen_utc": "2026-10-20T12:23:00.828051+00:00",
+  "seed": 20261020,
+  "result_rows": 112,
+  "excluded_scripts_unopened": true,
+  "features": [
+    "age_18_24",
+    "age_25_34",
+    "age_35_44",
+    "age_45_54",
+    "age_55_64",
+    "female_adult",
+    "race_black",
+    "race_aian",
+    "race_asian",
+    "race_nhpi",
+    "race_other",
+    "race_multi",
+    "race_hispanic",
+    "edu_less_hs",
+    "edu_hs",
+    "edu_some_college",
+    "poverty150_adult"
+  ],
+  "hashes": {
+    "reviews/eo_codex_astra/replicate.py": "0d5d9470d8042209954d22b4495a19fc86544ddac9302bb828977449862383fe",
+    "reviews/eo_codex_astra/independent_results.csv": "2948541eca4f69cabc59f4d5a5287dfcc07c9b3e949380da0df6d96bcaffb9b8",
+    "reviews/eo_codex_astra/independent_predictions.csv": "bb976b07b9a6c085a0d0fa815727e047ed58e4ee13ae839e72c0f40df4ad48c1",
+    "reviews/codex_astra/covariates.csv": "406c456e0e55d40170842f12f23b5f0de83a76f2a2c715cfd7463a8c200d9668",
+    "data/raw/places_county_2025.csv": "202a0fb15da6566daea073de3dea67b5c72d5809d6e294d9147b991e4cf217e0",
+    "data/raw/medicare_gv_county_2023.csv": "86416847e058a6e68fb1d7b0a008f0dfd6182de515f0d345dff95857ad8612d0",
+    "data/raw/mmd_prevalence_2023.csv": "6c3d43e250bb7bed98ccd52e35b4e0d9c39b5412bdc4bf2285ec287cb051dc31",
+    "data/raw/acs_disability_2023.csv": "a99c3b222599ee36b906c5ebc243a1a498015216493a88dcd885fe8fbe531809"
+  }
+}
