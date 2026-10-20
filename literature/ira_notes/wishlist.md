@@ -1,5 +1,7 @@
 # Full-text wishlist for the IRA negotiation study (2026-10-20)
 
+**Status 2026-10-20 (evening): all 18 papers and grey items A to E (NCPA letter, CBO letter, RAND/ASPE report, Three Axis, Schulthess) are in hand and were read; see [../ira_fulltext/MANIFEST.md](../ira_fulltext/MANIFEST.md). Still missing: BRG report (dead link), EPIC Act status (bot check), Merck and Fifth Circuit opinions.**
+
 Papers we cite or lean on but could read only as abstracts, summaries or press coverage. Priority A: a number in our write-up depends on it. B: shapes the method. C: context.
 
 **Links.** "Harvard PDF" opens LibKey with Harvard's access (library 215) on the article's "Download PDF" page; sign in with HarvardKey if asked. "HOLLIS" is a backup search by DOI (the article is the top hit, with VIEW PDF), for anything LibKey does not cover. Titles and authors are from Crossref.
