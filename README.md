@@ -11,6 +11,7 @@ data/raw/     downloaded files (git-ignored; re-fetch with the scripts)
 scripts/      fetchers and cleaning
 notebooks/    exploration
 figures/      chart output
+literature/   literature scans (start: places_atlas_literature_review.md)
 ```
 
 `scripts/fetch_socrata.py <dataset_id> <out.csv>` downloads any full dataset from data.cdc.gov (standard library only, pages through large tables).
