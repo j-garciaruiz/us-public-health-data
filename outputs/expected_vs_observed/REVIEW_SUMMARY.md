@@ -22,3 +22,11 @@ Supported wording: PLACES adds only slightly to predicting these measured outcom
 
 ## Open
 Medicare shrinkage uses an approximate denominator (GV count clipped to the CMS band). Connecticut cannot be matched for mortality without a town-level crosswalk. Spatial and out-of-period validation not done.
+
+## Codex verification of the fixes (2026-10-20, `reviews/atlas_codex_astra/REPORT.md`)
+Passed: mortality suppression (no value from 9 or fewer deaths in any output), renames and unmatched geographies, ACS margins of error (30 live API spot checks), repeated cross-fitting and Kentucky/Pennsylvania coverage. Failed, then fixed:
+1. Four counties had negative expected mortality from the linear model; mortality expectations now come from a Poisson regression with log(expected deaths) offset, so they are always positive.
+2. The between-county variance omitted the weighted centering of DerSimonian-Laird; now the standard estimator (a constant-residual test returns zero).
+3. The age-standardized Medicare layer cannot have calibrated reliability without CMS age-specific inputs; it now shows raw differences only (tier 0).
+4. "Within-state" no longer claims each state averages zero; a `state_peer_counties` column shows when a county has no in-state peers (DC); a `units` column states percentage points or SMR x 100.
+5. The expected-death rescaling is labeled approximate (one suppressed national cell, unknown-age deaths in unmatched counties).

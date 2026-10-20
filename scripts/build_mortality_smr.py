@@ -94,7 +94,10 @@ smr = pd.DataFrame(out)
 # 2018-2024 person-years, so raw expected deaths run about 1% low nationally
 # (Agy review, section 2.2). Rescale each cause so expected deaths over all
 # matched counties (suppressed ones included) equal observed national deaths
-# of known age; SMRs are then centered on the national rate.
+# of known age; SMRs are then approximately centered on the national rate.
+# Approximate (Codex atlas check, finding 5): one suppressed national
+# age-specific diabetes cell counts as zero, and the unmatched counties'
+# totals include deaths of unknown age while the national base excludes them.
 known_age = nat.groupby("cause")["deaths"].sum()
 # Remove deaths in counties that cannot be matched (Connecticut's old
 # counties, Valdez-Cordova), so the target covers the same counties as the sum.

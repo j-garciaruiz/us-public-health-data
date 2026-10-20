@@ -12,8 +12,11 @@ Two expectation modes
   Medicare outcomes. Answers "compared with demographically similar counties
   anywhere in the US". State differences (policy, care, environment) stay
   visible on the map.
-- within_state: adds state effects, so each state averages zero and the map
-  shows counties that differ from similar counties in their own state.
+- within_state: demographics plus state effects, estimated out of fold. Shows
+  counties that differ from similar counties in their own state. States do
+  not average exactly zero (predictions are out of fold), and a county with
+  no other counties in its state (DC) is compared using the average state
+  effect: see `state_peer_counties`.
 The expectation is an empirical peer comparator, not a target, an equitable
 rate, or the amount of disease that demographics cause.
 
@@ -23,6 +26,13 @@ value does not hinge on one random split. State effects use one indicator per
 state with no separate intercept; a held-out county whose state has no
 training counties (DC, or a small state whose counties all fall in one fold)
 gets the training-weighted average state effect.
+
+Mortality expectations come from a Poisson regression of observed deaths
+with log(expected deaths) as offset, so the expected SMR is always positive
+(Codex atlas check, finding 1). Other layers use least squares.
+
+Units: Medicare and ACS values are percentage points; mortality values are
+SMR x 100 (100 = national age-specific rates), not death counts.
 
 Shrinkage (empirical Bayes): raw difference r = observed - expected. With
 sampling variance s2 per county and between-county variance
@@ -37,7 +47,10 @@ the shrunk difference is lambda * r. Tiers: 1 if lambda >= 0.75, 2 if
      band codes assumed by documented order). Codex warned that GV counts are
      not the exact MMD denominator; clipping to the band limits the damage.
   s2 for ACS (%): (MOE / 1.645)^2 from the Census margins of error.
-  tau2 is estimated by DerSimonian-Laird (precision-weighted moments).
+  tau2 is estimated by the standard (centered) DerSimonian-Laird method.
+  The age-standardized Medicare layer gets NO shrinkage or tiers: its
+  variance would need CMS age-specific inputs that are not published
+  (Codex atlas check, finding 3); it shows raw differences only (tier 0).
 
 Suppression: WONDER counts of 9 or fewer (zero included) have no SMR and never
 appear. Medicare zeros are dropped (ambiguous: suppression or rounding).
@@ -87,10 +100,28 @@ def design(rows, extra, within_state):
     return X
 
 
-def cross_fit(y, extra=None, within_state=False):
+def fit_poisson(X, y, offset, iters=50):
+    """Poisson regression with offset by iteratively reweighted least squares."""
+    beta, *_ = np.linalg.lstsq(X, np.log(np.maximum(y, 0.5)) - offset, rcond=None)
+    for _ in range(iters):
+        eta = X @ beta + offset
+        mu = np.exp(eta)
+        z = eta - offset + (y - mu) / mu
+        sw = np.sqrt(mu)
+        new, *_ = np.linalg.lstsq(X * sw[:, None], z * sw, rcond=None)
+        if np.max(np.abs(new - beta)) < 1e-9:
+            return new
+        beta = new
+    return beta
+
+
+def cross_fit(y, extra=None, within_state=False, expected_deaths=None):
+    """Cross-fitted expectation. With expected_deaths given, y is observed
+    deaths and the return value is the expected SMR x 100 (Poisson model)."""
     rows = y.index.intersection(acs.index).intersection(state.index)
     X = design(rows, extra, within_state).dropna()
     yv, Xv = y.loc[X.index].astype(float).values, X.values
+    off = np.log(expected_deaths.loc[X.index].values) if expected_deaths is not None else None
     stc = np.array([c.startswith("st_") for c in X.columns])
     preds = np.zeros(len(yv))
     rng = np.random.default_rng(SEED)
@@ -99,13 +130,16 @@ def cross_fit(y, extra=None, within_state=False):
         pred = np.empty(len(yv))
         for f in np.array_split(idx, FOLDS):
             tr = np.setdiff1d(idx, f)
-            beta, *_ = np.linalg.lstsq(Xv[tr], yv[tr], rcond=None)
+            if off is None:
+                beta, *_ = np.linalg.lstsq(Xv[tr], yv[tr], rcond=None)
+            else:
+                beta = fit_poisson(Xv[tr], yv[tr], off[tr])
             Xf = Xv[f].copy()
             if stc.any():
                 unseen = stc & (Xv[tr].sum(axis=0) == 0)
                 hit = (Xf[:, unseen] == 1).any(axis=1) if unseen.any() else np.zeros(len(f), bool)
                 Xf[np.ix_(hit, stc)] = Xv[tr][:, stc].mean(axis=0)
-            pred[f] = Xf @ beta
+            pred[f] = Xf @ beta if off is None else 100 * np.exp(Xf @ beta)
         preds += pred / REPEATS
     return pd.Series(preds, index=X.index)
 
@@ -116,7 +150,8 @@ def shrink(obs, exp, s2):
     counties with enormous margins of error."""
     r = obs - exp
     w = 1 / s2
-    q = float((w * r**2).sum())
+    rbar = float((w * r).sum() / w.sum())
+    q = float((w * (r - rbar) ** 2).sum())
     tau2 = max(0.0, (q - (len(r) - 1)) / float(w.sum() - (w**2).sum() / w.sum()))
     lam = tau2 / (tau2 + s2)
     tier = np.where(lam >= 0.75, 1, np.where(lam >= 0.40, 2, 3))
@@ -134,23 +169,36 @@ PLACES_COL = {r.condition: r.places_measure for r in mmd.drop_duplicates("condit
 frames, summary = [], []
 
 
-def add(layer, outcome, obs, s2_fn, note, extra=None, places_ctx=None, discrepancy=None):
+def add(layer, outcome, obs, s2_fn, note, extra=None, places_ctx=None, discrepancy=None,
+        deaths=None, expected_deaths=None, shrinkage=True, units="percentage points"):
     for mode in ("national", "within_state"):
-        exp = cross_fit(obs, extra, within_state=(mode == "within_state"))
+        if deaths is None:
+            exp = cross_fit(obs, extra, within_state=(mode == "within_state"))
+        else:
+            exp = cross_fit(deaths, extra, within_state=(mode == "within_state"), expected_deaths=expected_deaths)
         o = obs.loc[exp.index]
-        s2 = s2_fn(o, exp)
-        r, rs, lam, tier, tau2 = shrink(o, exp, s2)
+        if shrinkage:
+            s2 = s2_fn(o, exp)
+            r, rs, lam, tier, tau2 = shrink(o, exp, s2)
+        else:
+            r = o - exp
+            rs, lam, tier, tau2 = pd.Series(np.nan, index=r.index), np.nan, 0, np.nan
+        st = state.reindex(exp.index)
+        peers = st.map(st.value_counts()) - 1
         frames.append(pd.DataFrame({
-            "layer": layer, "outcome": outcome, "mode": mode, "observed": o, "expected": exp,
+            "layer": layer, "outcome": outcome, "mode": mode, "units": units,
+            "observed": o, "expected": exp,
             "difference": r, "difference_shrunk": rs, "reliability": lam, "tier": tier,
             "reliability_note": note.reindex(exp.index),
             "source_discrepancy": discrepancy.reindex(exp.index).fillna(False) if discrepancy is not None else False,
             "places_context": places_ctx.reindex(exp.index) if places_ctx is not None else np.nan,
+            "state_peer_counties": peers,
         }))
         summary.append({"layer": layer, "outcome": outcome, "mode": mode, "counties": len(exp),
                         "ky_pa": int(state.reindex(exp.index).isin(["KY", "PA"]).sum()),
                         "sd_raw": r.std(), "sd_shrunk": rs.std(), "tau": np.sqrt(tau2),
-                        "tier1": int((tier == 1).sum()), "tier3": int((tier == 3).sum())})
+                        "tier1": int((np.asarray(tier) == 1).sum()), "tier3": int((np.asarray(tier) == 3).sum()),
+                        "min_expected": float(exp.min())})
 
 
 # Medicare: actual (main) and age-standardized views
@@ -168,7 +216,8 @@ for fltr, layer in [(1, "medicare_actual"), (2, "medicare_std")]:
         add(layer, LABELS[cond], g["rate"],
             lambda o, e, n=n: o * (100 - o) / n.reindex(o.index) + 1 / 12,
             note, extra=ma_share,
-            places_ctx=places[f"{pm}_adjprev"] if isinstance(pm, str) else None, discrepancy=disc)
+            places_ctx=places[f"{pm}_adjprev"] if isinstance(pm, str) else None, discrepancy=disc,
+            shrinkage=(layer == "medicare_actual"))
 
 # ACS disability (crude, adults 18+)
 for col, name, pm in [("acs_hearing", "Hearing difficulty", "hearing"), ("acs_vision", "Vision difficulty", "vision"),
@@ -183,16 +232,19 @@ for cause, name, pm in [("diabetes", "Diabetes deaths", "diabetes"), ("heart", "
                         ("stroke", "Cerebrovascular deaths", "stroke"), ("clrd", "Chronic lower respiratory deaths", "copd")]:
     g = smr[(smr["cause"] == cause) & smr["smr"].notna()].set_index("fips")
     E = g["expected"]
-    add("mortality", name, 100 * g["smr"], lambda o, e, E=E: 100 * e.clip(lower=1) / E.reindex(o.index),
-        E.round(0).astype(int).astype(str) + " expected deaths", places_ctx=places[f"{pm}_adjprev"])
+    add("mortality", name, 100 * g["smr"], lambda o, e, E=E: 100 * e / E.reindex(o.index),
+        E.round(0).astype(int).astype(str) + " expected deaths", places_ctx=places[f"{pm}_adjprev"],
+        deaths=g["observed"], expected_deaths=E, units="SMR x 100")
 
 atlas = pd.concat(frames)
 atlas.index.name = "fips"
 atlas["state"] = state.reindex(atlas.index).values
-cols = ["fips", "state", "layer", "outcome", "mode", "observed", "expected", "difference",
-        "difference_shrunk", "reliability", "tier", "reliability_note", "source_discrepancy", "places_context"]
+cols = ["fips", "state", "layer", "outcome", "mode", "units", "observed", "expected", "difference",
+        "difference_shrunk", "reliability", "tier", "reliability_note", "source_discrepancy",
+        "state_peer_counties", "places_context"]
 atlas = atlas.reset_index()[cols]
 assert not ((atlas["layer"] == "mortality") & atlas["observed"].isna()).any()
+assert (atlas.loc[atlas["layer"] == "mortality", "expected"] > 0).all(), "mortality expectations must be positive"
 atlas.round(4).to_csv(f"{OUT}/atlas_county_long.csv", index=False)
 s = pd.DataFrame(summary)
 s.round(3).to_csv(f"{OUT}/atlas_summary.csv", index=False)
