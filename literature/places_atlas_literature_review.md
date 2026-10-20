@@ -82,5 +82,5 @@ So the opportunity is narrower and better defined: the atlas data already shows 
 2. **Show confidence by measure**: flag weakly validated measures (obesity, uninsurance) differently from stronger ones (COPD, diabetes).
 3. **Emphasise top and bottom groups over exact ranks** (Chien 2018).
 4. **Make the shared-covariate problem the explainer's centerpiece**: credit Kong & Zhang 2020 for the argument and contribute the visual demonstration of its size.
-6. **Show the 95% intervals PLACES publishes** (Kong & Zhang's explicit ask), and look at the City Health Dashboard first so the atlas does something it does not.
 5. **Hispanic angle**: Descarpentrie 2025 and Dwyer-Lindgren 2022 give the hook for a Latino-focused layer.
+6. **Show the 95% intervals PLACES publishes** (Kong & Zhang's explicit ask), and look at the City Health Dashboard first so the atlas does something it does not.
