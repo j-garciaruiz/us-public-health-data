@@ -1,0 +1,9 @@
+{
+  "name": "sdud_suppression",
+  "url": "https://data.medicaid.gov/api/1/datastore/query/2957a7f9-9a15-453e-9afd-3bbdcbac8fd3/0?limit=1&count=true&conditions%5B0%5D%5Bproperty%5D=suppression_used&conditions%5B0%5D%5Bvalue%5D=true",
+  "utc": "2026-10-20T12:40:15.526491+00:00",
+  "status": 200,
+  "final_url": "https://data.medicaid.gov/api/1/datastore/query/2957a7f9-9a15-453e-9afd-3bbdcbac8fd3/0?limit=1&count=true&conditions%5B0%5D%5Bproperty%5D=suppression_used&conditions%5B0%5D%5Bvalue%5D=true",
+  "bytes": 2392,
+  "content_type": "application/json"
+}

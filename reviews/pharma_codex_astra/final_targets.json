@@ -1,0 +1,13 @@
+{
+  "va_prices": "https://department.va.gov/procurement-acquisition-and-logistics/wp-content/uploads/sites/56/2026/10/TPharmPrices2026-10-01.xlsx",
+  "fda_event_latest": "https://api.fda.gov/drug/event.json?sort=receivedate:desc&limit=1",
+  "fda_enforcement_first": "https://api.fda.gov/drug/enforcement.json?sort=report_date:asc&limit=1",
+  "fda_enforcement_docs": "https://open.fda.gov/apis/drug/enforcement/",
+  "cbp2024_meta": "https://api.census.gov/data/2024/cbp.json",
+  "cbp_years": "https://www.census.gov/programs-surveys/cbp/data/datasets.html",
+  "cbp2023_bulk": "https://www2.census.gov/programs-surveys/cbp/datasets/2023/cbp23us.zip",
+  "vermont_reports": "https://ago.vermont.gov/reports",
+  "hcai_thresholds": "https://hcai.ca.gov/visualizations/prescription-drug-cost-transparency-public-reporting/",
+  "ira_page": "https://www.cms.gov/initiatives/medicare-prescription-drug-affordability/overview/medicare-drug-price-negotiation-program/selected-drugs-negotiated-prices",
+  "asp_page": "https://www.cms.gov/medicare/payment/part-b-drugs/asp-pricing-files"
+}

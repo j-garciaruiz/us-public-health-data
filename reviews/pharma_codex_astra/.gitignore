@@ -1,0 +1,4 @@
+# Keep full public responses locally; commit compact request receipts and results.
+live/*.body
+codex_run.log
+__pycache__/

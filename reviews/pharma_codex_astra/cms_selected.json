@@ -1,0 +1,2248 @@
+[
+  {
+    "@id": "https://data.cms.gov/data-api/v1/dataset/09fd71b8-eb3e-45af-a01e-f8ab5a190e84/data-viewer",
+    "@type": "Dataset",
+    "title": "Medicare Part B Discarded Drug Units : 2023-01-02",
+    "description": "The Medicare Part B Discarded Drug Units dataset provides spending information on claims for Medicare Part B drugs that were identified as having discarded amounts of a drug. As of January 1, 2017, the Centers for Medicare & Medicaid Services (CMS) requires all physicians, hospitals, and other providers submitting claims for Medicare Part B drugs to report any discarded amount of a single use vial or other single use package drug on its claim for payment. With the passage of the Infrastructure Investment and Jobs Act in November 2021, manufacturers must pay a refund to Medicare for discarded amounts above a specified threshold effective for drugs furnished beginning with January 1, 2023. Starting in 2025, CMS began publishing public annual reports on the CMS Discarded Drugs page that include these refund amounts. These newly published reports reflect the actual discarded drug refunds paid by manufacturers and supersede the Medicare Part B Discarded Drug Units data previously available on this webpage.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Office of Enterprise Data and Analytics (OEDA)",
+      "subOrganizationOf": [
+        {
+          "@type": "Organization",
+          "name": "Centers for Medicare and Medicaid Services (CMS)"
+        }
+      ]
+    },
+    "contactPoint": {
+      "@type": "Kind",
+      "fn": "CMS Drug Spending - OEDA",
+      "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+    },
+    "identifier": "https://data.cms.gov/data-api/v1/dataset/09fd71b8-eb3e-45af-a01e-f8ab5a190e84/data-viewer",
+    "accessRights": "public",
+    "sourceSite": "data.cms.gov",
+    "sourceCatalog": "https://data.cms.gov/data.json",
+    "modified": "2026-06-25",
+    "language": [
+      "en"
+    ],
+    "temporal": [
+      {
+        "@type": "PeriodOfTime",
+        "startDate": "2023-01-01",
+        "endDate": "2023-12-31"
+      }
+    ],
+    "landingPage": {
+      "@type": "Document",
+      "title": "Medicare Part B Discarded Drug Units",
+      "accessURL": "https://data.cms.gov/summary-statistics-on-use-and-payments/medicare-medicaid-spending-by-drug/medicare-part-b-discarded-drug-units"
+    },
+    "describedBy": {
+      "@type": "Distribution",
+      "title": "Medicare Part B Discarded Drug Units : 2023-01-02 data dictionary",
+      "downloadURL": "https://data.cms.gov/resources/medicare-part-b-discarded-drug-units-data-dictionary"
+    },
+    "keyword": [
+      "Medicare",
+      "Original Medicare",
+      "Drugs"
+    ],
+    "theme": [
+      "Medicare"
+    ],
+    "accrualPeriodicity": "annually",
+    "accessLevel": "public",
+    "bureauCode": [
+      "009:38"
+    ],
+    "programCode": [
+      "009:000"
+    ],
+    "references": [
+      "https://data.cms.gov/resources/medicare-part-b-discarded-drug-units-methodology"
+    ],
+    "distribution": [
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/09fd71b8-eb3e-45af-a01e-f8ab5a190e84/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/09fd71b8-eb3e-45af-a01e-f8ab5a190e84",
+        "description": "latest",
+        "title": "Medicare Part B Discarded Drug Units : 2023-01-02",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part B Discarded Drug Units : 2023-01-02",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/09fd71b8-eb3e-45af-a01e-f8ab5a190e84/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-06-25",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2023-01-01",
+            "endDate": "2023-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "downloadURL": "https://data.cms.gov/sites/default/files/2025-05/201381fe-e6a9-413c-8e52-636f28796d5e/DW_R25_P04_V10_DY23_HCPCS-%20250505.csv",
+        "mediaType": "text/csv",
+        "format": "CSV",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/3cee2180-3239-4238-b994-d7504d188766",
+        "title": "Medicare Part B Discarded Drug Units : 2023-01-02",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part B Discarded Drug Units : 2023-01-02",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/3cee2180-3239-4238-b994-d7504d188766/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-06-25",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2023-01-01",
+            "endDate": "2023-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/3cee2180-3239-4238-b994-d7504d188766/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/3cee2180-3239-4238-b994-d7504d188766",
+        "title": "Medicare Part B Discarded Drug Units : 2023-01-02",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part B Discarded Drug Units : 2023-01-02",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/3cee2180-3239-4238-b994-d7504d188766/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-06-25",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2023-01-01",
+            "endDate": "2023-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      }
+    ],
+    "inSeries": [
+      {
+        "@id": "https://data.cms.gov/data-api/v1/dataset/09fd71b8-eb3e-45af-a01e-f8ab5a190e84/data",
+        "@type": "DatasetSeries",
+        "title": "Medicare Part B Discarded Drug Units",
+        "description": "The Medicare Part B Discarded Drug Units dataset provides spending information on claims for Medicare Part B drugs that were identified as having discarded amounts of a drug. As of January 1, 2017, the Centers for Medicare & Medicaid Services (CMS) requires all physicians, hospitals, and other providers submitting claims for Medicare Part B drugs to report any discarded amount of a single use vial or other single use package drug on its claim for payment. With the passage of the Infrastructure Investment and Jobs Act in November 2021, manufacturers must pay a refund to Medicare for discarded amounts above a specified threshold effective for drugs furnished beginning with January 1, 2023. Starting in 2025, CMS began publishing public annual reports on the CMS Discarded Drugs page that include these refund amounts. These newly published reports reflect the actual discarded drug refunds paid by manufacturers and supersede the Medicare Part B Discarded Drug Units data previously available on this webpage.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Office of Enterprise Data and Analytics (OEDA)",
+          "subOrganizationOf": [
+            {
+              "@type": "Organization",
+              "name": "Centers for Medicare and Medicaid Services (CMS)"
+            }
+          ]
+        },
+        "contactPoint": [
+          {
+            "@type": "Kind",
+            "fn": "CMS Drug Spending - OEDA",
+            "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+          }
+        ],
+        "identifier": "https://data.cms.gov/data-api/v1/dataset/09fd71b8-eb3e-45af-a01e-f8ab5a190e84/data"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.cms.gov/data-api/v1/dataset/bf6a5b3b-31ee-4abb-b1ad-2607a1e7510a/data-viewer",
+    "@type": "Dataset",
+    "title": "Medicare Quarterly Part B Spending by Drug : 2026-01-01",
+    "description": "The Medicare Quarterly Part B Spending by Drug dataset presents information on spending for drugs administered in doctors\u2019 offices and other outpatient settings by physicians and other healthcare providers to Medicare Part B enrollees. It also includes consumer-friendly descriptions of the drug uses, clinical indications, and manufacturer(s). Drug spending metrics for Part B drugs represent the full value of the product, including the Medicare payment and beneficiary liability. All Part B drug spending metrics are calculated at the HCPCS level. This dataset reports preliminary data that goes beyond the latest date available in the annual Medicare Part B Spending by Drug dataset. The data are updated each quarter and may change with each new release due to claims lag. Once an entire year of data is available with a sufficient run-out period, that data will move out of the preliminary quarterly dataset and into the annual Medicare Part B Spending by Drug dataset. Due to the preliminary nature of the quarterly dataset, we advise using caution when comparing between the annual and quarterly datasets.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Office of Enterprise Data and Analytics (OEDA)",
+      "subOrganizationOf": [
+        {
+          "@type": "Organization",
+          "name": "Centers for Medicare and Medicaid Services (CMS)"
+        }
+      ]
+    },
+    "contactPoint": {
+      "@type": "Kind",
+      "fn": "CMS Program Statistics - OEDA",
+      "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+    },
+    "identifier": "https://data.cms.gov/data-api/v1/dataset/bf6a5b3b-31ee-4abb-b1ad-2607a1e7510a/data-viewer",
+    "accessRights": "public",
+    "sourceSite": "data.cms.gov",
+    "sourceCatalog": "https://data.cms.gov/data.json",
+    "modified": "2026-07-23",
+    "language": [
+      "en"
+    ],
+    "temporal": [
+      {
+        "@type": "PeriodOfTime",
+        "startDate": "2026-01-01",
+        "endDate": "2026-03-31"
+      }
+    ],
+    "landingPage": {
+      "@type": "Document",
+      "title": "Medicare Quarterly Part B Spending by Drug",
+      "accessURL": "https://data.cms.gov/summary-statistics-on-use-and-payments/medicare-medicaid-spending-by-drug/medicare-quarterly-part-b-spending-by-drug"
+    },
+    "describedBy": {
+      "@type": "Distribution",
+      "title": "Medicare Quarterly Part B Spending by Drug : 2026-01-01 data dictionary",
+      "downloadURL": "https://data.cms.gov/resources/medicare-quarterly-part-b-spending-by-drug-data-dictionary"
+    },
+    "keyword": [
+      "Medicare",
+      "Original Medicare",
+      "Drugs"
+    ],
+    "theme": [
+      "Medicare"
+    ],
+    "accrualPeriodicity": "quarterly",
+    "accessLevel": "public",
+    "bureauCode": [
+      "009:38"
+    ],
+    "programCode": [
+      "009:000"
+    ],
+    "references": [
+      "https://data.cms.gov/resources/medicare-quarterly-part-b-spending-by-drug-methodology"
+    ],
+    "distribution": [
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/bf6a5b3b-31ee-4abb-b1ad-2607a1e7510a/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/bf6a5b3b-31ee-4abb-b1ad-2607a1e7510a",
+        "description": "latest",
+        "title": "Medicare Quarterly Part B Spending by Drug : 2026-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Quarterly Part B Spending by Drug : 2026-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/bf6a5b3b-31ee-4abb-b1ad-2607a1e7510a/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-07-23",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2026-01-01",
+            "endDate": "2026-03-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "downloadURL": "https://data.cms.gov/sites/default/files/2026-07/6d9e955a-d199-42cf-9f73-7e0d93c33b3e/qddptb_r2603_p06_v10_dqt2601_260722.csv",
+        "mediaType": "text/csv",
+        "format": "CSV",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/5cb9fd56-2358-4a7a-b21e-05f3ea93ec12",
+        "title": "Medicare Quarterly Part B Spending by Drug : 2026-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Quarterly Part B Spending by Drug : 2026-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/5cb9fd56-2358-4a7a-b21e-05f3ea93ec12/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-07-23",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2026-01-01",
+            "endDate": "2026-03-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/5cb9fd56-2358-4a7a-b21e-05f3ea93ec12/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/5cb9fd56-2358-4a7a-b21e-05f3ea93ec12",
+        "title": "Medicare Quarterly Part B Spending by Drug : 2026-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Quarterly Part B Spending by Drug : 2026-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/5cb9fd56-2358-4a7a-b21e-05f3ea93ec12/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-07-23",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2026-01-01",
+            "endDate": "2026-03-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      }
+    ],
+    "inSeries": [
+      {
+        "@id": "https://data.cms.gov/data-api/v1/dataset/bf6a5b3b-31ee-4abb-b1ad-2607a1e7510a/data",
+        "@type": "DatasetSeries",
+        "title": "Medicare Quarterly Part B Spending by Drug",
+        "description": "The Medicare Quarterly Part B Spending by Drug dataset presents information on spending for drugs administered in doctors\u2019 offices and other outpatient settings by physicians and other healthcare providers to Medicare Part B enrollees. It also includes consumer-friendly descriptions of the drug uses, clinical indications, and manufacturer(s). Drug spending metrics for Part B drugs represent the full value of the product, including the Medicare payment and beneficiary liability. All Part B drug spending metrics are calculated at the HCPCS level. This dataset reports preliminary data that goes beyond the latest date available in the annual Medicare Part B Spending by Drug dataset. The data are updated each quarter and may change with each new release due to claims lag. Once an entire year of data is available with a sufficient run-out period, that data will move out of the preliminary quarterly dataset and into the annual Medicare Part B Spending by Drug dataset. Due to the preliminary nature of the quarterly dataset, we advise using caution when comparing between the annual and quarterly datasets.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Office of Enterprise Data and Analytics (OEDA)",
+          "subOrganizationOf": [
+            {
+              "@type": "Organization",
+              "name": "Centers for Medicare and Medicaid Services (CMS)"
+            }
+          ]
+        },
+        "contactPoint": [
+          {
+            "@type": "Kind",
+            "fn": "CMS Program Statistics - OEDA",
+            "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+          }
+        ],
+        "identifier": "https://data.cms.gov/data-api/v1/dataset/bf6a5b3b-31ee-4abb-b1ad-2607a1e7510a/data"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.cms.gov/data-api/v1/dataset/4ff7c618-4e40-483a-b390-c8a58c94fa15/data-viewer",
+    "@type": "Dataset",
+    "title": "Medicare Quarterly Part D Spending by Drug : 2026-01-01",
+    "description": "The Medicare Quarterly Part D Spending by Drug dataset presents information on spending for drugs prescribed to Medicare beneficiaries enrolled in Part D by physicians and other healthcare providers. Drugs prescribed in the Medicare Part D program are drugs patients generally administer themselves. It also includes spending information for manufacturer(s) of the drugs as well as consumer-friendly information of drug uses and clinical indications. Drug spending metrics for Part D drugs are based on the gross drug cost, which represents total spending for the prescription claim, including Medicare, plan, and beneficiary payments. The Part D spending metrics do not reflect any manufacturers\u2019 rebates or other price concessions as CMS is prohibited from publicly disclosing such information. This dataset reports preliminary data that goes beyond the latest date available in the annual Medicare Part D Spending by Drug dataset. The data are updated each quarter and may change with each new release due to claims lag. Once an entire year of data is available with a sufficient run-out period, that data will move out of the preliminary quarterly dataset and into the annual Medicare Part D Spending by Drug dataset. Due to the preliminary nature of the quarterly dataset, we advise using caution when comparing between the annual and quarterly datasets.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Office of Enterprise Data and Analytics (OEDA)",
+      "subOrganizationOf": [
+        {
+          "@type": "Organization",
+          "name": "Centers for Medicare and Medicaid Services (CMS)"
+        }
+      ]
+    },
+    "contactPoint": {
+      "@type": "Kind",
+      "fn": "CMS Program Statistics - OEDA",
+      "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+    },
+    "identifier": "https://data.cms.gov/data-api/v1/dataset/4ff7c618-4e40-483a-b390-c8a58c94fa15/data-viewer",
+    "accessRights": "public",
+    "sourceSite": "data.cms.gov",
+    "sourceCatalog": "https://data.cms.gov/data.json",
+    "modified": "2026-07-23",
+    "language": [
+      "en"
+    ],
+    "temporal": [
+      {
+        "@type": "PeriodOfTime",
+        "startDate": "2026-01-01",
+        "endDate": "2026-03-31"
+      }
+    ],
+    "landingPage": {
+      "@type": "Document",
+      "title": "Medicare Quarterly Part D Spending by Drug",
+      "accessURL": "https://data.cms.gov/summary-statistics-on-use-and-payments/medicare-medicaid-spending-by-drug/medicare-quarterly-part-d-spending-by-drug"
+    },
+    "describedBy": {
+      "@type": "Distribution",
+      "title": "Medicare Quarterly Part D Spending by Drug : 2026-01-01 data dictionary",
+      "downloadURL": "https://data.cms.gov/resources/medicare-quarterly-part-d-spending-by-drug-data-dictionary"
+    },
+    "keyword": [
+      "Medicare",
+      "Medicare Prescription Drug",
+      "Medical Suppliers & Equipment",
+      "Drugs"
+    ],
+    "theme": [
+      "Medicare"
+    ],
+    "accrualPeriodicity": "quarterly",
+    "accessLevel": "public",
+    "bureauCode": [
+      "009:38"
+    ],
+    "programCode": [
+      "009:000"
+    ],
+    "references": [
+      "https://data.cms.gov/resources/medicare-quarterly-part-d-spending-by-drug-methodology"
+    ],
+    "distribution": [
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/4ff7c618-4e40-483a-b390-c8a58c94fa15/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/4ff7c618-4e40-483a-b390-c8a58c94fa15",
+        "description": "latest",
+        "title": "Medicare Quarterly Part D Spending by Drug : 2026-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Quarterly Part D Spending by Drug : 2026-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/4ff7c618-4e40-483a-b390-c8a58c94fa15/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-07-23",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2026-01-01",
+            "endDate": "2026-03-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "downloadURL": "https://data.cms.gov/sites/default/files/2026-07/QDD_PTD_RQ2603_P01_V10_DQT2601_20260708.csv",
+        "mediaType": "text/csv",
+        "format": "CSV",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/43ed210a-bf5d-49ba-baa4-5713a5a5ded1",
+        "title": "Medicare Quarterly Part D Spending by Drug : 2026-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Quarterly Part D Spending by Drug : 2026-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/43ed210a-bf5d-49ba-baa4-5713a5a5ded1/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-07-23",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2026-01-01",
+            "endDate": "2026-03-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/43ed210a-bf5d-49ba-baa4-5713a5a5ded1/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/43ed210a-bf5d-49ba-baa4-5713a5a5ded1",
+        "title": "Medicare Quarterly Part D Spending by Drug : 2026-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Quarterly Part D Spending by Drug : 2026-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/43ed210a-bf5d-49ba-baa4-5713a5a5ded1/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-07-23",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2026-01-01",
+            "endDate": "2026-03-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      }
+    ],
+    "inSeries": [
+      {
+        "@id": "https://data.cms.gov/data-api/v1/dataset/4ff7c618-4e40-483a-b390-c8a58c94fa15/data",
+        "@type": "DatasetSeries",
+        "title": "Medicare Quarterly Part D Spending by Drug",
+        "description": "The Medicare Quarterly Part D Spending by Drug dataset presents information on spending for drugs prescribed to Medicare beneficiaries enrolled in Part D by physicians and other healthcare providers. Drugs prescribed in the Medicare Part D program are drugs patients generally administer themselves. It also includes spending information for manufacturer(s) of the drugs as well as consumer-friendly information of drug uses and clinical indications. Drug spending metrics for Part D drugs are based on the gross drug cost, which represents total spending for the prescription claim, including Medicare, plan, and beneficiary payments. The Part D spending metrics do not reflect any manufacturers\u2019 rebates or other price concessions as CMS is prohibited from publicly disclosing such information. This dataset reports preliminary data that goes beyond the latest date available in the annual Medicare Part D Spending by Drug dataset. The data are updated each quarter and may change with each new release due to claims lag. Once an entire year of data is available with a sufficient run-out period, that data will move out of the preliminary quarterly dataset and into the annual Medicare Part D Spending by Drug dataset. Due to the preliminary nature of the quarterly dataset, we advise using caution when comparing between the annual and quarterly datasets.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Office of Enterprise Data and Analytics (OEDA)",
+          "subOrganizationOf": [
+            {
+              "@type": "Organization",
+              "name": "Centers for Medicare and Medicaid Services (CMS)"
+            }
+          ]
+        },
+        "contactPoint": [
+          {
+            "@type": "Kind",
+            "fn": "CMS Program Statistics - OEDA",
+            "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+          }
+        ],
+        "identifier": "https://data.cms.gov/data-api/v1/dataset/4ff7c618-4e40-483a-b390-c8a58c94fa15/data"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.cms.gov/data-api/v1/dataset/ed1496ea-23e7-41f1-9292-172fa842ccfb/data-viewer",
+    "@type": "Dataset",
+    "title": "Monthly Prescription Drug Plan Formulary and Pharmacy Network Information : 2026-10-15",
+    "description": "The Monthly Prescription Drug Plan Formulary and Pharmacy Network Information files contain formulary and pharmacy network data for Medicare Prescription Drug Plans and Medicare Advantage (MA) Prescription Drug Plans (with the exception of employer and Program of All-Inclusive Care for the Elderly plans). These non-identifiable files are available on a monthly basis and are comprised of the following tables:Plan Information - Information such as plan name, contract ID, plan ID, service area, and plan type.Geographic Locator - MA and Prescription Drug Plans region codes and county codes.Basic Drugs Formulary - Formulary details for each plan including National Drug Codes (NDCs), cost share tier level, and indicators for step therapy, quantity limits, prior authorization, and a newly added Selected Drug flag.Excluded Drugs Formulary - Enhanced alternative plans may elect to provide a supplemental benefit and cover excluded drugs. File includes formulary details for excluded drugs that are covered by the plan (for enhanced alternative plans only).Beneficiary Cost - Plan level cost sharing details for preferred, non-preferred, and mail order network pharmacies.Pharmacy Network - National Provider Identifier (NPI) numbers for each network pharmacy including preferred, retail, and mail order indicators, and brand, generic, and selected drug dispensing fees for 30/60/90 days supply, respectively.Indication Based Coverage Formulary File - Includes drugs covered based on FDA-approved indication for each plan.Insulin Beneficiary Cost File - Plan level copay and coinsurance amounts for insulin at preferred, non-preferred and mail order network pharmacies. These are large files and can take time to download. Please read the \u201cAgreement for Use\u201d in the Resources section below. This document contains important information regarding timeframes for obtaining data as well as data accuracy and integrity. The Quarterly Prescription Drug Plan Formulary, Pharmacy Network, and Pricing Information is also available to access for the quarterly level information. Please note: The Part D benefit year information for plans become available in October of the year prior. For example, year 2026 data is available in the October, November and December 2025 monthly files. Year 2026 data continues to be available in the January through September 2026 monthly files, then beginning in October of 2026 year 2027 data becomes available.Estimated release dates for upcoming monthly data (files reflect data for the month in which the file is released):11/25/2612/23/261/20/272/17/273/17/274/28/275/26/276/23/277/21/278/18/279/29/27Files older than contract year 2019 can be purchased.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Office of Enterprise Data and Analytics (OEDA)",
+      "subOrganizationOf": [
+        {
+          "@type": "Organization",
+          "name": "Centers for Medicare and Medicaid Services (CMS)"
+        }
+      ]
+    },
+    "contactPoint": {
+      "@type": "Kind",
+      "fn": "Plan Finder - CM",
+      "hasEmail": "mailto:planfinderqa@cms.hhs.gov"
+    },
+    "identifier": "https://data.cms.gov/data-api/v1/dataset/ed1496ea-23e7-41f1-9292-172fa842ccfb/data-viewer",
+    "accessRights": "public",
+    "sourceSite": "data.cms.gov",
+    "sourceCatalog": "https://data.cms.gov/data.json",
+    "modified": "2026-10-15",
+    "language": [
+      "en"
+    ],
+    "temporal": [
+      {
+        "@type": "PeriodOfTime",
+        "startDate": "2026-10-01",
+        "endDate": "2026-10-31"
+      }
+    ],
+    "landingPage": {
+      "@type": "Document",
+      "title": "Monthly Prescription Drug Plan Formulary and Pharmacy Network Information",
+      "accessURL": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-part-d-prescribers/monthly-prescription-drug-plan-formulary-and-pharmacy-network-information"
+    },
+    "describedBy": {
+      "@type": "Distribution",
+      "title": "Monthly Prescription Drug Plan Formulary and Pharmacy Network Information Data Dictionary 2027",
+      "downloadURL": "https://data.cms.gov/sites/default/files/2026-10/PUFRecordLayout-2027.pdf",
+      "mediaType": "application/pdf"
+    },
+    "keyword": [
+      "Medicare",
+      "Medicare Advantage",
+      "Medicare Prescription Drug",
+      "All Other Provider Care Types",
+      "Drugs",
+      "Health Care Use & Payments"
+    ],
+    "theme": [
+      "Medicare"
+    ],
+    "accrualPeriodicity": "monthly",
+    "accessLevel": "public",
+    "bureauCode": [
+      "009:38"
+    ],
+    "programCode": [
+      "009:000"
+    ],
+    "references": [
+      "https://data.cms.gov/sites/default/files/2026-10/Methodology-PUF-2027.pdf"
+    ],
+    "distribution": [
+      {
+        "@type": "Distribution",
+        "downloadURL": "https://data.cms.gov/sites/default/files/2026-10/73ce0d29-e440-4d9a-9608-93678a50e8c8/2027_20261008.zip",
+        "mediaType": "application/zip",
+        "format": "ZIP",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/ed1496ea-23e7-41f1-9292-172fa842ccfb",
+        "title": "Monthly Prescription Drug Plan Formulary and Pharmacy Network Information : 2026-10-15",
+        "modified": "2026-10-15",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2026-10-01",
+            "endDate": "2026-10-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      }
+    ],
+    "inSeries": [
+      {
+        "@id": "https://data.cms.gov/data-api/v1/dataset/cb2a224f-4d52-4cae-aa55-8c00c671384f/data",
+        "@type": "DatasetSeries",
+        "title": "Monthly Prescription Drug Plan Formulary and Pharmacy Network Information",
+        "description": "The Monthly Prescription Drug Plan Formulary and Pharmacy Network Information files contain formulary and pharmacy network data for Medicare Prescription Drug Plans and Medicare Advantage (MA) Prescription Drug Plans (with the exception of employer and Program of All-Inclusive Care for the Elderly plans). These non-identifiable files are available on a monthly basis and are comprised of the following tables:Plan Information - Information such as plan name, contract ID, plan ID, service area, and plan type.Geographic Locator - MA and Prescription Drug Plans region codes and county codes.Basic Drugs Formulary - Formulary details for each plan including National Drug Codes (NDCs), cost share tier level, and indicators for step therapy, quantity limits, prior authorization, and a newly added Selected Drug flag.Excluded Drugs Formulary - Enhanced alternative plans may elect to provide a supplemental benefit and cover excluded drugs. File includes formulary details for excluded drugs that are covered by the plan (for enhanced alternative plans only).Beneficiary Cost - Plan level cost sharing details for preferred, non-preferred, and mail order network pharmacies.Pharmacy Network - National Provider Identifier (NPI) numbers for each network pharmacy including preferred, retail, and mail order indicators, and brand, generic, and selected drug dispensing fees for 30/60/90 days supply, respectively.Indication Based Coverage Formulary File - Includes drugs covered based on FDA-approved indication for each plan.Insulin Beneficiary Cost File - Plan level copay and coinsurance amounts for insulin at preferred, non-preferred and mail order network pharmacies. These are large files and can take time to download. Please read the \u201cAgreement for Use\u201d in the Resources section below. This document contains important information regarding timeframes for obtaining data as well as data accuracy and integrity. The Quarterly Prescription Drug Plan Formulary, Pharmacy Network, and Pricing Information is also available to access for the quarterly level information. Please note: The Part D benefit year information for plans become available in October of the year prior. For example, year 2026 data is available in the October, November and December 2025 monthly files. Year 2026 data continues to be available in the January through September 2026 monthly files, then beginning in October of 2026 year 2027 data becomes available.Estimated release dates for upcoming monthly data (files reflect data for the month in which the file is released):11/25/2612/23/261/20/272/17/273/17/274/28/275/26/276/23/277/21/278/18/279/29/27Files older than contract year 2019 can be purchased.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Office of Enterprise Data and Analytics (OEDA)",
+          "subOrganizationOf": [
+            {
+              "@type": "Organization",
+              "name": "Centers for Medicare and Medicaid Services (CMS)"
+            }
+          ]
+        },
+        "contactPoint": [
+          {
+            "@type": "Kind",
+            "fn": "Plan Finder - CM",
+            "hasEmail": "mailto:planfinderqa@cms.hhs.gov"
+          }
+        ],
+        "identifier": "https://data.cms.gov/data-api/v1/dataset/cb2a224f-4d52-4cae-aa55-8c00c671384f/data"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.cms.gov/data-api/v1/dataset/58f846ab-857d-49c9-862e-0d5ee68fca57/data-viewer",
+    "@type": "Dataset",
+    "title": "Quarterly Prescription Drug Plan Formulary, Pharmacy Network, and Pricing Information : 2026-09-01",
+    "description": "The Quarterly Prescription Drug Plan Formulary, Pharmacy Network, and Pricing Information files contain formulary, pharmacy network, and pricing data for Medicare Prescription Drug Plans and Medicare Advantage (MA) Prescription Drug Plans (with the exception of employer and Program of All-Inclusive Care for the Elderly plans). These non-identifiable files are available on a quarterly basis and are comprised of the following tables:Plan Information - Information such as plan name, contract ID, plan ID, service area, and plan type.Geographic Locator - MA and Prescription Drug Plans region codes and county codes.Basic Drugs Formulary - Formulary details for each plan including National Drug Codes (NDCs), cost share tier level, and indicators for step therapy, quantity limits, prior authorization, and a newly added Selected Drug flag.Excluded Drugs Formulary - Enhanced alternative plans may elect to provide a supplemental benefit and cover excluded drugs. File includes formulary details for excluded drugs that are covered by the plan (for enhanced alternative plans only).Beneficiary Cost - Plan level cost sharing details for preferred, non-preferred, and mail order network pharmacies.Pharmacy Network - National Provider Identifier (NPI) numbers for each network pharmacy including preferred, retail, and mail order indicators, and brand, generic, and selected drug dispensing fees for 30/60/90 days supply, respectively.Pricing - Plan level average monthly costs for formulary Part D drugs (note: this table is only available in the quarterly files).Indication Based Coverage Formulary File - Includes drugs covered based on FDA-approved indication for each plan.Insulin Beneficiary Cost File - Plan level copay and coinsurance amounts for insulin at preferred, non-preferred and mail order network pharmacies. These are large files and can take time to download. Please read the \u201cAgreement for Use\u201d in the Resources section below. This document contains important information regarding timeframes for obtaining data as well as data accuracy and integrity. The Monthly Prescription Drug Plan Formulary and Pharmacy Network Information is also available to access for the monthly level information. Please note: The Part D benefit year information for plans become available in October of the year prior. For example, year 2025 data is available in the fourth quarter file of 2024. Year 2025 data continues to be available in the Q1-Q3 2025 files, then in the fourth quarter of 2025 year 2026 data becomes available. Estimated release dates for upcoming quarterly data (files reflect data for the quarter that ended the month before the file was released):1/20/20274/28/20277/21/2027Files older than contract year 2019 can be purchased.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Office of Enterprise Data and Analytics (OEDA)",
+      "subOrganizationOf": [
+        {
+          "@type": "Organization",
+          "name": "Centers for Medicare and Medicaid Services (CMS)"
+        }
+      ]
+    },
+    "contactPoint": {
+      "@type": "Kind",
+      "fn": "Plan Finder - CM",
+      "hasEmail": "mailto:planfinderqa@cms.hhs.gov"
+    },
+    "identifier": "https://data.cms.gov/data-api/v1/dataset/58f846ab-857d-49c9-862e-0d5ee68fca57/data-viewer",
+    "accessRights": "public",
+    "sourceSite": "data.cms.gov",
+    "sourceCatalog": "https://data.cms.gov/data.json",
+    "modified": "2026-10-15",
+    "language": [
+      "en"
+    ],
+    "temporal": [
+      {
+        "@type": "PeriodOfTime",
+        "startDate": "2026-07-01",
+        "endDate": "2026-09-30"
+      }
+    ],
+    "landingPage": {
+      "@type": "Document",
+      "title": "Quarterly Prescription Drug Plan Formulary, Pharmacy Network, and Pricing Information",
+      "accessURL": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-part-d-prescribers/quarterly-prescription-drug-plan-formulary-pharmacy-network-and-pricing-information"
+    },
+    "describedBy": {
+      "@type": "Distribution",
+      "title": "Quarterly Prescription Drug Plan Formulary, Pharmacy Network, and Pricing Information Data Dictionary (Current)",
+      "downloadURL": "https://data.cms.gov/sites/default/files/2025-10/83da019f-fa24-483e-87de-cc089780a6a5/SPUFRecordLayout-2026.pdf",
+      "mediaType": "application/pdf"
+    },
+    "keyword": [
+      "Medicare",
+      "Medicare Advantage",
+      "Medicare Prescription Drug",
+      "All Other Provider Care Types",
+      "Drugs",
+      "Health Care Use & Payments"
+    ],
+    "theme": [
+      "Medicare"
+    ],
+    "accrualPeriodicity": "quarterly",
+    "accessLevel": "public",
+    "bureauCode": [
+      "009:38"
+    ],
+    "programCode": [
+      "009:000"
+    ],
+    "references": [
+      "https://data.cms.gov/sites/default/files/2025-10/cf6b8476-ca42-48c6-9fc4-281b08c6ea87/Methodology-SPUF-2026.pdf"
+    ],
+    "distribution": [
+      {
+        "@type": "Distribution",
+        "downloadURL": "https://data.cms.gov/sites/default/files/2026-10/062e9434-ed9d-4e83-abbd-4d64eb375949/SPUF_2026_20261007.zip",
+        "mediaType": "application/zip",
+        "format": "ZIP",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/58f846ab-857d-49c9-862e-0d5ee68fca57",
+        "title": "Quarterly Prescription Drug Plan Formulary, Pharmacy Network, and Pricing Information : 2026-09-01",
+        "modified": "2026-10-15",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2026-07-01",
+            "endDate": "2026-09-30"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      }
+    ],
+    "inSeries": [
+      {
+        "@id": "https://data.cms.gov/data-api/v1/dataset/a94b1015-1b93-476b-80ec-508b4169c8f5/data",
+        "@type": "DatasetSeries",
+        "title": "Quarterly Prescription Drug Plan Formulary, Pharmacy Network, and Pricing Information",
+        "description": "The Quarterly Prescription Drug Plan Formulary, Pharmacy Network, and Pricing Information files contain formulary, pharmacy network, and pricing data for Medicare Prescription Drug Plans and Medicare Advantage (MA) Prescription Drug Plans (with the exception of employer and Program of All-Inclusive Care for the Elderly plans). These non-identifiable files are available on a quarterly basis and are comprised of the following tables:Plan Information - Information such as plan name, contract ID, plan ID, service area, and plan type.Geographic Locator - MA and Prescription Drug Plans region codes and county codes.Basic Drugs Formulary - Formulary details for each plan including National Drug Codes (NDCs), cost share tier level, and indicators for step therapy, quantity limits, prior authorization, and a newly added Selected Drug flag.Excluded Drugs Formulary - Enhanced alternative plans may elect to provide a supplemental benefit and cover excluded drugs. File includes formulary details for excluded drugs that are covered by the plan (for enhanced alternative plans only).Beneficiary Cost - Plan level cost sharing details for preferred, non-preferred, and mail order network pharmacies.Pharmacy Network - National Provider Identifier (NPI) numbers for each network pharmacy including preferred, retail, and mail order indicators, and brand, generic, and selected drug dispensing fees for 30/60/90 days supply, respectively.Pricing - Plan level average monthly costs for formulary Part D drugs (note: this table is only available in the quarterly files).Indication Based Coverage Formulary File - Includes drugs covered based on FDA-approved indication for each plan.Insulin Beneficiary Cost File - Plan level copay and coinsurance amounts for insulin at preferred, non-preferred and mail order network pharmacies. These are large files and can take time to download. Please read the \u201cAgreement for Use\u201d in the Resources section below. This document contains important information regarding timeframes for obtaining data as well as data accuracy and integrity. The Monthly Prescription Drug Plan Formulary and Pharmacy Network Information is also available to access for the monthly level information. Please note: The Part D benefit year information for plans become available in October of the year prior. For example, year 2025 data is available in the fourth quarter file of 2024. Year 2025 data continues to be available in the Q1-Q3 2025 files, then in the fourth quarter of 2025 year 2026 data becomes available. Estimated release dates for upcoming quarterly data (files reflect data for the quarter that ended the month before the file was released):1/20/20274/28/20277/21/2027Files older than contract year 2019 can be purchased.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Office of Enterprise Data and Analytics (OEDA)",
+          "subOrganizationOf": [
+            {
+              "@type": "Organization",
+              "name": "Centers for Medicare and Medicaid Services (CMS)"
+            }
+          ]
+        },
+        "contactPoint": [
+          {
+            "@type": "Kind",
+            "fn": "Plan Finder - CM",
+            "hasEmail": "mailto:planfinderqa@cms.hhs.gov"
+          }
+        ],
+        "identifier": "https://data.cms.gov/data-api/v1/dataset/a94b1015-1b93-476b-80ec-508b4169c8f5/data"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.cms.gov/data-api/v1/dataset/439f1941-e0c3-474a-a771-d041fdc3ff65/data-viewer",
+    "@type": "Dataset",
+    "title": "CMS Program Statistics - Medicare Part D : 2024-01-01",
+    "description": "The CMS Program Statistics - Medicare Part D tables provide use and Part D drug costs by type of Part D plan (stand-alone prescription drug plan and Medicare Advantage prescription drug plan). For additional information on enrollment, providers, and Medicare use and payment, visit the CMS Program Statistics page. Below is the list of tables:MDCR UTLZN D 1. Medicare Part D Utilization: Average Annual Prescription Drug Fills by Type of Plan, Low Income Subsidy (LIS) Eligibility, and Generic Dispensing Rate, Yearly TrendMDCR UTLZN D 2. Medicare Part D Utilization: Average Annual Gross Drug Costs Per Part D Enrollee, by Type of Plan, Low Income Subsidy (LIS) Eligibility, and Brand/Generic Drug Classification, Yearly TrendMDCR UTLZN D 3. Medicare Part D Utilization: Average Annual Gross Drug Costs Per Part D Enrollee, by Type of Plan, Low Income Subsidy (LIS) Eligibility, and Brand/Generic Drug Classification, Yearly TrendMDCR UTLZN D 4. Medicare Part D Utilization: Average Annual Prescription Drug Fills and Average Annual Gross Drug Cost Per Part D Enrollee, by Type of Plan and Demographic CharacteristicsMDCR UTLZN D 5. Medicare Part D Utilization: Average Annual Prescription Drug Fills and Average Annual Gross Drug Cost Per Part D Utilizer, by Type of Plan and Demographic CharacteristicsMDCR UTLZN D 6. Medicare Part D Utilization: Average Annual Prescription Drug Fills and Average Annual Gross Drug Cost Per Part D Enrollee, by Type of Plan, by Area of ResidenceMDCR UTLZN D 7. Medicare Part D Utilization: Average Annual Prescription Drug Fills and Average Annual Gross Drug Cost Per Part D Utilizer, by Type of Plan, by Area of ResidenceMDCR UTLZN D 8. Medicare Part D Utilization: Number of Part D Utilizers and Average Annual Prescription Drug Fills by Type of Part D Plan, Low Income Subsidy (LIS) Eligibility, and Part D Coverage Phase, Yearly TrendMDCR UTLZN D 9. Medicare Part D Utilization: Number of Part D Utilizers and Drug Costs by Type of Part D Plan, Low Income Subsidy (LIS) Eligibility, and Part D Coverage Phase, Yearly TrendMDCR UTLZN D 10. Medicare Part D Utilization: Number of Part D Utilizers, Average Annual Prescription Drug Events (Fills) and Average Annual Gross Drug Cost Per Part D Utilizer, by Part D Coverage Phase and Demographic CharacteristicsMDCR UTLZN D 11. Medicare Part D Utilization: Number of Part D Utilizers, Average Annual Prescription Drug Fills and Average Annual Gross Drug Cost Per Part D Utilizer, by Part D Coverage Phase and Area of Residence",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Office of Enterprise Data and Analytics (OEDA)",
+      "subOrganizationOf": [
+        {
+          "@type": "Organization",
+          "name": "Centers for Medicare and Medicaid Services (CMS)"
+        }
+      ]
+    },
+    "contactPoint": {
+      "@type": "Kind",
+      "fn": "CMS Program Statistics - OEDA",
+      "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+    },
+    "identifier": "https://data.cms.gov/data-api/v1/dataset/439f1941-e0c3-474a-a771-d041fdc3ff65/data-viewer",
+    "accessRights": "public",
+    "sourceSite": "data.cms.gov",
+    "sourceCatalog": "https://data.cms.gov/data.json",
+    "modified": "2026-09-30",
+    "language": [
+      "en"
+    ],
+    "temporal": [
+      {
+        "@type": "PeriodOfTime",
+        "startDate": "2024-01-01",
+        "endDate": "2024-12-31"
+      }
+    ],
+    "landingPage": {
+      "@type": "Document",
+      "title": "CMS Program Statistics - Medicare Part D",
+      "accessURL": "https://data.cms.gov/summary-statistics-on-use-and-payments/medicare-medicaid-service-type-reports/cms-program-statistics-medicare-part-d"
+    },
+    "describedBy": {
+      "@type": "Distribution",
+      "title": "CMS Program Statistics - Medicare Part D : 2024-01-01 data dictionary",
+      "downloadURL": "https://data.cms.gov/resources/cms-program-statistics-glossary"
+    },
+    "keyword": [
+      "National",
+      "States & Territories",
+      "Medicare",
+      "Medicare Prescription Drug",
+      "Health Care Use & Payments",
+      "Health Equity"
+    ],
+    "theme": [
+      "Medicare"
+    ],
+    "accrualPeriodicity": "annually",
+    "accessLevel": "public",
+    "bureauCode": [
+      "009:38"
+    ],
+    "programCode": [
+      "009:000"
+    ],
+    "references": [
+      "https://data.cms.gov/resources/cms-program-statistics-methodology"
+    ],
+    "distribution": [
+      {
+        "@type": "Distribution",
+        "downloadURL": "https://data.cms.gov/sites/default/files/2026-09/0b3b2b7f-a97d-4344-b1b2-f09a114d98ae/MDCR%20UTLZN%20D_CPS12UPD_2024.zip",
+        "mediaType": "application/zip",
+        "format": "ZIP",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/439f1941-e0c3-474a-a771-d041fdc3ff65",
+        "title": "CMS Program Statistics - Medicare Part D : 2024-01-01",
+        "modified": "2026-09-30",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      }
+    ],
+    "inSeries": [
+      {
+        "@id": "https://data.cms.gov/data-api/v1/dataset/f28a5c57-b4b2-4a3b-8c0e-18ab67c4d59b/data",
+        "@type": "DatasetSeries",
+        "title": "CMS Program Statistics - Medicare Part D",
+        "description": "The CMS Program Statistics - Medicare Part D tables provide use and Part D drug costs by type of Part D plan (stand-alone prescription drug plan and Medicare Advantage prescription drug plan). For additional information on enrollment, providers, and Medicare use and payment, visit the CMS Program Statistics page. Below is the list of tables:MDCR UTLZN D 1. Medicare Part D Utilization: Average Annual Prescription Drug Fills by Type of Plan, Low Income Subsidy (LIS) Eligibility, and Generic Dispensing Rate, Yearly TrendMDCR UTLZN D 2. Medicare Part D Utilization: Average Annual Gross Drug Costs Per Part D Enrollee, by Type of Plan, Low Income Subsidy (LIS) Eligibility, and Brand/Generic Drug Classification, Yearly TrendMDCR UTLZN D 3. Medicare Part D Utilization: Average Annual Gross Drug Costs Per Part D Enrollee, by Type of Plan, Low Income Subsidy (LIS) Eligibility, and Brand/Generic Drug Classification, Yearly TrendMDCR UTLZN D 4. Medicare Part D Utilization: Average Annual Prescription Drug Fills and Average Annual Gross Drug Cost Per Part D Enrollee, by Type of Plan and Demographic CharacteristicsMDCR UTLZN D 5. Medicare Part D Utilization: Average Annual Prescription Drug Fills and Average Annual Gross Drug Cost Per Part D Utilizer, by Type of Plan and Demographic CharacteristicsMDCR UTLZN D 6. Medicare Part D Utilization: Average Annual Prescription Drug Fills and Average Annual Gross Drug Cost Per Part D Enrollee, by Type of Plan, by Area of ResidenceMDCR UTLZN D 7. Medicare Part D Utilization: Average Annual Prescription Drug Fills and Average Annual Gross Drug Cost Per Part D Utilizer, by Type of Plan, by Area of ResidenceMDCR UTLZN D 8. Medicare Part D Utilization: Number of Part D Utilizers and Average Annual Prescription Drug Fills by Type of Part D Plan, Low Income Subsidy (LIS) Eligibility, and Part D Coverage Phase, Yearly TrendMDCR UTLZN D 9. Medicare Part D Utilization: Number of Part D Utilizers and Drug Costs by Type of Part D Plan, Low Income Subsidy (LIS) Eligibility, and Part D Coverage Phase, Yearly TrendMDCR UTLZN D 10. Medicare Part D Utilization: Number of Part D Utilizers, Average Annual Prescription Drug Events (Fills) and Average Annual Gross Drug Cost Per Part D Utilizer, by Part D Coverage Phase and Demographic CharacteristicsMDCR UTLZN D 11. Medicare Part D Utilization: Number of Part D Utilizers, Average Annual Prescription Drug Fills and Average Annual Gross Drug Cost Per Part D Utilizer, by Part D Coverage Phase and Area of Residence",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Office of Enterprise Data and Analytics (OEDA)",
+          "subOrganizationOf": [
+            {
+              "@type": "Organization",
+              "name": "Centers for Medicare and Medicaid Services (CMS)"
+            }
+          ]
+        },
+        "contactPoint": [
+          {
+            "@type": "Kind",
+            "fn": "CMS Program Statistics - OEDA",
+            "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+          }
+        ],
+        "identifier": "https://data.cms.gov/data-api/v1/dataset/f28a5c57-b4b2-4a3b-8c0e-18ab67c4d59b/data"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.cms.gov/data-api/v1/dataset/7e0b4365-fd63-4a29-8f5e-e0ac9f66a81b/data-viewer",
+    "@type": "Dataset",
+    "title": "Medicare Part D Spending by Drug : 2024-01-01",
+    "description": "The Medicare Part D by Drug dataset presents information on spending for drugs prescribed to Medicare beneficiaries enrolled in Part D by physicians and other healthcare providers. Drugs prescribed in the Medicare Part D program are drugs patients generally administer themselves. The dataset focuses on average spending per dosage unit and change in average spending per dosage unit over time. It also includes spending information for manufacturer(s) of the drugs as well as consumer-friendly information of drug uses and clinical indications. Drug spending metrics for Part D drugs are based on the gross drug cost, which represents total spending for the prescription claim, including Medicare, plan, and beneficiary payments. The Part D spending metrics do not reflect any manufacturers\u2019 rebates or other price concessions as CMS is prohibited from publicly disclosing such information.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Office of Enterprise Data and Analytics (OEDA)",
+      "subOrganizationOf": [
+        {
+          "@type": "Organization",
+          "name": "Centers for Medicare and Medicaid Services (CMS)"
+        }
+      ]
+    },
+    "contactPoint": {
+      "@type": "Kind",
+      "fn": "CMS Drug Spending - OEDA",
+      "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+    },
+    "identifier": "https://data.cms.gov/data-api/v1/dataset/7e0b4365-fd63-4a29-8f5e-e0ac9f66a81b/data-viewer",
+    "accessRights": "public",
+    "sourceSite": "data.cms.gov",
+    "sourceCatalog": "https://data.cms.gov/data.json",
+    "modified": "2026-06-25",
+    "language": [
+      "en"
+    ],
+    "temporal": [
+      {
+        "@type": "PeriodOfTime",
+        "startDate": "2024-01-01",
+        "endDate": "2024-12-31"
+      }
+    ],
+    "landingPage": {
+      "@type": "Document",
+      "title": "Medicare Part D Spending by Drug",
+      "accessURL": "https://data.cms.gov/summary-statistics-on-use-and-payments/medicare-medicaid-spending-by-drug/medicare-part-d-spending-by-drug"
+    },
+    "describedBy": {
+      "@type": "Distribution",
+      "title": "Medicare Part D Spending by Drug : 2024-01-01 data dictionary",
+      "downloadURL": "https://data.cms.gov/resources/medicare-part-d-spending-by-drug-data-dictionary"
+    },
+    "keyword": [
+      "Medicare",
+      "Medicare Prescription Drug",
+      "Medical Suppliers & Equipment",
+      "Drugs"
+    ],
+    "theme": [
+      "Medicare"
+    ],
+    "accrualPeriodicity": "annually",
+    "accessLevel": "public",
+    "bureauCode": [
+      "009:38"
+    ],
+    "programCode": [
+      "009:000"
+    ],
+    "references": [
+      "https://data.cms.gov/resources/medicare-part-d-spending-by-drug-methodology"
+    ],
+    "distribution": [
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/7e0b4365-fd63-4a29-8f5e-e0ac9f66a81b/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/7e0b4365-fd63-4a29-8f5e-e0ac9f66a81b",
+        "description": "latest",
+        "title": "Medicare Part D Spending by Drug : 2024-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part D Spending by Drug : 2024-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/7e0b4365-fd63-4a29-8f5e-e0ac9f66a81b/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-06-25",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "downloadURL": "https://data.cms.gov/sites/default/files/2026-06/98218f98-166c-4723-8438-c344a4ef96a6/DSD_PTD_RY26_P04_V10_DY24_BGM.csv",
+        "mediaType": "text/csv",
+        "format": "CSV",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/da5ff50b-e5da-42de-b68b-6cfac1f64f35",
+        "title": "Medicare Part D Spending by Drug : 2024-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part D Spending by Drug : 2024-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/da5ff50b-e5da-42de-b68b-6cfac1f64f35/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-06-25",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/da5ff50b-e5da-42de-b68b-6cfac1f64f35/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/da5ff50b-e5da-42de-b68b-6cfac1f64f35",
+        "title": "Medicare Part D Spending by Drug : 2024-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part D Spending by Drug : 2024-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/da5ff50b-e5da-42de-b68b-6cfac1f64f35/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-06-25",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      }
+    ],
+    "inSeries": [
+      {
+        "@id": "https://data.cms.gov/data-api/v1/dataset/7e0b4365-fd63-4a29-8f5e-e0ac9f66a81b/data",
+        "@type": "DatasetSeries",
+        "title": "Medicare Part D Spending by Drug",
+        "description": "The Medicare Part D by Drug dataset presents information on spending for drugs prescribed to Medicare beneficiaries enrolled in Part D by physicians and other healthcare providers. Drugs prescribed in the Medicare Part D program are drugs patients generally administer themselves. The dataset focuses on average spending per dosage unit and change in average spending per dosage unit over time. It also includes spending information for manufacturer(s) of the drugs as well as consumer-friendly information of drug uses and clinical indications. Drug spending metrics for Part D drugs are based on the gross drug cost, which represents total spending for the prescription claim, including Medicare, plan, and beneficiary payments. The Part D spending metrics do not reflect any manufacturers\u2019 rebates or other price concessions as CMS is prohibited from publicly disclosing such information.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Office of Enterprise Data and Analytics (OEDA)",
+          "subOrganizationOf": [
+            {
+              "@type": "Organization",
+              "name": "Centers for Medicare and Medicaid Services (CMS)"
+            }
+          ]
+        },
+        "contactPoint": [
+          {
+            "@type": "Kind",
+            "fn": "CMS Drug Spending - OEDA",
+            "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+          }
+        ],
+        "identifier": "https://data.cms.gov/data-api/v1/dataset/7e0b4365-fd63-4a29-8f5e-e0ac9f66a81b/data"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.cms.gov/data-api/v1/dataset/76a714ad-3a2c-43ac-b76d-9dadf8f7d890/data-viewer",
+    "@type": "Dataset",
+    "title": "Medicare Part B Spending by Drug : 2024-01-01",
+    "description": "The Medicare Part B by Drug dataset presents information on spending for drugs administered in doctors\u2019 offices and other outpatient settings by physicians and other healthcare providers to Medicare Part B enrollees. The dataset focuses on average spending per dosage unit and change in average spending per dosage unit over time. It also includes consumer-friendly descriptions of the drug uses, clinical indications, and manufacturer(s). Drug spending metrics for Part B drugs represent the full value of the product, including the Medicare payment and beneficiary liability. All Part B drug spending metrics are calculated at the HCPCS level.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Office of Enterprise Data and Analytics (OEDA)",
+      "subOrganizationOf": [
+        {
+          "@type": "Organization",
+          "name": "Centers for Medicare and Medicaid Services (CMS)"
+        }
+      ]
+    },
+    "contactPoint": {
+      "@type": "Kind",
+      "fn": "CMS Drug Spending - OEDA",
+      "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+    },
+    "identifier": "https://data.cms.gov/data-api/v1/dataset/76a714ad-3a2c-43ac-b76d-9dadf8f7d890/data-viewer",
+    "accessRights": "public",
+    "sourceSite": "data.cms.gov",
+    "sourceCatalog": "https://data.cms.gov/data.json",
+    "modified": "2026-06-25",
+    "language": [
+      "en"
+    ],
+    "temporal": [
+      {
+        "@type": "PeriodOfTime",
+        "startDate": "2024-01-01",
+        "endDate": "2024-12-31"
+      }
+    ],
+    "landingPage": {
+      "@type": "Document",
+      "title": "Medicare Part B Spending by Drug",
+      "accessURL": "https://data.cms.gov/summary-statistics-on-use-and-payments/medicare-medicaid-spending-by-drug/medicare-part-b-spending-by-drug"
+    },
+    "describedBy": {
+      "@type": "Distribution",
+      "title": "Medicare Part B Spending by Drug : 2024-01-01 data dictionary",
+      "downloadURL": "https://data.cms.gov/resources/medicare-part-b-spending-by-drug-data-dictionary"
+    },
+    "keyword": [
+      "Medicare",
+      "Original Medicare",
+      "Drugs"
+    ],
+    "theme": [
+      "Medicare"
+    ],
+    "accrualPeriodicity": "annually",
+    "accessLevel": "public",
+    "bureauCode": [
+      "009:38"
+    ],
+    "programCode": [
+      "009:000"
+    ],
+    "references": [
+      "https://data.cms.gov/resources/medicare-part-b-spending-by-drug-methodology"
+    ],
+    "distribution": [
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/76a714ad-3a2c-43ac-b76d-9dadf8f7d890/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/76a714ad-3a2c-43ac-b76d-9dadf8f7d890",
+        "description": "latest",
+        "title": "Medicare Part B Spending by Drug : 2024-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part B Spending by Drug : 2024-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/76a714ad-3a2c-43ac-b76d-9dadf8f7d890/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-06-25",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "downloadURL": "https://data.cms.gov/sites/default/files/2026-06/6616fc91-eb70-404c-9f27-1448e47a3a73/DSD_PTB_RY26_P06_V10_DYT24_HCPCS-%20260602.csv",
+        "mediaType": "text/csv",
+        "format": "CSV",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/f48ced88-541a-4c51-947b-149197e5eaf3",
+        "title": "Medicare Part B Spending by Drug : 2024-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part B Spending by Drug : 2024-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/f48ced88-541a-4c51-947b-149197e5eaf3/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-06-25",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/f48ced88-541a-4c51-947b-149197e5eaf3/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/f48ced88-541a-4c51-947b-149197e5eaf3",
+        "title": "Medicare Part B Spending by Drug : 2024-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part B Spending by Drug : 2024-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/f48ced88-541a-4c51-947b-149197e5eaf3/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-06-25",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      }
+    ],
+    "inSeries": [
+      {
+        "@id": "https://data.cms.gov/data-api/v1/dataset/76a714ad-3a2c-43ac-b76d-9dadf8f7d890/data",
+        "@type": "DatasetSeries",
+        "title": "Medicare Part B Spending by Drug",
+        "description": "The Medicare Part B by Drug dataset presents information on spending for drugs administered in doctors\u2019 offices and other outpatient settings by physicians and other healthcare providers to Medicare Part B enrollees. The dataset focuses on average spending per dosage unit and change in average spending per dosage unit over time. It also includes consumer-friendly descriptions of the drug uses, clinical indications, and manufacturer(s). Drug spending metrics for Part B drugs represent the full value of the product, including the Medicare payment and beneficiary liability. All Part B drug spending metrics are calculated at the HCPCS level.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Office of Enterprise Data and Analytics (OEDA)",
+          "subOrganizationOf": [
+            {
+              "@type": "Organization",
+              "name": "Centers for Medicare and Medicaid Services (CMS)"
+            }
+          ]
+        },
+        "contactPoint": [
+          {
+            "@type": "Kind",
+            "fn": "CMS Drug Spending - OEDA",
+            "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+          }
+        ],
+        "identifier": "https://data.cms.gov/data-api/v1/dataset/76a714ad-3a2c-43ac-b76d-9dadf8f7d890/data"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.cms.gov/data-api/v1/dataset/be64fce3-e835-4589-b46b-024198e524a6/data-viewer",
+    "@type": "Dataset",
+    "title": "Medicaid Spending by Drug : 2024-01-01",
+    "description": "The Medicaid by Drug dataset presents information on spending for covered outpatient drugs prescribed to beneficiaries enrolled in Medicaid by physicians and other healthcare professionals. The dataset focuses on average spending per dosage unit and change in average spending per dosage unit over time. Units refer to the drug unit in the lowest dispensable amount. It also includes spending information for manufacturer(s) of the drugs as well as consumer-friendly information of drug uses and clinical indications. Drug spending metrics for Medicaid represent the total amount reimbursed by both Medicaid and non-Medicaid entities to pharmacies for the drug. Medicaid drug spending contains both the Federal and State reimbursement and is inclusive of any applicable dispensing fees. In addition, this total is not reduced or affected by Medicaid rebates paid to the states.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Office of Enterprise Data and Analytics (OEDA)",
+      "subOrganizationOf": [
+        {
+          "@type": "Organization",
+          "name": "Centers for Medicare and Medicaid Services (CMS)"
+        }
+      ]
+    },
+    "contactPoint": {
+      "@type": "Kind",
+      "fn": "CMS Drug Spending - OEDA",
+      "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+    },
+    "identifier": "https://data.cms.gov/data-api/v1/dataset/be64fce3-e835-4589-b46b-024198e524a6/data-viewer",
+    "accessRights": "public",
+    "sourceSite": "data.cms.gov",
+    "sourceCatalog": "https://data.cms.gov/data.json",
+    "modified": "2026-06-25",
+    "language": [
+      "en"
+    ],
+    "temporal": [
+      {
+        "@type": "PeriodOfTime",
+        "startDate": "2024-01-01",
+        "endDate": "2024-12-31"
+      }
+    ],
+    "landingPage": {
+      "@type": "Document",
+      "title": "Medicaid Spending by Drug",
+      "accessURL": "https://data.cms.gov/summary-statistics-on-use-and-payments/medicare-medicaid-spending-by-drug/medicaid-spending-by-drug"
+    },
+    "describedBy": {
+      "@type": "Distribution",
+      "title": "Medicaid Spending by Drug : 2024-01-01 data dictionary",
+      "downloadURL": "https://data.cms.gov/resources/medicaid-spending-by-drug-data-dictionary"
+    },
+    "keyword": [
+      "Medicaid",
+      "Physicians & Practitioners",
+      "Drugs"
+    ],
+    "theme": [
+      "Medicaid"
+    ],
+    "accrualPeriodicity": "annually",
+    "accessLevel": "public",
+    "bureauCode": [
+      "009:38"
+    ],
+    "programCode": [
+      "009:000"
+    ],
+    "references": [
+      "https://data.cms.gov/resources/medicaid-spending-by-drug-methodology"
+    ],
+    "distribution": [
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/be64fce3-e835-4589-b46b-024198e524a6/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/be64fce3-e835-4589-b46b-024198e524a6",
+        "description": "latest",
+        "title": "Medicaid Spending by Drug : 2024-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicaid Spending by Drug : 2024-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/be64fce3-e835-4589-b46b-024198e524a6/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-06-25",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "downloadURL": "https://data.cms.gov/sites/default/files/2026-06/ae1c5e06-957d-42dd-b783-e7fe598c01c9/DSD_MCD_RY26_P06_V20_D24_BGM.csv",
+        "mediaType": "text/csv",
+        "format": "CSV",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/98aa468b-130b-4c3d-897a-552a94f85750",
+        "title": "Medicaid Spending by Drug : 2024-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicaid Spending by Drug : 2024-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/98aa468b-130b-4c3d-897a-552a94f85750/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-06-25",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/98aa468b-130b-4c3d-897a-552a94f85750/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/98aa468b-130b-4c3d-897a-552a94f85750",
+        "title": "Medicaid Spending by Drug : 2024-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicaid Spending by Drug : 2024-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/98aa468b-130b-4c3d-897a-552a94f85750/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-06-25",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      }
+    ],
+    "inSeries": [
+      {
+        "@id": "https://data.cms.gov/data-api/v1/dataset/be64fce3-e835-4589-b46b-024198e524a6/data",
+        "@type": "DatasetSeries",
+        "title": "Medicaid Spending by Drug",
+        "description": "The Medicaid by Drug dataset presents information on spending for covered outpatient drugs prescribed to beneficiaries enrolled in Medicaid by physicians and other healthcare professionals. The dataset focuses on average spending per dosage unit and change in average spending per dosage unit over time. Units refer to the drug unit in the lowest dispensable amount. It also includes spending information for manufacturer(s) of the drugs as well as consumer-friendly information of drug uses and clinical indications. Drug spending metrics for Medicaid represent the total amount reimbursed by both Medicaid and non-Medicaid entities to pharmacies for the drug. Medicaid drug spending contains both the Federal and State reimbursement and is inclusive of any applicable dispensing fees. In addition, this total is not reduced or affected by Medicaid rebates paid to the states.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Office of Enterprise Data and Analytics (OEDA)",
+          "subOrganizationOf": [
+            {
+              "@type": "Organization",
+              "name": "Centers for Medicare and Medicaid Services (CMS)"
+            }
+          ]
+        },
+        "contactPoint": [
+          {
+            "@type": "Kind",
+            "fn": "CMS Drug Spending - OEDA",
+            "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+          }
+        ],
+        "identifier": "https://data.cms.gov/data-api/v1/dataset/be64fce3-e835-4589-b46b-024198e524a6/data"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.cms.gov/data-api/v1/dataset/94d00f36-73ce-4520-9b3f-83cd3cded25c/data-viewer",
+    "@type": "Dataset",
+    "title": "Medicare Part D Opioid Prescribing Rates - by Geography : 2024-01-01",
+    "description": "The Medicare Part D Opioid Prescribing Rates by Geography dataset provides information on geographic comparisons of the number and percentage of Medicare Part D opioid prescriptions at the state, county, and ZIP code levels.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Office of Enterprise Data and Analytics (OEDA)",
+      "subOrganizationOf": [
+        {
+          "@type": "Organization",
+          "name": "Centers for Medicare and Medicaid Services (CMS)"
+        }
+      ]
+    },
+    "contactPoint": {
+      "@type": "Kind",
+      "fn": "Medicare Provider Data - OEDA",
+      "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+    },
+    "identifier": "https://data.cms.gov/data-api/v1/dataset/94d00f36-73ce-4520-9b3f-83cd3cded25c/data-viewer",
+    "accessRights": "public",
+    "sourceSite": "data.cms.gov",
+    "sourceCatalog": "https://data.cms.gov/data.json",
+    "modified": "2026-06-11",
+    "language": [
+      "en"
+    ],
+    "temporal": [
+      {
+        "@type": "PeriodOfTime",
+        "startDate": "2024-01-01",
+        "endDate": "2024-12-31"
+      }
+    ],
+    "landingPage": {
+      "@type": "Document",
+      "title": "Medicare Part D Opioid Prescribing Rates - by Geography",
+      "accessURL": "https://data.cms.gov/summary-statistics-on-use-and-payments/medicare-medicaid-opioid-prescribing-rates/medicare-part-d-opioid-prescribing-rates-by-geography"
+    },
+    "describedBy": {
+      "@type": "Distribution",
+      "title": "Medicare Part D Opioid Prescribing Rates - by Geography : 2024-01-01 data dictionary",
+      "downloadURL": "https://data.cms.gov/resources/medicare-part-d-opioid-prescribing-rates-by-geography-data-dictionary"
+    },
+    "keyword": [
+      "National",
+      "States & Territories",
+      "Counties",
+      "ZIP Code",
+      "Rural-Urban",
+      "Medicare",
+      "Medicare Prescription Drug",
+      "Physicians & Practitioners",
+      "Drugs",
+      "Health Equity"
+    ],
+    "theme": [
+      "Medicare"
+    ],
+    "accrualPeriodicity": "annually",
+    "accessLevel": "public",
+    "bureauCode": [
+      "009:38"
+    ],
+    "programCode": [
+      "009:000"
+    ],
+    "references": [
+      "https://data.cms.gov/resources/medicare-part-d-opioid-prescribing-rates-by-geography-methodology-0"
+    ],
+    "distribution": [
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/94d00f36-73ce-4520-9b3f-83cd3cded25c/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/94d00f36-73ce-4520-9b3f-83cd3cded25c",
+        "description": "latest",
+        "title": "Medicare Part D Opioid Prescribing Rates - by Geography : 2024-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part D Opioid Prescribing Rates - by Geography : 2024-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/94d00f36-73ce-4520-9b3f-83cd3cded25c/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-06-11",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "downloadURL": "https://data.cms.gov/sites/default/files/2026-06/9b59e852-c8a0-4c8d-a13a-8fb087211bdd/OMT_MDCR_RY26_P04_V10_Y24_GEO.csv",
+        "mediaType": "text/csv",
+        "format": "CSV",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/841fa537-5f35-4e53-b6ed-25a906132d39",
+        "title": "Medicare Part D Opioid Prescribing Rates - by Geography : 2024-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part D Opioid Prescribing Rates - by Geography : 2024-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/841fa537-5f35-4e53-b6ed-25a906132d39/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-06-11",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/841fa537-5f35-4e53-b6ed-25a906132d39/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/841fa537-5f35-4e53-b6ed-25a906132d39",
+        "title": "Medicare Part D Opioid Prescribing Rates - by Geography : 2024-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part D Opioid Prescribing Rates - by Geography : 2024-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/841fa537-5f35-4e53-b6ed-25a906132d39/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-06-11",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      }
+    ],
+    "inSeries": [
+      {
+        "@id": "https://data.cms.gov/data-api/v1/dataset/94d00f36-73ce-4520-9b3f-83cd3cded25c/data",
+        "@type": "DatasetSeries",
+        "title": "Medicare Part D Opioid Prescribing Rates - by Geography",
+        "description": "The Medicare Part D Opioid Prescribing Rates by Geography dataset provides information on geographic comparisons of the number and percentage of Medicare Part D opioid prescriptions at the state, county, and ZIP code levels.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Office of Enterprise Data and Analytics (OEDA)",
+          "subOrganizationOf": [
+            {
+              "@type": "Organization",
+              "name": "Centers for Medicare and Medicaid Services (CMS)"
+            }
+          ]
+        },
+        "contactPoint": [
+          {
+            "@type": "Kind",
+            "fn": "Medicare Provider Data - OEDA",
+            "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+          }
+        ],
+        "identifier": "https://data.cms.gov/data-api/v1/dataset/94d00f36-73ce-4520-9b3f-83cd3cded25c/data"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.cms.gov/data-api/v1/dataset/c37ebe6d-f54f-4d7d-861f-fefe345554e6/data-viewer",
+    "@type": "Dataset",
+    "title": "Medicaid Opioid Prescribing Rates - by Geography : 2024-01-01",
+    "description": "The Medicaid Opioid Prescribing Rates by Geography dataset provides information on geographic comparisons of the number and percentage of Medicaid opioid prescriptions at the state, county, and ZIP code levels.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Office of Enterprise Data and Analytics (OEDA)",
+      "subOrganizationOf": [
+        {
+          "@type": "Organization",
+          "name": "Centers for Medicare and Medicaid Services (CMS)"
+        }
+      ]
+    },
+    "contactPoint": {
+      "@type": "Kind",
+      "fn": "Medicare Provider Data - OEDA",
+      "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+    },
+    "identifier": "https://data.cms.gov/data-api/v1/dataset/c37ebe6d-f54f-4d7d-861f-fefe345554e6/data-viewer",
+    "accessRights": "public",
+    "sourceSite": "data.cms.gov",
+    "sourceCatalog": "https://data.cms.gov/data.json",
+    "modified": "2026-06-11",
+    "language": [
+      "en"
+    ],
+    "temporal": [
+      {
+        "@type": "PeriodOfTime",
+        "startDate": "2024-01-01",
+        "endDate": "2024-12-31"
+      }
+    ],
+    "landingPage": {
+      "@type": "Document",
+      "title": "Medicaid Opioid Prescribing Rates - by Geography",
+      "accessURL": "https://data.cms.gov/summary-statistics-on-use-and-payments/medicare-medicaid-opioid-prescribing-rates/medicaid-opioid-prescribing-rates-by-geography"
+    },
+    "describedBy": {
+      "@type": "Distribution",
+      "title": "Medicaid Opioid Prescribing Rates - by Geography : 2024-01-01 data dictionary",
+      "downloadURL": "https://data.cms.gov/resources/medicaid-opioid-prescribing-rates-by-geography-data-dictionary-0"
+    },
+    "keyword": [
+      "National",
+      "States & Territories",
+      "Medicaid",
+      "Physicians & Practitioners",
+      "Drugs",
+      "Health Equity"
+    ],
+    "theme": [
+      "Medicaid"
+    ],
+    "accrualPeriodicity": "annually",
+    "accessLevel": "public",
+    "bureauCode": [
+      "009:38"
+    ],
+    "programCode": [
+      "009:000"
+    ],
+    "references": [
+      "https://data.cms.gov/resources/medicaid-opioid-prescribing-rates-by-geography-methodology"
+    ],
+    "distribution": [
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/c37ebe6d-f54f-4d7d-861f-fefe345554e6/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/c37ebe6d-f54f-4d7d-861f-fefe345554e6",
+        "description": "latest",
+        "title": "Medicaid Opioid Prescribing Rates - by Geography : 2024-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicaid Opioid Prescribing Rates - by Geography : 2024-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/c37ebe6d-f54f-4d7d-861f-fefe345554e6/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-06-11",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "downloadURL": "https://data.cms.gov/sites/default/files/2026-06/c92a8cf8-2b55-43d2-a135-82e46dce3196/OMT_MDCD_RY26_P02_V10_YTD24_GEO.csv",
+        "mediaType": "text/csv",
+        "format": "CSV",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/d590fa00-5d4e-4220-a1ba-e3bc9fd7d547",
+        "title": "Medicaid Opioid Prescribing Rates - by Geography : 2024-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicaid Opioid Prescribing Rates - by Geography : 2024-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/d590fa00-5d4e-4220-a1ba-e3bc9fd7d547/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-06-11",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/d590fa00-5d4e-4220-a1ba-e3bc9fd7d547/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/d590fa00-5d4e-4220-a1ba-e3bc9fd7d547",
+        "title": "Medicaid Opioid Prescribing Rates - by Geography : 2024-01-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicaid Opioid Prescribing Rates - by Geography : 2024-01-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/d590fa00-5d4e-4220-a1ba-e3bc9fd7d547/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-06-11",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      }
+    ],
+    "inSeries": [
+      {
+        "@id": "https://data.cms.gov/data-api/v1/dataset/c37ebe6d-f54f-4d7d-861f-fefe345554e6/data",
+        "@type": "DatasetSeries",
+        "title": "Medicaid Opioid Prescribing Rates - by Geography",
+        "description": "The Medicaid Opioid Prescribing Rates by Geography dataset provides information on geographic comparisons of the number and percentage of Medicaid opioid prescriptions at the state, county, and ZIP code levels.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Office of Enterprise Data and Analytics (OEDA)",
+          "subOrganizationOf": [
+            {
+              "@type": "Organization",
+              "name": "Centers for Medicare and Medicaid Services (CMS)"
+            }
+          ]
+        },
+        "contactPoint": [
+          {
+            "@type": "Kind",
+            "fn": "Medicare Provider Data - OEDA",
+            "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+          }
+        ],
+        "identifier": "https://data.cms.gov/data-api/v1/dataset/c37ebe6d-f54f-4d7d-861f-fefe345554e6/data"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.cms.gov/data-api/v1/dataset/9552739e-3d05-4c1b-8eff-ecabf391e2e5/data-viewer",
+    "@type": "Dataset",
+    "title": "Medicare Part D Prescribers - by Provider and Drug : 2024-12-01",
+    "description": "The Medicare Part D Prescribers by Provider and Drug dataset provides information on prescription drugs prescribed to Medicare beneficiaries enrolled in Part D by physicians and other health care providers. This dataset contains the total number of prescription fills that were dispensed and the total drug cost paid organized by prescribing National Provider Identifier (NPI), drug brand name (if applicable) and drug generic name.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Office of Enterprise Data and Analytics (OEDA)",
+      "subOrganizationOf": [
+        {
+          "@type": "Organization",
+          "name": "Centers for Medicare and Medicaid Services (CMS)"
+        }
+      ]
+    },
+    "contactPoint": {
+      "@type": "Kind",
+      "fn": "Medicare Provider Data - OEDA",
+      "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+    },
+    "identifier": "https://data.cms.gov/data-api/v1/dataset/9552739e-3d05-4c1b-8eff-ecabf391e2e5/data-viewer",
+    "accessRights": "public",
+    "sourceSite": "data.cms.gov",
+    "sourceCatalog": "https://data.cms.gov/data.json",
+    "modified": "2026-05-21",
+    "language": [
+      "en"
+    ],
+    "temporal": [
+      {
+        "@type": "PeriodOfTime",
+        "startDate": "2024-01-01",
+        "endDate": "2024-12-31"
+      }
+    ],
+    "landingPage": {
+      "@type": "Document",
+      "title": "Medicare Part D Prescribers - by Provider and Drug",
+      "accessURL": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-part-d-prescribers/medicare-part-d-prescribers-by-provider-and-drug"
+    },
+    "describedBy": {
+      "@type": "Distribution",
+      "title": "Medicare Part D Prescribers - by Provider and Drug : 2024-12-01 data dictionary",
+      "downloadURL": "https://data.cms.gov/resources/medicare-part-d-prescribers-by-provider-and-drug-data-dictionary"
+    },
+    "keyword": [
+      "Medicare",
+      "Medicare Prescription Drug",
+      "Physicians & Practitioners",
+      "Drugs",
+      "Health Equity"
+    ],
+    "theme": [
+      "Medicare"
+    ],
+    "accrualPeriodicity": "annually",
+    "accessLevel": "public",
+    "bureauCode": [
+      "009:38"
+    ],
+    "programCode": [
+      "009:000"
+    ],
+    "references": [
+      "https://data.cms.gov/resources/medicare-part-d-prescribers-methodology"
+    ],
+    "distribution": [
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/9552739e-3d05-4c1b-8eff-ecabf391e2e5/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/9552739e-3d05-4c1b-8eff-ecabf391e2e5",
+        "description": "latest",
+        "title": "Medicare Part D Prescribers - by Provider and Drug : 2024-12-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part D Prescribers - by Provider and Drug : 2024-12-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/9552739e-3d05-4c1b-8eff-ecabf391e2e5/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-05-21",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "downloadURL": "https://data.cms.gov/sites/default/files/2026-05/0ae165f4-eb44-495d-8cac-67f4571b6b83/MUP_DPR_RY26_P04_V10_DY24_NPIBN.csv",
+        "mediaType": "text/csv",
+        "format": "CSV",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/d5aa71a8-dcc0-4570-8bcf-bd39deac69fe",
+        "title": "Medicare Part D Prescribers - by Provider and Drug : 2024-12-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part D Prescribers - by Provider and Drug : 2024-12-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/d5aa71a8-dcc0-4570-8bcf-bd39deac69fe/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-05-21",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/d5aa71a8-dcc0-4570-8bcf-bd39deac69fe/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/d5aa71a8-dcc0-4570-8bcf-bd39deac69fe",
+        "title": "Medicare Part D Prescribers - by Provider and Drug : 2024-12-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part D Prescribers - by Provider and Drug : 2024-12-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/d5aa71a8-dcc0-4570-8bcf-bd39deac69fe/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-05-21",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      }
+    ],
+    "inSeries": [
+      {
+        "@id": "https://data.cms.gov/data-api/v1/dataset/9552739e-3d05-4c1b-8eff-ecabf391e2e5/data",
+        "@type": "DatasetSeries",
+        "title": "Medicare Part D Prescribers - by Provider and Drug",
+        "description": "The Medicare Part D Prescribers by Provider and Drug dataset provides information on prescription drugs prescribed to Medicare beneficiaries enrolled in Part D by physicians and other health care providers. This dataset contains the total number of prescription fills that were dispensed and the total drug cost paid organized by prescribing National Provider Identifier (NPI), drug brand name (if applicable) and drug generic name.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Office of Enterprise Data and Analytics (OEDA)",
+          "subOrganizationOf": [
+            {
+              "@type": "Organization",
+              "name": "Centers for Medicare and Medicaid Services (CMS)"
+            }
+          ]
+        },
+        "contactPoint": [
+          {
+            "@type": "Kind",
+            "fn": "Medicare Provider Data - OEDA",
+            "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+          }
+        ],
+        "identifier": "https://data.cms.gov/data-api/v1/dataset/9552739e-3d05-4c1b-8eff-ecabf391e2e5/data"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.cms.gov/data-api/v1/dataset/14d8e8a9-7e9b-4370-a044-bf97c46b4b44/data-viewer",
+    "@type": "Dataset",
+    "title": "Medicare Part D Prescribers - by Provider : 2024-12-03",
+    "description": "The Medicare Part D Prescribers by Provider dataset contains information on prescription drugs prescribed by individual physicians and other health care providers and paid for under the Medicare Part D Prescription Drug Program. The dataset identifies providers by their National Provider Identifier (NPI) and summarizes for each prescriber the total number of prescriptions that were dispensed, which include original prescriptions and any refills, and the total drug cost.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Office of Enterprise Data and Analytics (OEDA)",
+      "subOrganizationOf": [
+        {
+          "@type": "Organization",
+          "name": "Centers for Medicare and Medicaid Services (CMS)"
+        }
+      ]
+    },
+    "contactPoint": {
+      "@type": "Kind",
+      "fn": "Medicare Provider Data - OEDA",
+      "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+    },
+    "identifier": "https://data.cms.gov/data-api/v1/dataset/14d8e8a9-7e9b-4370-a044-bf97c46b4b44/data-viewer",
+    "accessRights": "public",
+    "sourceSite": "data.cms.gov",
+    "sourceCatalog": "https://data.cms.gov/data.json",
+    "modified": "2026-08-03",
+    "language": [
+      "en"
+    ],
+    "temporal": [
+      {
+        "@type": "PeriodOfTime",
+        "startDate": "2024-01-01",
+        "endDate": "2024-12-31"
+      }
+    ],
+    "landingPage": {
+      "@type": "Document",
+      "title": "Medicare Part D Prescribers - by Provider",
+      "accessURL": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-part-d-prescribers/medicare-part-d-prescribers-by-provider"
+    },
+    "describedBy": {
+      "@type": "Distribution",
+      "title": "Medicare Part D Prescribers - by Provider : 2024-12-03 data dictionary",
+      "downloadURL": "https://data.cms.gov/resources/medicare-part-d-prescribers-by-provider-data-dictionary"
+    },
+    "keyword": [
+      "Medicare",
+      "Medicare Prescription Drug",
+      "Physicians & Practitioners",
+      "Drugs",
+      "Health Equity"
+    ],
+    "theme": [
+      "Medicare"
+    ],
+    "accrualPeriodicity": "annually",
+    "accessLevel": "public",
+    "bureauCode": [
+      "009:38"
+    ],
+    "programCode": [
+      "009:000"
+    ],
+    "references": [
+      "https://data.cms.gov/resources/medicare-part-d-prescribers-methodology"
+    ],
+    "distribution": [
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/14d8e8a9-7e9b-4370-a044-bf97c46b4b44/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/14d8e8a9-7e9b-4370-a044-bf97c46b4b44",
+        "description": "latest",
+        "title": "Medicare Part D Prescribers - by Provider : 2024-12-03",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part D Prescribers - by Provider : 2024-12-03",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/14d8e8a9-7e9b-4370-a044-bf97c46b4b44/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-08-03",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "downloadURL": "https://data.cms.gov/sites/default/files/2026-08/373e45e5-33ec-452c-9302-a4bdbc203459/mup_dpr_ry26_p04_v20_dy24_npi.csv",
+        "mediaType": "text/csv",
+        "format": "CSV",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/2d38b6fd-f7a9-4edd-98f6-06ae3b4d1b8c",
+        "title": "Medicare Part D Prescribers - by Provider : 2024-12-03",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part D Prescribers - by Provider : 2024-12-03",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/2d38b6fd-f7a9-4edd-98f6-06ae3b4d1b8c/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-08-03",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/2d38b6fd-f7a9-4edd-98f6-06ae3b4d1b8c/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/2d38b6fd-f7a9-4edd-98f6-06ae3b4d1b8c",
+        "title": "Medicare Part D Prescribers - by Provider : 2024-12-03",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part D Prescribers - by Provider : 2024-12-03",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/2d38b6fd-f7a9-4edd-98f6-06ae3b4d1b8c/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-08-03",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      }
+    ],
+    "inSeries": [
+      {
+        "@id": "https://data.cms.gov/data-api/v1/dataset/14d8e8a9-7e9b-4370-a044-bf97c46b4b44/data",
+        "@type": "DatasetSeries",
+        "title": "Medicare Part D Prescribers - by Provider",
+        "description": "The Medicare Part D Prescribers by Provider dataset contains information on prescription drugs prescribed by individual physicians and other health care providers and paid for under the Medicare Part D Prescription Drug Program. The dataset identifies providers by their National Provider Identifier (NPI) and summarizes for each prescriber the total number of prescriptions that were dispensed, which include original prescriptions and any refills, and the total drug cost.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Office of Enterprise Data and Analytics (OEDA)",
+          "subOrganizationOf": [
+            {
+              "@type": "Organization",
+              "name": "Centers for Medicare and Medicaid Services (CMS)"
+            }
+          ]
+        },
+        "contactPoint": [
+          {
+            "@type": "Kind",
+            "fn": "Medicare Provider Data - OEDA",
+            "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+          }
+        ],
+        "identifier": "https://data.cms.gov/data-api/v1/dataset/14d8e8a9-7e9b-4370-a044-bf97c46b4b44/data"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.cms.gov/data-api/v1/dataset/c8ea3f8e-3a09-4fea-86f2-8902fb4b0920/data-viewer",
+    "@type": "Dataset",
+    "title": "Medicare Part D Prescribers - by Geography and Drug : 2024-12-01",
+    "description": "The Medicare Part D Prescribers by Geography and Drug dataset contains information on prescription drugs prescribed by individual physicians and other health care providers and paid for under the Medicare Part D Prescription Drug Program. For each drug, the dataset includes the total number of prescriptions that were dispensed, which include original prescriptions and any refills, and the total drug cost. The total drug cost includes the ingredient cost of the medication, dispensing fees, sales tax, and any applicable administration fees and is based on the amount paid by the Part D plan, Medicare beneficiary, government subsidies, and any other third-party payers.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Office of Enterprise Data and Analytics (OEDA)",
+      "subOrganizationOf": [
+        {
+          "@type": "Organization",
+          "name": "Centers for Medicare and Medicaid Services (CMS)"
+        }
+      ]
+    },
+    "contactPoint": {
+      "@type": "Kind",
+      "fn": "Medicare Provider Data - OEDA",
+      "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+    },
+    "identifier": "https://data.cms.gov/data-api/v1/dataset/c8ea3f8e-3a09-4fea-86f2-8902fb4b0920/data-viewer",
+    "accessRights": "public",
+    "sourceSite": "data.cms.gov",
+    "sourceCatalog": "https://data.cms.gov/data.json",
+    "modified": "2026-05-21",
+    "language": [
+      "en"
+    ],
+    "temporal": [
+      {
+        "@type": "PeriodOfTime",
+        "startDate": "2024-01-01",
+        "endDate": "2024-12-31"
+      }
+    ],
+    "landingPage": {
+      "@type": "Document",
+      "title": "Medicare Part D Prescribers - by Geography and Drug",
+      "accessURL": "https://data.cms.gov/provider-summary-by-type-of-service/medicare-part-d-prescribers/medicare-part-d-prescribers-by-geography-and-drug"
+    },
+    "describedBy": {
+      "@type": "Distribution",
+      "title": "Medicare Part D Prescribers - by Geography and Drug : 2024-12-01 data dictionary",
+      "downloadURL": "https://data.cms.gov/resources/medicare-part-d-prescribers-by-geography-and-drug-data-dictionary"
+    },
+    "keyword": [
+      "National",
+      "States & Territories",
+      "Medicare",
+      "Medicare Prescription Drug",
+      "Physicians & Practitioners",
+      "Drugs",
+      "Health Equity"
+    ],
+    "theme": [
+      "Medicare"
+    ],
+    "accrualPeriodicity": "annually",
+    "accessLevel": "public",
+    "bureauCode": [
+      "009:38"
+    ],
+    "programCode": [
+      "009:000"
+    ],
+    "references": [
+      "https://data.cms.gov/resources/medicare-part-d-prescribers-methodology"
+    ],
+    "distribution": [
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/c8ea3f8e-3a09-4fea-86f2-8902fb4b0920/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/c8ea3f8e-3a09-4fea-86f2-8902fb4b0920",
+        "description": "latest",
+        "title": "Medicare Part D Prescribers - by Geography and Drug : 2024-12-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part D Prescribers - by Geography and Drug : 2024-12-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/c8ea3f8e-3a09-4fea-86f2-8902fb4b0920/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-05-21",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "downloadURL": "https://data.cms.gov/sites/default/files/2026-05/3e80b44e-5a87-4414-959a-b6a7c8c18720/MUP_DPR_RY26_P04_V10_DY24_Geo.csv",
+        "mediaType": "text/csv",
+        "format": "CSV",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/9b4c142c-69cc-4a96-a09a-7cf2ba7f5816",
+        "title": "Medicare Part D Prescribers - by Geography and Drug : 2024-12-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part D Prescribers - by Geography and Drug : 2024-12-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/9b4c142c-69cc-4a96-a09a-7cf2ba7f5816/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-05-21",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      },
+      {
+        "@type": "Distribution",
+        "format": "API",
+        "accessURL": "https://data.cms.gov/data-api/v1/dataset/9b4c142c-69cc-4a96-a09a-7cf2ba7f5816/data",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/9b4c142c-69cc-4a96-a09a-7cf2ba7f5816",
+        "title": "Medicare Part D Prescribers - by Geography and Drug : 2024-12-01",
+        "describedBy": {
+          "@type": "Distribution",
+          "title": "Data dictionary for Medicare Part D Prescribers - by Geography and Drug : 2024-12-01",
+          "downloadURL": "https://data.cms.gov/data-api/v1/dataset/9b4c142c-69cc-4a96-a09a-7cf2ba7f5816/dictionary",
+          "mediaType": "application/json"
+        },
+        "modified": "2026-05-21",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      }
+    ],
+    "inSeries": [
+      {
+        "@id": "https://data.cms.gov/data-api/v1/dataset/c8ea3f8e-3a09-4fea-86f2-8902fb4b0920/data",
+        "@type": "DatasetSeries",
+        "title": "Medicare Part D Prescribers - by Geography and Drug",
+        "description": "The Medicare Part D Prescribers by Geography and Drug dataset contains information on prescription drugs prescribed by individual physicians and other health care providers and paid for under the Medicare Part D Prescription Drug Program. For each drug, the dataset includes the total number of prescriptions that were dispensed, which include original prescriptions and any refills, and the total drug cost. The total drug cost includes the ingredient cost of the medication, dispensing fees, sales tax, and any applicable administration fees and is based on the amount paid by the Part D plan, Medicare beneficiary, government subsidies, and any other third-party payers.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Office of Enterprise Data and Analytics (OEDA)",
+          "subOrganizationOf": [
+            {
+              "@type": "Organization",
+              "name": "Centers for Medicare and Medicaid Services (CMS)"
+            }
+          ]
+        },
+        "contactPoint": [
+          {
+            "@type": "Kind",
+            "fn": "Medicare Provider Data - OEDA",
+            "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+          }
+        ],
+        "identifier": "https://data.cms.gov/data-api/v1/dataset/c8ea3f8e-3a09-4fea-86f2-8902fb4b0920/data"
+      }
+    ]
+  },
+  {
+    "@id": "https://data.cms.gov/data-api/v1/dataset/81d3fe8f-0f30-40c0-882b-6c917cd89611/data-viewer",
+    "@type": "Dataset",
+    "title": "CMS Program Statistics - Medicare Part D Enrollment : 2024-01-01",
+    "description": "The CMS Program Statistics - Medicare Part D Enrollment tables provide data on characteristics of the Medicare Part D covered population. For additional information on enrollment, providers, and Medicare use and payment, visit the CMS Program Statistics page. Below is the list of tables: MDCR ENROLL D 1. Medicare Part D Enrollment: Part D Enrollees by Type of Plan, Low Income Subsidy (LIS), and Retiree Drug Subsidy, Yearly Trend MDCR ENROLL D 2. Medicare Part D Enrollment: Part D Enrollees by Type of Plan, Low Income Subsidy (LIS), and Retiree Drug Subsidy, by Demographic Characteristics MDCR ENROLL D 3. Medicare Part D Enrollment: Part D Enrollees by Type of Plan, Low Income Subsidy (LIS), and Retiree Drug Subsidy, by Area of Residence",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Office of Enterprise Data and Analytics (OEDA)",
+      "subOrganizationOf": [
+        {
+          "@type": "Organization",
+          "name": "Centers for Medicare and Medicaid Services (CMS)"
+        }
+      ]
+    },
+    "contactPoint": {
+      "@type": "Kind",
+      "fn": "CMS Program Statistics - OEDA",
+      "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+    },
+    "identifier": "https://data.cms.gov/data-api/v1/dataset/81d3fe8f-0f30-40c0-882b-6c917cd89611/data-viewer",
+    "accessRights": "public",
+    "sourceSite": "data.cms.gov",
+    "sourceCatalog": "https://data.cms.gov/data.json",
+    "modified": "2026-09-30",
+    "language": [
+      "en"
+    ],
+    "temporal": [
+      {
+        "@type": "PeriodOfTime",
+        "startDate": "2024-01-01",
+        "endDate": "2024-12-31"
+      }
+    ],
+    "landingPage": {
+      "@type": "Document",
+      "title": "CMS Program Statistics - Medicare Part D Enrollment",
+      "accessURL": "https://data.cms.gov/summary-statistics-on-beneficiary-enrollment/medicare-and-medicaid-reports/cms-program-statistics-medicare-part-d-enrollment"
+    },
+    "describedBy": {
+      "@type": "Distribution",
+      "title": "CMS Program Statistics - Medicare Part D Enrollment : 2024-01-01 data dictionary",
+      "downloadURL": "https://data.cms.gov/resources/cms-program-statistics-glossary"
+    },
+    "keyword": [
+      "National",
+      "States & Territories",
+      "Medicare",
+      "Medicare Advantage",
+      "Medicare Prescription Drug",
+      "Beneficiary Enrollment",
+      "Health Equity"
+    ],
+    "theme": [
+      "Medicare"
+    ],
+    "accrualPeriodicity": "annually",
+    "accessLevel": "public",
+    "bureauCode": [
+      "009:38"
+    ],
+    "programCode": [
+      "009:000"
+    ],
+    "references": [
+      "https://data.cms.gov/resources/cms-program-statistics-methodology"
+    ],
+    "distribution": [
+      {
+        "@type": "Distribution",
+        "downloadURL": "https://data.cms.gov/sites/default/files/2026-09/34722ca9-3ac4-47fa-87b9-0b7856a51d7d/MDCR%20ENROLL%20D_CPS_03EPD_2024.zip",
+        "mediaType": "application/zip",
+        "format": "ZIP",
+        "resourcesAPI": "https://data.cms.gov/data-api/v1/dataset-resources/81d3fe8f-0f30-40c0-882b-6c917cd89611",
+        "title": "CMS Program Statistics - Medicare Part D Enrollment : 2024-01-01",
+        "modified": "2026-09-30",
+        "temporal": [
+          {
+            "@type": "PeriodOfTime",
+            "startDate": "2024-01-01",
+            "endDate": "2024-12-31"
+          }
+        ],
+        "license": "https://www.usa.gov/government-works"
+      }
+    ],
+    "inSeries": [
+      {
+        "@id": "https://data.cms.gov/data-api/v1/dataset/d8c69aca-2497-4a83-a181-706a960c77f0/data",
+        "@type": "DatasetSeries",
+        "title": "CMS Program Statistics - Medicare Part D Enrollment",
+        "description": "The CMS Program Statistics - Medicare Part D Enrollment tables provide data on characteristics of the Medicare Part D covered population. For additional information on enrollment, providers, and Medicare use and payment, visit the CMS Program Statistics page. Below is the list of tables: MDCR ENROLL D 1. Medicare Part D Enrollment: Part D Enrollees by Type of Plan, Low Income Subsidy (LIS), and Retiree Drug Subsidy, Yearly Trend MDCR ENROLL D 2. Medicare Part D Enrollment: Part D Enrollees by Type of Plan, Low Income Subsidy (LIS), and Retiree Drug Subsidy, by Demographic Characteristics MDCR ENROLL D 3. Medicare Part D Enrollment: Part D Enrollees by Type of Plan, Low Income Subsidy (LIS), and Retiree Drug Subsidy, by Area of Residence",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Office of Enterprise Data and Analytics (OEDA)",
+          "subOrganizationOf": [
+            {
+              "@type": "Organization",
+              "name": "Centers for Medicare and Medicaid Services (CMS)"
+            }
+          ]
+        },
+        "contactPoint": [
+          {
+            "@type": "Kind",
+            "fn": "CMS Program Statistics - OEDA",
+            "hasEmail": "mailto:IPAG_Data_Products@cms.hhs.gov"
+          }
+        ],
+        "identifier": "https://data.cms.gov/data-api/v1/dataset/d8c69aca-2497-4a83-a181-706a960c77f0/data"
+      }
+    ]
+  }
+]

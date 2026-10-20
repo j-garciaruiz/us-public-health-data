@@ -1,0 +1,9 @@
+{
+  "name": "quarterly_2_csv",
+  "url": "https://data.cms.gov/sites/default/files/2026-07/QDD_PTD_RQ2603_P01_V10_DQT2601_20260708.csv",
+  "utc": "2026-10-20T12:43:19.387807+00:00",
+  "status": 200,
+  "final_url": "https://data.cms.gov/sites/default/files/2026-07/QDD_PTD_RQ2603_P01_V10_DQT2601_20260708.csv",
+  "bytes": 31223547,
+  "content_type": "text/csv"
+}

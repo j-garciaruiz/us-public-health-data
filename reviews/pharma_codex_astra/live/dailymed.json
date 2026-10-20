@@ -1,0 +1,9 @@
+{
+  "name": "dailymed",
+  "url": "https://dailymed.nlm.nih.gov/dailymed/services/v2/spls.json?pagesize=1",
+  "utc": "2026-10-20T12:38:41.167012+00:00",
+  "status": 200,
+  "final_url": "https://dailymed.nlm.nih.gov/dailymed/services/v2/spls.json?pagesize=1",
+  "bytes": 596,
+  "content_type": "application/json"
+}

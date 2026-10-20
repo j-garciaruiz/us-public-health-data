@@ -1,0 +1,9 @@
+{
+  "name": "fda_label",
+  "url": "https://api.fda.gov/drug/label.json?limit=1",
+  "utc": "2026-10-20T12:38:40.113164+00:00",
+  "status": 200,
+  "final_url": "https://api.fda.gov/drug/label.json?limit=1",
+  "bytes": 3933,
+  "content_type": "application/json; charset=utf-8"
+}

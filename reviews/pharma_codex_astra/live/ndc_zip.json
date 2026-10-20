@@ -1,0 +1,9 @@
+{
+  "name": "ndc_zip",
+  "url": "https://www.accessdata.fda.gov/cder/ndctext.zip",
+  "utc": "2026-10-20T12:40:15.362567+00:00",
+  "status": 200,
+  "final_url": "https://www.accessdata.fda.gov/cder/ndctext.zip",
+  "bytes": 10865689,
+  "content_type": "application/x-zip-compressed"
+}

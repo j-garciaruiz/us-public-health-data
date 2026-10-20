@@ -1,0 +1,9 @@
+{
+  "name": "med_3_0",
+  "url": "https://data.medicaid.gov/api/1/datastore/query/2957a7f9-9a15-453e-9afd-3bbdcbac8fd3/0?limit=1&count=true",
+  "utc": "2026-10-20T12:39:20.844937+00:00",
+  "status": 200,
+  "final_url": "https://data.medicaid.gov/api/1/datastore/query/2957a7f9-9a15-453e-9afd-3bbdcbac8fd3/0?limit=1&count=true",
+  "bytes": 2353,
+  "content_type": "application/json"
+}
