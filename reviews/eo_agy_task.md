@@ -1,0 +1,17 @@
+Project: /Users/hari/Documents/VSC Python/US Data. Your review folder: reviews/eo_agy_argon/ (write only there). Background on PLACES and the ACS covariates: reviews/covariate_test_brief.md and your own earlier report reviews/agy_argon/REPORT.md. You may use data/raw/acs_county_2023.csv as county covariates (you verified it before).
+
+Question: does the CDC PLACES county estimate of a condition carry information about a DIRECTLY MEASURED county outcome beyond what county demographics plus state already predict? This feeds an "expected vs observed" county atlas (expected = demographic prediction; the map shows observed minus expected).
+
+Observed data:
+- data/raw/mmd_prevalence_2023.csv: CMS Mapping Medicare Disparities, county claims-based prevalence, Original Medicare beneficiaries, 2023 (long: fips, condition, places_measure, fltr, rate). fltr=2 = unsmoothed age-standardized. Whole percentages; 0 likely = suppressed.
+- data/raw/medicare_gv_county_2023.csv: Original Medicare (BENES_OM_CNT) and Medicare Advantage (BENES_MA_CNT) counts per county; '*' = suppressed.
+- data/raw/acs_disability_2023.csv: ACS 2019-2023 disability by type, adults 18+.
+- data/raw/wonder/county_cause_2018_2024.txt and national_age_2018_2024.txt: CDC WONDER deaths 2018-2024 pooled by county x cause and by national 10-year age group x cause (diabetes GR113-046, heart disease GR113-054, cerebrovascular GR113-070, chronic lower respiratory GR113-082). Counts of 9 or fewer appear as "Suppressed" and must never be shown in any output you write. WONDER gives no county age-adjusted rates.
+
+Tasks:
+1. Independently build county standardized mortality ratios by indirect age standardization (national age-specific rates x county person-years by age; use ACS B01001 from data/raw/acs_sf/ for county age structure). Check the construction: do national observed and expected deaths reconcile, how are code changes handled (e.g. Oglala Lakota 46113 -> 46102, Connecticut planning regions), and is indirect standardization appropriate here?
+2. For each pair (11 Medicare conditions vs matching PLACES measures, 6 ACS disability types vs PLACES disability measures, 4 mortality causes vs PLACES diabetes/chd/stroke/copd), with 10-fold CV on the counties both share: raw r; CV R2 of observed ~ demographics + state (+ Medicare Advantage share for Medicare outcomes); CV R2 observed ~ PLACES alone; CV R2 observed ~ demographics + state + PLACES; the gain; partial r. All counties and larger counties (>= 5,000 Original Medicare beneficiaries; >= 20,000 adults; >= 100 expected deaths).
+3. Only after saving your numbers: compare with outputs/expected_vs_observed/places_vs_observed.csv and scripts/expected_vs_observed.py, scripts/build_mortality_smr.py. Report disagreements beyond rounding with causes, and bugs.
+4. Methods (at most 8 findings, most important first): is "PLACES adds little beyond demographics for predicting measured outcomes" a fair conclusion? Consider different populations (Medicare 65+ vs adults 18+), claims prevalence reflecting diagnosis intensity and access, mortality reflecting case fatality and care quality as well as prevalence, SMR noise in small counties, ACS sharing a source with covariates. Recommend how the atlas should compute "expected" and display "observed minus expected" (reliability flags, shrinkage such as empirical Bayes for SMRs, suppression rules).
+
+Write reviews/eo_agy_argon/REPORT.md with your numbers, the comparison, ranked findings, a verdict, and "Shortcuts taken".

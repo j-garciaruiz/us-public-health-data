@@ -10,3 +10,7 @@ reviews/*/agy_run.log
 reviews/codex_astra/*.csv
 !reviews/codex_astra/selected_pairs.csv
 !reviews/codex_astra/benchmark.csv
+reviews/eo_codex_astra/*.csv
+reviews/eo_codex_astra/*.json
+reviews/eo_codex_astra/reviewed_snapshot/
+reviews/*/codex_run.log

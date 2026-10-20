@@ -4,7 +4,14 @@ Source: CMS Mapping Medicare Disparities (MMD) Population tool, data year 2023.
 CMS retired its downloadable chronic-conditions files; the MMD tool now carries
 these data and loads them from a public data.cms.gov endpoint, used here.
 Prevalence is the share of fee-for-service beneficiaries with the condition
-identified by the CMS Chronic Conditions Warehouse claims algorithms.
+identified by the CMS Chronic Conditions Warehouse claims algorithms. CMS
+definitions differ from PLACES: "stroke_tia" includes transient ischemic
+attack, "cancer_4_sites" is breast, colorectal, prostate and lung only, and
+"hyperlipidemia" is a recorded diagnosis, not self-reported high cholesterol.
+
+Rates are whole percentages. A 0 can mean suppression (denominator under 11),
+a positive count below 3 shown as 0%, or a very small rate rounded down; it
+is not a clean suppression flag.
 
 fltr=1 unsmoothed actual, fltr=2 unsmoothed age-standardized.
 Output: data/raw/mmd_prevalence_2023.csv (long: fips, condition, fltr, rate).
@@ -48,6 +55,10 @@ for cond, (name, places) in CONDITIONS.items():
             rows.append({
                 "fips": d["fips"], "condition_code": cond, "condition": name,
                 "places_measure": places, "fltr": fltr, "rate_raw": d.get("rate"),
+                # CMS denominator band for the condition's beneficiary cohort:
+                # 1 = 11-499, 2 = 500-999, 3 = 1,000-4,999, 4 = 5,000-9,999,
+                # 5 = 10,000+ (CMS MMD technical documentation, section 8)
+                "dencat": d.get("dencat"),
             })
         print(name, fltr, len(data))
         time.sleep(0.5)
