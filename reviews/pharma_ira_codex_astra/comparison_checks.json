@@ -1,0 +1,94 @@
+{
+  "checks": [
+    {
+      "table": "partd_per_claim_by_drug",
+      "rows": 1128,
+      "numeric_columns": 8,
+      "result": "MATCH"
+    },
+    {
+      "table": "partd_per_claim_by_group",
+      "rows": 4,
+      "numeric_columns": 6,
+      "result": "MATCH"
+    },
+    {
+      "table": "wac_january_by_group",
+      "rows": 12,
+      "numeric_columns": 5,
+      "result": "MATCH"
+    },
+    {
+      "table": "wac_cut_events",
+      "rows": 83,
+      "numeric_columns": 2,
+      "result": "MATCH"
+    },
+    {
+      "table": "nadac_to_mfp_weekly",
+      "rows": 855,
+      "numeric_columns": 2,
+      "result": "MATCH"
+    },
+    {
+      "table": "nadac_to_mfp_by_drug",
+      "rows": 10,
+      "numeric_columns": 5,
+      "result": "MATCH"
+    }
+  ],
+  "audit": {
+    "ndcs_with_multiple_ipays": 0,
+    "duplicate_qualifying_cut_rows_per_ndc_window": 0,
+    "novolog_sensitivity": [
+      {
+        "mapping": "fixed brief",
+        "claims_2025": 2132339,
+        "claims_2026q1": 738999,
+        "per_claim_2025": 291.8488858009913,
+        "per_claim_2026q1": 208.93600448715085,
+        "change_pct": -28.409524705322287
+      },
+      {
+        "mapping": "exclude NovoLog Mix",
+        "claims_2025": 1920477,
+        "claims_2026q1": 678635,
+        "per_claim_2025": 293.8034702420284,
+        "per_claim_2026q1": 204.41640541675568,
+        "change_pct": -30.42410110120135
+      }
+    ],
+    "generic_or_supply_examples": [
+      {
+        "brand": "ABACAVIR",
+        "generic": "ABACAVIR SULFATE",
+        "group": "Other brands"
+      },
+      {
+        "brand": "ADVOCATE PEN NEEDLES",
+        "generic": "PEN NEEDLE, DIABETIC",
+        "group": "Other brands"
+      },
+      {
+        "brand": "ALBUTEROL SULFATE HFA",
+        "generic": "ALBUTEROL SULFATE",
+        "group": "Other brands"
+      },
+      {
+        "brand": "ALPRAZOLAM ER",
+        "generic": "ALPRAZOLAM",
+        "group": "Other brands"
+      },
+      {
+        "brand": "INSULIN ASPART FLEXPEN",
+        "generic": "INSULIN ASPART",
+        "group": "Other brands"
+      },
+      {
+        "brand": "INSULIN ASPART PENFILL",
+        "generic": "INSULIN ASPART",
+        "group": "Other brands"
+      }
+    ]
+  }
+}

@@ -35,27 +35,27 @@ Cuts on selected drugs (all Januaries):
 
 ## 2. NADAC per unit relative to the 2026 MFP per unit (IPAY 2026 drugs; snapshots 2025-12-31 and 2026-10-21)
 
-| drug | mfp_ndcs | ndcs_dec2025 | ratio_dec2025 | ndcs_latest | ratio_latest | unit |
-|---|---|---|---|---|---|---|
-| ELIQUIS | 12 | 6 | 2.34 | 6 | 1.33 | EA |
-| ENBREL | 23 | 4 | 3.40 | 4 | 3.57 | ML |
-| ENTRESTO | 17 | 7 | 2.16 | 8 | 2.22 | EA |
-| FARXIGA | 17 | 7 | 3.17 | 7 | 1.99 | EA |
-| IMBRUVICA | 8 |  |  |  |  |  |
-| JANUVIA | 19 | 13 | 2.70 | 13 | 2.70 | EA |
-| JARDIANCE | 6 | 6 | 2.96 | 6 | 1.65 | EA |
-| NOVOLOG | 17 | 10 | 2.00 | 10 | 1.00 | ML |
-| STELARA | 9 | 2 | 3.16 | 2 | 3.32 | ML |
-| XARELTO | 23 | 19 | 2.78 | 19 | 2.84 | EA/ML |
+| drug | mfp_ndcs | ndcs_dec2025 | ratio_dec2025 | ndcs_latest | ratio_latest | unit | ratio_latest_same_ndcs |
+|---|---|---|---|---|---|---|---|
+| ELIQUIS | 12 | 6 | 2.34 | 6 | 1.33 | EA | 1.33 |
+| ENBREL | 23 | 4 | 3.40 | 4 | 3.57 | ML | 3.57 |
+| ENTRESTO | 17 | 7 | 2.16 | 8 | 2.22 | EA | 2.22 |
+| FARXIGA | 17 | 7 | 3.17 | 7 | 1.99 | EA | 1.99 |
+| IMBRUVICA | 8 |  |  |  |  |  |  |
+| JANUVIA | 19 | 13 | 2.70 | 13 | 2.70 | EA | 2.70 |
+| JARDIANCE | 6 | 6 | 2.96 | 6 | 1.65 | EA | 1.65 |
+| NOVOLOG | 17 | 10 | 2.00 | 10 | 1.00 | ML | 1.00 |
+| STELARA | 9 | 2 | 3.16 | 2 | 3.32 | ML | 3.32 |
+| XARELTO | 23 | 19 | 2.78 | 19 | 2.84 | EA/ML | 2.84 |
 
 ## 3. Gross Part D spending per claim, 2025 vs 2026 Q1
 
 | group | drug_families | median_pct_change | p25 | p75 | pooled_pct_change | share_falling_30pct_or_more |
 |---|---|---|---|---|---|---|
-| IPAY 2026 | 10 | -63.7% | -68.1% | -57.6% | -61.7% | 90% |
+| IPAY 2026 | 10 | -63.7% | -68.1% | -57.6% | -61.7% | 100% |
 | IPAY 2027 | 15 | +2.4% | +0.8% | +3.6% | +4.3% | 7% |
 | IPAY 2028 | 15 | +1.7% | +0.0% | +3.9% | +13.2% | 0% |
-| Other brands | 1,088 | +0.3% | -3.9% | +3.5% | +7.2% | 2% |
+| Other brands | 831 | +0.8% | -2.3% | +3.6% | +9.5% | 1% |
 
 IPAY 2026 drug families:
 
@@ -68,6 +68,6 @@ IPAY 2026 drug families:
 | IMBRUVICA | 146,696 | 32,041 | $16,055 | $9,646 | -39.9% | -12.6% |
 | JANUVIA | 3,868,076 | 913,473 | $556 | $214 | -61.5% | -5.5% |
 | JARDIANCE | 13,826,680 | 3,461,230 | $1,091 | $387 | -64.5% | +0.1% |
-| NOVOLOG | 2,132,339 | 738,999 | $292 | $209 | -28.4% | +38.6% |
+| NOVOLOG | 1,920,477 | 678,635 | $294 | $204 | -30.4% | +41.3% |
 | STELARA | 120,962 | 17,003 | $26,682 | $8,425 | -68.4% | -43.8% |
 | XARELTO | 6,511,197 | 1,465,876 | $1,006 | $374 | -62.8% | -9.9% |

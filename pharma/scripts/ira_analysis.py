@@ -23,7 +23,17 @@ ROOT = Path(__file__).resolve().parents[2]
 RAW = ROOT / "data" / "raw" / "pharma"
 OUT = ROOT / "pharma" / "outputs" / "ira"
 GROUPS = ["IPAY 2026", "IPAY 2027", "IPAY 2028", "Other brands"]
+# Part D brand names that start with a selected name but are different products whose NDCs are not
+# on the CMS selected list (NovoLog Mix 70/30 is premixed insulin aspart protamine). Reviewed 2026-10-20.
+NOT_SELECTED = ("NOVOLOG MIX",)
+# Part D rows that are supplies, not drugs (generic-name keywords); excluded from the comparator.
+SUPPLY = r"NEEDLE|SYRINGE|LANCET|TEST STRIP|DIAGNOSTIC|GLUCOSE|SENSOR|SUPPL|SWAB|ALCOHOL PREP"
 CUT = -20.0  # a WAC cut of 20% or more counts as a large list-price cut
+DISPLAY = {"NOVOLOG": "NovoLog, Fiasp"}  # family label in charts (the CMS entry covers both brands)
+
+
+def label(drug):
+    return DISPLAY.get(drug, drug.title())
 
 
 def load_ira():
@@ -78,7 +88,9 @@ def wac_january(nadac, grp):
                          "share_cut": u.cut.mean() if len(u) else float("nan"),
                          "ndcs_with_wac_increase": int(u.any_increase.sum()),
                          "share_increase": u.any_increase.mean() if len(u) else float("nan")})
-        ev = w[w.NDC.isin(uni.NDC)].merge(uni[["NDC", "group", "drug"]], on="NDC")
+        # One event per NDC and window: its most negative WAC-based change.
+        ev = w.sort_values("pct").drop_duplicates("NDC")
+        ev = ev[ev.NDC.isin(uni.NDC)].merge(uni[["NDC", "group", "drug"]], on="NDC")
         ev = ev[ev.pct <= CUT]
         ev["january"] = year
         events.append(ev)
@@ -99,12 +111,15 @@ def nadac_vs_mfp(nadac, ira):
     x = nadac.merge(m26, left_on="NDC", right_on="ndc11")
     x["ratio"] = x.nadac / x.mfp_unit
     weekly = x.groupby(["drug", "as_of"]).agg(ndcs=("NDC", "nunique"), median_ratio=("ratio", "median")).reset_index()
+    assert not x.duplicated(["NDC", "as_of"]).any()
     last25 = x[x.as_of == x[x.as_of.dt.year == 2025].as_of.max()]
-    last26 = x[x.as_of == x.as_of.max()]
+    last26 = x[x.as_of == x[x.as_of.dt.year == 2026].as_of.max()]
+    both = last26[last26.NDC.isin(last25.NDC)]  # constant-NDC sensitivity
     by_drug = (m26.groupby("drug").agg(mfp_ndcs=("ndc11", "nunique")).join(
         last25.groupby("drug").agg(ndcs_dec2025=("NDC", "nunique"), ratio_dec2025=("ratio", "median"))).join(
         last26.groupby("drug").agg(ndcs_latest=("NDC", "nunique"), ratio_latest=("ratio", "median"),
-                                   unit=("Pricing Unit", lambda s: "/".join(sorted(s.unique()))))).reset_index())
+                                   unit=("Pricing Unit", lambda s: "/".join(sorted(s.unique()))))).join(
+        both.groupby("drug").agg(ratio_latest_same_ndcs=("ratio", "median"))).reset_index())
     return weekly, by_drug, last26.as_of.max(), last25.as_of.max()
 
 
@@ -125,14 +140,33 @@ def partd_per_claim(ira):
     names = pd.DataFrame(names, columns=["name", "drug", "group"]).sort_values("group").drop_duplicates("name")
 
     def family(b):
+        if b.startswith(NOT_SELECTED):
+            return (None, None)
         hits = names[(names.name == b) | names.name.map(lambda n: b.startswith(n + " "))]
         return (hits.iloc[0].drug, hits.iloc[0].group) if len(hits) else (None, None)
+
+    # Active ingredients of every selected drug; unbranded or authorized-generic rows of these
+    # ingredients are kept out of the comparator (their selected/unselected status is not resolvable
+    # from drug-level rows).
+    comps = []
+    for ing in ira["Active Ingredient Name or Active Moiety Name"].dropna().str.upper().unique():
+        ing = ing.replace(", HUMAN", "").replace("SACUBITRILAT", "SACUBITRIL")
+        comps.append([c.strip() for c in ing.replace("/", ";").split(";") if c.strip()])
+
+    def selected_ingredient(g):
+        return any(all(c in g for c in cs) for cs in comps)
 
     fam = {b: family(b) for b in q.B.unique()}
     q["drug"] = q.B.map(lambda b: fam[b][0])
     q["group"] = q.B.map(lambda b: fam[b][1])
-    # Other brands: brand name differs from generic name; not a selected drug.
-    other = q.drug.isna() & (q.B != q.Gnrc_Name.str.upper().str.strip())
+    # Other brands (name-based): brand string differs from the generic string, the brand's first word
+    # is not part of the generic name (drops "Abacavir" vs "Abacavir Sulfate", "Alprazolam ER"),
+    # not a supply, and not a selected ingredient.
+    G = q.Gnrc_Name.str.upper().str.strip()
+    first = q.B.str.extract(r"^([A-Z0-9-]+)", expand=False).fillna("")
+    first_in_generic = [f in g.replace("/", " ").replace(",", " ").split() for f, g in zip(first, G)]
+    other = (q.drug.isna() & (q.B != G) & ~pd.Series(first_in_generic, index=q.index)
+             & ~G.str.contains(SUPPLY, regex=True) & ~G.map(selected_ingredient))
     q.loc[other, "drug"] = q.loc[other, "Brnd_Name"]
     q.loc[other, "group"] = "Other brands"
     q = q.dropna(subset=["drug"])
@@ -164,7 +198,7 @@ def chart_ratio(weekly, path, mfp_start):
     for drug, g in weekly.groupby("drug"):
         g = g[g.ndcs > 0].sort_values("as_of")
         line, = ax.plot(g.as_of, g.median_ratio, lw=1.6)
-        ends.append((g.median_ratio.iloc[-1], drug.title(), line.get_color(), g.as_of.iloc[-1]))
+        ends.append((g.median_ratio.iloc[-1], label(drug), line.get_color(), g.as_of.iloc[-1]))
     # Direct labels at the right end, nudged apart when lines finish close together.
     ends.sort()
     placed = []
@@ -198,7 +232,7 @@ def chart_partd(agg, grp, path):
     ys = range(len(sel))
     ax.scatter(sel.chg_per_claim * 100, list(ys), c=sel.group.map(colors), s=28, zorder=3)
     ax.set_yticks(list(ys))
-    ax.set_yticklabels([d.title() for d in sel.drug], fontsize=8)
+    ax.set_yticklabels([label(d) for d in sel.drug], fontsize=8)
     ax.axvline(0, color="black", lw=0.8)
     ax.set_xlabel("Change in gross Part D spending per claim, 2025 to 2026 Q1 (%)")
     ax.set_title("Medicare's negotiated prices show up in Part D spending per claim",
@@ -271,7 +305,7 @@ def main():
         "",
         f"## 2. NADAC per unit relative to the 2026 MFP per unit (IPAY 2026 drugs; snapshots {last25.date()} and {last26.date()})",
         "",
-        md(by_drug.astype({"ndcs_dec2025": "Int64", "ndcs_latest": "Int64"}), ratio_cols=["ratio_dec2025", "ratio_latest"]),
+        md(by_drug.astype({"ndcs_dec2025": "Int64", "ndcs_latest": "Int64"}), ratio_cols=["ratio_dec2025", "ratio_latest", "ratio_latest_same_ndcs"]),
         "",
         "## 3. Gross Part D spending per claim, 2025 vs 2026 Q1",
         "",

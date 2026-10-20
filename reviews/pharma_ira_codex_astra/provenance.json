@@ -1,0 +1,17 @@
+{
+  "saved_utc": "2026-10-20T18:06:44.350932+00:00",
+  "snapshot_dates": {
+    "2024": "2024-12-25",
+    "2025": "2025-12-31",
+    "2026": "2026-10-21"
+  },
+  "sha256": {
+    "data/raw/pharma/ira/selected_drugs_mfp.csv": "2cb50b9ed03b1362cdd4a9623d51a5b1bea73e204bf463412ee9ac0392ae2455",
+    "data/raw/pharma/ira/selected_drugs_mfp.zip": "6fa6b047bd20b0dc3dc8c8aa554a2c133aa95511efaa021dc7a669ea109d0ed1",
+    "data/raw/pharma/partd/partd_spending_quarterly.csv": "e4e9df4d4c9334a2da61d9256302c7fc123ef8dfd073dbee7956aba1c58fbad8",
+    "data/raw/pharma/nadac/nadac_2024.csv": "f9ed76c6c40402c061052f362e2ffaf0fe287b949106ba4948bd90635a8f4491",
+    "data/raw/pharma/nadac/nadac_2025.csv": "317c0387d2005b18ade760029bf61b3ff5a3aab74ef96e322d319432c410ed80",
+    "data/raw/pharma/nadac/nadac_2026.csv": "62205340628b7e313534c22e963a9f5e47495c621f9c115180f761b2256ceed8",
+    "data/raw/pharma/nadac/nadac_comparison.csv": "0d1ffcd48fbce1dc09109515f7dcc3de55d6c7e04385b2adfdeff2120d15e05d"
+  }
+}

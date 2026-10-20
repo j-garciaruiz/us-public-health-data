@@ -1,0 +1,101 @@
+Maximum Fair Price File Layout
+September 2025
+Field
+Size 
+Position
+Remark
+IPAY
+4
+1-4
+YYYY
+Selected Drug Name
+100
+5-104
+See data field definitions
+Active Ingredient Name or Active Moiety Name
+100
+105-204
+See data field definitions
+NDC-9
+10
+205-214
+The first 9-digits of the National Drug Code (with dash)
+NDC-11
+13
+215-227
+11-digit National Drug Code (with dashes)
+XREF NDC-11
+13
+228-240
+See data field definitions
+HCPCS Code
+5
+241-245
+See data field definitions
+MFP Effective Date
+10
+246-255
+MM/DD/YYYY
+MFP End Date
+10
+256-265
+MM/DD/YYYY
+Single MFP per 30 DES
+14
+266-279
+$NN,NNN,NNN.NN
+NDC-9 MFP per Unit Price
+18
+280-297
+$NN,NNN,NNN.NNNNNN
+HCPCS Code Dosage Price
+18
+298-315
+$NN,NNN,NNN.NNNNNN
+As of date
+10
+316-325
+MM/DD/YYYY
+Type of Update
+9
+326-334
+See data field definitions
+Remarks
+100
+335-434
+See data field definitions
+
+Maximum Fair Price File Field Definitions
+
+IPAY:
+The initial price applicability year of the selected drug.
+Selected Drug Name:
+Drug name(s) or proprietary name(s) on the application/approval; Drugs@FDA or Purple Book.
+Active Ingredient Name or Active Moiety Name:
+RxNorm Ingredient (IN) name associated with NDCs licensed by BLAs; Active moiety Unique Ingredient Identifier (UNII) mapped through IN UNII for NDCs approved by NDAs/ANDAs
+NDC-9:
+The first 9-digits of the National Drug Code (Labeler Code segment and Product Code segment) with the two segments separated by a dash.
+NDC-11:
+The 11-digit National Drug Code (Labeler Code segment, Product Code segment, and Package Size Code segment) with segments separated by dashes.
+XREF NDC-11:
+An optional field reserved to reference an older NDC-11 to facilitate tracking of situations where an NDC is replaced by another NDC.
+HCPCS Code:
+Healthcare Common Procedure Code System codes comprise a standardized coding system used to process claims in an orderly and consistent manner. Only applicable to the MFP file for selected drugs in IPAY 2028 drugs and beyond.
+MFP Effective Date:
+The date which a particular single maximum fair price first applied to the NDC.
+MFP End Date:
+The date which a particular single maximum fair price last applied to the NDC.
+Single MFP per 30 DES:
+The single maximum fair price per 30-day equivalent supply (30 DES) of the selected drug.
+NDC-9 MFP per Unit Price:
+The single maximum fair price applied to the NDC-9 per unit.
+HCPCS Code Dosage Price:
+The single maximum fair price per billing unit for each HCPCS associated with the selected drug based on the list of HCPCS codes determined pursuant to section 40.2 of Final Guidance.
+As of date:
+The date the record was added to the file.
+Type of Update:
+Whether the record was added or updated, or whether the record was not changed from last maximum fair price file update.
+
+Remarks:
+
+An explanation of latest update made to the record.
