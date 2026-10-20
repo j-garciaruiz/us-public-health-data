@@ -15,6 +15,7 @@ import re
 import urllib.parse
 import urllib.request
 
+import numpy as np
 import pandas as pd
 
 KEY = os.environ["CENSUS_API_KEY"]
@@ -56,9 +57,21 @@ for table, name in TABLES.items():
             tot_cols.append(var)
         elif parts[4].startswith("With a"):
             yes_cols.append(var)
-    rate = 100 * num[yes_cols].sum(axis=1) / num[tot_cols].sum(axis=1)
+    yes, den = num[yes_cols].sum(axis=1), num[tot_cols].sum(axis=1)
+    rate = 100 * yes / den
+    # 90% margin of error of the proportion (Census ACS handbook): sum MOEs in
+    # quadrature, then the proportion formula; fall back to the ratio formula
+    # when the term under the root is negative.
+    moe = df[[c[:-1] + "M" for c in yes_cols + tot_cols]].apply(pd.to_numeric, errors="coerce").abs()
+    moe_yes = np.sqrt((moe[[c[:-1] + "M" for c in yes_cols]] ** 2).sum(axis=1))
+    moe_den = np.sqrt((moe[[c[:-1] + "M" for c in tot_cols]] ** 2).sum(axis=1))
+    p = yes / den
+    rad = moe_yes**2 - p**2 * moe_den**2
+    rad = rad.where(rad >= 0, moe_yes**2 + p**2 * moe_den**2)
+    rate_moe = 100 * np.sqrt(rad) / den
     print(table, name, "age groups used:", len(tot_cols), "with-difficulty cells:", len(yes_cols))
-    out = rate.rename(f"acs_{name}").to_frame() if out is None else out.join(rate.rename(f"acs_{name}"))
+    block = pd.DataFrame({f"acs_{name}": rate, f"acs_{name}_moe": rate_moe})
+    out = block if out is None else out.join(block)
 
 # any disability is not in these tables by age 18+ without double counting; skip
 out.index.name = "fips"

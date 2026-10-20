@@ -69,10 +69,15 @@ cty = read_wonder("data/raw/wonder/county_cause_2018_2024.txt")
 # WONDER keeps some pre-change county codes. Oglala Lakota County, SD was
 # Shannon County (46113) until 2015; its current code is 46102. Connecticut's
 # old counties (09001-09015) cannot be mapped to the 2022+ planning regions
-# used by ACS and PLACES, and two Alaska codes split; those stay unmatched.
-cty["fips"] = cty["County Code"].replace({"46113": "46102"})
+# used by ACS and PLACES, and Valdez-Cordova (02261) split in 2019 into 02063
+# and 02066; those stay unmatched. Kusilvak Census Area, AK was Wade Hampton
+# (02270) until 2015, a rename with identical boundaries (Agy review, bug 2).
+cty["fips"] = cty["County Code"].replace({"46113": "46102", "02270": "02158"})
 cty["cause"] = cty["UCD - ICD-10 113 Cause List Code"].map(CAUSE)
 cty["observed"] = pd.to_numeric(cty["Deaths"], errors="coerce")  # "Suppressed" -> NaN
+# WONDER prints 1-9 as "Suppressed" but shows zero deaths as 0. Zero is also a
+# count of 9 or fewer, so it is suppressed here too (NCHS rule; Agy review, bug 1).
+cty.loc[cty["observed"] <= 9, "observed"] = np.nan
 cty["person_years"] = pd.to_numeric(cty["Population"], errors="coerce")
 cty = cty.dropna(subset=["cause"])
 
@@ -85,6 +90,19 @@ for _, r in cty.iterrows():
     out.append({"fips": r["fips"], "cause": r["cause"], "observed": r["observed"],
                 "expected": expected, "person_years": r["person_years"]})
 smr = pd.DataFrame(out)
+# The ACS 2019-2023 age structure is slightly younger at 75-84 than WONDER's
+# 2018-2024 person-years, so raw expected deaths run about 1% low nationally
+# (Agy review, section 2.2). Rescale each cause so expected deaths over all
+# matched counties (suppressed ones included) equal observed national deaths
+# of known age; SMRs are then centered on the national rate.
+known_age = nat.groupby("cause")["deaths"].sum()
+# Remove deaths in counties that cannot be matched (Connecticut's old
+# counties, Valdez-Cordova), so the target covers the same counties as the sum.
+unmatched = cty[~cty["fips"].isin(age_share.index)].groupby("cause")["observed"].sum()
+target = known_age - unmatched.reindex(known_age.index).fillna(0)
+scale = target / smr.groupby("cause")["expected"].sum()
+smr["expected"] = smr["expected"] * smr["cause"].map(scale)
+print("expected-death rescaling factors:", scale.round(4).to_dict())
 smr["smr"] = smr["observed"] / smr["expected"]
 smr["suppressed"] = smr["observed"].isna()
 smr.to_csv("data/raw/wonder_county_smr.csv", index=False)
