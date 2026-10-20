@@ -14,3 +14,12 @@ reviews/eo_codex_astra/*.csv
 reviews/eo_codex_astra/*.json
 reviews/eo_codex_astra/reviewed_snapshot/
 reviews/*/codex_run.log
+# reviewer working data (reports and scripts stay tracked)
+reviews/**/*.csv
+reviews/**/*.json
+reviews/**/*.html
+reviews/**/reviewed_snapshot/
+reviews/**/*.log
+# regenerable outputs
+outputs/atlas/*.csv
+outputs/expected_vs_observed/observed_minus_expected_by_county.csv

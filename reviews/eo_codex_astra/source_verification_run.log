@@ -1,8 +1,0 @@
-All requested CMS series exact: 71302
-  measure    n  numerator_cells  denominator_cells  max_abs_error
-  hearing 3222                8                  8   1.776357e-15
-   vision 3222                8                  8   3.552714e-15
-cognition 3222                8                  8   1.776357e-15
- mobility 3222                8                  8   7.105427e-15
- selfcare 3222                8                  8   1.776357e-15
-indeplive 3222                8                  8   3.552714e-15
