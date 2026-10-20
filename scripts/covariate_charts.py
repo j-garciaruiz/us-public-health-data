@@ -65,7 +65,7 @@ for s in ["top", "right", "left"]:
     ax.spines[s].set_visible(False)
 ax.tick_params(axis="y", length=0)
 ax.set_xlabel("Share of county-to-county variation reproduced by the inputs\n(10-fold cross-validated R²)")
-fig.text(0.02, 0.985, "Almost every PLACES county map can be rebuilt from demographics", fontsize=14,
+fig.text(0.02, 0.985, "Almost every PLACES county map can be reconstructed from demographics and state", fontsize=14,
          weight="bold", color=INK, va="top")
 fig.text(0.02, 0.962, "Each PLACES measure (blue) regressed on county age, sex, race/ethnicity, education, "
          "poverty and state.\nThe same inputs explain much less of a directly measured rate (orange).",
@@ -98,12 +98,12 @@ def resid(col):
 x_raw, y_raw = df.foodinsecu_adjprev.values, df.diabetes_adjprev.values
 x_res, y_res = x_raw.mean() + resid("foodinsecu_adjprev"), y_raw.mean() + resid("diabetes_adjprev")
 r_raw, r_res = np.corrcoef(x_raw, y_raw)[0, 1], np.corrcoef(x_res, y_res)[0, 1]
-share = r_res * np.std(x_res - x_raw.mean()) * np.std(y_res - y_raw.mean()) / (r_raw * np.std(x_raw) * np.std(y_raw))
+share = np.cov(x_res, y_res)[0, 1] / np.cov(x_raw, y_raw)[0, 1]
 
 fig, axes = plt.subplots(1, 2, figsize=(10, 5.2), sharex=True, sharey=True)
 for ax, xv, yv, title in [
     (axes[0], x_raw, y_raw, f"As published: r = {r_raw:.2f}"),
-    (axes[1], x_res, y_res, "After removing the model's inputs\n(what is left, around the averages)"),
+    (axes[1], x_res, y_res, "After removing county demographics and state\n(what is left, around the averages)"),
 ]:
     ax.scatter(xv, yv, s=9, color=BLUE, alpha=0.45, linewidth=0)
     ax.set_title(title, loc="left", fontsize=11, color=INK)
@@ -115,10 +115,10 @@ for ax, xv, yv, title in [
     ax.xaxis.set_major_formatter(lambda v, _: f"{v:.0f}%")
     ax.yaxis.set_major_formatter(lambda v, _: f"{v:.0f}%")
 axes[0].set_ylabel("Diabetes, % of adults (age-adjusted)")
-axes[1].annotate(f"Left-over spread is tiny: {share*100:.1f}% of the\noriginal association remains",
+axes[1].annotate(f"{share*100:.1f}% of the raw covariance remains\n(residual correlation r = {r_res:.2f})",
                  (x_raw.mean(), y_raw.mean()), xytext=(x_raw.mean() + 4, y_raw.mean() + 6),
                  color=INK, fontsize=9.5, arrowprops=dict(arrowstyle="-", color=INK2, lw=0.8))
-fig.text(0.02, 0.985, "Diabetes and food insecurity look tightly linked, but the link is the model's inputs",
+fig.text(0.02, 0.985, "Demographics and state reproduce almost all of the diabetes and food insecurity pattern",
          fontsize=13, weight="bold", color=INK, va="top")
 fig.text(0.02, 0.012, f"CDC PLACES 2025, {len(df):,} counties in states that fielded the social-needs questions. Same axes in both panels.\n"
          "Inputs removed: county age, sex, race/ethnicity, education, adults below 150% of poverty, and state.",

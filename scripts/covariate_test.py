@@ -6,12 +6,18 @@ effects. Two measures built from the same ingredients will correlate across
 counties even if nothing else links them (Kong & Zhang 2020, AJPH).
 
 Test: regress each PLACES measure on county versions of those inputs plus
-state fixed effects, then correlate the residuals (partial correlation). The
-residual is what the inputs do not explain: mostly the county random effect,
-plus approximation error. Because our covariates only approximate the model's
-inputs (marginal shares, not the joint cells; race for all ages, not adults),
-some input-driven variation stays in the residuals, so partial correlations
-here are, if anything, an upper bound on the part beyond the inputs.
+state fixed effects. Report how much of each measure's county-to-county
+variation the inputs reproduce (in-sample and 10-fold cross-validated R2),
+and, for every pair of measures, the correlation of the residuals (partial r)
+and the share of the raw covariance left in the residuals, both computed on
+the counties the two measures share.
+
+What this shows, and what it does not (see reviews/codex_astra/REPORT.md):
+it measures how far the PUBLISHED estimates can be reconstructed from
+demographics plus state. It does not show that the underlying health
+relationships are spurious, that demographics alone explain the state
+component, or what the residual is made of (county random effect,
+approximation error and timing differences cannot be separated here).
 
 Benchmark: PLACES lack of insurance (ages 18-64) vs a directly measured ACS
 uninsurance rate (19-64), run through the same procedure.
@@ -74,14 +80,25 @@ def resid_r2(y, X):
 
 
 def cv_r2(y, X, k=10, seed=0):
-    """Out-of-sample R2 (k-fold), to rule out overfitting by ~70 parameters."""
+    """Out-of-sample R2 (k-fold), to rule out overfitting by ~70 parameters.
+
+    A held-out county whose state has no training counties (only DC can do
+    this) gets the training-county-weighted average state effect, instead of
+    silently inheriting the reference state's effect.
+    """
     idx = np.random.default_rng(seed).permutation(len(y))
     pred = np.empty(len(y))
-    Xv, yv = X.values, y.values
+    Xv, yv = X.values.copy(), y.values
+    st = np.array([c.startswith("st_") for c in X.columns])
     for f in np.array_split(idx, k):
         tr = np.setdiff1d(idx, f)
         beta, *_ = np.linalg.lstsq(Xv[tr], yv[tr], rcond=None)
-        pred[f] = Xv[f] @ beta
+        Xf = Xv[f].copy()
+        unseen = st & (Xv[tr].sum(axis=0) == 0)
+        if unseen.any():
+            hit = (Xf[:, unseen] == 1).any(axis=1)
+            Xf[np.ix_(hit, st)] = Xv[tr][:, st].mean(axis=0)
+        pred[f] = Xf @ beta
     return 1 - ((yv - pred) ** 2).sum() / ((yv - yv.mean()) ** 2).sum()
 
 
@@ -112,18 +129,21 @@ def analyse(kind):
         ya = pd.to_numeric(df[cols[a]], errors="coerce")
         yb = pd.to_numeric(df[cols[b]], errors="coerce")
         common = ya.dropna().index.intersection(yb.dropna().index)
-        raw = np.corrcoef(ya[common], yb[common])[0, 1]
-        ra, rb = resid[a], resid[b]
-        cr = ra.index.intersection(rb.index)
-        part = np.corrcoef(ra[cr], rb[cr])[0, 1]
-        pairs.append({"a": a, "b": b, "n": len(common), "raw_r": raw, "partial_r": part})
+        ya, yb = ya[common], yb[common]
+        raw = np.corrcoef(ya, yb)[0, 1]
+        # Refit both measures on the SAME counties (Codex review, bug 1)
+        X = design(common)
+        ra, _ = resid_r2(ya, X)
+        rb, _ = resid_r2(yb, X)
+        part = np.corrcoef(ra, rb)[0, 1]
+        # Residual covariance as a share of raw covariance, computed directly
+        # on the common sample (Codex review, bug 2)
+        share = np.cov(ra, rb)[0, 1] / np.cov(ya, yb)[0, 1]
+        pairs.append({
+            "a": a, "b": b, "n": len(common), "raw_r": raw, "partial_r": part,
+            "cov_share_remaining": share,
+        })
     pairs = pd.DataFrame(pairs)
-    # Share of each correlation NOT carried by the inputs: the residual
-    # covariance as a fraction of the raw covariance.
-    left = 1 - r2.set_index("measure")["inputs_plus_state"]
-    pairs["share_beyond_inputs"] = (
-        pairs.partial_r * np.sqrt(pairs.a.map(left) * pairs.b.map(left)) / pairs.raw_r
-    )
     return r2, pairs, resid
 
 
@@ -147,9 +167,9 @@ for kind in ["adjprev", "crudeprev"]:
         f"pairs with |raw r|>=0.7: {(pairs.raw_r.abs()>=0.7).sum()}, "
         f"of those with |partial r|>=0.7: {((pairs.raw_r.abs()>=0.7)&(pairs.partial_r.abs()>=0.7)).sum()}; "
         f"sign flips: {(np.sign(pairs.raw_r)!=np.sign(pairs.partial_r)).sum()}; "
-        f"share of association beyond inputs, pairs |raw r|>=0.7: median "
-        f"{pairs.loc[pairs.raw_r.abs()>=0.7,'share_beyond_inputs'].median():.3f}, max "
-        f"{pairs.loc[pairs.raw_r.abs()>=0.7,'share_beyond_inputs'].max():.3f}\n"
+        f"share of raw covariance remaining, pairs |raw r|>=0.7: median "
+        f"{pairs.loc[pairs.raw_r.abs()>=0.7,'cov_share_remaining'].median():.3f}, max "
+        f"{pairs.loc[pairs.raw_r.abs()>=0.7,'cov_share_remaining'].max():.3f}\n"
     )
     print(s)
     summary_lines.append(s)

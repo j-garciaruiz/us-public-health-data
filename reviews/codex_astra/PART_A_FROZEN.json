@@ -1,0 +1,28 @@
+{
+  "frozen_utc": "2026-10-20T12:05:31.220151+00:00",
+  "files_sha256": {
+    "replicate.py": "d3972140f4fba754b7045a7da0ca245b05d53b7e7e9505ef76fd6e15ecb681cd",
+    "B01001_county_estimates.csv": "d73eb5c3cd701d7a51fc0f861c80abf210e1a49b606e38f40d9bd70e8e4aa971",
+    "B03002_county_estimates.csv": "fc8b82a19263ad0959ccf9ccb45d840e0d2f84fae9d13a9bd989af838907f312",
+    "B15003_county_estimates.csv": "5e194f55c54901d2f29d3d22d6493da5f3f7f0df33c9746eb95de7e168006cb4",
+    "B17024_county_estimates.csv": "315719285f333a962d4ab9a7aaebd194ba62a95e09f1cc3bec47a7364707aacb",
+    "B27010_county_estimates.csv": "c225dfb4d0046604a9aab24adfd91ecb49136e40f26481e1f70f72649239a9ed",
+    "analysis_data.csv": "503c2d6aaae4d9e244be32262d67d59fdefc8303e13bc8fae2ced831f9ca7dbb",
+    "benchmark.csv": "730719437cdbb2a954f71c9ca1b278e000ddd607b437372694ab95d5b39c5f43",
+    "benchmark_cv_folds_0.csv": "1863e3ca6eaa022cac1615aeb09c293e00f54372912f8c78c52a82e28614dbc5",
+    "benchmark_cv_folds_20000.csv": "05c154bdaf8dcf4171f02b51071df674701337a72c7ed4f7f0d5660b6f323d29",
+    "covariates.csv": "406c456e0e55d40170842f12f23b5f0de83a76f2a2c715cfd7463a8c200d9668",
+    "cv_folds.csv": "74f4a24d82f1526b0d7d072423acbea5785fc422ffb01ac83cd097e970d64e84",
+    "join_audit.csv": "7139ac4466db59cf6a1629c9dad43878c1f961bb40805362fb3baad0dcd1b7cb",
+    "measure_r2.csv": "c350aa4ad483fb404abecfedb7f08c8aeec7908d5b1042347de403c0e0020445",
+    "pair_correlations.csv": "d0f1e2760a7f481442e2f0835267cd4bf6eb146c1403055be16728c1b321f74b",
+    "predictions.csv": "15a784a82e2e3a73679217eabba44a56bfa5402cc72512a88269cee7d48efd19",
+    "selected_pairs.csv": "ffc2056c96739c85c06ac4e98875a37e519b05cb58632161aa4783faab6143a8",
+    "variable_mapping.csv": "b6330c2e0feb2d275a4e0983e06fcaf73c7a6dd8c89388e76fcd08dcfc1ff8d5",
+    "B01001_metadata.json": "361dab49e9df46d0bf6a80f46cdb4e7c1185b8ff475cef1968616ec630c027a9",
+    "B03002_metadata.json": "4ff54af6df4255bdae85a9031ba053dfa845dfdd32739c0b61562155615ccfed",
+    "B15003_metadata.json": "9c008c3c965be93504d9e26288ae7026095e8a72ca1830c99abac9d17471ecdb",
+    "B17024_metadata.json": "699081a071728c2ba1ec767bf02de8f809fde68b9f54d7efefe84d0983137018",
+    "B27010_metadata.json": "f713d80aa1b67e58b248c59eee92f657da3408b6c360dc9af9060fb3219c18bf"
+  }
+}

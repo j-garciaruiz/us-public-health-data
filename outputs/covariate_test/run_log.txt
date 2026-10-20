@@ -3,7 +3,7 @@ PLACES counties without ACS match: [] 0
 
 === adjprev ===
 R2 of measures on inputs + state: median 0.97 (range 0.74-0.99); inputs only median 0.83; state only median 0.52; flexible median 0.98; out-of-sample (10-fold) median 0.971 (min 0.726)
-Pairs: 780; median |raw r| 0.60, median |partial r| 0.16; pairs with |raw r|>=0.7: 279, of those with |partial r|>=0.7: 65; sign flips: 57; share of association beyond inputs, pairs |raw r|>=0.7: median 0.014, max 0.038
+Pairs: 780; median |raw r| 0.60, median |partial r| 0.16; pairs with |raw r|>=0.7: 279, of those with |partial r|>=0.7: 65; sign flips: 57; share of raw covariance remaining, pairs |raw r|>=0.7: median 0.014, max 0.038
 
      measure  n_counties  state_only  inputs_only  inputs_plus_state  inputs_plus_state_cv  flexible_plus_state
    cognition        2956        0.54         0.84               0.99                  0.98                 0.99
@@ -43,13 +43,13 @@ Pairs: 780; median |raw r| 0.60, median |partial r| 0.16; pairs with |raw r|>=0.
   loneliness        2299        0.70         0.67               0.89                  0.88                 0.89
 colon_screen        3143        0.53         0.61               0.84                  0.83                 0.84
        sleep        3143        0.60         0.59               0.83                  0.82                 0.83
-     obesity        2956        0.49         0.62               0.81                  0.81                 0.82
+     obesity        2956        0.49         0.62               0.81                  0.80                 0.82
    teethlost        3143        0.35         0.72               0.76                  0.75                 0.77
     mammouse        3143        0.55         0.43               0.74                  0.73                 0.75
 
 === crudeprev ===
 R2 of measures on inputs + state: median 0.96 (range 0.75-0.99); inputs only median 0.85; state only median 0.45; flexible median 0.97; out-of-sample (10-fold) median 0.962 (min 0.729)
-Pairs: 780; median |raw r| 0.52, median |partial r| 0.17; pairs with |raw r|>=0.7: 201, of those with |partial r|>=0.7: 45; sign flips: 128; share of association beyond inputs, pairs |raw r|>=0.7: median 0.018, max 0.042
+Pairs: 780; median |raw r| 0.52, median |partial r| 0.17; pairs with |raw r|>=0.7: 201, of those with |partial r|>=0.7: 46; sign flips: 128; share of raw covariance remaining, pairs |raw r|>=0.7: median 0.017, max 0.042
 
      measure  n_counties  state_only  inputs_only  inputs_plus_state  inputs_plus_state_cv  flexible_plus_state
    cognition        2956        0.54         0.85               0.99                  0.98                 0.99
@@ -72,7 +72,7 @@ Pairs: 780; median |raw r| 0.52, median |partial r| 0.17; pairs with |raw r|>=0.
     selfcare        2956        0.33         0.96               0.97                  0.97                 0.98
         copd        2956        0.35         0.92               0.97                  0.96                 0.98
          lpa        2956        0.50         0.82               0.97                  0.96                 0.97
-  cholscreen        2956        0.37         0.76               0.96                  0.95                 0.97
+  cholscreen        2956        0.37         0.76               0.96                  0.96                 0.97
       dental        3143        0.79         0.56               0.96                  0.96                 0.96
      hearing        2956        0.34         0.85               0.96                  0.96                 0.97
     diabetes        2956        0.39         0.90               0.96                  0.96                 0.97
@@ -94,13 +94,13 @@ colon_screen        3143        0.50         0.67               0.86            
     mammouse        3143        0.55         0.44               0.75                  0.73                 0.75
 
 Highlighted pairs (age-adjusted):
-                    pair      n  raw_r  partial_r  share_beyond_inputs
-  diabetes ~ foodinsecu 2299.0   0.94       0.61                 0.01
-    diabetes ~ lacktrpt 2299.0   0.91       0.60                 0.01
+                    pair      n  raw_r  partial_r  cov_share_remaining
+  diabetes ~ foodinsecu 2299.0   0.94       0.62                 0.01
+    diabetes ~ lacktrpt 2299.0   0.91       0.61                 0.01
          chd ~ csmoking 2956.0   0.92       0.66                 0.02
           obesity ~ lpa 2956.0   0.75       0.26                 0.03
      access2 ~ diabetes 2956.0   0.63       0.42                 0.01
-depression ~ loneliness 2299.0   0.05       0.29                 0.41
+depression ~ loneliness 2299.0   0.05       0.29                 0.43
      depression ~ mhlth 2956.0   0.67       0.56                 0.03
         copd ~ csmoking 2956.0   0.94       0.80                 0.02
      obesity ~ diabetes 2956.0   0.68       0.29                 0.03
