@@ -1,9 +1,0 @@
-{
-  "name": "orange_api",
-  "url": "https://api.fda.gov/drug/orangebook.json?limit=1",
-  "utc": "2026-10-20T12:43:19.388057+00:00",
-  "status": 200,
-  "final_url": "https://api.fda.gov/drug/orangebook.json?limit=1",
-  "bytes": 1328,
-  "content_type": "application/json; charset=utf-8"
-}

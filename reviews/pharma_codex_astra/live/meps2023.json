@@ -1,9 +1,0 @@
-{
-  "name": "meps2023",
-  "url": "https://meps.ahrq.gov/mepsweb/data_stats/download_data_files_detail.jsp?cboPufNumber=HC-248A",
-  "utc": "2026-10-20T12:40:15.362419+00:00",
-  "status": 200,
-  "final_url": "https://meps.ahrq.gov/mepsweb/data_stats/download_data_files_detail.jsp?cboPufNumber=HC-248A",
-  "bytes": 58247,
-  "content_type": "text/html;charset=iso-8859-1"
-}

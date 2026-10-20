@@ -1,9 +1,0 @@
-{
-  "name": "amp_month_latest",
-  "url": "https://data.medicaid.gov/api/1/datastore/query/91d4309d-3ca8-5a1e-8f78-79984027392d/0?limit=1&sorts%5B0%5D%5Bproperty%5D=year&sorts%5B0%5D%5Border%5D=desc&sorts%5B1%5D%5Bproperty%5D=month&sorts%5B1%5D%5Border%5D=desc",
-  "utc": "2026-10-20T12:40:16.693707+00:00",
-  "status": 200,
-  "final_url": "https://data.medicaid.gov/api/1/datastore/query/91d4309d-3ca8-5a1e-8f78-79984027392d/0?limit=1&sorts%5B0%5D%5Bproperty%5D=year&sorts%5B0%5D%5Border%5D=desc&sorts%5B1%5D%5Bproperty%5D=month&sorts%5B1%5D%5Border%5D=desc",
-  "bytes": 1025,
-  "content_type": "application/json"
-}

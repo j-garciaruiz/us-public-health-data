@@ -1,9 +1,0 @@
-{
-  "name": "asp_page",
-  "url": "https://www.cms.gov/medicare/payment/part-b-drugs/asp-pricing-files",
-  "utc": "2026-10-20T12:42:04.555556+00:00",
-  "status": 200,
-  "final_url": "https://www.cms.gov/medicare/payment/part-b-drugs/asp-pricing-files",
-  "bytes": 257897,
-  "content_type": "text/html; charset=utf-8"
-}

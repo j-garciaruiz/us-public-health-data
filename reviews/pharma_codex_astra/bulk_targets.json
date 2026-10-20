@@ -1,8 +1,0 @@
-{
-  "ira_zip": "https://www.cms.gov/files/zip/selected-drug-list-negotiated-prices-also-known-maximum-fair-prices-statutezip.zip",
-  "asp_license_1": "https://www.cms.gov/files/zip/october-2026-medicare-part-b-payment-limit-files-final.zip",
-  "asp_license_2": "https://www.cms.gov/files/zip/october-2026-ndc-hcpcs-crosswalk-final.zip",
-  "quarterly_1_csv": "https://data.cms.gov/sites/default/files/2026-07/6d9e955a-d199-42cf-9f73-7e0d93c33b3e/qddptb_r2603_p06_v10_dqt2601_260722.csv",
-  "quarterly_2_csv": "https://data.cms.gov/sites/default/files/2026-07/QDD_PTD_RQ2603_P01_V10_DQT2601_20260708.csv",
-  "orange_api": "https://api.fda.gov/drug/orangebook.json?limit=1"
-}

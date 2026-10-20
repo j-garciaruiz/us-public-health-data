@@ -1,6 +1,0 @@
-{
-  "name": "fda_shortage_status",
-  "url": "https://api.fda.gov/drug/shortages.json?count=status.exact",
-  "utc": "2026-10-20T12:38:40.483346+00:00",
-  "error": "HTTP Error 404: Not Found"
-}

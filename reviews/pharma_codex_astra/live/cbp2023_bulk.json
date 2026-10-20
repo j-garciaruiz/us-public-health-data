@@ -1,9 +1,0 @@
-{
-  "name": "cbp2023_bulk",
-  "url": "https://www2.census.gov/programs-surveys/cbp/datasets/2023/cbp23us.zip",
-  "utc": "2026-10-20T12:42:04.303695+00:00",
-  "status": 200,
-  "final_url": "https://www2.census.gov/programs-surveys/cbp/datasets/2023/cbp23us.zip",
-  "bytes": 750265,
-  "content_type": "application/zip"
-}

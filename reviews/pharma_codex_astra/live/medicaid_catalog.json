@@ -1,9 +1,0 @@
-{
-  "name": "medicaid_catalog",
-  "url": "https://data.medicaid.gov/api/1/metastore/schemas/dataset/items?show-reference-ids=false",
-  "utc": "2026-10-20T12:38:40.112912+00:00",
-  "status": 200,
-  "final_url": "https://data.medicaid.gov/api/1/metastore/schemas/dataset/items?show-reference-ids=false",
-  "bytes": 1178931,
-  "content_type": "application/json"
-}

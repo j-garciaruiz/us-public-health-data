@@ -1,9 +1,0 @@
-{
-  "name": "products_latest",
-  "url": "https://data.medicaid.gov/api/1/datastore/query/0ad65fe5-3ad3-5d79-a3f9-7893ded7963a/0?limit=1&sorts%5B0%5D%5Bproperty%5D=year&sorts%5B0%5D%5Border%5D=desc&sorts%5B1%5D%5Bproperty%5D=quarter&sorts%5B1%5D%5Border%5D=desc",
-  "utc": "2026-10-20T12:40:16.469990+00:00",
-  "status": 200,
-  "final_url": "https://data.medicaid.gov/api/1/datastore/query/0ad65fe5-3ad3-5d79-a3f9-7893ded7963a/0?limit=1&sorts%5B0%5D%5Bproperty%5D=year&sorts%5B0%5D%5Border%5D=desc&sorts%5B1%5D%5Bproperty%5D=quarter&sorts%5B1%5D%5Border%5D=desc",
-  "bytes": 3659,
-  "content_type": "application/json"
-}

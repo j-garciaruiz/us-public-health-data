@@ -1,9 +1,0 @@
-{
-  "name": "med_0_0",
-  "url": "https://data.medicaid.gov/api/1/datastore/query/a217613c-12bc-5137-8b3a-ada0e4dad1ff/0?limit=1&count=true",
-  "utc": "2026-10-20T12:39:20.840478+00:00",
-  "status": 200,
-  "final_url": "https://data.medicaid.gov/api/1/datastore/query/a217613c-12bc-5137-8b3a-ada0e4dad1ff/0?limit=1&count=true",
-  "bytes": 1677,
-  "content_type": "application/json"
-}

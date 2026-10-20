@@ -1,9 +1,0 @@
-{
-  "name": "cms_12_sample",
-  "url": "https://data.cms.gov/data-api/v1/dataset/14d8e8a9-7e9b-4370-a044-bf97c46b4b44/data?size=1",
-  "utc": "2026-10-20T12:39:20.771137+00:00",
-  "status": 200,
-  "final_url": "https://data.cms.gov/data-api/v1/dataset/14d8e8a9-7e9b-4370-a044-bf97c46b4b44/data?size=1",
-  "bytes": 2129,
-  "content_type": "application/json"
-}

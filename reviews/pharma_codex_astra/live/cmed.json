@@ -1,9 +1,0 @@
-{
-  "name": "cmed",
-  "url": "https://www.gov.br/anvisa/pt-br/assuntos/medicamentos/cmed/precos",
-  "utc": "2026-10-20T12:40:15.763167+00:00",
-  "status": 200,
-  "final_url": "https://www.gov.br/anvisa/pt-br/assuntos/medicamentos/cmed/precos",
-  "bytes": 464049,
-  "content_type": "text/html; charset=utf-8"
-}

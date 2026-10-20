@@ -1,9 +1,0 @@
-{
-  "name": "nppes",
-  "url": "https://npiregistry.cms.hhs.gov/api/?version=2.1&taxonomy_description=Community%2FRetail%20Pharmacy&state=VT&limit=200",
-  "utc": "2026-10-20T12:38:41.167383+00:00",
-  "status": 200,
-  "final_url": "https://npiregistry.cms.hhs.gov/api/?version=2.1&taxonomy_description=Community%2FRetail%20Pharmacy&state=VT&limit=200",
-  "bytes": 313625,
-  "content_type": "application/json"
-}
