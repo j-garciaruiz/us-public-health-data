@@ -2,7 +2,7 @@
 
 Literature scan for the county chronic disease atlas. Searched 2026-10-20.
 
-**How this was searched.** Consensus (one semantic search before its monthly quota ran out; resets 2026-11-01), OpenAlex (keyword searches plus forward citations of the PLACES reference paper, the main validation paper and the main methods critique), and PubMed E-utilities. Every paper below was confirmed in OpenAlex or PubMed with its DOI; citation counts are OpenAlex's as of the search date. Claims about a paper come from its abstract unless noted. This is a scoping scan, not a systematic review.
+**How this was searched.** Consensus (one semantic search before its monthly quota ran out; resets 2026-11-01), OpenAlex (keyword searches plus forward citations of the PLACES reference paper, the main validation paper and the main methods critique), and PubMed E-utilities. Every paper below was confirmed in OpenAlex or PubMed with its DOI; citation counts are OpenAlex's as of the search date. Claims about a paper come from its abstract unless noted (Kong & Zhang 2020 was read in full). This is a scoping scan, not a systematic review.
 
 **Size of the field.** The PLACES reference paper (Greenlund 2022) has 105 citing works in OpenAlex (Consensus reports 214, so OpenAlex undercounts). The MRP validation paper behind PLACES (Zhang 2015) has 184. The literature is large, but most of it uses PLACES as an input; few papers interrogate it.
 
@@ -54,14 +54,21 @@ These set the visual and narrative standard US audiences know. The Lancet 2022 p
 
 ## 4. Cautions in the literature, and the gap
 
-**What is documented:**
-- Kong & Zhang 2020, *AJPH* ([10.2105/ajph.2020.305611](https://doi.org/10.2105/ajph.2020.305611)) is the main methods caution: researchers who reuse small-area estimates without understanding how they were built "may fit inappropriate models, or interpret findings inaccurately" (abstract; full text not open access, not read).
-- Validation is uneven by measure (Zhang 2015) and self-report undercounts (Nielsen 2024).
-- Rankings of extremes are more stable than point values (Chien 2018).
+**Kong & Zhang 2020, *AJPH*** ([10.2105/ajph.2020.305611](https://doi.org/10.2105/ajph.2020.305611); full text read 2026-10-20). A four-page commentary on the 500 Cities estimates (the predecessor of PLACES). Xingyou Zhang is also first author of the two CDC method papers above, so this is the method's own builder warning users. Its points:
 
-**What I could not find:** a paper that systematically shows how much of the correlation *between* PLACES measures, or between PLACES and ACS/SVI variables, is produced by the shared model covariates (age, sex, race/ethnicity, education, county poverty). That is exactly the issue the atlas data already shows (diabetes vs food insecurity r = 0.94 across 2,299 counties; depression vs loneliness only 0.05). Most studies in section 2 regress PLACES outcomes on poverty or vulnerability indices built from the same Census variables the model used, and few discuss it.
+1. **The estimates are "akin to synthetic estimates."** They give the *expected* prevalence for an area from its age, sex and race/ethnicity mix, area poverty, and unmeasured county and state effects. They are not observed prevalence.
+2. **Local context is missing.** Neighborhood factors and local policies are not in the model. Their example: a city whose tobacco policy cut smoking would still get a smoking estimate that is likely "biased upward." A high estimate does not mean something about the place is driving it; it may just mean many high-risk people live there.
+3. **The shared-covariate problem, stated directly.** Regressing estimates on the demographic variables used to make them "will result in associations that reflect the group compositional variables used to estimate" them. They add that regressing estimates "on one another (e.g., physical activity with obesity) will also likely reflect significant associations." Using those demographics as controls is acceptable, but their coefficients should not be read as meaningful.
+4. **Uncertainty is usually ignored.** Margins of error differ widely by measure, place and scale and are largest in small populations. Secondary analyses rarely model this, so reported standard errors are "more than likely biased," raising false-positive risk. They urge reporting margins of error. (They point to Lewis & Linzer 2005 on regressions where the dependent variable is itself an estimate.)
+5. **Validation varies.** It summarizes the evidence in section 1 and adds a Massachusetts EHR comparison (city-level r from 0.65 for obesity to 0.89 for diabetes; Klompas et al. 2017, [10.2105/ajph.2017.303874](https://doi.org/10.2105/ajph.2017.303874)).
 
-That gap is a real opportunity: an atlas, or a short explainer, that maps the patterns and then shows readers how much of a correlation survives once you account for what went into the model. A follow-up search with Consensus (after 2026-11-01) and a full-text read of Kong 2020 (via HOLLIS) should confirm the gap before claiming it publicly.
+It also names the **City Health Dashboard** (NYU Langone with RWJF) as an existing interactive visualization of these data, a direct comparator for the atlas.
+
+**Other documented cautions:** validation is uneven by measure (Zhang 2015), self-report undercounts (Nielsen 2024), and rankings of extremes are more stable than point values (Chien 2018).
+
+**What the gap actually is (revised after reading Kong & Zhang).** The *warning* is not new: Kong & Zhang made it in 2020. I went through all 43 works citing it (OpenAlex, 2026-10-20). None, judging by title and abstract, **measures how large the artifact is**: how much of a given correlation between PLACES measures, or between PLACES and poverty or vulnerability indices, comes from the shared model inputs. Most citing papers mention the caution and then run the regressions anyway. One methods paper is worth reading before claiming the gap: Smith et al. 2025, "Incorporating small-area estimation into mediation analyses with areal datasets" (*Spatial and Spatio-temporal Epidemiology*, [10.1016/j.sste.2025.100735](https://doi.org/10.1016/j.sste.2025.100735); no abstract available in OpenAlex).
+
+So the opportunity is narrower and better defined: the atlas data already shows the pattern (diabetes vs food insecurity r = 0.94 across 2,299 counties; depression vs loneliness only 0.05). An explainer that **shows readers how much of a correlation is left once you remove what the model put in** would turn a 2020 written warning into something people can see. Cite Kong & Zhang as the source of the argument; the contribution is the demonstration.
 
 ## 5. Practical notes picked up along the way
 
@@ -74,5 +81,6 @@ That gap is a real opportunity: an atlas, or a short explainer, that maps the pa
 1. **Lead with description, not causation**, like Carlson 2023 and the IHME atlases.
 2. **Show confidence by measure**: flag weakly validated measures (obesity, uninsurance) differently from stronger ones (COPD, diabetes).
 3. **Emphasise top and bottom groups over exact ranks** (Chien 2018).
-4. **Make the shared-covariate problem the explainer's centerpiece**, which is the gap above.
+4. **Make the shared-covariate problem the explainer's centerpiece**: credit Kong & Zhang 2020 for the argument and contribute the visual demonstration of its size.
+6. **Show the 95% intervals PLACES publishes** (Kong & Zhang's explicit ask), and look at the City Health Dashboard first so the atlas does something it does not.
 5. **Hispanic angle**: Descarpentrie 2025 and Dwyer-Lindgren 2022 give the hook for a Latino-focused layer.
