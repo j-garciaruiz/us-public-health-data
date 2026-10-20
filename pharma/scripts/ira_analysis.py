@@ -72,7 +72,7 @@ def wac_january(nadac, grp):
     rows, events = [], []
     for year, window in [(y, w) for y in (2024, 2025, 2026) for w in ("Dec 20-Jan 31", "Dec 20-Feb 28")]:
         lo = pd.Timestamp(year - 1, 12, 20)
-        hi = pd.Timestamp(year, 1, 31) if window == "Dec 20-Jan 31" else pd.Timestamp(year, 3, 1) - pd.Timedelta(days=1)
+        hi = pd.Timestamp(year, 1, 31) if window == "Dec 20-Jan 31" else pd.Timestamp(year, 2, 28)
         # Universe: NDCs priced as brands (class B) in any January snapshot of that year.
         jan = nadac[(nadac.as_of.dt.year == year) & (nadac.as_of.dt.month == 1)
                     & (nadac["Classification for Rate Setting"] == "B")]
@@ -117,12 +117,14 @@ def nadac_vs_mfp(nadac, ira):
     m = ira[(ira.IPAY == "2026")].dropna(subset=["mfp_unit"]).copy()
     m["start"] = pd.to_datetime(m["MFP Effective Date"], format="%m/%d/%Y")
     m["end"] = pd.to_datetime(m["MFP End Date"], format="%m/%d/%Y").fillna(pd.Timestamp(2099, 1, 1))
-    m = m[m.start.dt.year == 2026][["ndc11", "drug", "mfp_unit", "start", "end"]].drop_duplicates()
+    # Drop superseded rows whose end date precedes their start (CMS keeps them, e.g. Xarelto "End Date" rows).
+    m = m[(m.start.dt.year == 2026) & (m.end >= m.start)][["ndc11", "drug", "mfp_unit", "start", "end"]].drop_duplicates()
     m26 = m.sort_values("start").drop_duplicates("ndc11")  # NDC list and first 2026 MFP
     x = nadac.merge(m, left_on="NDC", right_on="ndc11")
-    # Use the MFP in effect on the snapshot date; snapshots before 2026 use the first 2026 MFP.
-    ref = x.as_of.where(x.as_of >= pd.Timestamp(2026, 1, 1), pd.Timestamp(2026, 1, 1))
-    x = x[(ref >= x.start) & (ref <= x.end)].copy()
+    # Use the MFP in effect on the snapshot date; snapshots before 2026 use each NDC's earliest 2026 MFP.
+    first_start = x.groupby("NDC").start.transform("min")
+    pre = x.as_of < pd.Timestamp(2026, 1, 1)
+    x = x[(pre & (x.start == first_start)) | (~pre & (x.as_of >= x.start) & (x.as_of <= x.end))].copy()
     assert not x.duplicated(["NDC", "as_of"]).any()
     x["ratio"] = x.nadac / x.mfp_unit
     product = x["NDC Description"].str.split().str[0]
@@ -267,7 +269,7 @@ def chart_partd(agg, grp, path):
     ax.set_yticklabels(["NovoLog, Fiasp" if d == "NOVOLOG" else label(d) for d in sel.drug], fontsize=8)
     ax.axvline(0, color="black", lw=0.8)
     ax.set_xlabel("Change in gross Part D spending per claim, 2025 to 2026 Q1 (%)")
-    ax.set_title("Medicare's negotiated prices show up in Part D spending per claim",
+    ax.set_title("Change in Part D gross spending per claim, negotiated drugs and comparison groups",
                  loc="left", fontsize=12)
     for g, c in colors.items():
         ax.scatter([], [], c=c, s=28, label=f"{g} (MFP from Jan {g[-4:]})")
