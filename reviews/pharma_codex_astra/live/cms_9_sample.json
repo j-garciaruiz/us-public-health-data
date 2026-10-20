@@ -1,0 +1,9 @@
+{
+  "name": "cms_9_sample",
+  "url": "https://data.cms.gov/data-api/v1/dataset/94d00f36-73ce-4520-9b3f-83cd3cded25c/data?size=1",
+  "utc": "2026-10-20T12:39:20.700915+00:00",
+  "status": 200,
+  "final_url": "https://data.cms.gov/data-api/v1/dataset/94d00f36-73ce-4520-9b3f-83cd3cded25c/data?size=1",
+  "bytes": 516,
+  "content_type": "application/json"
+}

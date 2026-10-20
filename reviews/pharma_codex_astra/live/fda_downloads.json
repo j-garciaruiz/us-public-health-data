@@ -1,0 +1,9 @@
+{
+  "name": "fda_downloads",
+  "url": "https://api.fda.gov/download.json",
+  "utc": "2026-10-20T12:38:41.136459+00:00",
+  "status": 200,
+  "final_url": "https://api.fda.gov/download.json",
+  "bytes": 593799,
+  "content_type": "application/json; charset=utf-8"
+}

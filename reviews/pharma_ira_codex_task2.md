@@ -1,0 +1,10 @@
+# Codex follow-up check: IRA study after the Agy review (2026-10-20)
+
+You already replicated this study (`reviews/pharma_ira_codex_astra/`). Since then the definitions changed after an Agy review (`reviews/pharma_ira_agy_argon/REPORT.md`). Check the revised numbers. Write only in `reviews/pharma_ira_codex_astra/followup/`. No em dashes. Do not commit.
+
+Revised definitions (implement them in your own code first, extending your `replicate.py` if useful; save `followup/replication2.md` before opening `pharma/outputs/ira/summary.md`):
+1. Part D "Other brands": rows not mapped to a selected family, brand string differs from generic string, the brand's first alphanumeric word (regex `^[A-Z0-9]+`, upper case) is not among the generic name's words when the generic is split on `/`, `,`, `-` and spaces, generic name does not match `NEEDL|SYRING|LANCET|TEST STRIP|DIAGNOSTIC|GLUCOSE|SENSOR|SUPPL|SWAB|ALCOHOL PREP`, and the generic's ingredient set (split on `/` or `;`, stripped) is not exactly equal to a selected drug's active ingredient set (from the CMS column, with ", HUMAN" removed and SACUBITRILAT read as SACUBITRIL). NovoLog Mix rows are not selected. Same volume filter as before. Add per group the fixed-weight change: sum(2025 claims x 2026Q1 per-claim) / sum(2025 claims x 2025 per-claim) - 1.
+2. WAC windows: report both Dec 20-Jan 31 and Dec 20-Feb 28 (Feb 29 not relevant for these years).
+3. NADAC/MFP: use the IPAY 2026 MFP row in effect on each snapshot date (MFP Effective Date <= date <= MFP End Date, open end if blank; snapshots before 2026 use the earliest 2026 row); main measure restricted to NADAC Classification for Rate Setting starting with "B"; split the NOVOLOG entry into NOVOLOG and FIASP by the first word of the NADAC description.
+
+Then compare with `pharma/outputs/ira/summary.md` and check every number and claim in `pharma/ira_findings.md` against your results. Write `followup/report.md`: verdict (CONFIRMED / CONFIRMED WITH FIXES / NOT CONFIRMED), disagreements, any statement in the findings not supported, at most 8 items. Concise.

@@ -1,0 +1,9 @@
+{
+  "name": "arcos_correct",
+  "url": "https://www.deadiversion.usdoj.gov/arcos/retail_drug_summary/arcos-drug-summary-reports.html",
+  "utc": "2026-10-20T12:40:15.362495+00:00",
+  "status": 200,
+  "final_url": "https://www.deadiversion.usdoj.gov/arcos/retail_drug_summary/arcos-drug-summary-reports.html",
+  "bytes": 64127,
+  "content_type": "text/html; charset=UTF-8"
+}

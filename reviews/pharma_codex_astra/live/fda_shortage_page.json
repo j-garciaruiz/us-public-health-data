@@ -1,0 +1,9 @@
+{
+  "name": "fda_shortage_page",
+  "url": "https://www.accessdata.fda.gov/scripts/drugshortages/",
+  "utc": "2026-10-20T12:38:41.827131+00:00",
+  "status": 200,
+  "final_url": "https://www.accessdata.fda.gov/scripts/drugshortages/",
+  "bytes": 203737,
+  "content_type": "text/html;charset=UTF-8"
+}

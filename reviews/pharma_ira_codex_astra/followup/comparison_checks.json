@@ -1,0 +1,52 @@
+[
+  {
+    "table": "Part D groups",
+    "rows": 4,
+    "numeric_cells": 28,
+    "max_absolute_difference": 1.4210854715202004e-14
+  },
+  {
+    "table": "Part D families",
+    "rows": 781,
+    "numeric_cells": 6248,
+    "max_absolute_difference": 2.842170943040401e-14
+  },
+  {
+    "table": "WAC groups",
+    "rows": 24,
+    "numeric_cells": 120,
+    "max_absolute_difference": 1.4210854715202004e-14
+  },
+  {
+    "table": "Brand snapshot ratios",
+    "rows": 10,
+    "numeric_cells": 40,
+    "max_absolute_difference": 0
+  },
+  {
+    "table": "WAC cut details",
+    "rows": 88,
+    "numeric_cells": 176,
+    "max_absolute_difference": 0
+  },
+  {
+    "table": "Supplementary ratios",
+    "rows": 10,
+    "numeric_cells": 30,
+    "max_absolute_difference": 4.440892098500626e-16
+  },
+  {
+    "table": "Weekly chart series",
+    "rows": 950,
+    "numeric_cells": 1900,
+    "max_absolute_difference": 4.440892098500626e-16
+  },
+  {
+    "table": "Ancillary checks",
+    "matched_brand_ndcs_2025": 69,
+    "matched_brand_ndcs_2026": 70,
+    "other_large_declines": 13,
+    "mix_contribution_pp": 9.775476820357255,
+    "imbruvica_matches_all_years": 0
+  }
+]

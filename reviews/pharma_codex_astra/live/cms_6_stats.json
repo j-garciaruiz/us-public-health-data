@@ -1,0 +1,9 @@
+{
+  "name": "cms_6_stats",
+  "url": "https://data.cms.gov/data-api/v1/dataset/7e0b4365-fd63-4a29-8f5e-e0ac9f66a81b/data/stats",
+  "utc": "2026-10-20T12:39:20.584923+00:00",
+  "status": 200,
+  "final_url": "https://data.cms.gov/data-api/v1/dataset/7e0b4365-fd63-4a29-8f5e-e0ac9f66a81b/data/stats",
+  "bytes": 39,
+  "content_type": "application/json"
+}
