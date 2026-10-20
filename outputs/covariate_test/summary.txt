@@ -1,0 +1,8 @@
+
+=== adjprev ===
+R2 of measures on inputs + state: median 0.97 (range 0.74-0.99); inputs only median 0.83; state only median 0.52; flexible median 0.98; out-of-sample (10-fold) median 0.971 (min 0.726)
+Pairs: 780; median |raw r| 0.60, median |partial r| 0.16; pairs with |raw r|>=0.7: 279, of those with |partial r|>=0.7: 65; sign flips: 57; share of association beyond inputs, pairs |raw r|>=0.7: median 0.014, max 0.038
+
+=== crudeprev ===
+R2 of measures on inputs + state: median 0.96 (range 0.75-0.99); inputs only median 0.85; state only median 0.45; flexible median 0.97; out-of-sample (10-fold) median 0.962 (min 0.729)
+Pairs: 780; median |raw r| 0.52, median |partial r| 0.17; pairs with |raw r|>=0.7: 201, of those with |partial r|>=0.7: 45; sign flips: 128; share of association beyond inputs, pairs |raw r|>=0.7: median 0.018, max 0.042

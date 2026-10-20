@@ -5,3 +5,5 @@ __pycache__/
 *.parquet
 data/raw/
 .env
+reviews/*/codex_run.log
+reviews/*/agy_run.log
