@@ -1,0 +1,7 @@
+Hi Johnattan. Here is the simple version of what we are doing with the Medicare drug price work.
+
+First, the context. In twenty twenty-two the United States passed a law, the Inflation Reduction Act, that for the first time lets Medicare negotiate the price of some expensive drugs. The first ten drugs are Eliquis, Jardiance, Farxiga, Januvia, Xarelto, Entresto, Enbrel, Stelara, Imbruvica, and the insulin NovoLog together with Fiasp. Their negotiated prices started on January first, twenty twenty-six. So this year is the first real test.
+
+To follow the story you need to keep three prices in mind. The list price is the sticker price the company publishes. The net price is what insurers really end up paying after secret rebates. And the negotiated price is the new price Medicare set. For these ten drugs the secret rebates were already very big, close to half of the list price.
+
+Now the data. We used three free government sources. One: a quarterly Medicare file that says how much was spent on each drug and how many prescriptions were filled. That gives spending per prescription, before rebates. Two: a weekly government survey called nay-dack, which records what community pharmacies actually pay to buy each drug, package by package. Three: the official file with the negotiated prices. To know whether the ten drugs behaved differently, we compared them with the next fifteen drugs, whose negotiated prices only start in twenty twenty-seven, and with about seven hundred other brand-name drugs.
