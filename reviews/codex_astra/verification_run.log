@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/Users/hari/Documents/VSC Python/US Data/reviews/codex_astra/verify.py", line 16, in <module>
+    assert hashlib.sha256((ROOT/file).read_bytes()).hexdigest() == digest, file
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: scripts/covariate_test.py

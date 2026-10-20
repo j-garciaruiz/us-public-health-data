@@ -12,5 +12,12 @@ Exploration lab for US public health data (portfolio for US job search). See REA
 - ACS table-based summary files (`www2.census.gov/.../table-based-SF/data/5YRData/acsdt5y2023-<table>.dat`) match the API exactly (checked 5 variables x 3,222 counties, 2026-10-20).
 - cdc.gov pages return 403 to curl (bot blocking); they open in a browser.
 
+## Direction (decided 2026-10-20)
+Johnattan chose the **expected-vs-observed atlas**: county demographics + state (what PLACES is built from) as the expectation, directly measured outcomes (Medicare claims prevalence, ACS disability, CDC WONDER mortality) as the observation; the map shows observed minus expected.
+
 ## Current work (2026-10-20)
-Shared-covariate test of PLACES (`scripts/covariate_test.py`, charts in `scripts/covariate_charts.py`, results in `outputs/covariate_test/`). Under review by Codex and Agy (`reviews/`). Literature context: `literature/places_atlas_literature_review.md`.
+- `scripts/expected_vs_observed.py`: demographics + state predict measured outcomes better than PLACES for all 17 pairs; adding PLACES gains 0-2.3 R2 points. Under Codex review (`reviews/eo_codex_astra/`).
+- Medicare claims prevalence comes from the CMS Mapping Medicare Disparities endpoint (CMS retired the chronic-conditions downloads); county PQI columns in the 2023 Geographic Variation file are empty.
+- WONDER county mortality needs Johnattan's OK to accept the NCHS data use agreement (no publishing counts of 9 or fewer).
+
+Earlier: shared-covariate test of PLACES (`scripts/covariate_test.py`, charts in `scripts/covariate_charts.py`, results in `outputs/covariate_test/`). Codex review done and fixes applied; Agy review pending. Literature context: `literature/places_atlas_literature_review.md`.

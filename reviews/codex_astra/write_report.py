@@ -78,8 +78,21 @@ for kind,label in [("crudeprev","Crude"),("adjprev","Age-adjusted")]:
         ("strong_share_max","Maximum covariance share remaining, strong pairs")]:
         head.append(dict(kind=label,metric=desc,independent=ours[metric],claude=theirs[metric]))
 
-# Highlight table is a duplicate view, but enumerate its discrepancies explicitly.
-hl=pd.read_csv(source/"highlight_pairs_adjprev.csv")
+# Reconstruct the originally reviewed duplicate highlight view from our saved
+# original full-precision results; the live source was revised during review.
+highlight_pairs = [
+    ("diabetes","foodinsecu"),("diabetes","lacktrpt"),("chd","csmoking"),
+    ("obesity","lpa"),("access2","diabetes"),("depression","loneliness"),
+    ("depression","mhlth"),("copd","csmoking"),("obesity","diabetes"),
+    ("foodinsecu","foodstamp"),("bphigh","stroke"),("casthma","copd"),
+]
+initial_pairs=pd.read_csv(HERE/"claude_reproduced_pairs_adjprev.csv")
+hl_rows=[]
+for a,b in highlight_pairs:
+    row=initial_pairs[initial_pairs.apply(lambda t:{t.a,t.b}=={a,b},axis=1)].iloc[0]
+    hl_rows.append({"pair":f"{a} ~ {b}",**{c:round(row[c],3) for c in
+        ["n","raw_r","partial_r","share_beyond_inputs"]}})
+hl=pd.DataFrame(hl_rows)
 for _,r in hl.iterrows():
     a,b=r["pair"].split(" ~ ")
     o=own_p[(own_p.kind=="adjprev")&

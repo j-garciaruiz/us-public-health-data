@@ -5,6 +5,7 @@ Author: Antigravity (Gemini 4 Argon High)
 Date: 2026-10-20
 """
 
+import argparse
 import json
 from pathlib import Path
 import numpy as np
@@ -12,7 +13,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA_RAW = ROOT / "data" / "raw"
-OUT_DIR = Path(__file__).resolve().parent
+DEFAULT_OUT_DIR = Path(__file__).resolve().parent
 
 
 def verify_acs_csv_against_raw_sf() -> dict:
@@ -23,11 +24,7 @@ def verify_acs_csv_against_raw_sf() -> dict:
         path = DATA_RAW / "acs_sf" / f"acsdt5y2023-{table_id}.dat"
         with open(path, "r", encoding="utf-8") as f:
             header = f.readline().strip().split("|")
-            rows = []
-            for line in f:
-                if line.startswith("0500000US"):
-                    parts = line.strip().split("|")
-                    rows.append(parts)
+            rows = [line.strip().split("|") for line in f if line.startswith("0500000US")]
         df_raw = pd.DataFrame(rows, columns=header)
         df_raw["fips"] = df_raw["GEO_ID"].str[-5:]
         return df_raw.set_index("fips")
@@ -38,7 +35,6 @@ def verify_acs_csv_against_raw_sf() -> dict:
     b17 = load_county_rows("b17024")
     b27 = load_county_rows("b27010")
 
-    # Convert estimate and MOE columns needed to float
     for df_t in (b01, b03, b15, b17, b27):
         for c in df_t.columns:
             if c != "GEO_ID":
@@ -109,10 +105,10 @@ def verify_acs_csv_against_raw_sf() -> dict:
     rad = np.where(rad < 0, moe_num2 + (p_unins**2) * moe_den2, rad)
     se_unins = (np.sqrt(rad) / unins_denom) / 1.645
 
-    max_diffs = {}
-    for col in acs.columns:
-        diff = np.max(np.abs(acs[col].to_numpy(float) - rebuilt[col].to_numpy(float)))
-        max_diffs[col] = float(diff)
+    max_diffs = {
+        col: float(np.max(np.abs(acs[col].to_numpy(float) - rebuilt[col].to_numpy(float))))
+        for col in acs.columns
+    }
 
     return {
         "n_counties_checked": int(len(acs)),
@@ -218,6 +214,12 @@ def kfold_cv_r2(
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--out-dir", type=Path, default=DEFAULT_OUT_DIR)
+    args = parser.parse_args()
+    out_dir: Path = args.out_dir
+    out_dir.mkdir(parents=True, exist_ok=True)
+
     # 1. Verify ACS county CSV against raw summary files
     acs_verification = verify_acs_csv_against_raw_sf()
     se_unins_series = acs_verification.pop("se_unins_series")
@@ -269,7 +271,6 @@ def main() -> None:
             cv5_cov = kfold_cv_r2(X_cov, y, k=5, seed=42)
             cv5_noage = kfold_cv_r2(X_noage, y, k=5, seed=42)
 
-            # Logit-scale CV5 R2 evaluated on original prevalence scale
             p_val = y / 100.0
             z_logit = np.log(p_val / (1.0 - p_val))
             rng = np.random.default_rng(42)
@@ -308,33 +309,29 @@ def main() -> None:
             )
 
     measures_df = pd.DataFrame(measure_rows)
-    measures_df.to_csv(OUT_DIR / "recomputed_measures_r2.csv", index=False)
+    measures_df.to_csv(out_dir / "recomputed_measures_r2.csv", index=False)
 
     adj_df = measures_df[measures_df["type"] == "adjprev"]
     crude_df = measures_df[measures_df["type"] == "crudeprev"]
 
-    # 4. Task 2(b): Pairwise correlations and covariance shares (especially diabetes ~ foodinsecu)
+    # 4. Task 2(b): Pairwise correlations and covariance shares (fast vectorized across nested sets)
     def compute_pair_stats(m1: str, m2: str, suffix: str) -> dict:
         c1, c2 = f"{m1}_{suffix}", f"{m2}_{suffix}"
         sub = df.dropna(subset=[c1, c2]).copy()
         y1 = sub[c1].to_numpy(float)
         y2 = sub[c2].to_numpy(float)
 
-        # Method A: Separate regression on each measure's full available sample, then intersect
         e1_sep = residuals_sep[suffix][m1].loc[sub.index].to_numpy(float)
         e2_sep = residuals_sep[suffix][m2].loc[sub.index].to_numpy(float)
 
-        # Method B: Pairwise regression on the common sample
         X_common = build_design_matrix(sub, include_state=True, drop_first=False)
-        _, e1_pair, r2_1_pair, _ = ols_fit(X_common, y1)
-        _, e2_pair, r2_2_pair, _ = ols_fit(X_common, y2)
+        _, e1_pair, _, _ = ols_fit(X_common, y1)
+        _, e2_pair, _, _ = ols_fit(X_common, y2)
 
-        # Method C: Covariates only (no state FE) on common sample
         X_cov = build_design_matrix(sub, include_state=False, drop_first=False)
         _, e1_cov, _, _ = ols_fit(X_cov, y1)
         _, e2_cov, _, _ = ols_fit(X_cov, y2)
 
-        # Method D: Logit scale on common sample
         z1 = np.log((y1 / 100.0) / (1.0 - y1 / 100.0))
         z2 = np.log((y2 / 100.0) / (1.0 - y2 / 100.0))
         _, e1_logit, _, _ = ols_fit(X_common, z1)
@@ -371,18 +368,46 @@ def main() -> None:
     diab_food_adj = compute_pair_stats("diabetes", "foodinsecu", "adjprev")
     diab_food_crude = compute_pair_stats("diabetes", "foodinsecu", "crudeprev")
 
-    # Compute all 780 pairs for adjprev to summarize overall correlation attenuation
+    # Fast computation of all 780 adjprev pairs using precomputed separate residuals
     all_pairs_adj = []
     for i in range(len(measures)):
+        m1 = measures[i]
+        c1 = f"{m1}_adjprev"
+        s1 = residuals_sep["adjprev"][m1]
         for j in range(i + 1, len(measures)):
-            all_pairs_adj.append(compute_pair_stats(measures[i], measures[j], "adjprev"))
+            m2 = measures[j]
+            c2 = f"{m2}_adjprev"
+            s2 = residuals_sep["adjprev"][m2]
+            common_idx = s1.index.intersection(s2.index)
+            y1 = df.loc[common_idx, c1].to_numpy(float)
+            y2 = df.loc[common_idx, c2].to_numpy(float)
+            e1 = s1.loc[common_idx].to_numpy(float)
+            e2 = s2.loc[common_idx].to_numpy(float)
+            raw_r = float(np.corrcoef(y1, y2)[0, 1])
+            part_r = float(np.corrcoef(e1, e2)[0, 1])
+            cov_raw = float(np.cov(y1, y2, ddof=1)[0, 1])
+            cov_res = float(np.cov(e1, e2, ddof=1)[0, 1])
+            all_pairs_adj.append(
+                {
+                    "m1": m1,
+                    "m2": m2,
+                    "pair": f"{m1}~{m2}",
+                    "n_common": int(len(common_idx)),
+                    "raw_r": raw_r,
+                    "partial_r_separate_fit": part_r,
+                    "cov_raw": cov_raw,
+                    "cov_resid": cov_res,
+                    "cov_share_remaining": cov_res / cov_raw,
+                    "cov_share_explained": 1.0 - cov_res / cov_raw,
+                }
+            )
     pairs_df = pd.DataFrame(all_pairs_adj)
-    pairs_df.to_csv(OUT_DIR / "recomputed_all_pairs_adjprev.csv", index=False)
+    pairs_df.to_csv(out_dir / "recomputed_all_pairs_adjprev.csv", index=False)
 
     strong_pairs_70 = pairs_df[pairs_df["raw_r"].abs() >= 0.70]
     strong_pairs_50 = pairs_df[pairs_df["raw_r"].abs() >= 0.50]
 
-    # 5. Task 2(c): Uninsurance benchmark (PLACES access2_crudeprev vs ACS acs_uninsured_19_64)
+    # 5. Task 2(c): Uninsurance benchmark
     def eval_uninsurance_subset(sub_df: pd.DataFrame, subset_label: str) -> dict:
         res = {"subset": subset_label, "n": int(len(sub_df))}
         for col, label in [
@@ -393,7 +418,7 @@ def main() -> None:
             s = sub_df.dropna(subset=[col]).copy()
             y = s[col].to_numpy(float)
             if col == "acs_uninsured_19_64":
-                y = y * 100.0  # percentage points (scale invariant for R2/corr, matches PLACES units)
+                y = y * 100.0
             X_full = build_design_matrix(s, include_state=True, drop_first=False)
             X_drop1 = build_design_matrix(s, include_state=True, drop_first=True)
             X_cov = build_design_matrix(s, include_state=False, drop_first=False)
@@ -401,7 +426,7 @@ def main() -> None:
                 s, include_state=True, drop_first=False, include_age=False
             )
 
-            _, resid, r2_in, adj_r2 = ols_fit(X_full, y)
+            _, _, r2_in, adj_r2 = ols_fit(X_full, y)
             _, _, r2_cov, _ = ols_fit(X_cov, y)
             _, _, r2_noage, _ = ols_fit(X_noage, y)
 
@@ -438,7 +463,6 @@ def main() -> None:
 
             res[label] = entry
 
-        # Also correlation between PLACES access2_crudeprev and ACS acs_uninsured_19_64 on common rows
         s_both = sub_df.dropna(subset=["access2_crudeprev", "acs_uninsured_19_64"]).copy()
         y_pl = s_both["access2_crudeprev"].to_numpy(float)
         y_ac = s_both["acs_uninsured_19_64"].to_numpy(float) * 100.0
@@ -518,9 +542,6 @@ def main() -> None:
             "median_abs_partial_r_sep": float(
                 pairs_df["partial_r_separate_fit"].abs().median()
             ),
-            "median_abs_partial_r_pair": float(
-                pairs_df["partial_r_pairwise_fit"].abs().median()
-            ),
             "n_pairs_abs_raw_r_ge_070": int(len(strong_pairs_70)),
             "strong_ge_070_median_abs_raw_r": float(
                 strong_pairs_70["raw_r"].abs().median()
@@ -551,10 +572,10 @@ def main() -> None:
         "task_2c_uninsurance_benchmark": benchmark_results,
     }
 
-    with open(OUT_DIR / "recomputed_numbers.json", "w", encoding="utf-8") as f:
+    with open(out_dir / "recomputed_numbers.json", "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2)
 
-    print("Saved recomputed numbers to", OUT_DIR / "recomputed_numbers.json")
+    print(json.dumps(summary, indent=2))
 
 
 if __name__ == "__main__":
