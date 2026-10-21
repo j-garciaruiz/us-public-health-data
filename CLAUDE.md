@@ -24,3 +24,21 @@ Each track keeps its own `scripts/`, `outputs/`, `literature/` and `reviews/`. S
 
 ## Layout change (2026-10-21)
 Johnattan asked for symmetric tracks: the atlas files moved from the top level into `atlas/`, and the pharma reviews and literature moved into `pharma/`. The atlas pipeline was re-run afterwards and reproduced all 58 outputs byte for byte. Review reports written before this date cite the old paths; they are dated records and were not rewritten.
+
+## Resume here (session of 2026-10-20 to 2026-10-21)
+**What happened:** built the atlas track end to end: literature scan (PLACES), shared-covariate test of PLACES, expected-vs-observed analysis against Medicare claims, Census disability and CDC WONDER mortality, the atlas data with reliability smoothing, and a two-page site (project page + interactive atlas) with single-file shareable bundles. Every stage was reviewed by Codex and Agy and the fixes verified by Codex. The pharma track ran in a side session and is merged (see `pharma/CLAUDE.md`). On 2026-10-21 the repository was reorganized into `atlas/` and `pharma/`.
+
+**Decisions locked in (do not relitigate):**
+- Atlas design: expected = prediction from county demographics (default, "national") or demographics + state; observed = measured outcomes; differences are descriptive, not performance.
+- Triple check on every claim, chart or deliverable; Agy findings verified before use; Codex is the main check.
+- Site stays local, not on GitHub Pages, until Johnattan asks (2026-10-21).
+- WONDER data used under the NCHS agreement accepted 2026-10-20: no counts of 9 or fewer, zero included.
+
+**Open items:**
+- Johnattan to review the site and decide how the "How it was checked" section presents the AI-assisted workflow before sharing it with anyone.
+- Planned, not built: an explainer on what PLACES can and cannot tell you (html-explainer).
+- The "no one has measured this" gap claim from the literature scan still needs a Consensus search (quota resets 2026-11-01) and a read of Smith et al. 2025 before it is stated publicly.
+- Known limits: no spatial or out-of-period validation; Connecticut not matched for mortality; Medicare smoothing uses approximate denominators.
+- Housekeeping: the merged pharma worktree `.claude/worktrees/pharma-data-eae972` can be removed once Johnattan confirms.
+
+**Next session starts with:** Johnattan's read-through of `atlas/site/index.html` and the framing decision for "How it was checked"; then the PLACES explainer.
