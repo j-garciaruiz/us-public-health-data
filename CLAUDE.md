@@ -25,3 +25,8 @@ Johnattan chose the **expected-vs-observed atlas**: county demographics + state 
 - **Next:** after the Codex check, design the atlas front end (interactive county map with observed/expected/difference, reliability tiers, national vs within-state toggle) and the explainer on what PLACES can and cannot tell you.
 
 Earlier: shared-covariate test of PLACES (`scripts/covariate_test.py`, charts in `scripts/covariate_charts.py`, results in `outputs/covariate_test/`). Codex review done and fixes applied; Agy review pending. Literature context: `literature/places_atlas_literature_review.md`.
+
+## Site (built 2026-10-21)
+- `site/index.html` (project page) and `site/atlas.html` (interactive atlas), static D3, data from `scripts/export_site_data.py`. Preview: `.claude/launch.json` ("site", port 8731). Single-file shareable versions: `scripts/bundle_site.py` -> `dist/` (git-ignored; rebuild after any change).
+- Reviewed by Codex and Agy, then Codex verified the fixes (`reviews/site_*`, `reviews/site2_codex_astra/`).
+- **Decision (Johnattan, 2026-10-21): keep the site local; do not publish to GitHub Pages until he asks.**
