@@ -64,7 +64,8 @@ CAUSE_OF = {"Diabetes deaths": "diabetes", "Heart disease deaths": "heart",
 mort = atlas[atlas["layer"] == "mortality"].assign(cause=lambda d: d["outcome"].map(CAUSE_OF))
 chk = mort.merge(smr_src[["fips", "cause", "observed", "suppressed"]].rename(columns={"observed": "deaths"}),
                  on=["fips", "cause"], how="left", validate="many_to_one")
-bad = chk[~((chk["deaths"] >= 10) & (chk["suppressed"] == False) & chk["observed"].notna())]  # noqa: E712
+bad = chk[~(np.isfinite(chk["deaths"]) & (chk["deaths"] >= 10) & (chk["suppressed"] == False)  # noqa: E712
+             & chk["observed"].notna())]
 assert bad.empty, f"{len(bad)} mortality rows fail the NCHS rule; refusing to export"
 
 SOURCES = {
@@ -175,7 +176,7 @@ findings = {
     "diab_food": {"raw_r": round(float(dfi["raw_r"]), 3), "partial_r": round(float(dfi["partial_r"]), 3),
                   "n": int(dfi["n"])},
     "benchmark": bench.round(4).to_dict("records"),
-    "places_vs_observed": pvo.round(4).to_dict("records"),
+    "places_vs_observed": pvo.to_dict("records"),  # full precision; the browser rounds for display
     "pvo_max_gain": round(float(pvo["gain"].max()), 4),
     "pvo_max_gain_all": round(float(pvo.loc[pvo["sample"] == "all", "gain"].max()), 4),
     "pvo_max_gain_larger": round(float(pvo.loc[pvo["sample"] == "larger", "gain"].max()), 4),

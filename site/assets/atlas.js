@@ -13,9 +13,9 @@
     medicare_std: "Medicare claims, age-standardized (2023)",
   };
   const CAVEAT = {
-    mortality: "Underlying cause from death certificates, which differ in how causes are recorded. Values exist only for counties with 10 or more deaths (NCHS rule).",
+    mortality: "Underlying cause from death certificates, which differ in how causes are recorded. An index of 100 means national age-specific death rates applied to the county's age mix; a difference of zero means the measured and predicted indices match. Values exist only for counties with 10 or more deaths (NCHS rule).",
     medicare_actual: "Recorded diagnoses reflect access to care and coding as well as disease. Covers Original Medicare only; the model adjusts for each county's Medicare Advantage share.",
-    medicare_std: "Recorded diagnoses, age-standardized by CMS. Not smoothed: CMS does not publish the age-specific counts needed to estimate its uncertainty.",
+    medicare_std: "Recorded diagnoses, age-standardized by CMS. The extract used here lacks the age-specific inputs needed to estimate uncertainty, so reliability is not estimated and differences are not smoothed. The prediction model includes Medicare Advantage share.",
     acs: "Self-reported difficulty from the Census survey. Small counties have wide margins of error, which the smoothing takes into account.",
   };
   const TIER = { 1: "High", 2: "Moderate", 3: "Low", 0: "Not estimated" };
@@ -125,17 +125,18 @@
   function modeText() {
     const o = outcome();
     const base = "county age, sex, race and ethnicity, education and poverty" + (o.layer.startsWith("medicare") ? ", plus Medicare Advantage share" : "");
-    return state.m === "nat" ? `Expected from ${base}, estimated across all states.` : `Expected from ${base}, plus state indicators, estimated out of fold.`;
+    return state.m === "nat" ? `Expected from ${base}, using models fit on other available counties without state indicators.` : `Expected from ${base}, plus state indicators, using models fit on other available counties.`;
   }
 
   function titles() {
     const o = outcome();
-    const view = { obs: "measured", exp: "expected", diff: "measured minus expected" }[state.v];
+    const smoothOn = o.shrinkage && state.s;
+    const view = { obs: "measured", exp: "expected", diff: smoothOn ? "smoothed difference from expected" : "measured minus expected" }[state.v];
     document.getElementById("map-title").textContent = `${o.label}: ${view}`;
     let sub;
     if (state.v === "obs") sub = `${o.measure}. Source: ${o.source}.`;
     else if (state.v === "exp") sub = modeText() + " Same color scale as the measured view.";
-    else sub = `${o.units === "SMR x 100" ? "Points of the mortality ratio" : "Percentage points"}. ${modeText()}` +
+    else sub = `${o.units === "SMR x 100" ? "Mortality-index points (SMR x 100)" : "Percentage points"}. ${modeText()}` +
       (o.shrinkage && state.s ? " Small-county noise is pulled toward zero according to each county's reliability." : "");
     document.getElementById("map-sub").textContent = sub;
   }
@@ -171,7 +172,7 @@
     const rows = [
       ["Measured" + ratio, EVO.fmt(x.obs, o.units)],
       ["Expected" + ratio, EVO.fmt(x.exp, o.units)],
-      ["Difference", EVO.fmt(x.raw, o.units, true)],
+      ["Raw difference", EVO.fmt(x.raw, o.units, true)],
     ];
     if (o.shrinkage) rows.push(["Smoothed difference", EVO.fmt(x.smooth, o.units, true)]);
     rows.push(["Reliability", x.tier === null ? "n/a" : `${TIER[x.tier]}${x.rel !== null ? ` (${d3.format(".2f")(x.rel)})` : ""}`]);
@@ -207,8 +208,14 @@
   function table() {
     const det = document.getElementById("table-details");
     if (!det.open) return;
+    if (!data) {
+      document.querySelector("#county-table thead").innerHTML = "";
+      document.querySelector("#county-table tbody").innerHTML =
+        `<tr><td>Loading the selected outcome. The table will appear when it is ready.</td></tr>`;
+      return;
+    }
     const o = outcome();
-    const cols = [["name", "County"], ["st", "State"], ["obs", "Measured"], ["exp", "Expected"], ["diff", "Difference"], ["tier", "Reliability"]];
+    const cols = [["name", "County"], ["st", "State"], ["obs", "Measured"], ["exp", "Expected"], ["diff", o.shrinkage && state.s ? "Smoothed difference" : "Raw difference"], ["tier", "Reliability"]];
     const rows = COUNTY.map((c, i) => { const x = val(i); return { fips: c.fips, name: c.name, st: c.st, obs: x.obs, exp: x.exp, diff: x.diff, tier: x.tier }; })
       .filter((r) => r.obs !== null);
     rows.sort((a, b) => {
@@ -237,7 +244,7 @@
     tip.innerHTML = `<div class="t-name">${c.name}, ${c.st}</div><dl>
       <dt>Measured</dt><dd>${EVO.fmt(x.obs, o.units)}</dd>
       <dt>Expected</dt><dd>${EVO.fmt(x.exp, o.units)}</dd>
-      <dt>${o.shrinkage && state.s ? "Smoothed difference" : "Difference"}</dt><dd>${EVO.fmt(x.diff, o.units, true)}</dd>
+      <dt>${o.shrinkage && state.s ? "Smoothed difference" : "Raw difference"}</dt><dd>${EVO.fmt(x.diff, o.units, true)}</dd>
       <dt>Reliability</dt><dd>${x.tier === null ? "n/a" : TIER[x.tier]}</dd></dl>`;
     const pad = 14, w = tip.offsetWidth, h = tip.offsetHeight;
     let left = event.clientX + pad, top = event.clientY + pad;

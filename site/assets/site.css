@@ -105,7 +105,9 @@ p { text-wrap: pretty; margin: 0; }
 }
 .btn:active { transform: translateY(1px); }
 .btn-primary { background: var(--accent-ink); color: #ffffff; }
-/* white on #1c5cab = 6.6:1 in both themes (the earlier dark #2a78d6 was 4.4:1) */
+/* Button colour fixed in both themes (white on #1c5cab = 6.6:1); not the accent
+   token, which is lighter in dark mode. */
+.btn-primary { background: #1c5cab; color: #ffffff; }
 .btn-secondary { background: transparent; color: var(--ink); border-color: var(--axis); }
 
 .segmented { display: inline-grid; grid-auto-flow: column; border: 1px solid var(--axis); border-radius: var(--radius); overflow: hidden; }

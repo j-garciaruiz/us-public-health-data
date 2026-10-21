@@ -33,7 +33,7 @@
         <svg id="hero-map" role="img" aria-labelledby="hero-cap"></svg>
       </a>
       <figcaption id="hero-cap">
-        <span>Diabetes deaths 2018-2024, smoothed difference from expected</span>
+        <span>Diabetes mortality 2018-2024: smoothed difference from the model prediction, in mortality-index points (SMR x 100)</span>
         <span class="mini-legend" id="hero-legend"></span>
       </figcaption>
     </figure>
@@ -45,8 +45,8 @@
       <p class="big-caption">median share of county-to-county variation in 40 PLACES measures (crude prevalence) reproduced by demographics and state, on counties the model did not&nbsp;see</p>
     </div>
     <div class="f1-body">
-      <h2 id="f1-title">Demographics and state reproduce most of the variation in&nbsp;PLACES</h2>
-      <p>Across 40 crude-prevalence measures, county demographics plus state indicators reproduce a median <span data-bind="r2_median_pct1">96.2%</span> of the variation in counties the model did not see. This approximates the inputs to PLACES; it does not rerun CDC's model or show that the underlying health differences are artificial. Uninsurance measured directly by the Census is less predictable, partly because of sampling&nbsp;error.</p>
+      <h2 id="f1-title">Demographics + state<br>explain most<br>PLACES variation</h2>
+      <p>Across 40 crude-prevalence measures, county demographics plus state indicators reproduce a median <span data-bind="r2_median_pct1">96.2%</span> of the variation in counties the model did not see. This approximates the inputs to PLACES; it does not rerun CDC's model or show that the underlying health differences are artificial. Uninsurance measured directly by the Census is less predictable, partly because of sampling error. Coverage varies by measure, from 2,299 to 3,143 counties; these results describe counties with available data. The uninsurance comparison uses PLACES ages 18-64 and Census ages&nbsp;19-64.</p>
       <div class="chart" id="chart-r2" role="img" aria-label="Dot plot of how much of each PLACES measure demographics and state reproduce"></div>
       <details class="data-table"><summary>Chart data</summary><div class="table-scroll" id="table-r2"></div></details>
     </div>
@@ -54,7 +54,8 @@
 
   <section class="finding f2" aria-labelledby="f2-title">
     <h2 id="f2-title">Once demographics and state are known, PLACES adds&nbsp;little</h2>
-    <p class="section-sub">In 21 measured outcomes (deaths, Medicare diagnoses and Census disability), demographics plus state, and Medicare Advantage share for Medicare, predict each outcome better than PLACES alone. Adding PLACES raises prediction accuracy on unseen counties by at most <span data-bind="max_gain_all_pts">0.8</span> points across all counties (shown below) and <span data-bind="max_gain_pts">2.3</span> points in larger&nbsp;counties.</p>
+    <p class="section-sub">Across 21 recorded outcomes (deaths, Medicare diagnoses and Census disability), demographics plus state, and Medicare Advantage share for Medicare, predict held-out county values better than PLACES alone. Adding PLACES increases cross-validated R², the share of county variation predicted, by at most <span data-bind="max_gain_all_pts">0.8</span> percentage points in the full available samples shown below and <span data-bind="max_gain_pts">2.3</span> percentage points in the restricted&nbsp;samples.</p>
+    <p class="section-sub small">Each comparison includes counties with all required data. The restricted samples require at least 5,000 Original Medicare beneficiaries, 20,000 adults for Census outcomes, or 100 expected deaths for mortality&nbsp;outcomes.</p>
     <div class="chart wide" id="chart-pvo" role="img" aria-label="Dot plot comparing prediction accuracy for 21 measured outcomes"></div>
     <details class="data-table"><summary>Chart data</summary><div class="table-scroll" id="table-pvo"></div></details>
   </section>
@@ -91,12 +92,12 @@
 
   <section class="checks" id="checks" aria-labelledby="checks-title">
     <h2 id="checks-title">How it was&nbsp;checked</h2>
-    <p class="section-sub">Independent reviews by Codex and Agy reconstructed specified analyses and checked their methods. Their findings led to corrections in county matching, suppression, prediction and smoothing; the review reports describe each review's scope and the remaining&nbsp;limits.</p>
+    <p class="section-sub">Independent reviews by Codex and Agy reconstructed specified analyses and checked their methods. Their findings led to corrections in county matching, suppression, prediction and smoothing. Statistical replication and website verification are separate checks; each review report, kept with the project's code, states the data, calculations and interface behavior it&nbsp;examined.</p>
     <ol class="process">
       <li><h3>Build</h3><p>Analysis written by Claude (Opus 5.5) under the author's direction, from public raw files.</p></li>
       <li><h3>Replicate</h3><p>Codex (GPT-6 Astra) reconstructed the analyses within each review's stated scope, then audited the code.</p></li>
       <li><h3>Challenge</h3><p>Agy (Gemini 4 Argon) reviewed the method and recomputed headline numbers. Its findings were verified before use.</p></li>
-      <li><h3>Correct</h3><p>Documented problems were corrected; unresolved limitations are listed below.</p></li>
+      <li><h3>Correct</h3><p>The reviews led to the corrections illustrated below. Remaining implementation and methodological limitations are documented in the review reports.</p></li>
     </ol>
     <div class="caught">
       <h3>Problems the reviews&nbsp;caught</h3>

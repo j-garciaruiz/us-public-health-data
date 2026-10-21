@@ -71,7 +71,7 @@
       .on("mousemove", (e, d) => showTip(e, `<div class="t-name">PLACES: ${d.label}</div><dl><dt>Reproduced</dt><dd>${pct(d.inputs_plus_state_cv, 1)}</dd><dt>Counties</dt><dd>${d.n_counties.toLocaleString("en-US")}</dd></dl>`))
       .on("mouseleave", hideTip);
     // benchmark: directly measured uninsurance
-    [[all.cv_r2_acs_direct, "Census, all counties"], [big.cv_r2_acs_direct, "Census, larger counties"]].forEach(([v, label], k) => {
+    [[all.cv_r2_acs_direct, "Census, full available sample"], [big.cv_r2_acs_direct, "Census, 20,000+ adults"]].forEach(([v, label], k) => {
       const g = svg.append("g").attr("transform", `translate(${x(v)},${cy})`);
       g.append("path").attr("d", d3.symbol(d3.symbolDiamond, 90)).attr("fill", CAT.orange)
         .on("mousemove", (e) => showTip(e, `<div class="t-name">Uninsured 19-64, measured by the Census</div><dl><dt>Sample</dt><dd>${label}</dd><dt>Reproduced</dt><dd>${pct(v, 1)}</dd></dl>`))
@@ -94,7 +94,7 @@
     document.getElementById("table-r2").innerHTML = `<table><thead><tr><th>PLACES measure</th><th class="num">Reproduced</th><th class="num">Counties</th></tr></thead><tbody>` +
       F.r2_crude_cv.slice().sort((a, b) => b.inputs_plus_state_cv - a.inputs_plus_state_cv)
         .map((d) => `<tr><td>${d.label}</td><td class="num">${pct(d.inputs_plus_state_cv, 1)}</td><td class="num">${d.n_counties.toLocaleString("en-US")}</td></tr>`).join("") +
-      `<tr><td>Census-measured uninsurance, all counties</td><td class="num">${pct(all.cv_r2_acs_direct, 1)}</td><td class="num">${all.n.toLocaleString("en-US")}</td></tr>` +
+      `<tr><td>Census-measured uninsurance, full available sample</td><td class="num">${pct(all.cv_r2_acs_direct, 1)}</td><td class="num">${all.n.toLocaleString("en-US")}</td></tr>` +
       `<tr><td>Census-measured uninsurance, 20,000+ adults</td><td class="num">${pct(big.cv_r2_acs_direct, 1)}</td><td class="num">${big.n.toLocaleString("en-US")}</td></tr></tbody></table>`;
   }
 
@@ -136,7 +136,7 @@
       <span><i style="background:${CAT.orange}"></i>PLACES alone</span>
       <span><i style="background:${CAT.blue}"></i>Demographics and state (plus Medicare Advantage share for Medicare)</span>
       <span><i class="ring"></i>Both together</span></div>`);
-    svg.append("text").attr("x", narrow ? 0 : M.l).attr("y", H - 6).text(narrow ? "Share of county variation predicted" : "Share of county-to-county variation in the measured outcome predicted on counties the model did not see (all counties)");
+    svg.append("text").attr("x", narrow ? 0 : M.l).attr("y", H - 6).text(narrow ? "Share of county variation predicted (R²)" : "Share of county variation predicted in held-out counties (cross-validated R²; full available samples)");
     document.getElementById("table-pvo").innerHTML = `<table><thead><tr><th>Measured outcome</th><th class="num">PLACES alone</th><th class="num">Demographics and state</th><th class="num">Both</th><th class="num">Counties</th></tr></thead><tbody>` +
       rows.map((d) => `<tr><td>${d.label}</td><td class="num">${pct(d.cv_r2_places, 1)}</td><td class="num">${pct(d.cv_r2_demo, 1)}</td><td class="num">${pct(d.cv_r2_demo_places, 1)}</td><td class="num">${d.n.toLocaleString("en-US")}</td></tr>`).join("") + "</tbody></table>";
   }
@@ -151,7 +151,7 @@
     document.getElementById("examples").innerHTML = `
       <article class="ex">
         <p class="ex-num">${f0(caddo.observed)} vs ${f0(caddo.expected)}</p>
-        <h3>Diabetes deaths in Caddo&nbsp;Parish, Louisiana</h3>
+        <h3>Diabetes deaths:<br>Caddo&nbsp;Parish, Louisiana</h3>
         <p>Diabetes deaths run at ${f1(caddo.observed / 100)} times the national rate for Caddo's age mix (an index of ${f0(caddo.observed)}, where 100 is the national rate), against ${f0(caddo.expected)} expected from its demographics. Iberia Parish, elsewhere in Louisiana, has an index of ${f0(iberia.observed)} against ${f0(iberia.expected)} expected. The contrast could reflect differences in disease, care, how deaths are certified or other factors; this analysis does not distinguish&nbsp;them.</p>
         <a href="${link(caddo)}">See Louisiana in the atlas</a>
       </article>
@@ -164,7 +164,7 @@
       <article class="ex">
         <p class="ex-num">${F.atlas_outcomes} layers</p>
         <h3>Deaths, diagnoses and&nbsp;disability</h3>
-        <p>${F.atlas_min_coverage.toLocaleString("en-US")} to ${F.atlas_max_coverage.toLocaleString("en-US")} counties per layer, depending on the source, with measured and expected values. Expected values come from demographics, with or without state indicators. Reliability is shown where it can be estimated; age-standardized Medicare has none.</p>
+        <p>${F.atlas_min_coverage.toLocaleString("en-US")} to ${F.atlas_max_coverage.toLocaleString("en-US")} counties per layer, depending on the source, with measured and expected values. Predictions use county demographics, plus Medicare Advantage share for Medicare, with or without state indicators. Reliability is shown where it can be estimated; age-standardized Medicare has none.</p>
         <a href="atlas.html">Browse all outcomes</a>
       </article>`;
   }
