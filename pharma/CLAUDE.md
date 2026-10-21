@@ -4,11 +4,11 @@ US public pharmaceutical data (pricing, utilization, spending, access) for Johna
 
 ## ⏯ Resume here (2026-10-20, evening)
 
-**State:** catalog, IRA study (four findings), literature review, explainer and voice notes are done and merged into master (`f240037`). Added on branch `claude/pharma-data-eae972` (not yet merged into master; the main checkout's master may be in use by the atlas session):
+**State:** catalog, IRA study (four findings), literature review, explainer and voice notes are done and merged into master (`f240037`). Added later the same day and merged into master (`d8374bc`):
 - **2027 pre-registration** `prereg_2027.md`, registered in commit `b24d4c8` before any 2027 outcome data existed; Amendments 1 (Codex) and 2 (Agy) fix the scoring contract without changing any registered number. Baseline: `scripts/prereg_2027.py` -> `outputs/prereg_2027/`.
 - **Project report** `report/index.html`: one self-contained interactive page (findings, charts, context, predictions, verification). Built by `scripts/build_report.py` from `report/template.html` + `report/prereg_note.html`; rebuild after any change. Codex fact-checked it (PASS WITH FIXES, all 14 fixes applied).
 
-**Next action:** merge this branch into master when the main checkout is free. Then score P1 and P4 on the first quarterly plan pricing release with plan-year 2027 prices (expected January 2027; the monthly CY2027 series posted 2026-10-08 has no pricing table); P3 from NADAC January to June 2027; P2, P4 spending and P5 when 2027 Q1 Part D quarterly spending appears (about July 2027). Score each clause as pass, fail or not evaluable exactly as Amendments 1 and 2 define.
+**Next action:** score P1 and P4 on the first quarterly plan pricing release with plan-year 2027 prices (expected January 2027; the monthly CY2027 series posted 2026-10-08 has no pricing table); P3 from NADAC January to June 2027; P2, P4 spending and P5 when 2027 Q1 Part D quarterly spending appears (about July 2027). Score each clause as pass, fail or not evaluable exactly as Amendments 1 and 2 define.
 
 **Do not:** open any plan-year 2027 pricing data before scoring is set up exactly as registered; edit a registered number (new decisions go in a dated amendment).
 
