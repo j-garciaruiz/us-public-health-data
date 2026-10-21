@@ -17,6 +17,12 @@ fltr=1 unsmoothed actual, fltr=2 unsmoothed age-standardized.
 Output: data/raw/mmd_prevalence_2023.csv (long: fips, condition, fltr, rate).
 """
 
+# Paths in this script are relative to the repository root; anchor there so it
+# runs from any working directory (atlas/scripts/<this file> -> repo root).
+import os as _os
+from pathlib import Path as _Path
+_os.chdir(_Path(__file__).resolve().parents[2])
+
 import json
 import time
 import urllib.parse

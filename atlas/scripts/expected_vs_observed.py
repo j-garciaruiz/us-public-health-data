@@ -10,7 +10,7 @@ Observed: directly measured county outcomes.
     whether PLACES ranks counties the way claims do, not whether levels match.
   - ACS 2019-2023 disability by type, adults 18+ (survey, not modeled).
   - CDC WONDER deaths 2018-2024 as standardized mortality ratios (x100;
-    indirect age standardization, scripts/build_mortality_smr.py). Counties
+    indirect age standardization, atlas/scripts/build_mortality_smr.py). Counties
     with 9 or fewer deaths are suppressed and never published.
 
 For each pair, with 10-fold cross-validation on the counties both share:
@@ -26,15 +26,21 @@ Repeated for larger counties only (>= 5,000 Original Medicare beneficiaries,
 >= 20,000 adults for ACS, >= 100 expected deaths for WONDER), where sampling noise in the observed rate is smaller.
 
 Per-county observed-minus-expected residuals (the atlas layer) are saved too.
-Outputs in outputs/expected_vs_observed/.
+Outputs in atlas/outputs/expected_vs_observed/.
 """
+
+# Paths in this script are relative to the repository root; anchor there so it
+# runs from any working directory (atlas/scripts/<this file> -> repo root).
+import os as _os
+from pathlib import Path as _Path
+_os.chdir(_Path(__file__).resolve().parents[2])
 
 import os
 
 import numpy as np
 import pandas as pd
 
-OUT = "outputs/expected_vs_observed"
+OUT = "atlas/outputs/expected_vs_observed"
 os.makedirs(OUT, exist_ok=True)
 
 # ---- data -------------------------------------------------------------

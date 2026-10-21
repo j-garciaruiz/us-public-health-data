@@ -9,6 +9,12 @@ uninsurance rate (ages 19-64) used as an outside benchmark.
 Output: data/raw/acs_county_2023.csv (one row per county, 5-digit FIPS string).
 """
 
+# Paths in this script are relative to the repository root; anchor there so it
+# runs from any working directory (atlas/scripts/<this file> -> repo root).
+import os as _os
+from pathlib import Path as _Path
+_os.chdir(_Path(__file__).resolve().parents[2])
+
 import json
 import re
 import urllib.request

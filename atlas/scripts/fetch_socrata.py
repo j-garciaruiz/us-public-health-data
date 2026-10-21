@@ -1,15 +1,21 @@
 """Download a full dataset from data.cdc.gov (Socrata) as CSV.
 
 Usage:
-    python3 scripts/fetch_socrata.py <dataset_id> <output.csv> [--domain data.cdc.gov]
+    python3 atlas/scripts/fetch_socrata.py <dataset_id> <output.csv> [--domain data.cdc.gov]
 
 Examples:
-    python3 scripts/fetch_socrata.py i46a-9kgh data/raw/places_county_2025.csv
-    python3 scripts/fetch_socrata.py xkb8-kh2a data/raw/vsrr_overdose.csv
+    python3 atlas/scripts/fetch_socrata.py i46a-9kgh data/raw/places_county_2025.csv
+    python3 atlas/scripts/fetch_socrata.py xkb8-kh2a data/raw/vsrr_overdose.csv
 
 Standard library only, so it runs with plain Homebrew Python. Socrata caps
 each request, so rows are fetched in pages of 50 000 until the dataset ends.
 """
+
+# Paths in this script are relative to the repository root; anchor there so it
+# runs from any working directory (atlas/scripts/<this file> -> repo root).
+import os as _os
+from pathlib import Path as _Path
+_os.chdir(_Path(__file__).resolve().parents[2])
 
 import argparse
 import csv

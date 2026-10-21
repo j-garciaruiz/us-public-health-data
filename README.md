@@ -4,17 +4,25 @@ Sandbox for getting fluent with US public health data: pulling it, understanding
 
 Started 2026-10-20. Access status below was checked live on that date.
 
+## Tracks
+
+| Track | What it is | Start here |
+|---|---|---|
+| [`atlas/`](atlas/README.md) | How much CDC PLACES county estimates reflect demographics, and an expected-vs-observed county atlas built from measured outcomes (deaths, Medicare claims, Census disability), with a project site | [atlas/README.md](atlas/README.md) |
+| [`pharma/`](pharma/README.md) | Public US pharmaceutical data: catalog, NADAC prices, and a study of the first year of Medicare's negotiated drug prices | [pharma/README.md](pharma/README.md) |
+
 ## Layout
 
 ```
-data/raw/     downloaded files (git-ignored; re-fetch with the scripts)
-scripts/      fetchers and cleaning
-notebooks/    exploration
-figures/      chart output
-literature/   literature scans (start: places_atlas_literature_review.md)
+atlas/      the atlas track: scripts, outputs, site, literature, reviews
+pharma/     the pharmaceutical track: scripts, outputs, report, literature, reviews
+data/raw/   raw downloads for both tracks (git-ignored; re-fetch with each track's scripts)
+.venv/      shared Python environment (requirements.txt)
 ```
 
-`scripts/fetch_socrata.py <dataset_id> <out.csv>` downloads any full dataset from data.cdc.gov (standard library only, pages through large tables).
+Every analysis in both tracks was independently checked by Codex and Agy; each track's `reviews/` folder holds the briefs and reports. The source catalog below is the general starting map written on 2026-10-20; the pharma track keeps its own detailed drug-data catalog.
+
+`atlas/scripts/fetch_socrata.py <dataset_id> <out.csv>` downloads any full dataset from data.cdc.gov (standard library only, pages through large tables).
 
 ## Source catalog
 

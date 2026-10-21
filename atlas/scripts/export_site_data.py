@@ -1,20 +1,26 @@
 """Export the reviewed analysis outputs into compact files for the static site.
 
 Inputs (all produced and reviewed earlier):
-  outputs/atlas/atlas_county_long.csv          (scripts/build_atlas_data.py)
-  outputs/covariate_test/*.csv                 (scripts/covariate_test.py)
-  outputs/expected_vs_observed/places_vs_observed.csv
-  site/data/us_counties_2023.topo.json         (Census 2023 cartographic boundaries, mapshaper)
+  atlas/outputs/atlas/atlas_county_long.csv          (atlas/scripts/build_atlas_data.py)
+  atlas/outputs/covariate_test/*.csv                 (atlas/scripts/covariate_test.py)
+  atlas/outputs/expected_vs_observed/places_vs_observed.csv
+  atlas/site/data/us_counties_2023.topo.json         (Census 2023 cartographic boundaries, mapshaper)
 
 Outputs (JavaScript, so the pages also open from disk without a server):
-  site/data/geo.js               window.US_TOPO
-  site/data/atlas_index.js       window.ATLAS_INDEX: outcomes and county order
-  site/data/atlas_<id>.js        window.ATLAS_DATA[<id>]: arrays aligned to county order
-  site/data/findings.js          window.FINDINGS: every number quoted on the project page
+  atlas/site/data/geo.js               window.US_TOPO
+  atlas/site/data/atlas_index.js       window.ATLAS_INDEX: outcomes and county order
+  atlas/site/data/atlas_<id>.js        window.ATLAS_DATA[<id>]: arrays aligned to county order
+  atlas/site/data/findings.js          window.FINDINGS: every number quoted on the project page
 
 NCHS rule: mortality values exist only for counties with 10 or more deaths;
 build_mortality_smr.py already removed the rest, and this script asserts it.
 """
+
+# Paths in this script are relative to the repository root; anchor there so it
+# runs from any working directory (atlas/scripts/<this file> -> repo root).
+import os as _os
+from pathlib import Path as _Path
+_os.chdir(_Path(__file__).resolve().parents[2])
 
 import json
 import os
@@ -23,7 +29,7 @@ import re
 import numpy as np
 import pandas as pd
 
-SITE = "site/data"
+SITE = "atlas/site/data"
 os.makedirs(SITE, exist_ok=True)
 
 
@@ -52,7 +58,7 @@ counties = sorted(((g["id"], g["properties"]["name"], g["properties"]["st"]) for
 order = {fips: i for i, (fips, _, _) in enumerate(counties)}
 
 # --- atlas -------------------------------------------------------------
-atlas = pd.read_csv("outputs/atlas/atlas_county_long.csv", dtype={"fips": str})
+atlas = pd.read_csv("atlas/outputs/atlas/atlas_county_long.csv", dtype={"fips": str})
 assert set(atlas["fips"]) <= set(order), "atlas county missing from geometry"
 # NCHS rule, enforced against the suppression-aware death counts (Codex site
 # review, finding 8): every exported mortality row must come from a county-cause
@@ -137,11 +143,11 @@ for (layer, outcome), g in atlas.groupby(["layer", "outcome"], sort=False):
 js(f"{SITE}/atlas_index.js", "window.ATLAS_INDEX", index)
 
 # --- findings for the project page ---------------------------------------
-r2c = pd.read_csv("outputs/covariate_test/r2_by_measure_crudeprev.csv")
-r2a = pd.read_csv("outputs/covariate_test/r2_by_measure_adjprev.csv")
-bench = pd.read_csv("outputs/covariate_test/benchmark_uninsurance.csv")
-pairs = pd.read_csv("outputs/covariate_test/pairs_adjprev.csv")
-pvo = pd.read_csv("outputs/expected_vs_observed/places_vs_observed.csv")
+r2c = pd.read_csv("atlas/outputs/covariate_test/r2_by_measure_crudeprev.csv")
+r2a = pd.read_csv("atlas/outputs/covariate_test/r2_by_measure_adjprev.csv")
+bench = pd.read_csv("atlas/outputs/covariate_test/benchmark_uninsurance.csv")
+pairs = pd.read_csv("atlas/outputs/covariate_test/pairs_adjprev.csv")
+pvo = pd.read_csv("atlas/outputs/expected_vs_observed/places_vs_observed.csv")
 strong = pairs[pairs["raw_r"].abs() >= 0.7]
 dfi = pairs.set_index(["a", "b"]).loc[("diabetes", "foodinsecu")]
 

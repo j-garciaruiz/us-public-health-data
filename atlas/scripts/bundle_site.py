@@ -1,18 +1,24 @@
 """Bundle the site into self-contained single HTML files for sharing.
 
-site/index.html -> dist/expected_vs_observed.html        (project page)
-site/atlas.html -> dist/expected_vs_observed_atlas.html  (atlas, all 34 layers inlined)
+atlas/site/index.html -> atlas/dist/expected_vs_observed.html        (project page)
+atlas/site/atlas.html -> atlas/dist/expected_vs_observed_atlas.html  (atlas, all 34 layers inlined)
 
 Stylesheets, scripts, data files and the Geist fonts (as base64) are inlined,
 so each file opens on its own (double-click, email attachment, phone preview).
 The two files link to each other by their new names when kept side by side.
 """
 
+# Paths in this script are relative to the repository root; anchor there so it
+# runs from any working directory (atlas/scripts/<this file> -> repo root).
+import os as _os
+from pathlib import Path as _Path
+_os.chdir(_Path(__file__).resolve().parents[2])
+
 import base64
 import os
 import re
 
-SITE, DIST = "site", "dist"
+SITE, DIST = "atlas/site", "atlas/dist"
 os.makedirs(DIST, exist_ok=True)
 NAMES = {"index.html": "expected_vs_observed.html", "atlas.html": "expected_vs_observed_atlas.html"}
 

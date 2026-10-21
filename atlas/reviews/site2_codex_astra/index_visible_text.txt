@@ -1,0 +1,224 @@
+Expected vs Observed
+Project
+Atlas
+Method
+Expected
+vs Observed
+
+A US county health atlas comparing measured outcomes with what demographically similar counties record.
+
+Open the atlas
+How it was checked
+Diabetes deaths 2018-2024, smoothed difference from expected
+lower
+higher
+
+96%
+
+median share of county-to-county variation in 40 PLACES measures (crude prevalence) reproduced by demographics and state, on counties the model did not see
+
+Demographics and state reproduce most of the variation in PLACES
+
+Across 40 crude-prevalence measures, county demographics plus state indicators reproduce a median 96.2% of the variation in counties the model did not see. This approximates the inputs to PLACES; it does not rerun CDC's model or show that the underlying health differences are artificial. Uninsurance measured directly by the Census is less predictable, partly because of sampling error.
+
+60%
+70%
+80%
+90%
+100%
+PLACES uninsurance: 98%
+Census-measured uninsurance: 72% (84% in larger counties)
+Share of county-to-county variation reproduced on counties the model did not see. Blue: the 40 PLACES measures (crude prevalence).
+Chart data
+PLACES measure	Reproduced	Counties
+Cognitive disability	98.4%	2,956
+Housing insecurity	98.0%	2,299
+Fair or poor general health	98.0%	2,956
+Food insecurity	97.9%	2,299
+Independent-living disability	97.9%	2,956
+No health insurance (18-64)	97.8%	2,956
+Lack of transportation	97.7%	2,299
+Current smoking	97.5%	2,956
+Utility shut-off threat	97.4%	2,299
+Frequent physical distress	97.3%	2,956
+Any disability	97.0%	2,956
+Lack of social and emotional support	96.9%	2,299
+Vision disability	96.8%	2,956
+Received SNAP (food stamps)	96.7%	2,299
+Mobility disability	96.7%	2,956
+Frequent mental distress	96.6%	2,956
+Cancer (non-skin)	96.5%	2,956
+Self-care disability	96.5%	2,956
+COPD	96.4%	2,956
+Physical inactivity	96.3%	2,956
+Dental visit	96.1%	3,143
+Hearing disability	95.9%	2,956
+Cholesterol screening	95.7%	2,956
+Diabetes	95.7%	2,956
+Stroke	95.7%	2,956
+Current asthma	95.4%	2,956
+High blood pressure	95.4%	2,956
+Arthritis	95.3%	2,956
+Coronary heart disease	94.9%	2,956
+Routine checkup	94.9%	2,956
+Depression	94.6%	2,956
+Taking blood pressure medication	93.7%	2,956
+Binge drinking	91.3%	2,956
+High cholesterol	90.4%	2,956
+Loneliness	89.7%	2,299
+Colorectal cancer screening	84.9%	3,143
+Short sleep	83.2%	3,143
+Obesity	80.4%	2,956
+All teeth lost (65+)	74.3%	3,143
+Mammography	72.9%	3,143
+Census-measured uninsurance, all counties	71.7%	2,956
+Census-measured uninsurance, 20,000+ adults	83.9%	1,485
+Once demographics and state are known, PLACES adds little
+
+In 21 measured outcomes (deaths, Medicare diagnoses and Census disability), demographics plus state, and Medicare Advantage share for Medicare, predict each outcome better than PLACES alone. Adding PLACES raises prediction accuracy on unseen counties by at most 0.8 points across all counties (shown below) and 2.3 points in larger counties.
+
+PLACES alone
+Demographics and state (plus Medicare Advantage share for Medicare)
+Both together
+0%
+10%
+20%
+30%
+40%
+50%
+60%
+70%
+80%
+90%
+High blood pressure (Medicare)
+Diabetes (Medicare)
+Mobility disability (Census)
+High cholesterol (Medicare)
+Coronary heart disease (Medicare)
+Chronic lower respiratory deaths
+COPD (Medicare)
+Heart disease deaths
+Obesity (Medicare)
+Hearing disability (Census)
+Independent-living disability (Census)
+Stroke (Medicare)
+Arthritis (Medicare)
+Cancer (Medicare)
+Diabetes deaths
+Cognitive disability (Census)
+Depression (Medicare)
+Self-care disability (Census)
+Vision disability (Census)
+Stroke deaths
+Asthma (Medicare)
+Share of county-to-county variation in the measured outcome predicted on counties the model did not see (all counties)
+Chart data
+Measured outcome	PLACES alone	Demographics and state	Both	Counties
+High blood pressure (Medicare)	55.3%	79.0%	79.5%	2,918
+Diabetes (Medicare)	50.3%	72.8%	73.6%	2,917
+Mobility disability (Census)	56.7%	63.4%	63.4%	2,956
+High cholesterol (Medicare)	33.4%	61.8%	62.5%	2,918
+Coronary heart disease (Medicare)	14.1%	59.9%	59.9%	2,917
+Chronic lower respiratory deaths	41.7%	59.2%	59.9%	2,838
+COPD (Medicare)	38.2%	57.9%	58.5%	2,915
+Heart disease deaths	37.6%	57.3%	57.3%	2,931
+Obesity (Medicare)	12.7%	53.5%	53.7%	2,915
+Hearing disability (Census)	43.8%	53.3%	53.4%	2,956
+Independent-living disability (Census)	39.2%	50.8%	50.7%	2,956
+Stroke (Medicare)	10.9%	48.2%	48.2%	2,898
+Arthritis (Medicare)	12.3%	46.9%	47.4%	2,917
+Cancer (Medicare)	0.6%	45.4%	45.8%	2,914
+Diabetes deaths	29.3%	44.1%	44.8%	2,722
+Cognitive disability (Census)	29.1%	43.1%	43.3%	2,956
+Depression (Medicare)	8.1%	42.6%	43.3%	2,911
+Self-care disability (Census)	31.7%	41.1%	41.0%	2,956
+Vision disability (Census)	29.8%	39.9%	39.8%	2,956
+Stroke deaths	24.8%	39.3%	39.4%	2,808
+Asthma (Medicare)	0.2%	36.0%	36.3%	2,902
+What the atlas shows
+
+Differences are descriptive comparisons with a model, not estimates of preventable disease or county performance.
+
+452 vs 145
+
+Diabetes deaths in Caddo Parish, Louisiana
+
+Diabetes deaths run at 4.5 times the national rate for Caddo's age mix (an index of 452, where 100 is the national rate), against 145 expected from its demographics. Iberia Parish, elsewhere in Louisiana, has an index of 38 against 166 expected. The contrast could reflect differences in disease, care, how deaths are certified or other factors; this analysis does not distinguish them.
+
+See Louisiana in the atlas
+
+44% vs 28%
+
+Recorded diabetes in Staten Island
+
+Share of Original Medicare beneficiaries with a recorded diabetes diagnosis, against the share expected from county demographics and Medicare Advantage enrollment. Brooklyn: 43% against 29%. Disease, access to care, who is in Original Medicare, and diagnosis or coding practices may all contribute; this analysis does not separate them.
+
+See New York City in the atlas
+
+34 layers
+
+Deaths, diagnoses and disability
+
+2,909 to 3,143 counties per layer, depending on the source, with measured and expected values. Expected values come from demographics, with or without state indicators. Reliability is shown where it can be estimated; age-standardized Medicare has none.
+
+Browse all outcomes
+Using PLACES with its limitations
+Suited to
+Estimating likely burden where no local data exist (CDC's intended use)
+Planning and needs assessments
+Broad geographic patterns
+Not suited to, on its own
+Judging whether a county does better or worse than similar counties
+Evaluating a local program or policy
+Treating links with demographics, or between two PLACES measures, as independent evidence
+Treating modeled differences as precise rankings of county health
+
+Prefer direct local estimates when they measure the same outcome, population and period with enough precision. Claims and death records add complementary evidence, but they do not measure the same thing as adult prevalence surveys.
+
+How it was checked
+
+Independent reviews by Codex and Agy reconstructed specified analyses and checked their methods. Their findings led to corrections in county matching, suppression, prediction and smoothing; the review reports describe each review's scope and the remaining limits.
+
+Build
+
+Analysis written by Claude (Opus 5.5) under the author's direction, from public raw files.
+
+Replicate
+
+Codex (GPT-6 Astra) reconstructed the analyses within each review's stated scope, then audited the code.
+
+Challenge
+
+Agy (Gemini 4 Argon) reviewed the method and recomputed headline numbers. Its findings were verified before use.
+
+Correct
+
+Documented problems were corrected; unresolved limitations are listed below.
+
+Problems the reviews caught
+Correlations between two measures computed on mismatched sets of counties
+A summary figure that could not exceed 1.9% even if two measures moved together perfectly
+Zero-death counties kept in the data, against the CDC rule on counts of 9 or fewer
+A renamed Alaska county dropped from the mortality data
+Kentucky and Pennsylvania missing from every atlas layer
+Negative expected death rates in four counties
+A small-county smoothing formula missing a centering step
+Wording that claimed more than the analysis showed, on charts and on this page
+Method, data and limits
+Data
+CDC PLACES, 2025 county release (BRFSS 2022-2023)
+CDC WONDER deaths 2018-2024, under the NCHS data use rules
+CMS Mapping Medicare Disparities, 2023 claims
+Census American Community Survey, 2019-2023
+Method
+Expected values: predicted from county demographics (plus Medicare Advantage share for claims, and optionally state) by models fit on other counties, so no county predicts itself; deaths use a rate model (Poisson regression)
+Deaths: compared with the deaths expected at national age-specific rates (standardized mortality ratio, 100 = national rate)
+Smoothing: pulls noisy small-county differences toward zero according to each source's uncertainty (empirical Bayes); Medicare denominators are approximate, and age-standardized Medicare is not smoothed
+Limits
+Measured is not the same as true disease: claims reflect diagnosis and coding, deaths reflect certificates
+Connecticut has no mortality match; Medicare smoothing uses an approximate denominator
+No test yet on other regions or years
+
+Builds on Kong and Zhang, "The Use of Small Area Estimates in Place-Based Health Research", American Journal of Public Health, 2020.
+
+Johnattan García Ruiz, October 2026. Public data from CDC, CMS and the US Census Bureau.

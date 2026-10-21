@@ -1,10 +1,10 @@
 """Atlas data: observed vs demographic expectation, county by county.
 
-Separate from scripts/expected_vs_observed.py, which compares PLACES with
+Separate from atlas/scripts/expected_vs_observed.py, which compares PLACES with
 measured outcomes on a common panel. Here PLACES is NOT required: every county
 with an observed value and covariates gets an expectation. Design follows the
-Codex and Agy reviews (reviews/eo_codex_astra/REPORT.md finding 8;
-reviews/eo_agy_argon/REPORT.md findings 7-8 and bugs 3-5).
+Codex and Agy reviews (atlas/reviews/eo_codex_astra/REPORT.md finding 8;
+atlas/reviews/eo_agy_argon/REPORT.md findings 7-8 and bugs 3-5).
 
 Two expectation modes
 - national (default): observed ~ county demographics (age, sex, race/ethnicity,
@@ -55,15 +55,21 @@ the shrunk difference is lambda * r. Tiers: 1 if lambda >= 0.75, 2 if
 Suppression: WONDER counts of 9 or fewer (zero included) have no SMR and never
 appear. Medicare zeros are dropped (ambiguous: suppression or rounding).
 
-Output: outputs/atlas/atlas_county_long.csv
+Output: atlas/outputs/atlas/atlas_county_long.csv
 """
+
+# Paths in this script are relative to the repository root; anchor there so it
+# runs from any working directory (atlas/scripts/<this file> -> repo root).
+import os as _os
+from pathlib import Path as _Path
+_os.chdir(_Path(__file__).resolve().parents[2])
 
 import os
 
 import numpy as np
 import pandas as pd
 
-OUT = "outputs/atlas"
+OUT = "atlas/outputs/atlas"
 os.makedirs(OUT, exist_ok=True)
 SEED, REPEATS, FOLDS = 20261020, 10, 10
 

@@ -18,6 +18,12 @@ county's age structure).
 Outputs: data/raw/wonder/*.txt (WONDER export format, tab-delimited + notes).
 """
 
+# Paths in this script are relative to the repository root; anchor there so it
+# runs from any working directory (atlas/scripts/<this file> -> repo root).
+import os as _os
+from pathlib import Path as _Path
+_os.chdir(_Path(__file__).resolve().parents[2])
+
 import os
 import re
 import sys

@@ -13,6 +13,12 @@ Data use rule (NCHS agreement accepted 2026-10-20): counts of 9 or fewer are
 Output: data/raw/wonder_county_smr.csv
 """
 
+# Paths in this script are relative to the repository root; anchor there so it
+# runs from any working directory (atlas/scripts/<this file> -> repo root).
+import os as _os
+from pathlib import Path as _Path
+_os.chdir(_Path(__file__).resolve().parents[2])
+
 import re
 
 import numpy as np

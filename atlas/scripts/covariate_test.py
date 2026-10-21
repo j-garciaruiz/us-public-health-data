@@ -12,7 +12,7 @@ and, for every pair of measures, the correlation of the residuals (partial r)
 and the share of the raw covariance left in the residuals, both computed on
 the counties the two measures share.
 
-What this shows, and what it does not (see reviews/codex_astra/REPORT.md):
+What this shows, and what it does not (see atlas/reviews/codex_astra/REPORT.md):
 it measures how far the PUBLISHED estimates can be reconstructed from
 demographics plus state. It does not show that the underlying health
 relationships are spurious, that demographics alone explain the state
@@ -22,8 +22,14 @@ approximation error and timing differences cannot be separated here).
 Benchmark: PLACES lack of insurance (ages 18-64) vs a directly measured ACS
 uninsurance rate (19-64), run through the same procedure.
 
-Outputs in outputs/covariate_test/.
+Outputs in atlas/outputs/covariate_test/.
 """
+
+# Paths in this script are relative to the repository root; anchor there so it
+# runs from any working directory (atlas/scripts/<this file> -> repo root).
+import os as _os
+from pathlib import Path as _Path
+_os.chdir(_Path(__file__).resolve().parents[2])
 
 import itertools
 import os
@@ -31,7 +37,7 @@ import os
 import numpy as np
 import pandas as pd
 
-OUT = "outputs/covariate_test"
+OUT = "atlas/outputs/covariate_test"
 os.makedirs(OUT, exist_ok=True)
 
 places = pd.read_csv("data/raw/places_county_2025.csv", dtype={"countyfips": str})

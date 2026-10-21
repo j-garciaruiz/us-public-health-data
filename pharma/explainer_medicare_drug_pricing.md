@@ -1,6 +1,6 @@
 # How Medicare drug pricing works, and what the first year of negotiation changed
 
-A plain-language guide for someone new to US drug pricing. Written 2026-10-20 to accompany our analysis ([ira_findings.md](ira_findings.md)) and literature review ([../literature/ira_negotiation_literature_review.md](../literature/ira_negotiation_literature_review.md)). Fact-checked by Codex (GPT-6 Astra) against the full texts and primary sources; its corrections are applied (`reviews/pharma_explainer_codex_astra/report.md`). The papers are summarized one by one in section 8.
+A plain-language guide for someone new to US drug pricing. Written 2026-10-20 to accompany our analysis ([ira_findings.md](ira_findings.md)) and literature review ([literature/ira_negotiation_literature_review.md](literature/ira_negotiation_literature_review.md)). Fact-checked by Codex (GPT-6 Astra) against the full texts and primary sources; its corrections are applied (`reviews/pharma_explainer_codex_astra/report.md`). The papers are summarized one by one in section 8.
 
 ---
 

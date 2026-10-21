@@ -30,8 +30,8 @@ US public pharmaceutical data (pricing, utilization, spending, access) for Johna
 | `prereg_2027.md`, `scripts/prereg_2027.py` | 2027 pre-registration and its baseline (`outputs/prereg_2027/`) |
 | `report/index.html`, `scripts/build_report.py` | Project report, one interactive HTML page |
 | `voice_note/` | Scripts of the two voice notes (audio git-ignored) |
-| `../literature/ira_negotiation_literature_review.md` | Literature and grey-literature review; notes in `../literature/ira_notes/`, wishlist with Harvard LibKey links |
-| `../literature/ira_fulltext/MANIFEST.md` | 18 papers + 5 grey documents read in full (PDFs and text git-ignored) |
+| `literature/ira_negotiation_literature_review.md` | Literature and grey-literature review; notes in `literature/ira_notes/`, wishlist with Harvard LibKey links |
+| `literature/ira_fulltext/MANIFEST.md` | 18 papers + 5 grey documents read in full (PDFs and text git-ignored) |
 
 ## Findings (one line each)
 

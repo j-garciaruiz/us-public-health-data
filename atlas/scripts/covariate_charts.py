@@ -1,10 +1,16 @@
-"""Charts for the shared-covariate test (run scripts/covariate_test.py first)."""
+"""Charts for the shared-covariate test (run atlas/scripts/covariate_test.py first)."""
+
+# Paths in this script are relative to the repository root; anchor there so it
+# runs from any working directory (atlas/scripts/<this file> -> repo root).
+import os as _os
+from pathlib import Path as _Path
+_os.chdir(_Path(__file__).resolve().parents[2])
 
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-OUT = "outputs/covariate_test"
+OUT = "atlas/outputs/covariate_test"
 SURFACE, INK, INK2, GRID = "#fcfcfb", "#0b0b0b", "#52514e", "#e4e3df"
 BLUE, ORANGE = "#2a78d6", "#eb6834"
 
@@ -77,7 +83,7 @@ fig.savefig(f"{OUT}/chart1_r2_by_measure.png", dpi=180)
 
 # Chart 2: diabetes vs food insecurity, before and after removing the inputs
 import sys
-sys.path.insert(0, "scripts")
+sys.path.insert(0, "atlas/scripts")
 places = pd.read_csv("data/raw/places_county_2025.csv", dtype={"countyfips": str})
 places["fips"] = places.countyfips.str.zfill(5)
 acs_df = pd.read_csv("data/raw/acs_county_2023.csv", dtype={"fips": str})
