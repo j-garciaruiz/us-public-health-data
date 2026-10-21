@@ -10,6 +10,7 @@ Read the track's own `CLAUDE.md` before working in it.
 ## Layout
 ```
 atlas/      scripts, outputs, site, dist (git-ignored), literature, reviews
+pages/      GitHub Pages home page and build script (output in _site/, git-ignored)
 pharma/     scripts, outputs, report, literature, reviews, voice_note
 data/raw/   all raw downloads for both tracks (git-ignored; scripts re-fetch them)
 .venv/      shared Python environment (requirements.txt)
@@ -17,7 +18,9 @@ data/raw/   all raw downloads for both tracks (git-ignored; scripts re-fetch the
 Each track keeps its own `scripts/`, `outputs/`, `literature/` and `reviews/`. Scripts in both tracks locate the repository root from their own file path, so they run from any working directory.
 
 ## GitHub
-Public repository since 2026-10-21 (Johnattan's choice): https://github.com/j-garciaruiz/us-public-health-data, branch `master`, one repo for both tracks. GitHub Pages is off; the site stays local until he asks. Everything pushed is public, so keep secrets, non-open-access full texts and any WONDER count of 9 or fewer out of tracked files.
+Public repository since 2026-10-21 (Johnattan's choice): https://github.com/j-garciaruiz/us-public-health-data, branch `master`, one repo for both tracks. Everything pushed is public, so keep secrets, non-open-access full texts and any WONDER count of 9 or fewer out of tracked files.
+
+**GitHub Pages live since 2026-10-21 (Johnattan asked):** https://j-garciaruiz.github.io/us-public-health-data/ . `pages/build.sh` assembles `_site/` (git-ignored): `/` is `pages/index.html` (home page linking both tracks), `/atlas/` is `atlas/site/` minus `design/`, `/pharma/` is `pharma/report/index.html`. `.github/workflows/pages.yml` runs it and deploys on every push to master that touches those paths. Preview locally with the `pages` entry in `.claude/launch.json` after running the build script.
 
 ## Standing rules
 - **Data work gets a triple check (Johnattan, 2026-10-20).** Any analysis that becomes a claim, chart or deliverable is independently replicated by Codex (`gpt-6-astra`, effort high) from raw data, and method-reviewed with an independent recompute by Agy (`gemini-4-argon-high`). Agy's findings are leads, not verdicts: verify each before applying it; Codex is the main cross-family check. Briefs and reports live in the track's `reviews/`; each reviewer writes only in its own folder and sees Claude's code only after producing its own numbers. Report each verdict and any disagreement.
@@ -34,7 +37,7 @@ Johnattan asked for symmetric tracks: the atlas files moved from the top level i
 **Decisions locked in (do not relitigate):**
 - Atlas design: expected = prediction from county demographics (default, "national") or demographics + state; observed = measured outcomes; differences are descriptive, not performance.
 - Triple check on every claim, chart or deliverable; Agy findings verified before use; Codex is the main check.
-- Site stays local, not on GitHub Pages, until Johnattan asks (2026-10-21). The repository itself is public on GitHub (2026-10-21).
+- Site live on GitHub Pages since 2026-10-21 at Johnattan's request (it was kept local earlier that day); the repository is public.
 - WONDER data used under the NCHS agreement accepted 2026-10-20: no counts of 9 or fewer, zero included.
 
 **Open items:**

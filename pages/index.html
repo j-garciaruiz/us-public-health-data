@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>US public health data | Johnattan García Ruiz</title>
+<meta name="description" content="Two studies built from US public health data: an expected-vs-observed county health atlas and the first year of Medicare drug price negotiation.">
+<style>
+/* Home page for the GitHub Pages site. Tokens and typeface follow
+   atlas/site/assets/site.css so the three pages read as one site. */
+@font-face {
+  font-family: "Geist";
+  src: url("atlas/fonts/Geist-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+:root {
+  color-scheme: light;
+  --page: #f9f9f7;
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #6f6d68;
+  --grid: #e1e0d9;
+  --ring: rgba(11, 11, 11, 0.10);
+  --accent: #2a78d6;
+  --accent-ink: #1c5cab;
+  --radius: 8px;
+  --font: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --page: #0f0f0e;
+    --surface: #1a1a19;
+    --ink: #f0efec;
+    --ink-2: #c3c2b7;
+    --muted: #9b9991;
+    --grid: #2c2c2a;
+    --ring: rgba(255, 255, 255, 0.10);
+    --accent: #5598e7;
+    --accent-ink: #86b6ef;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+main {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: clamp(48px, 9vw, 112px) 24px 64px;
+}
+h1, h2 { text-wrap: balance; letter-spacing: -0.02em; margin: 0; }
+p { text-wrap: pretty; margin: 0; }
+.kicker {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+h1 {
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  line-height: 1.02;
+  font-weight: 650;
+  max-width: 14ch;
+}
+.lede {
+  color: var(--ink-2);
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+  max-width: 60ch;
+  margin-top: 24px;
+}
+.tracks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: clamp(40px, 6vw, 72px);
+}
+.track {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 28px;
+  background: var(--surface);
+  border: 1px solid var(--grid);
+  border-radius: var(--radius);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.track:hover { border-color: var(--accent); box-shadow: 0 0 0 3px var(--ring); }
+.track:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 3px; }
+.track .label {
+  color: var(--accent-ink);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.track h2 { font-size: 1.45rem; line-height: 1.2; font-weight: 600; }
+.track p { color: var(--ink-2); }
+.track .go {
+  margin-top: auto;
+  padding-top: 8px;
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+footer {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 24px 24px 48px;
+  border-top: 1px solid var(--grid);
+  color: var(--muted);
+  font-size: 0.92rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  justify-content: space-between;
+}
+footer a { color: var(--accent-ink); }
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker">Johnattan García Ruiz</p>
+  <h1>US public health&nbsp;data</h1>
+  <p class="lede">Two studies built entirely from public US data, each with its code, outputs and independent review reports in the same&nbsp;repository.</p>
+
+  <div class="tracks">
+    <a class="track" href="atlas/">
+      <span class="label">County health atlas</span>
+      <h2>Expected vs&nbsp;Observed</h2>
+      <p>A US county health atlas that sets measured outcomes (deaths, Medicare claims, Census disability) against what each county's demographics predict, and tests what CDC PLACES&nbsp;adds.</p>
+      <span class="go">Open the atlas &rarr;</span>
+    </a>
+    <a class="track" href="pharma/">
+      <span class="label">Pharmaceutical policy</span>
+      <h2>Medicare's first negotiated drug&nbsp;prices</h2>
+      <p>The first year of Medicare drug price negotiation: Part D spending, list prices, pharmacy acquisition cost and plan prices, with pre-registered predictions for&nbsp;2027.</p>
+      <span class="go">Read the study &rarr;</span>
+    </a>
+  </div>
+</main>
+<footer>
+  <span>Built from public data released by CDC, CMS and the US Census&nbsp;Bureau.</span>
+  <a href="https://github.com/j-garciaruiz/us-public-health-data">Code and review reports on GitHub</a>
+</footer>
+</body>
+</html>

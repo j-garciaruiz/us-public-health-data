@@ -19,3 +19,6 @@ data/raw/
 atlas/outputs/atlas/*.csv
 atlas/outputs/expected_vs_observed/observed_minus_expected_by_county.csv
 atlas/dist/
+
+# GitHub Pages build output (pages/build.sh)
+_site/

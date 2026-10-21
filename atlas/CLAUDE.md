@@ -27,7 +27,7 @@ Johnattan chose the **expected-vs-observed atlas**: county demographics + state 
 ## Site (built 2026-10-21)
 - `atlas/site/index.html` (project page) and `atlas/site/atlas.html` (interactive atlas), static D3. Preview: `.claude/launch.json` ("site", port 8731).
 - Reviewed by Codex and Agy, then Codex verified the fixes (`atlas/reviews/site_*`, `atlas/reviews/site2_codex_astra/`); the second-round fixes were applied using Codex's own tested wording.
-- **Decision (Johnattan, 2026-10-21): keep the site local; do not publish to GitHub Pages until he asks.**
+- **Live on GitHub Pages since 2026-10-21 (Johnattan asked the same day, reversing the earlier keep-local decision):** https://j-garciaruiz.github.io/us-public-health-data/atlas/ . Every push to master that touches `atlas/site/` redeploys it.
 
 ## Layout change (2026-10-21)
 The atlas track moved from the repository top level into `atlas/` to mirror `pharma/`. Re-running every local stage from another working directory reproduced all 58 output files byte for byte.

@@ -4,8 +4,30 @@
     {
       "name": "site",
       "runtimeExecutable": "/opt/homebrew/bin/python3",
-      "runtimeArgs": ["-m", "http.server", "8731", "--bind", "127.0.0.1", "--directory", "atlas/site"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8731",
+        "--bind",
+        "127.0.0.1",
+        "--directory",
+        "atlas/site"
+      ],
       "port": 8731
+    },
+    {
+      "name": "pages",
+      "runtimeExecutable": "/opt/homebrew/bin/python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8732",
+        "--bind",
+        "127.0.0.1",
+        "--directory",
+        "_site"
+      ],
+      "port": 8732
     }
   ]
 }
