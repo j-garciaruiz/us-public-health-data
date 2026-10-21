@@ -23,6 +23,7 @@ REVIEWS = [
     ("Literature review and full-text round", "PASS WITH FIXES (two rounds)", "not run"),
     ("Plain-language explainer", "fact-checked, fixes applied", "not run"),
     ("2027 pre-registration baseline", "__CODEX_PREREG__", "__AGY_PREREG__"),
+    ("This page", "PASS WITH FIXES; 2,491 embedded values matched; 14 wording fixes applied", "not run"),
 ]
 
 

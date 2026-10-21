@@ -155,14 +155,14 @@ footer { font-size: 0.85rem; color: var(--muted); padding: 2rem 0; border-top: 1
     <div role="listitem"><div class="num">4 of 10</div><div class="lab">drugs cut list prices by 20% or more on 2026-01-01 (6 of 10 since 2024)</div></div>
     <div role="listitem"><div class="num">2.2–3.6x</div><div class="lab">pharmacy invoice cost (NADAC) over the negotiated price in October 2026 for Januvia, Xarelto, Entresto, Stelara and Enbrel</div></div>
   </div>
-  <p class="small muted">All spending figures are <b>gross</b>, before manufacturer rebates. These data do not measure net savings. Every number was independently replicated by a second AI model from the raw files (section 11).</p>
+  <p class="small muted">All spending figures are <b>gross</b>, before manufacturer rebates. These data do not measure net savings. The project's data analyses were independently replicated from the raw files; cited research and policy claims were checked against their sources. The verification section describes the scope of each review.</p>
 
   <figure class="viz" id="heroFig">
     <p class="viz-title">Gross Part D spending per claim, 2025 full year to 2026 Q1</p>
     <p class="viz-sub">The ten drugs with a negotiated price in 2026, against the fifteen whose price starts in 2027. Hover a bar for the dollar amounts.</p>
     <div class="legend"><span><i class="sw" style="background:var(--s1)"></i>Negotiated price in effect 2026</span><span><i class="sw" style="background:var(--s2)"></i>Negotiated price starts 2027</span></div>
     <div class="chart" id="chartF1"></div>
-    <figcaption>Source: CMS Medicare Quarterly Part D Spending by Drug (2026 Q1 is preliminary). Brand rows pooled by drug family. Linzess (2027 group) fell after a 50% list-price cut on 2026-01-01.</figcaption>
+    <figcaption>Source: CMS Medicare Quarterly Part D Spending by Drug (2026 Q1 is preliminary). Brand rows pooled by drug family: semaglutide pools Ozempic, Rybelsus and Wegovy; NovoLog/Fiasp pools those two brands. Linzess (2027 group) fell after a 50% list-price cut on 2026-01-01.</figcaption>
   </figure>
 </header>
 
@@ -179,14 +179,14 @@ footer { font-size: 0.85rem; color: var(--muted); padding: 2rem 0; border-top: 1
       <tr><td>Wholesaler</td><td>Buys from the manufacturer, sells to pharmacies.</td></tr>
       <tr><td>Pharmacy</td><td>Buys the drug (NADAC measures its invoice cost), dispenses it, is paid by the plan and the patient.</td></tr>
       <tr><td>Part D plan and its PBM</td><td>Private plans that Medicare pays to cover outpatient drugs. The pharmacy benefit manager builds the formulary, negotiates rebates and sets pharmacy payment.</td></tr>
-      <tr><td>Medicare</td><td>Pays most Part D costs through the plans; since 2026 also negotiates prices for selected drugs.</td></tr>
-      <tr><td>Patient</td><td>Pays premium, deductible and copay or coinsurance, up to an annual cap ($2,000 in 2025, $2,100 in 2026).</td></tr>
+      <tr><td>Medicare</td><td>Pays most Part D costs through the plans and negotiates prices for selected drugs; the first negotiated prices took effect in 2026.</td></tr>
+      <tr><td>Patient</td><td>Pays a separate premium, plus any deductible and copayments or coinsurance. Qualifying out-of-pocket spending on covered Part D medicines is capped at $2,000 in 2025 and $2,100 in 2026; premiums do not count toward the cap.</td></tr>
     </tbody>
   </table></div>
 
   <h3>The negotiation program</h3>
   <div class="prose">
-    <p>The Inflation Reduction Act of 2022 lets Medicare negotiate a <b>Maximum Fair Price (MFP)</b> for high-spending drugs without generic or biosimilar competition: small molecules at least 7 years past approval and biologics 11 years past licensure when selected. For the rounds taking effect in 2026 to 2028 the law sets a ceiling: at least 25% off the average non-federal price for most drugs, at least 60% for drugs 16 or more years past approval, or the Part D net price if lower. At the pharmacy, plan payment plus patient cost sharing cannot exceed the MFP plus dispensing fees. Pharmacies that bought at list are made whole by manufacturer refunds, by default list price minus MFP, exchanged through CMS's Medicare Transaction Facilitator; CMS reports refunds arriving within 21 days of the date of service on average.</p>
+    <p>The Inflation Reduction Act of 2022 lets Medicare negotiate a <b>Maximum Fair Price (MFP)</b> for high-spending drugs without generic or biosimilar competition: small molecules at least 7 years past approval and biologics 11 years past licensure when selected. For the rounds taking effect in 2026 to 2028 the law sets a ceiling: at least 25% off the average non-federal price for most drugs, at least 60% for drugs 16 or more years past approval, or the Part D net price if lower. At the pharmacy, plan payment plus patient cost sharing cannot exceed the MFP plus dispensing fees. Manufacturers can provide access to the MFP prospectively or through retrospective refunds. The default refund uses WAC minus MFP, with permitted alternatives. CMS's Medicare Transaction Facilitator exchanges claim data and offers an optional payment service. CMS reports that refunds were being sent within 21 days of service on average; this does not establish that every pharmacy recovered its actual costs.</p>
   </div>
   <div class="tablewrap"><table>
     <thead><tr><th>Round</th><th>Drugs</th><th>Selected</th><th>Prices published</th><th>In effect</th></tr></thead>
@@ -247,7 +247,8 @@ footer { font-size: 0.85rem; color: var(--muted); padding: 2rem 0; border-top: 1
     <div class="chart" id="chartF2"></div>
     <figcaption>Source: NADAC Comparison file, rows whose primary reason is a WAC adjustment. Universe: products priced as brands in that January.</figcaption>
   </figure>
-  <h3>Every large cut in the three groups of selected drugs</h3>
+  <h3>Large WAC-based cuts captured by NADAC in the selected-drug groups</h3>
+  <p class="small muted prose">This table uses the December 20 to February 28 windows labeled 2024, 2025 and 2026, independently of the chart's window selector. It includes products classified as brands in a January snapshot. It excludes cuts without NADAC coverage, including Imbruvica's 2025-12-22 cut.</p>
   <div class="tablewrap"><table class="sortable" id="tblCuts">
     <thead><tr><th class="sortable">January</th><th class="sortable">Group</th><th class="sortable">Drug</th><th class="sortable">Products</th><th class="sortable n">NDCs</th><th class="sortable n">Median cut</th><th class="sortable">Effective</th></tr></thead>
     <tbody></tbody>
@@ -265,19 +266,19 @@ footer { font-size: 0.85rem; color: var(--muted); padding: 2rem 0; border-top: 1
   </div>
   <figure class="viz">
     <p class="viz-title">NADAC per unit divided by the 2026 MFP per unit, weekly</p>
-    <p class="viz-sub">Median across each drug's brand products. A value of 1 means pharmacies buy at the negotiated price. Pick a drug to highlight.</p>
+    <p class="viz-sub">Median NADAC/MFP ratio across each drug's brand NDCs. A value of 1 means the median invoice benchmark equals the MFP; it does not establish any individual pharmacy's acquisition cost. Pick a drug to highlight.</p>
     <div class="controls" id="f3pick"></div>
     <div class="chart" id="chartF3"></div>
-    <figcaption>Source: NADAC weekly files joined to the CMS MFP file by NDC. No NADAC rows match Imbruvica. MFP in effect on each date (Entresto Sprinkle corrected from 2026-06-01).</figcaption>
+    <figcaption>NADAC weekly files joined by NDC to the CMS MFP file. The 2025 observations use each NDC's earliest valid 2026 MFP as a future-price benchmark. From 2026, the denominator is the MFP effective on the snapshot date, including the Entresto Sprinkle correction from 2026-06-01. No NADAC observations match Imbruvica.</figcaption>
   </figure>
-  <div class="callout">This is a gap between an invoice benchmark and the MFP, not a measured pharmacy loss. Pharmacies are refunded the difference after dispensing; the data here do not show refund timing or amounts. Separately, 67% of over 500 surveyed independent pharmacies waited 22 days or more for refunds (NCPA, 2026-02-26).</div>
+  <div class="callout">This is a gap between an invoice benchmark and the MFP, not a measured pharmacy loss or refund receivable. Manufacturers must provide MFP access for eligible transactions, but these data do not show actual refund amounts, receipt dates or acquisition costs for those transactions. Separately, 67% of over 500 surveyed independent pharmacies waited 22 days or more for refunds (NCPA, 2026-02-26).</div>
 </section>
 
 <section id="f4">
   <p class="kicker">Finding 4</p>
   <h2>Reported plan prices sit at the MFP from January 2026</h2>
   <div class="prose">
-    <p>CMS's quarterly plan pricing files list each plan's reported unit price for the drugs it covers, in the same billing units as the MFP. For the ten drugs, plan prices were a median <b>2.77 times</b> the MFP in plan year 2025. In the January 2026 release the median was <b>1.000</b>: 92.7% of plan-product prices were within 0.5% of the MFP (99.7% weighting drugs by their claims), 4.9% below it (the MFP is a ceiling) and 2.3% above, all of those on unbranded ustekinumab products grouped with Stelara. By October 2026, none were above. The fifteen drugs negotiated for 2027 stayed above their future MFP.</p>
+    <p>CMS's quarterly plan pricing files list each plan's reported unit price for the drugs it covers, in the same billing units as the MFP. For the ten drugs, plan prices were a median <b>2.77 times</b> the MFP in plan year 2025. In the January 2026 release the median was <b>1.000</b>: 92.7% of plan-product ratios were within 0.5% of the MFP (99.7% weighting drugs by their claims), 4.9% were below 0.995 (the MFP is a ceiling) and 2.3% exceeded 1.005, all of those unbranded ustekinumab products grouped with Stelara. By October, no ratio exceeded 1.005; the maximum was only about 0.003% above 1.000, consistent with rounding. The fifteen drugs negotiated for 2027 stayed above their future MFP.</p>
   </div>
   <figure class="viz">
     <p class="viz-title">Median plan unit price divided by the MFP, by drug and release</p>
@@ -287,7 +288,7 @@ footer { font-size: 0.85rem; color: var(--muted); padding: 2rem 0; border-top: 1
     <figcaption>Source: CMS Part D plan pricing files (SPUF), pricing table, 30-day supply rows. The January 2026 release is labeled "2025Q4" by CMS but holds plan-year 2026 prices.</figcaption>
   </figure>
   <div class="tablewrap"><table>
-    <thead><tr><th>Release</th><th class="n">Plan-product rows</th><th class="n">Median ratio</th><th class="n">Within 0.5%</th><th class="n">Below</th><th class="n">Above</th><th class="n">Claim-weighted within</th></tr></thead>
+    <thead><tr><th>Release</th><th class="n">Plan-product rows</th><th class="n">Median ratio</th><th class="n">Within 0.5%</th><th class="n">Below 0.995</th><th class="n">Above 1.005</th><th class="n">Claim-weighted within</th></tr></thead>
     <tbody id="tblF4"></tbody>
   </table></div>
   <p class="small muted prose">The plan price excludes dispensing fees and does not show rebates, final plan spending or what patients pay.</p>
@@ -303,12 +304,12 @@ footer { font-size: 0.85rem; color: var(--muted); padding: 2rem 0; border-top: 1
     <thead><tr><th>Question</th><th>What the evidence says</th></tr></thead>
     <tbody>
       <tr><td>How much does it save?</td><td>CMS: 22% (about $6 billion) against 2023 net spending for round one; 44% (about $12 billion, or 36% counting coverage-gap discounts) for round two against 2024. Jeon et al. 2026 project 2026 net spending on the ten drugs at $23.8 billion vs $26.1 billion without negotiation (−8.8%). Wouters et al. 2024 argue CMS's 22% overstates savings.</td></tr>
-      <tr><td>How deep are the discounts?</td><td>Round-one MFPs were 8% to 42% below estimated net prices (Wouters et al. 2024). Round-two MFPs were a median 38% below estimated net prices (range 15% to 60%) but a median 108% above purchasing-power-adjusted prices in 19 reference countries (Gabriel et al. 2026).</td></tr>
-      <tr><td>Do patients save?</td><td>Modeled average annual out-of-pocket savings across six drugs of $685 in stand-alone plans and $470 in Medicare Advantage; Stelara, Imbruvica and Enbrel users reach the $2,100 cap either way (Castle et al. 2026, Annals). Projections, not observed savings.</td></tr>
-      <tr><td>Access and plan behavior</td><td>Every plan covers all ten drugs in 2026; step therapy on negotiated diabetes drugs rose to 5.0% (Jain and McCoy 2026). Access to non-selected brands in competitive classes fell 11.8 points in stand-alone plans, 2024 to 2026 (Zheng et al. 2026).</td></tr>
+      <tr><td>How deep are the discounts?</td><td>Round-one MFPs were 8% to 42% below estimated 2021 US net prices (Wouters et al. 2024). For the 14 round-two drugs with estimable net prices, MFPs were a median 38% below estimated 2022 US net prices (range 15% to 60%). Across the round-two drugs, MFPs were a median 108% above average purchasing-power-adjusted 2025 list prices in 19 reference countries (Gabriel et al. 2026). These are benchmark comparisons, not measured net savings.</td></tr>
+      <tr><td>Do patients save?</td><td>For beneficiaries without low-income subsidies, a model using 2026 plan designs estimated average annual out-of-pocket reductions across six drugs of $685 in stand-alone plans and $470 in Medicare Advantage plans. In the model, users of Stelara, Imbruvica and Enbrel reached the $2,100 cap with either price. Modeled comparisons, not observed patient savings (Castle et al. 2026, Annals).</td></tr>
+      <tr><td>Access and plan behavior</td><td>Every plan covers all ten drugs in 2026; step therapy on negotiated diabetes drugs rose to 5.0% (Jain and McCoy 2026). Across 59 non-selected brands in 16 competitive classes, enrollment-weighted formulary coverage fell 11.8 percentage points in stand-alone plans, from 47.4% in 2024 to 35.6% in 2026; this measures coverage, not realized treatment access or a causal effect (Zheng et al. 2026).</td></tr>
       <tr><td>Launch prices</td><td>Among 643 new drugs approved 2008 to 2025, launch prices rose about 7.8% a year before the law, with no significant change in trend afterwards; the estimate is imprecise (Shanmugam et al. 2026).</td></tr>
       <tr><td>Innovation</td><td>Industry-funded work reports a 68% peak-to-2024 fall in early-stage small-molecule investment in one cohort (Schulthess et al. 2025, descriptive); Kang et al. 2026 find overall trial activity stable. Unsettled.</td></tr>
-      <tr><td>Pharmacies and 340B</td><td>Survey-reported refund delays (NCPA); projected margin losses for long-term-care pharmacies above 85% (Bhardwaj et al. 2026) and lower 340B net revenue (Courtemanche 2026). Surveys and projections, not measured losses.</td></tr>
+      <tr><td>Pharmacies and 340B</td><td>NCPA reports pharmacy owners' refund delays. Bhardwaj et al. 2026 project a reduction exceeding 85% in long-term-care pharmacies' revenue net of acquisition cost on selected drugs in 2027 under their reimbursement assumptions. Courtemanche 2026 projects lower net revenue for 340B covered entities. Survey reports and projections, not measured losses.</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -317,34 +318,34 @@ footer { font-size: 0.85rem; color: var(--muted); padding: 2rem 0; border-top: 1
   <p class="kicker">Looking ahead</p>
   <h2>What we expect in 2027, written down before the data arrive</h2>
   <div class="prose">
-    <p>The 2026 results were seen before any test was designed, so they cannot confirm a hypothesis. The fifteen drugs whose MFPs start on 2027-01-01 can. On 2026-10-20 we registered five predictions in git (commit <code>b24d4c8</code>, before opening any 2027 file); clarifications added after review are dated amendments that never change a registered number.</p>
-    <p><b>The rule.</b> If the MFP binds, a drug's gross spending per claim should fall by about <b>1/r − 1</b>, where r is the plan price divided by the coming MFP in the last plan pricing file before it starts. It has no fitted parameter. Applied after the fact to the 2026 drugs, it missed by at most 2.1 points for eight of the ten; the two misses have known causes (Entresto lost most claims to generics; the NovoLog entry pools two differently priced brands). Across all ten the mean absolute error is 4.7 points, and at fixed claim mix it predicted −62.2% against −61.4% measured.</p>
+    <p>The 2026 results were seen before any test was designed, so they cannot confirm a hypothesis. The fifteen drugs whose MFPs start on 2027-01-01 can. On 2026-10-20 we registered five predictions in git (commit <code>b24d4c8</code>, before examining any plan-year 2027 pricing or outcome data); clarifications added after review are dated amendments that never change a registered number.</p>
+    <p><b>The rule.</b> If the MFP binds, a drug's gross spending per claim should fall by about <b>1/r − 1</b>, where r is the plan price divided by the coming MFP in the last plan pricing file before it starts. It has no fitted parameter. Applied retrospectively to the 2026 drugs, the rule missed by at most 2.1 percentage points for eight of ten. The two large misses were identified after examining the results: Entresto's brand claims fell sharply after generic entry, and the NovoLog family pools differently priced NovoLog and Fiasp products. These are plausible explanations, not an identified decomposition of the errors. Across all ten, mean absolute error was 4.7 points; the fixed-2025-claim-mix prediction was −62.2%, compared with −61.4% observed.</p>
   </div>
   <figure class="viz">
     <p class="viz-title">Calibration on the 2026 drugs: predicted vs measured change in spending per claim</p>
     <p class="viz-sub">Points on the diagonal were predicted exactly. Prediction uses the October 2025 plan pricing file only.</p>
     <div class="chart" id="chartCal"></div>
-    <figcaption>Structural cases (hollow) are named in the registration as known exceptions, but they count in the error figures above.</figcaption>
+    <figcaption>Hollow points mark the two cases flagged after examining the calibration errors. Both remain in the all-ten error summaries. All 15 drugs remain in the primary 2027 test.</figcaption>
   </figure>
   <figure class="viz">
     <p class="viz-title">Registered prediction for each 2027 drug, with its pass band</p>
     <p class="viz-sub">Predicted change in gross Part D spending per claim, 2026 to 2027 Q1, from the October 2026 plan pricing file. Bars show the ±5-point band used for scoring. Hover for benchmarks.</p>
     <div class="chart" id="chartPred"></div>
-    <figcaption>Group prediction at fixed claim mix: −63.4% (pass between −58% and −68%). About $8.1 billion of gross spending a quarter at 2026 Q1 volumes. Semaglutide alone is 37% of the group's spending.</figcaption>
+    <figcaption>Group prediction with each drug's weight fixed at its 2026 Q1 claims: −63.4% (pass between −68% and −58%). The roughly $8.1 billion gross reduction holds 2026 Q1 prices and volumes fixed; it is not a forecast of 2027 spending. Semaglutide spending pools Ozempic, Rybelsus and Wegovy and is 37% of the group's 2026 Q1 spending; its October 2026 plan-price ratio pools the Ozempic and Wegovy rows (Rybelsus has none). The pooled prediction is primary.</figcaption>
   </figure>
   <div class="tablewrap"><table>
     <thead><tr><th>Prediction</th><th>What we expect</th><th>Data and date</th></tr></thead>
     <tbody>
-      <tr><td><span class="tag">P1</span> Plan prices</td><td>Each of the 15 drugs has a median plan price within 0.5% of its 2027 MFP; at least 90% of plan-product rows (97% claim-weighted) within 0.5%. The six continuing drugs sit at their 2.7% inflation-adjusted MFP.</td><td>First quarterly plan pricing release with plan-year 2027 prices, expected January 2027</td></tr>
-      <tr><td><span class="tag">P2</span> Spending per claim</td><td>Each drug within 5 points of 1/r − 1 for at least 12 of 15; group −63% (−58% to −68%); rank correlation at least 0.8; comparison groups between −3% and +5%.</td><td>Part D quarterly spending, 2027 Q1, about July 2027</td></tr>
-      <tr><td><span class="tag">P3</span> List prices</td><td>Of seven NADAC drugs without an earlier cut, 2 to 5 cut list prices by 20% or more between 2026-12-20 and 2027-02-28; drugs without a cut keep NADAC at 1.5 times the MFP or more.</td><td>NADAC weekly, January to June 2027</td></tr>
-      <tr><td><span class="tag">P4</span> Drugs leaving</td><td>Brand Entresto, Xarelto and Stelara plan prices return to at least 1.5 times the old MFP; NovoLog and Fiasp stay near it; brand spending per claim rises at least 50%.</td><td>Plan pricing files and Part D spending, 2027</td></tr>
-      <tr><td><span class="tag">P5</span> Drugs continuing</td><td>Spending per claim changes between −3% and +6% for each of the six.</td><td>Part D spending, 2027 Q1</td></tr>
+      <tr><td><span class="tag">P1</span> Plan prices</td><td>Each of the 15 drugs has a median plan-price/MFP ratio of 0.995 to 1.005. At least 90% of all plan-product rows, and at least 97% after weighting drug-specific shares by 2026 Q1 claims, are within 0.5% of their own MFP. No drug has more than 5% of rows above 1.005 times its MFP. Each of the six continuing drugs also has a median ratio of 0.995 to 1.005 against its inflation-adjusted 2027 MFP, about 2.7% above its 2026 MFP.</td><td>First quarterly plan pricing release with plan-year 2027 prices, expected January 2027</td></tr>
+      <tr><td><span class="tag">P2</span> Spending per claim</td><td>At least 12 of 15 drugs within ±5 points of the unrounded 1/r − 1; group −63% with weights fixed at 2026 Q1 claims and a full-year 2026 denominator (pass −68% to −58%); rank correlation at least 0.8; comparison groups between −3% and +5%.</td><td>Part D quarterly spending, 2027 Q1, about July 2027</td></tr>
+      <tr><td><span class="tag">P3</span> List prices</td><td>Of the seven NADAC-covered families without an earlier cut, 2 to 5 have a WAC-based NADAC reduction of at least 20%, effective 2026-12-20 through 2027-02-28 inclusive (a family counts once if at least one eligible brand NDC meets the rule). A Tradjenta cut must coincide with a Jentadueto cut; a Breo or Trelegy cut with a cut to Anoro, Incruse or Arnuity, WAC-based, at least 20%, on the same effective date (not evaluable without a triggering cut). In the last June 2027 NADAC snapshot, each family's median brand-NDC ratio to its 2027 MFP is at least 1.5 without a family cut and at least 1.00 with one (0.98 as a sensitivity only). The comparison of cut frequencies between high- and low-ratio drugs is exploratory.</td><td>NADAC weekly, January to June 2027</td></tr>
+      <tr><td><span class="tag">P4</span> Drugs leaving</td><td>This tests a return to higher prices; deselection does not require it. For brand Entresto, Xarelto and Stelara separately, the median plan-price ratio is at least 1.5 times the 2026 MFP, and gross spending per claim rises at least 50% from full-year 2026 to 2027 Q1. NovoLog and Fiasp are tested separately for plan-price ratios of 0.9 to 1.2 times the 2026 MFP; the spending-rise prediction does not apply to them. Unbranded products are excluded. A brand with no plan-price rows or fewer than 1,000 claims in 2027 Q1 is not evaluable. A failed threshold stays failed even if a possible mechanism is identified.</td><td>Plan pricing files and Part D spending, 2027</td></tr>
+      <tr><td><span class="tag">P5</span> Drugs continuing</td><td>Spending per claim changes between −3% and +6% for each of the six, full-year 2026 to 2027 Q1 (2026 Q1 to 2027 Q1 reported separately).</td><td>Part D spending, 2027 Q1</td></tr>
     </tbody>
   </table></div>
   <div class="prose"><h3>Amendments after review</h3>
-<p><b>Amendment 1 (2026-10-20, after the Codex review).</b> Codex reproduced all 221 baseline numbers. The amendment fixes how each prediction is scored without changing any registered number: every clause is scored separately as pass, fail or not evaluable, with no overall verdict; the unit is plan x segment x product rows with a 30-day supply against the MFP file as downloaded on 2026-10-20; missing products are listed, never counted as passes. The semaglutide escape clause is withdrawn, so a semaglutide median below the MFP is a fail of P1 (Medicare's $50-copay GLP-1 Bridge runs outside Part D through 2027). It also corrects the registration's data note: the monthly 2027 release CMS posted on 2026-10-08 has no pricing table, so the plan-price test waits for the January 2027 quarterly release. The calibration is reported in full: across all ten drugs the mean absolute error is 4.7 points and the rank correlation 0.72, so P2's rank clause (0.8) is a harder test than the rule has passed so far.</p>
-<p><b>Amendment 2 (2026-10-20, after the Agy review).</b> Each Agy finding was checked against the data before use. Applied: a code fix (the Fiasp row was dropped from one baseline table) and five pre-specified sensitivities: a 2026 Q4 baseline (Xifaxan's plan price rose 16% during 2026, so a full-year baseline will understate its fall), semaglutide by brand (Ozempic r = 3.66, Wegovy r = 3.33), brand-only plan prices, a 2026 Q1 baseline for the drugs leaving and continuing, and a 2028 comparator without drugs that cut list prices (Trulicity is 42% of its claims). Not applied: Agy listed wrong values for Gabriel et al.'s discounts while calling them an exact match, described a scoring band that does not exist, and summarized a paper with figures not in its text. The rank-correlation threshold stays at 0.8.</p>
+<p><b>Amendment 1 (2026-10-20, after the Codex review).</b> Codex reproduced all 221 baseline numbers. The amendment fixes how each prediction is scored without changing any registered number: every clause is scored separately as pass, fail or not evaluable, with no overall verdict; the primary plan-price test uses the first CMS release containing plan-year 2027 unit prices, expected in January 2027, with later releases as replications; rows are contract x plan x segment x NDC with a 30-day supply, at full precision against the frozen 2026-10-20 MFP file after dropping superseded rows; missing products are listed, never counted as passes. P2 fixes each drug's weight at its 2026 Q1 claims: the observed index is the sum of 2026 Q1 claims times 2027 Q1 spending per claim over the sum of 2026 Q1 claims times full-year 2026 spending per claim, minus 1, scored against the registered −68% to −58%. The semaglutide exception is withdrawn: its median ratio must lie between 0.995 and 1.005, inclusive, like every other 2027 drug; compliance with the MFP ceiling is reported separately (Medicare's $50-copay GLP-1 Bridge operates outside Part D coverage and payment through 2027). It also corrects the registration's data note: the monthly 2027 release CMS posted on 2026-10-08 has no pricing table, so the plan-price test waits for the January 2027 quarterly release. The calibration is reported in full: across all ten drugs the mean absolute error is 4.7 points and the rank correlation 0.72, so P2's rank clause (0.8) is a harder test than the rule has passed so far.</p>
+<p><b>Amendment 2 (2026-10-20, after the Agy review).</b> Each Agy finding was checked against the data before use. Applied: the missing Fiasp row was restored to one baseline table and Farxiga's 2026 MFP corrected to $178.50. Five sensitivities were specified: a Q4-only 2026 baseline for all 15 drugs (Q4 year-to-date minus Q3 year-to-date spending and claims); separate Ozempic (r = 3.66) and Wegovy (r = 3.33) results, keeping the pooled semaglutide prediction primary; brand-only plan-price shares, keeping every listed NDC against its own MFP in P1; a 2026 Q1 baseline for P4 and P5; and a 2028 comparator excluding drugs with WAC-based cuts of at least 20% effective 2026-12-20 through 2027-02-28. Xifaxan's ratio rose from 2.80 to 3.25 during 2026, so its decline against the full-year baseline is expected to be smaller than the registered October-based −69%. Trulicity is 42% and Anoro Ellipta 13% of the 2028 comparator's 2026 Q1 claims. Not applied: Agy listed wrong values for Gabriel et al.'s discounts while calling them an exact match, described a scoring band that does not exist, and summarized a paper with figures not in its text. The rank-correlation threshold stays at 0.8.</p>
 </div>
   <details><summary>All fifteen 2027 drugs: baseline and benchmarks</summary>
     <div class="tablewrap"><table class="sortable" id="tblPred">
@@ -372,11 +373,11 @@ footer { font-size: 0.85rem; color: var(--muted); padding: 2rem 0; border-top: 1
   <p class="kicker">Verification</p>
   <h2>How it was checked</h2>
   <div class="prose">
-    <p>Every analysis that became a claim was replicated independently. Codex (OpenAI GPT-6 Astra, high effort) recomputed each number from the raw files in its own folder before seeing this project's code, then reviewed the code and wording. Agy (Google Gemini 4 Argon, high) recomputed the headline numbers and critiqued the method; its findings were treated as leads and verified against the data or sources before any change. All fixes are applied.</p>
+    <p>Codex (OpenAI GPT-6 Astra, high effort) independently recomputed the project's analysis outputs from raw files, in its own folder, before reviewing the analysis code and wording. Agy (Google Gemini 4 Argon, high) recomputed headline figures and reviewed methods; its findings were treated as leads and checked against the data or sources before any change. Literature findings were checked against publications, not re-created from their underlying study data. The table records the reviews completed for each component; those reviews do not by themselves certify every later summary sentence. A final Codex fact-check of this page compared 2,491 embedded values with the outputs and corrected its wording.</p>
   </div>
   <div class="tablewrap"><table>
     <thead><tr><th>Piece</th><th>Codex (GPT-6 Astra)</th><th>Agy (Gemini 4 Argon)</th></tr></thead>
-    <tbody><tr><td>Source catalog and NADAC starter numbers</td><td>PASS WITH FIXES</td><td>PASS WITH FIXES</td></tr><tr><td>Findings 1 to 3 (Part D, list prices, NADAC)</td><td>PASS WITH FIXES, follow-up confirmed 8,542 comparisons</td><td>PASS WITH FIXES</td></tr><tr><td>Finding 4 (1.5 million plan-price rows)</td><td>PASS WITH FIXES</td><td>PASS WITH FIXES</td></tr><tr><td>Literature review and full-text round</td><td>PASS WITH FIXES (two rounds)</td><td>not run</td></tr><tr><td>Plain-language explainer</td><td>fact-checked, fixes applied</td><td>not run</td></tr><tr><td>2027 pre-registration baseline</td><td>PASS WITH FIXES (221 numbers reproduced)</td><td>PASS WITH FIXES; 6 findings held up, 5 claims did not (wrong source values)</td></tr></tbody>
+    <tbody><tr><td>Source catalog and NADAC starter numbers</td><td>PASS WITH FIXES</td><td>PASS WITH FIXES</td></tr><tr><td>Findings 1 to 3 (Part D, list prices, NADAC)</td><td>PASS WITH FIXES, follow-up confirmed 8,542 comparisons</td><td>PASS WITH FIXES</td></tr><tr><td>Finding 4 (1.5 million plan-price rows)</td><td>PASS WITH FIXES</td><td>PASS WITH FIXES</td></tr><tr><td>Literature review and full-text round</td><td>PASS WITH FIXES (two rounds)</td><td>not run</td></tr><tr><td>Plain-language explainer</td><td>fact-checked, fixes applied</td><td>not run</td></tr><tr><td>2027 pre-registration baseline</td><td>PASS WITH FIXES (221 numbers reproduced)</td><td>PASS WITH FIXES; 6 findings held up, 5 claims did not (wrong source values)</td></tr><tr><td>This page</td><td>PASS WITH FIXES; 2,491 embedded values matched; 14 wording fixes applied</td><td>not run</td></tr></tbody>
   </table></div>
 </section>
 
@@ -446,6 +447,8 @@ const NS = "http://www.w3.org/2000/svg";
 const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 const pct = (v, d = 0) => (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v * 100).toFixed(d) + "%";
 const money = v => "$" + Math.round(v).toLocaleString("en-US");
+const POOLED = { OZEMPIC: "Semaglutide (pooled)", NOVOLOG: "NovoLog/Fiasp" };
+const plabel = s => POOLED[s] || title(s);
 const title = s => s.split(" ").map(w => w === "NOVOLOG" ? "NovoLog" : w.charAt(0) + w.slice(1).toLowerCase()).join(" ");
 const GROUPC = { "IPAY 2026": "--s1", "IPAY 2027": "--s2", "IPAY 2028": "--s3", "Other brands": "--s4" };
 const GROUPL = { "IPAY 2026": "Negotiated 2026", "IPAY 2027": "Negotiated 2027", "IPAY 2028": "Selected 2028", "Other brands": "Other brands" };
@@ -491,12 +494,12 @@ function chartF1() {
     prev = r.group;
     const c = css(GROUPC[r.group]);
     const x0 = x(Math.min(0, r.chg)), w = Math.abs(x(r.chg) - x(0));
-    const lab = el("text", { x: left - 8, y: y + rowH / 2 + 4, "text-anchor": "end" }, s); lab.textContent = title(r.drug);
+    const lt0 = el("text", { x: left - 8, y: y + rowH / 2 + 4, "text-anchor": "end" }, s); lt0.textContent = plabel(r.drug);
     const bar = el("rect", { x: x0, y: y + 3, width: Math.max(w, 1.5), height: rowH - 6, rx: 3, fill: c }, s);
     const v = el("text", { x: r.chg < 0 ? x(r.chg) - 5 : x(r.chg) + 5, y: y + rowH / 2 + 4, "text-anchor": r.chg < 0 ? "end" : "start" }, s);
     v.textContent = pct(r.chg);
     const hit = el("rect", { x: left, y, width: W - left - right, height: rowH, fill: "transparent" }, s);
-    hit.addEventListener("mousemove", e => showTip(e, `<b>${title(r.drug)}</b> (${GROUPL[r.group]})<br>${money(r.pc2025)} per claim in 2025<br>${money(r.pc2026)} in 2026 Q1 (${pct(r.chg)})<br>${Math.round(r.claims2025).toLocaleString("en-US")} claims in 2025`));
+    hit.addEventListener("mousemove", e => showTip(e, `<b>${plabel(r.drug)}</b> (${GROUPL[r.group]})<br>${money(r.pc2025)} per claim in 2025<br>${money(r.pc2026)} in 2026 Q1 (${pct(r.chg)})<br>${Math.round(r.claims2025).toLocaleString("en-US")} claims in 2025`));
     hit.addEventListener("mouseleave", hideTip);
     y += rowH;
   });
@@ -573,7 +576,7 @@ function chartF3() {
   const path = rs => rs.map((r, i) => (i ? "L" : "M") + x(Date.parse(r.date)).toFixed(1) + "," + y(r.ratio).toFixed(1)).join("");
   drugs.filter(d => d !== f3pick).forEach(d => {
     const rs = D.f3.filter(r => r.drug === d);
-    el("path", { d: path(rs), fill: "none", stroke: css("--axis"), "stroke-width": 1.2 }, s);
+    el("path", { d: path(rs), fill: "none", stroke: css("--muted"), "stroke-width": 1.2, opacity: 0.45 }, s);
   });
   const rs = D.f3.filter(r => r.drug === f3pick);
   el("path", { d: path(rs), fill: "none", stroke: css("--s1"), "stroke-width": 2.4 }, s);
@@ -621,7 +624,7 @@ function chartF4() {
     const c = css(g === "2026" ? "--s1" : "--s2");
     const pts = snaps.map(sn => D.f4.find(r => r.drug === d && r.IPAY == g && r.snapshot === sn)).filter(Boolean);
     const cy = y + rowH / 2;
-    const lab = el("text", { x: left - 8, y: cy + 4, "text-anchor": "end" }, s); lab.textContent = title(d);
+    const lab = el("text", { x: left - 8, y: cy + 4, "text-anchor": "end" }, s); lab.textContent = plabel(d);
     const xs = pts.map(p => x(p.ratio));
     el("line", { x1: Math.min(...xs), x2: Math.max(...xs), y1: cy, y2: cy, stroke: c, "stroke-width": 2, opacity: 0.45 }, s);
     pts.forEach((p, i) => {
@@ -629,7 +632,7 @@ function chartF4() {
       el("circle", Object.assign({ cx: x(p.ratio), cy, r: i === 2 ? 3.2 : 5 }, a), s);
     });
     const hit = el("rect", { x: left, y, width: W - left - right, height: rowH, fill: "transparent" }, s);
-    hit.addEventListener("mousemove", e => showTip(e, `<b>${title(d)}</b> (MFP from ${g})<br>` + pts.map(p => `${p.snapshot.replace(/^\d+ \((.*)\)$/, "$1")}: ${p.ratio.toFixed(3)} (${(p.at * 100).toFixed(1)}% within 0.5%)`).join("<br>")));
+    hit.addEventListener("mousemove", e => showTip(e, `<b>${plabel(d)}</b> (MFP from ${g})<br>` + pts.map(p => `${p.snapshot.replace(/^\d+ \((.*)\)$/, "$1")}: ${p.ratio.toFixed(3)} (${(p.at * 100).toFixed(1)}% within 0.5%)`).join("<br>")));
     hit.addEventListener("mouseleave", hideTip);
     y += rowH;
   });
@@ -657,9 +660,9 @@ function chartCal() {
     const c = css("--s1");
     el("circle", { cx: x(r.pred), cy: y(r.real), r: 6, fill: r.structural ? css("--surface") : c, stroke: r.structural ? c : css("--surface"), "stroke-width": 2 }, s);
     const off = { JANUVIA: [9, -6, "start"], XARELTO: [9, 9, "start"], JARDIANCE: [-9, -4, "end"], FARXIGA: [-9, 2, "end"], STELARA: [9, 12, "start"], ENBREL: [9, 10, "start"] }[r.drug] || [9, 4, "start"];
-    const lab = el("text", { x: x(r.pred) + off[0], y: y(r.real) + off[1], "text-anchor": off[2] }, s); lab.textContent = title(r.drug);
+    const lab = el("text", { x: x(r.pred) + off[0], y: y(r.real) + off[1], "text-anchor": off[2] }, s); lab.textContent = plabel(r.drug);
     const hit = el("circle", { cx: x(r.pred), cy: y(r.real), r: 12, fill: "transparent" }, s);
-    hit.addEventListener("mousemove", e => showTip(e, `<b>${title(r.drug)}</b><br>r = ${r.r.toFixed(2)}<br>predicted ${pct(r.pred, 1)}, measured ${pct(r.real, 1)}<br>error ${r.err > 0 ? "+" : ""}${r.err.toFixed(1)} points${r.structural ? "<br>known structural case" : ""}`));
+    hit.addEventListener("mousemove", e => showTip(e, `<b>${plabel(r.drug)}</b><br>r = ${r.r.toFixed(2)}<br>predicted ${pct(r.pred, 1)}, measured ${pct(r.real, 1)}<br>error ${r.err > 0 ? "+" : ""}${r.err.toFixed(1)} points${r.structural ? "<br>known structural case" : ""}`));
     hit.addEventListener("mouseleave", hideTip);
   });
 }
@@ -679,23 +682,23 @@ function chartPred() {
   let y = top;
   rows.forEach(r => {
     const cy = y + rowH / 2, c = css("--s2");
-    const lab = el("text", { x: left - 8, y: cy + 4, "text-anchor": "end" }, s); lab.textContent = title(r.drug);
+    const lab = el("text", { x: left - 8, y: cy + 4, "text-anchor": "end" }, s); lab.textContent = plabel(r.drug);
     el("rect", { x: x(r.pred - 0.05), y: cy - 6, width: x(r.pred + 0.05) - x(r.pred - 0.05), height: 12, rx: 3, fill: c, opacity: 0.25 }, s);
     el("circle", { cx: x(r.pred), cy, r: 5, fill: c, stroke: css("--surface"), "stroke-width": 2 }, s);
     const v = el("text", { x: x(r.pred + 0.05) + 6, y: cy + 4 }, s); v.textContent = pct(r.pred);
     const hit = el("rect", { x: left, y, width: W - left - right, height: rowH, fill: "transparent" }, s);
-    hit.addEventListener("mousemove", e => showTip(e, `<b>${title(r.drug)}</b><br>plan price = ${r.r.toFixed(2)} times the 2027 MFP<br>predicted ${pct(r.pred, 1)} (pass ${pct(r.pred - 0.05)} to ${pct(r.pred + 0.05)})<br>${money(r.pc)} per claim in 2026 Q1` + (r.gab != null ? `<br>Gabriel et al.: MFP ${Math.round(r.gab * 100)}% below estimated net` : "") + `<br>CMS: MFP ${Math.round(r.cms * 100)}% below 2024 list`));
+    hit.addEventListener("mousemove", e => showTip(e, `<b>${plabel(r.drug)}</b><br>plan price = ${r.r.toFixed(2)} times the 2027 MFP<br>predicted ${pct(r.pred, 1)}; scoring tolerance ±5 points around the unrounded prediction (about ${pct(r.pred - 0.05, 1)} to ${pct(r.pred + 0.05, 1)})<br>${money(r.pc)} per claim in 2026 Q1` + (r.gab != null ? `<br>Gabriel et al.: MFP ${Math.round(r.gab * 100)}% below estimated net` : "") + `<br>CMS: MFP ${Math.round(r.cms * 100)}% below 2024 list`));
     hit.addEventListener("mouseleave", hideTip);
     y += rowH;
   });
 }
 function tablePred() {
   document.querySelector("#tblPred tbody").innerHTML = D.pred.slice().sort((a, b) => a.pred - b.pred).map(r =>
-    `<tr><td>${title(r.drug)}</td><td class="n" data-v="${r.r}">${r.r.toFixed(2)}</td><td class="n" data-v="${r.pred}">${pct(r.pred)}</td><td class="n" data-v="${r.pc}">${money(r.pc)}</td><td class="n" data-v="${r.nadac ?? -1}">${r.nadac == null ? "no NADAC" : r.nadac.toFixed(2)}</td><td class="n" data-v="${r.gab ?? -1}">${r.gab == null ? "not estimable" : "−" + Math.round(r.gab * 100) + "%"}</td><td class="n" data-v="${r.cms}">−${Math.round(r.cms * 100)}%</td></tr>`).join("");
+    `<tr><td>${plabel(r.drug)}</td><td class="n" data-v="${r.r}">${r.r.toFixed(2)}</td><td class="n" data-v="${r.pred}">${pct(r.pred)}</td><td class="n" data-v="${r.pc}">${money(r.pc)}</td><td class="n" data-v="${r.nadac ?? -1}">${r.nadac == null ? "no NADAC" : r.nadac.toFixed(2)}</td><td class="n" data-v="${r.gab ?? -1}">${r.gab == null ? "not estimable" : "−" + Math.round(r.gab * 100) + "%"}</td><td class="n" data-v="${r.cms}">−${Math.round(r.cms * 100)}%</td></tr>`).join("");
 }
 function tableCuts() {
   document.querySelector("#tblCuts tbody").innerHTML = D.cuts.map(r =>
-    `<tr><td>${r.january}</td><td>${GROUPL[r.group]}</td><td>${title(r.drug)}</td><td>${r.products.split("/").map(title).join(", ")}</td><td class="n">${r.ndcs}</td><td class="n" data-v="${r.median_pct}">${r.median_pct.toFixed(1)}%</td><td>${r.effective}</td></tr>`).join("");
+    `<tr><td>${r.january}</td><td>${GROUPL[r.group]}</td><td>${plabel(r.drug)}</td><td>${r.products.split("/").map(title).join(", ")}</td><td class="n">${r.ndcs}</td><td class="n" data-v="${r.median_pct}">${r.median_pct.toFixed(1)}%</td><td>${r.effective}</td></tr>`).join("");
 }
 
 /* sortable tables */

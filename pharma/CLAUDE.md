@@ -2,13 +2,19 @@
 
 US public pharmaceutical data (pricing, utilization, spending, access) for Johnattan's US job-search portfolio. Started 2026-10-20 in a side session (branch `claude/pharma-data-eae972`, merged into master the same day). All work lives in `pharma/`, `literature/ira_*`, `data/raw/pharma/` (git-ignored) and `reviews/pharma_*`; it never touches the atlas files.
 
-## ⏯ Resume here (2026-10-20)
+## ⏯ Resume here (2026-10-20, evening)
 
-**State:** catalog, starter data, the IRA negotiation study (four findings), literature review, full-text round, plain-language explainer and two WhatsApp voice notes are done, triple-checked and merged into master (`f240037`). Nothing is pending review.
+**State:** catalog, IRA study (four findings), literature review, explainer and voice notes are done and merged into master (`f240037`). Added on branch `claude/pharma-data-eae972` (not yet merged into master; the main checkout's master may be in use by the atlas session):
+- **2027 pre-registration** `prereg_2027.md`, registered in commit `b24d4c8` before any 2027 outcome data existed; Amendments 1 (Codex) and 2 (Agy) fix the scoring contract without changing any registered number. Baseline: `scripts/prereg_2027.py` -> `outputs/prereg_2027/`.
+- **Project report** `report/index.html`: one self-contained interactive page (findings, charts, context, predictions, verification). Built by `scripts/build_report.py` from `report/template.html` + `report/prereg_note.html`; rebuild after any change. Codex fact-checked it (PASS WITH FIXES, all 14 fixes applied).
 
-**Next action:** write down expected 2027 results for the 15 IPAY 2027 drugs (per-claim change, plan prices at MFP, NADAC/MFP) before their data arrive, using Gabriel et al. 2026 and Li et al. 2026 as benchmarks; then rerun `ira_analysis.py` when CMS releases 2026 Q2 Part D quarterly spending, and follow the four drugs leaving the program on 2027-01-01 (Stelara, Entresto, Xarelto, NovoLog/Fiasp).
+**Next action:** merge this branch into master when the main checkout is free. Then score P1 and P4 on the first quarterly plan pricing release with plan-year 2027 prices (expected January 2027; the monthly CY2027 series posted 2026-10-08 has no pricing table); P3 from NADAC January to June 2027; P2, P4 spending and P5 when 2027 Q1 Part D quarterly spending appears (about July 2027). Score each clause as pass, fail or not evaluable exactly as Amendments 1 and 2 define.
 
-**Open items:** EPIC Act status (congress.gov and GovTrack sit behind a bot check; Johnattan must open it in his browser); BRG effectuation report (dead link at the source); Merck D.D.C. and Fifth Circuit PhRMA opinions (advocacy summaries only); idea 1 (US vs LAC price comparison) parked; optional Agy review of the literature review and explainer (only Codex checked those).
+**Do not:** open any plan-year 2027 pricing data before scoring is set up exactly as registered; edit a registered number (new decisions go in a dated amendment).
+
+**Open items:** EPIC Act status (congress.gov bot check; Johnattan's browser); BRG effectuation report (dead link); Merck D.D.C. and Fifth Circuit PhRMA opinions (advocacy summaries only); idea 1 (US vs LAC prices) parked; optional Agy review of the literature review and explainer.
+
+**Reviewer note (Johnattan, 2026-10-20):** weigh Argon less than Astra or Opus. In the pre-registration review Agy got the data replication right but listed wrong Gabriel values, cited a nonexistent band and file, and invented Li et al. figures; verify every Argon claim before use.
 
 ## Files
 
@@ -21,6 +27,8 @@ US public pharmaceutical data (pricing, utilization, spending, access) for Johna
 | `scripts/fetch_ira_inputs.py`, `ira_analysis.py` | CMS MFP file, Part D quarterly/annual spending; findings 1–3 |
 | `scripts/fetch_spuf.py`, `spuf_mfp_check.py` | Plan pricing files (SPUF); finding 4 |
 | `outputs/` | Summaries, CSVs, charts (`outputs/ira/`, `outputs/spuf/`) |
+| `prereg_2027.md`, `scripts/prereg_2027.py` | 2027 pre-registration and its baseline (`outputs/prereg_2027/`) |
+| `report/index.html`, `scripts/build_report.py` | Project report, one interactive HTML page |
 | `voice_note/` | Scripts of the two voice notes (audio git-ignored) |
 | `../literature/ira_negotiation_literature_review.md` | Literature and grey-literature review; notes in `../literature/ira_notes/`, wishlist with Harvard LibKey links |
 | `../literature/ira_fulltext/MANIFEST.md` | 18 papers + 5 grey documents read in full (PDFs and text git-ignored) |
