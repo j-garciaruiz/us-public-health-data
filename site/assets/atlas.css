@@ -2,6 +2,7 @@
 .atlas {
   display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 0;
   min-height: calc(100dvh - 60px);
+  overflow-x: clip;
 }
 .panel {
   padding: 24px clamp(16px, 2vw, 28px); border-right: 1px solid var(--ring);
@@ -51,9 +52,11 @@
 .table-wrap summary { cursor: pointer; font-weight: 550; padding: 8px 0; }
 .table-scroll { max-height: 480px; overflow: auto; border: 1px solid var(--ring); }
 #county-table { border-collapse: collapse; width: 100%; font-size: 13px; }
-#county-table th { position: sticky; top: 0; background: var(--surface-2); text-align: left; padding: 6px 10px; cursor: pointer; white-space: nowrap; }
-#county-table th[aria-sort="ascending"]::after { content: " \2191"; }
-#county-table th[aria-sort="descending"]::after { content: " \2193"; }
+#county-table th { position: sticky; top: 0; background: var(--surface-2); text-align: left; padding: 0; white-space: nowrap; }
+#county-table th button { all: unset; display: block; width: 100%; box-sizing: border-box; padding: 6px 10px; cursor: pointer; font-weight: 600; text-align: inherit; }
+#county-table th button:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+#county-table th[aria-sort="ascending"] button::after { content: " \2191"; }
+#county-table th[aria-sort="descending"] button::after { content: " \2193"; }
 #county-table td { padding: 4px 10px; border-top: 1px solid var(--grid); }
 #county-table td.num, #county-table th.num { text-align: right; }
 

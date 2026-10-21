@@ -22,7 +22,9 @@
   const r2Median = d3.median(r2);
   const bind = {
     r2_median_pct: pct(r2Median),
-    max_gain_pts: d3.format(".1f")(F.pvo_max_gain * 100),
+    r2_median_pct1: pct(r2Median, 1),
+    max_gain_pts: d3.format(".1f")(F.pvo_max_gain_larger * 100),
+    max_gain_all_pts: d3.format(".1f")(F.pvo_max_gain_all * 100),
   };
   document.querySelectorAll("[data-bind]").forEach((el) => { el.textContent = bind[el.dataset.bind]; });
 
@@ -66,7 +68,7 @@
     svg.append("g").selectAll("circle").data(nodes).join("circle")
       .attr("cx", (d) => d.x).attr("cy", (d) => cy + d.y).attr("r", narrow ? 3.6 : 4.6)
       .attr("fill", CAT.blue).attr("stroke", "var(--surface)").attr("stroke-width", 1)
-      .on("mousemove", (e, d) => showTip(e, `<div class="t-name">PLACES ${d.measure}</div><dl><dt>Reproduced</dt><dd>${pct(d.inputs_plus_state_cv, 1)}</dd><dt>Counties</dt><dd>${d.n_counties.toLocaleString("en-US")}</dd></dl>`))
+      .on("mousemove", (e, d) => showTip(e, `<div class="t-name">PLACES: ${d.label}</div><dl><dt>Reproduced</dt><dd>${pct(d.inputs_plus_state_cv, 1)}</dd><dt>Counties</dt><dd>${d.n_counties.toLocaleString("en-US")}</dd></dl>`))
       .on("mouseleave", hideTip);
     // benchmark: directly measured uninsurance
     [[all.cv_r2_acs_direct, "Census, all counties"], [big.cv_r2_acs_direct, "Census, larger counties"]].forEach(([v, label], k) => {
@@ -87,11 +89,11 @@
     } else census.text(`Census-measured uninsurance: ${pct(all.cv_r2_acs_direct)} (${pct(big.cv_r2_acs_direct)} in larger counties)`);
     svg.append("line").attr("x1", x(all.cv_r2_acs_direct)).attr("x2", x(all.cv_r2_acs_direct)).attr("y1", M.t - 24).attr("y2", cy - 8)
       .attr("stroke", "var(--axis)");
-    svg.append("text").attr("x", M.l).attr("y", H - 4).text(narrow ? "Share reproduced. Blue: the 40 PLACES measures." : "Share of county-to-county variation reproduced (10-fold cross-validated). Blue: the 40 PLACES measures.");
+    svg.append("text").attr("x", M.l).attr("y", H - 4).text(narrow ? "Share reproduced. Blue: 40 PLACES measures (crude)." : "Share of county-to-county variation reproduced on counties the model did not see. Blue: the 40 PLACES measures (crude prevalence).");
     // data table
     document.getElementById("table-r2").innerHTML = `<table><thead><tr><th>PLACES measure</th><th class="num">Reproduced</th><th class="num">Counties</th></tr></thead><tbody>` +
       F.r2_crude_cv.slice().sort((a, b) => b.inputs_plus_state_cv - a.inputs_plus_state_cv)
-        .map((d) => `<tr><td>${d.measure}</td><td class="num">${pct(d.inputs_plus_state_cv, 1)}</td><td class="num">${d.n_counties.toLocaleString("en-US")}</td></tr>`).join("") +
+        .map((d) => `<tr><td>${d.label}</td><td class="num">${pct(d.inputs_plus_state_cv, 1)}</td><td class="num">${d.n_counties.toLocaleString("en-US")}</td></tr>`).join("") +
       `<tr><td>Census-measured uninsurance, all counties</td><td class="num">${pct(all.cv_r2_acs_direct, 1)}</td><td class="num">${all.n.toLocaleString("en-US")}</td></tr>` +
       `<tr><td>Census-measured uninsurance, 20,000+ adults</td><td class="num">${pct(big.cv_r2_acs_direct, 1)}</td><td class="num">${big.n.toLocaleString("en-US")}</td></tr></tbody></table>`;
   }
@@ -132,9 +134,9 @@
     // legend: three series, so a legend is always present (dataviz rule)
     el.insertAdjacentHTML("afterbegin", `<div class="chart-legend">
       <span><i style="background:${CAT.orange}"></i>PLACES alone</span>
-      <span><i style="background:${CAT.blue}"></i>Demographics and state</span>
+      <span><i style="background:${CAT.blue}"></i>Demographics and state (plus Medicare Advantage share for Medicare)</span>
       <span><i class="ring"></i>Both together</span></div>`);
-    svg.append("text").attr("x", narrow ? 0 : M.l).attr("y", H - 6).text(narrow ? "Share of county variation predicted" : "Share of county-to-county variation in the measured outcome predicted (10-fold cross-validated)");
+    svg.append("text").attr("x", narrow ? 0 : M.l).attr("y", H - 6).text(narrow ? "Share of county variation predicted" : "Share of county-to-county variation in the measured outcome predicted on counties the model did not see (all counties)");
     document.getElementById("table-pvo").innerHTML = `<table><thead><tr><th>Measured outcome</th><th class="num">PLACES alone</th><th class="num">Demographics and state</th><th class="num">Both</th><th class="num">Counties</th></tr></thead><tbody>` +
       rows.map((d) => `<tr><td>${d.label}</td><td class="num">${pct(d.cv_r2_places, 1)}</td><td class="num">${pct(d.cv_r2_demo, 1)}</td><td class="num">${pct(d.cv_r2_demo_places, 1)}</td><td class="num">${d.n.toLocaleString("en-US")}</td></tr>`).join("") + "</tbody></table>";
   }
@@ -149,20 +151,20 @@
     document.getElementById("examples").innerHTML = `
       <article class="ex">
         <p class="ex-num">${f0(caddo.observed)} vs ${f0(caddo.expected)}</p>
-        <h3>Diabetes deaths in Caddo Parish, Louisiana</h3>
-        <p>Diabetes deaths run at ${f1(caddo.observed / 100)} times the national rate for Caddo's age mix, against ${f1(caddo.expected / 100)} expected from its demographics. Neighboring Iberia Parish records ${f0(iberia.observed)} against ${f0(iberia.expected)} expected. A gap this sharp between parishes suggests that death certificates record diabetes differently, not only that disease differs.</p>
+        <h3>Diabetes deaths in Caddo&nbsp;Parish, Louisiana</h3>
+        <p>Diabetes deaths run at ${f1(caddo.observed / 100)} times the national rate for Caddo's age mix (an index of ${f0(caddo.observed)}, where 100 is the national rate), against ${f0(caddo.expected)} expected from its demographics. Iberia Parish, elsewhere in Louisiana, has an index of ${f0(iberia.observed)} against ${f0(iberia.expected)} expected. The contrast could reflect differences in disease, care, how deaths are certified or other factors; this analysis does not distinguish&nbsp;them.</p>
         <a href="${link(caddo)}">See Louisiana in the atlas</a>
       </article>
       <article class="ex">
         <p class="ex-num">${f0(rich.observed)}% vs ${f0(rich.expected)}%</p>
-        <h3>Recorded diabetes in Staten Island</h3>
-        <p>Share of Original Medicare beneficiaries with a diabetes diagnosis, against the expected share. Brooklyn: ${f0(kings.observed)}% against ${f0(kings.expected)}%. More intensive diagnosis and coding can explain part of a gap like this.</p>
+        <h3>Recorded diabetes in Staten&nbsp;Island</h3>
+        <p>Share of Original Medicare beneficiaries with a recorded diabetes diagnosis, against the share expected from county demographics and Medicare Advantage enrollment. Brooklyn: ${f0(kings.observed)}% against ${f0(kings.expected)}%. Disease, access to care, who is in Original Medicare, and diagnosis or coding practices may all contribute; this analysis does not separate&nbsp;them.</p>
         <a href="${link(rich)}">See New York City in the atlas</a>
       </article>
       <article class="ex">
-        <p class="ex-num">${F.atlas_outcomes} outcomes</p>
-        <h3>Deaths, diagnoses and disability</h3>
-        <p>Up to ${F.atlas_counties.toLocaleString("en-US")} counties per outcome, each with a measured value, an expected value and a reliability rating. Compare with all states, or only within the county's own state.</p>
+        <p class="ex-num">${F.atlas_outcomes} layers</p>
+        <h3>Deaths, diagnoses and&nbsp;disability</h3>
+        <p>${F.atlas_min_coverage.toLocaleString("en-US")} to ${F.atlas_max_coverage.toLocaleString("en-US")} counties per layer, depending on the source, with measured and expected values. Expected values come from demographics, with or without state indicators. Reliability is shown where it can be estimated; age-standardized Medicare has none.</p>
         <a href="atlas.html">Browse all outcomes</a>
       </article>`;
   }

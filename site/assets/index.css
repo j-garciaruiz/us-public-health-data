@@ -96,5 +96,4 @@ h3 { font-size: 17px; font-weight: 600; }
   .f1 { grid-template-columns: 1fr; }
   .ex-grid, .uses-cols, .method-cols, .process { grid-template-columns: 1fr; }
   .caught-list { columns: 1; }
-  .topbar nav { gap: 14px; }
 }

@@ -44,7 +44,7 @@
   function val(i) {
     const o = outcome(), m = data[state.m];
     const obs = data.obs[i], exp = m.exp[i];
-    const raw = obs !== null && exp !== null ? obs - exp : null;
+    const raw = m.raw[i];  // exported at full precision, not recomputed from rounded values
     const smooth = o.shrinkage ? m.shr[i] : null;
     const diff = state.s && o.shrinkage ? smooth : raw;
     return { obs, exp, raw, smooth, diff, tier: m.tier[i], rel: m.rel[i], peers: m.peers ? m.peers[i] : null };
@@ -125,7 +125,7 @@
   function modeText() {
     const o = outcome();
     const base = "county age, sex, race and ethnicity, education and poverty" + (o.layer.startsWith("medicare") ? ", plus Medicare Advantage share" : "");
-    return state.m === "nat" ? `Expected from ${base}, compared across all states.` : `Expected from ${base}, plus the county's state.`;
+    return state.m === "nat" ? `Expected from ${base}, estimated across all states.` : `Expected from ${base}, plus state indicators, estimated out of fold.`;
   }
 
   function titles() {
@@ -164,6 +164,7 @@
 
   function details(fips) {
     const el = document.getElementById("details");
+    if (!data) return;
     if (!fips) { el.innerHTML = `<p class="hint">Hover a county for values; click to keep it here. Press Escape to clear.</p>`; return; }
     const i = POS[fips], c = COUNTY[i], o = outcome(), x = val(i);
     const ratio = o.units === "SMR x 100" ? " (100 = national)" : "";
@@ -178,13 +179,16 @@
     if (o.places_label) rows.push([o.places_label, pl === null ? "n/a" : d3.format(".1f")(pl) + "%"]);
     let notes = data.note[i] ? `<p class="note">${data.note[i]}.</p>` : "";
     if (x.obs === null) notes += `<p class="note">No value: not reported, suppressed or not matched for this county.</p>`;
-    if (state.m === "ws" && x.peers === 0) notes += `<p class="note">No other counties in this state, so it is compared with the average state effect.</p>`;
+    if (state.m === "ws" && x.peers === 0) notes += `<p class="note">No other counties in this state, so its expected value uses the average state effect.</p>`;
     if (data.disc[i]) notes += `<p class="note">Flagged: CMS size band disagrees with Medicare enrollment counts for this county. Treat with caution.</p>`;
     el.innerHTML = `<h3>${c.name}, ${c.st}</h3><dl>${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>${notes}`;
   }
 
   function extremes() {
     const o = outcome(), m = data[state.m];
+    document.getElementById("ext-title").textContent = o.shrinkage
+      ? "Largest differences, high or moderate reliability"
+      : "Largest raw differences (reliability not estimated)";
     const items = [];
     COUNTY.forEach((c, i) => {
       const x = val(i);
@@ -213,10 +217,12 @@
       return (A > B ? 1 : A < B ? -1 : 0) * sortDir;
     });
     const thead = document.querySelector("#county-table thead");
-    thead.innerHTML = "<tr>" + cols.map(([k, l]) => `<th scope="col" data-k="${k}" class="${["obs", "exp", "diff", "tier"].includes(k) ? "num" : ""}" aria-sort="${k === sortKey ? (sortDir > 0 ? "ascending" : "descending") : "none"}">${l}</th>`).join("") + "</tr>";
-    thead.querySelectorAll("th").forEach((th) => th.addEventListener("click", () => {
-      sortDir = sortKey === th.dataset.k ? -sortDir : (["name", "st"].includes(th.dataset.k) ? 1 : -1);
-      sortKey = th.dataset.k; table();
+    thead.innerHTML = "<tr>" + cols.map(([k, l]) => `<th scope="col" class="${["obs", "exp", "diff", "tier"].includes(k) ? "num" : ""}" aria-sort="${k === sortKey ? (sortDir > 0 ? "ascending" : "descending") : "none"}"><button type="button" data-k="${k}">${l}</button></th>`).join("") + "</tr>";
+    thead.querySelectorAll("th button").forEach((b) => b.addEventListener("click", () => {
+      sortDir = sortKey === b.dataset.k ? -sortDir : (["name", "st"].includes(b.dataset.k) ? 1 : -1);
+      sortKey = b.dataset.k; table();
+      const again = document.querySelector(`#county-table th button[data-k="${sortKey}"]`);
+      if (again) again.focus();
     }));
     document.querySelector("#county-table tbody").innerHTML = rows.map((r) =>
       `<tr><td>${r.name}</td><td>${r.st}</td><td class="num">${EVO.fmt(r.obs, o.units)}</td><td class="num">${EVO.fmt(r.exp, o.units)}</td><td class="num">${EVO.fmt(r.diff, o.units, true)}</td><td class="num">${r.tier === null ? "n/a" : TIER[r.tier]}</td></tr>`).join("");
@@ -226,7 +232,7 @@
   const tip = document.getElementById("tooltip");
   function showTip(event, fips) {
     const i = POS[fips];
-    if (i === undefined) return;
+    if (i === undefined || !data) return;
     const c = COUNTY[i], o = outcome(), x = val(i);
     tip.innerHTML = `<div class="t-name">${c.name}, ${c.st}</div><dl>
       <dt>Measured</dt><dd>${EVO.fmt(x.obs, o.units)}</dd>
@@ -248,14 +254,24 @@
     details(fips); writeHash();
   }
 
+  // Each load gets a token; only the latest request may commit its data, so a
+  // slow earlier request can never paint over the current selection (Codex
+  // site review, finding 1).
+  let loadToken = 0;
   async function load() {
+    const token = ++loadToken, wanted = state.o;
     const status = document.getElementById("status");
-    status.hidden = false; status.textContent = "Loading " + outcome().label.toLowerCase();
+    status.hidden = false; status.textContent = "Loading " + OUT[wanted].label.toLowerCase();
+    tip.classList.remove("on");
+    data = null;
     try {
-      data = await EVO.loadOutcome(state.o);
+      const d = await EVO.loadOutcome(wanted);
+      if (token !== loadToken || wanted !== state.o) return;
+      data = d;
       status.hidden = true;
       render();
     } catch (err) {
+      if (token !== loadToken) return;
       status.textContent = "This outcome could not be loaded. Reload the page or pick another outcome.";
     }
   }

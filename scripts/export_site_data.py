@@ -54,8 +54,18 @@ order = {fips: i for i, (fips, _, _) in enumerate(counties)}
 # --- atlas -------------------------------------------------------------
 atlas = pd.read_csv("outputs/atlas/atlas_county_long.csv", dtype={"fips": str})
 assert set(atlas["fips"]) <= set(order), "atlas county missing from geometry"
-mort = atlas[atlas["layer"] == "mortality"]
-assert mort["observed"].notna().all()
+# NCHS rule, enforced against the suppression-aware death counts (Codex site
+# review, finding 8): every exported mortality row must come from a county-cause
+# cell with 10 or more deaths and no suppression flag. A non-null SMR alone is
+# not accepted as proof.
+smr_src = pd.read_csv("data/raw/wonder_county_smr.csv", dtype={"fips": str})
+CAUSE_OF = {"Diabetes deaths": "diabetes", "Heart disease deaths": "heart",
+            "Cerebrovascular deaths": "stroke", "Chronic lower respiratory deaths": "clrd"}
+mort = atlas[atlas["layer"] == "mortality"].assign(cause=lambda d: d["outcome"].map(CAUSE_OF))
+chk = mort.merge(smr_src[["fips", "cause", "observed", "suppressed"]].rename(columns={"observed": "deaths"}),
+                 on=["fips", "cause"], how="left", validate="many_to_one")
+bad = chk[~((chk["deaths"] >= 10) & (chk["suppressed"] == False) & chk["observed"].notna())]  # noqa: E712
+assert bad.empty, f"{len(bad)} mortality rows fail the NCHS rule; refusing to export"
 
 SOURCES = {
     "medicare_actual": ("Medicare claims", "Recorded diagnoses among Original Medicare beneficiaries, 2023",
@@ -94,16 +104,21 @@ for (layer, outcome), g in atlas.groupby(["layer", "outcome"], sort=False):
             a[order[fips]] = v
         return clean(a, nd)
 
-    nd = 1 if layer == "mortality" else 2
+    # Keep the CSV's full 4-decimal precision; the browser rounds only for
+    # display, and raw differences are exported rather than recomputed from
+    # rounded operands (Codex site review, finding 4).
+    nd = 4
     data = {
         "obs": arr(nat, "observed", nd),
         "places": arr(nat, "places_context", 1),
         "note": [None] * n,
         "disc": [None] * n,
-        "nat": {"exp": arr(nat, "expected", nd), "shr": arr(nat, "difference_shrunk", nd),
-                "rel": arr(nat, "reliability", 2), "tier": arr(nat, "tier", 0)},
-        "ws": {"exp": arr(ws, "expected", nd), "shr": arr(ws, "difference_shrunk", nd),
-               "rel": arr(ws, "reliability", 2), "tier": arr(ws, "tier", 0),
+        "nat": {"exp": arr(nat, "expected", nd), "raw": arr(nat, "difference", nd),
+                "shr": arr(nat, "difference_shrunk", nd),
+                "rel": arr(nat, "reliability", 3), "tier": arr(nat, "tier", 0)},
+        "ws": {"exp": arr(ws, "expected", nd), "raw": arr(ws, "difference", nd),
+               "shr": arr(ws, "difference_shrunk", nd),
+               "rel": arr(ws, "reliability", 3), "tier": arr(ws, "tier", 0),
                "peers": arr(ws, "state_peer_counties", 0)},
     }
     for fips, note, disc in zip(nat.index, nat["reliability_note"], nat["source_discrepancy"]):
@@ -129,8 +144,26 @@ pvo = pd.read_csv("outputs/expected_vs_observed/places_vs_observed.csv")
 strong = pairs[pairs["raw_r"].abs() >= 0.7]
 dfi = pairs.set_index(["a", "b"]).loc[("diabetes", "foodinsecu")]
 
+PLACES_MEASURE = {
+    "access2": "No health insurance (18-64)", "arthritis": "Arthritis", "binge": "Binge drinking",
+    "bphigh": "High blood pressure", "bpmed": "Taking blood pressure medication", "cancer": "Cancer (non-skin)",
+    "casthma": "Current asthma", "chd": "Coronary heart disease", "checkup": "Routine checkup",
+    "cholscreen": "Cholesterol screening", "colon_screen": "Colorectal cancer screening", "copd": "COPD",
+    "csmoking": "Current smoking", "dental": "Dental visit", "depression": "Depression", "diabetes": "Diabetes",
+    "ghlth": "Fair or poor general health", "highchol": "High cholesterol", "lpa": "Physical inactivity",
+    "mammouse": "Mammography", "mhlth": "Frequent mental distress", "obesity": "Obesity",
+    "phlth": "Frequent physical distress", "sleep": "Short sleep", "stroke": "Stroke",
+    "teethlost": "All teeth lost (65+)", "hearing": "Hearing disability", "vision": "Vision disability",
+    "cognition": "Cognitive disability", "mobility": "Mobility disability", "selfcare": "Self-care disability",
+    "indeplive": "Independent-living disability", "disability": "Any disability", "loneliness": "Loneliness",
+    "foodstamp": "Received SNAP (food stamps)", "foodinsecu": "Food insecurity", "housinsecu": "Housing insecurity",
+    "shututility": "Utility shut-off threat", "lacktrpt": "Lack of transportation",
+    "emotionspt": "Lack of social and emotional support",
+}
+assert set(r2c["measure"]) <= set(PLACES_MEASURE), set(r2c["measure"]) - set(PLACES_MEASURE)
+r2c["label"] = r2c["measure"].map(PLACES_MEASURE)
 findings = {
-    "r2_crude_cv": r2c[["measure", "inputs_plus_state_cv", "n_counties"]].round(4).to_dict("records"),
+    "r2_crude_cv": r2c[["measure", "label", "inputs_plus_state_cv", "n_counties"]].round(4).to_dict("records"),
     "r2_adj_cv_median": round(float(r2a["inputs_plus_state_cv"].median()), 4),
     "r2_adj_cv_min": round(float(r2a["inputs_plus_state_cv"].min()), 4),
     "r2_adj_inputs_only_median": round(float(r2a["inputs_only"].median()), 4),
@@ -144,11 +177,15 @@ findings = {
     "benchmark": bench.round(4).to_dict("records"),
     "places_vs_observed": pvo.round(4).to_dict("records"),
     "pvo_max_gain": round(float(pvo["gain"].max()), 4),
+    "pvo_max_gain_all": round(float(pvo.loc[pvo["sample"] == "all", "gain"].max()), 4),
+    "pvo_max_gain_larger": round(float(pvo.loc[pvo["sample"] == "larger", "gain"].max()), 4),
     "pvo_n_pairs": int(pvo[pvo["sample"] == "all"].shape[0]),
     "pvo_demo_beats_places": int((pvo["cv_r2_demo"] > pvo["cv_r2_places"]).sum()),
     "pvo_rows": int(len(pvo)),
     "atlas_outcomes": len(index["outcomes"]),
-    "atlas_counties": len(counties),
+    "atlas_counties": len(counties),  # map geometry
+    "atlas_max_coverage": max(o["counties"] for o in index["outcomes"]),  # counties with data
+    "atlas_min_coverage": min(o["counties"] for o in index["outcomes"]),
 }
 # Atlas examples quoted on the project page (national mode, smoothed difference)
 EXAMPLES = [

@@ -105,7 +105,7 @@ p { text-wrap: pretty; margin: 0; }
 }
 .btn:active { transform: translateY(1px); }
 .btn-primary { background: var(--accent-ink); color: #ffffff; }
-@media (prefers-color-scheme: dark) { .btn-primary { background: #2a78d6; color: #ffffff; } }
+/* white on #1c5cab = 6.6:1 in both themes (the earlier dark #2a78d6 was 4.4:1) */
 .btn-secondary { background: transparent; color: var(--ink); border-color: var(--axis); }
 
 .segmented { display: inline-grid; grid-auto-flow: column; border: 1px solid var(--axis); border-radius: var(--radius); overflow: hidden; }
@@ -148,6 +148,10 @@ label.field { display: grid; gap: 6px; font-size: 13px; color: var(--ink-2); fon
   .topbar .brand { font-size: 15px; }
   .topbar nav { gap: 12px; }
   .topbar nav a { font-size: 13px; }
+}
+@media (max-width: 400px) {
+  .topbar { flex-wrap: wrap; height: auto; min-height: 60px; row-gap: 2px; padding-top: 8px; padding-bottom: 8px; }
+  .topbar nav { margin-left: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
