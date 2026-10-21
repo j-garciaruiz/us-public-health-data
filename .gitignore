@@ -23,3 +23,4 @@ reviews/**/*.log
 # regenerable outputs
 outputs/atlas/*.csv
 outputs/expected_vs_observed/observed_minus_expected_by_county.csv
+dist/

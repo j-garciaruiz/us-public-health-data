@@ -18,6 +18,8 @@
   }
 
   async function loadOutcome(id) {
+    // Single-file builds embed every outcome up front; use it when present.
+    if (window.ATLAS_DATA && window.ATLAS_DATA[id]) return window.ATLAS_DATA[id];
     await loadScript("data/atlas_" + id + ".js");
     return window.ATLAS_DATA[id];
   }
