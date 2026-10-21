@@ -21,7 +21,7 @@ Johnattan chose the **expected-vs-observed atlas**: county demographics + state 
 - **Mortality**: `scripts/fetch_wonder.py` drives the WONDER form headlessly (Playwright 1.58.0, chromium-headless-shell) after accepting the NCHS agreement (Johnattan approved 2026-10-20); `scripts/build_mortality_smr.py` builds indirect SMRs. Counts of 9 or fewer, zero included, are suppressed and must never be published. Connecticut cannot be matched (old counties vs planning regions).
 - Medicare claims prevalence: CMS Mapping Medicare Disparities endpoint (downloads retired); keep `dencat` bands. County PQI columns in the 2023 Geographic Variation file are empty.
 - Codex verified the atlas fixes and its five findings are applied (`reviews/atlas_codex_astra/REPORT.md`, summary appended to `outputs/expected_vs_observed/REVIEW_SUMMARY.md`).
-- Pharmaceutical data track runs in a separate session on branch `claude/pharma-data-eae972` (worktree); not merged here.
+- Pharmaceutical data track (IRA drug price negotiation study, catalog, literature, explainer): merged into master 2026-10-20; its own resume notes are in `pharma/CLAUDE.md`.
 - **Next:** after the Codex check, design the atlas front end (interactive county map with observed/expected/difference, reliability tiers, national vs within-state toggle) and the explainer on what PLACES can and cannot tell you.
 
 Earlier: shared-covariate test of PLACES (`scripts/covariate_test.py`, charts in `scripts/covariate_charts.py`, results in `outputs/covariate_test/`). Codex review done and fixes applied; Agy review pending. Literature context: `literature/places_atlas_literature_review.md`.
