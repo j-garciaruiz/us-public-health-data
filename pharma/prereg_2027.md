@@ -87,4 +87,31 @@ Each prediction is scored pass or fail as written; partial results are reported 
 
 ## Amendments
 
-(none)
+### Amendment 1 (2026-10-20, after the Codex review; no 2027 outcome data opened)
+
+Codex (GPT-6 Astra, high) replicated every baseline number from the raw files (221 values, differences at floating-point level; `reviews/pharma_prereg_codex_astra/report.md`, PASS WITH FIXES). This amendment fixes how the predictions are scored. It changes no registered number or band.
+
+**Correction of the data note.** The CMS monthly series posted 2026-10-08 is "Formulary and Pharmacy Network Information": by its catalog description it has plan, formulary, cost-sharing and network tables but no pricing (unit cost) table. Plan-year 2027 prices therefore do not exist yet in public data, and P1 and P4 cannot be tested before the first quarterly pricing release with plan-year 2027 prices (expected January 2027). Nothing from that series was opened.
+
+**Scoring contract (all predictions).**
+- Primary test: the first CMS release containing plan-year 2027 unit prices. Later releases are reported as replications, never as replacements.
+- Unit of analysis for plan prices: contract x plan x segment x NDC rows with `DAYS_SUPPLY = 30`, compared at full precision with the MFP per unit for that NDC in the CMS MFP file as downloaded on 2026-10-20 (`data/raw/pharma/ira/`), superseded rows dropped. Later MFP revisions are reported separately.
+- Claim-weighted share: sum over drugs of (2026 Q1 claims x the drug's within-0.5% share), divided by total 2026 Q1 claims.
+- Each clause of P1 to P5 is scored separately as pass, fail or not evaluable. There is no overall verdict. A missing product or drug counts as not evaluable, is listed, and never counts as a pass or leaves a denominator silently.
+
+**P1, semaglutide.** The equality test stands as written for all 15 drugs, semaglutide included: a semaglutide median below 0.995 is a fail of P1. The sentence reading a median below 0.95 as the $245 agreement price binding is withdrawn as an excuse; it becomes a separate descriptive note. Context recorded: CMS's GLP-1 Bridge runs outside Part D coverage and payment from 2026-07-01 to 2027-12-31 (CMS page last modified 2026-07-13), so the agreement is not expected to show up in Part D plan unit prices. Separately from the equality test, we report whether every price satisfies the MFP ceiling (at or below the MFP).
+
+**P2, weights and comparators.** The group prediction (−63.4%) uses 2026 Q1 claims as fixed weights. Scoring: observed index = sum(Q1 2026 claims x 2027 Q1 spending per claim) / sum(Q1 2026 claims x full-year 2026 spending per claim) − 1, scored against the registered −58% to −68% band. The same index computed with the full-year 2026 per-claim baseline times (1 + predicted change) is reported as a sensitivity. The $8.05 billion figure is an illustration at fixed 2026 Q1 prices and volumes, not a forecast of 2027 spending. Comparison groups are frozen as defined in `pharma/scripts/ira_analysis.py` at registration; Tradjenta stays in the 2027 group, and named sibling brands with list-price cuts (P3) are reported separately.
+
+**P2, honest calibration.** The 2.1-point figure covers eight of ten drugs, chosen after the two misses were seen. Across all ten, the mean absolute error is 4.7 points and the rank correlation is 0.72, below the 0.8 P2 asks for, so the rank clause is a harder test than the calibration passed. The two misses carried 6.5% of 2026-cohort spending; semaglutide carries 37.5% of the 2027 cohort's 2026 Q1 spending and 42.8% of the predicted dollar change, so the group test leans on it. All 15 drugs stay in the primary test.
+
+**P3, definitions.**
+- A family cut: at least one brand-classified NDC of the drug on the frozen MFP list with a NADAC Comparison row whose primary reason contains "WAC" and whose percent change is −20 or lower, effective 2026-12-20 to 2027-02-28 inclusive; counted once per drug. The seven drugs: Tradjenta, Breo Ellipta, Trelegy Ellipta, semaglutide (Ozempic, Rybelsus, Wegovy), Otezla, Vraylar, Austedo.
+- "Where" is exploratory: we report the cut share among Tradjenta, Breo and Trelegy against Vraylar and Austedo, without a pass/fail.
+- Siblings: only the named pairs (Tradjenta with Jentadueto; Breo or Trelegy with Anoro, Incruse or Arnuity). Pass if the sibling has a WAC-based cut of 20% or more with the same effective date; not evaluable if the triggering drug does not cut.
+- Gap: in the last NADAC snapshot of June 2027, the median NADAC / 2027 MFP over each drug's brand NDCs. Drugs without a family cut must be at 1.5 or more; drugs with one at 1.00 or more. The 1.00 floor stays as registered but is strict: the 2026 precedent it cites, Fiasp, sits at 0.99 and would fail it. A 0.98 floor is reported as a sensitivity.
+- Base-rate sources: NADAC alone shows 4 of 10 2026 drugs with a cut in the window and 5 of 10 since 2024; adding Imbruvica's 2025-12-22 cut (no NADAC; NCPA notice and 46brooklyn) gives the registered 5 of 10 and 6 of 10. The 2027 count is NADAC-only.
+
+**P4, a hypothesis, not a consequence.** Deselection does not force plans back to list-based prices; P4 tests the hypothesis that they return. The 1.5x plan-price clause and the 50% spending clause are separate tests, scored on brand products only (NovoLog and Fiasp split; unbranded ustekinumab and other unbranded NDCs excluded). A brand with no plan-price rows or fewer than 1,000 claims in 2027 Q1 is not evaluable. A WAC cut, continued plan discounting, coverage loss or a change in mix are reported as possible mechanisms; none turns a failed threshold into a pass.
+
+**P2 wording.** "The gross fall exceeds the net discount Gabriel et al. estimate for every drug" applies to the 14 drugs with an estimable net price, and the two are different estimands (Gabriel: 2022 estimated net prices). CMS's net benchmark is 44% (about $12 billion) excluding Coverage Gap Discount Program discounts and 36% (about $8.5 billion) including them.
