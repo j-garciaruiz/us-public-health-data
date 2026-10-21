@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Medicare drug price negotiation: what moved in 2026, what we expect in 2027</title>
+<meta name="description" content="A public-data study of the first year of Medicare drug price negotiation: Part D spending, list prices, pharmacy acquisition cost and plan prices, with pre-registered predictions for 2027.">
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+  --grid: #e1e0d9; --axis: #c3c2b7; --ring: rgba(11,11,11,0.10); --wash: #f0efec;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #898781;
+  --good: #006300; --bad: #b42d2d; --accent: #2a78d6;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,0.10); --wash: #252523;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #898781;
+    --good: #0ca30c; --bad: #e66767; --accent: #3987e5;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --muted: #898781;
+  --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,0.10); --wash: #252523;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #898781;
+  --good: #0ca30c; --bad: #e66767; --accent: #3987e5;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--page); color: var(--ink);
+  font: 17px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+img, svg { max-width: 100%; }
+a { color: var(--accent); text-underline-offset: 2px; }
+h1, h2, h3 { line-height: 1.2; text-wrap: balance; letter-spacing: -0.01em; }
+p, li { text-wrap: pretty; }
+h2 { font-size: 1.7rem; margin: 0 0 0.4rem; }
+h3 { font-size: 1.15rem; margin: 2rem 0 0.5rem; }
+.kicker { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 0.6rem; }
+.lede { font-size: 1.2rem; color: var(--ink-2); max-width: 46rem; }
+.muted { color: var(--muted); }
+.small { font-size: 0.88rem; }
+
+/* layout */
+.shell { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 3rem; max-width: 1260px; margin: 0 auto; padding: 0 2rem; }
+nav.toc { position: sticky; top: 0; align-self: start; height: 100vh; overflow-y: auto; padding: 2.2rem 0; font-size: 0.88rem; }
+nav.toc .brand { font-weight: 700; font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.3; }
+nav.toc ol { list-style: none; margin: 0; padding: 0; }
+nav.toc li a { display: block; padding: 0.28rem 0 0.28rem 0.7rem; color: var(--ink-2); text-decoration: none; border-left: 2px solid var(--grid); }
+nav.toc li a:hover { color: var(--ink); }
+nav.toc li a.active { color: var(--ink); border-left-color: var(--accent); font-weight: 600; }
+nav.toc .theme { margin-top: 1.4rem; }
+main { min-width: 0; padding-bottom: 6rem; }
+section { padding: 3.2rem 0 1rem; border-top: 1px solid var(--grid); }
+section:first-of-type { border-top: 0; }
+.prose { max-width: 46rem; }
+
+/* hero */
+header.hero { padding: 3.4rem 0 2rem; }
+header.hero h1 { font-size: clamp(2.2rem, 4.2vw, 3.3rem); margin: 0 0 1rem; max-width: 52rem; }
+.answer { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin: 2.2rem 0 0.5rem; border-top: 1px solid var(--axis); }
+.answer > div { padding: 1rem 1.2rem 0.4rem 0; }
+.answer > div + div { padding-left: 1.2rem; border-left: 1px solid var(--grid); }
+.answer .num { font-size: 2.3rem; font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; }
+.answer .lab { font-size: 0.88rem; color: var(--ink-2); margin-top: 0.35rem; }
+
+/* figures */
+figure.viz { margin: 1.6rem 0 1.8rem; background: var(--surface); border: 1px solid var(--ring); border-radius: 10px; padding: 1.1rem 1.2rem 0.9rem; position: relative; }
+figure.viz figcaption { font-size: 0.86rem; color: var(--ink-2); margin-top: 0.4rem; max-width: 52rem; }
+.viz-title { font-weight: 650; font-size: 1rem; margin: 0 0 0.15rem; }
+.viz-sub { font-size: 0.86rem; color: var(--ink-2); margin: 0 0 0.6rem; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { font-family: inherit; fill: var(--ink-2); font-size: 11.5px; }
+.chart .tick line { stroke: var(--grid); }
+.chart .axis-line { stroke: var(--axis); }
+.chart .ref { stroke: var(--ink-2); stroke-dasharray: 3 3; }
+.legend { display: flex; flex-wrap: wrap; gap: 0.3rem 1.1rem; font-size: 0.85rem; color: var(--ink-2); margin: 0.2rem 0 0.5rem; }
+.legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.sw { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+.controls { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0.2rem 0 0.6rem; }
+.chip { font: inherit; font-size: 0.82rem; border: 1px solid var(--ring); background: var(--page); color: var(--ink-2); border-radius: 999px; padding: 0.18rem 0.7rem; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--page); border-color: var(--ink); }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--page); font-size: 0.8rem; line-height: 1.4; padding: 0.45rem 0.6rem; border-radius: 6px; max-width: 280px; opacity: 0; transition: opacity 0.08s; z-index: 5; }
+.tip b { font-weight: 650; }
+.viewtable { font: inherit; font-size: 0.8rem; background: none; border: 0; color: var(--accent); cursor: pointer; padding: 0; margin-top: 0.4rem; }
+
+/* tables */
+.tablewrap { overflow-x: auto; margin: 1rem 0 1.4rem; border: 1px solid var(--ring); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.88rem; }
+th, td { text-align: left; padding: 0.45rem 0.75rem; border-bottom: 1px solid var(--grid); vertical-align: top; }
+th { font-weight: 600; color: var(--ink-2); background: var(--wash); white-space: nowrap; }
+th.sortable { cursor: pointer; user-select: none; }
+th.sortable::after { content: " \2195"; color: var(--muted); font-weight: 400; }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+.tag { display: inline-block; font-size: 0.75rem; font-weight: 600; padding: 0.05rem 0.45rem; border-radius: 4px; background: var(--wash); color: var(--ink-2); white-space: nowrap; }
+.pass { color: var(--good); } .fail { color: var(--bad); }
+
+/* finding blocks */
+.finding { display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); gap: 0.6rem; margin: 0 0 0.6rem; }
+.finding .no { font-size: 2.4rem; font-weight: 700; color: var(--muted); line-height: 1; }
+.callout { border-left: 3px solid var(--accent); padding: 0.2rem 0 0.2rem 1rem; margin: 1.2rem 0; color: var(--ink-2); max-width: 46rem; }
+.steps { counter-reset: s; list-style: none; padding: 0; max-width: 46rem; }
+.steps li { counter-increment: s; padding-left: 2.2rem; position: relative; margin-bottom: 0.7rem; }
+.steps li::before { content: counter(s); position: absolute; left: 0; top: 0.05rem; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--wash); text-align: center; font-size: 0.8rem; font-weight: 700; line-height: 1.5rem; color: var(--ink-2); }
+.twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+details { max-width: 46rem; margin: 0.6rem 0; }
+details summary { cursor: pointer; font-weight: 600; }
+footer { font-size: 0.85rem; color: var(--muted); padding: 2rem 0; border-top: 1px solid var(--grid); }
+
+@media (max-width: 900px) {
+  .shell { grid-template-columns: 1fr; padding: 0 1.1rem; gap: 0; }
+  nav.toc { position: static; height: auto; padding: 1rem 0 0; }
+  nav.toc ol { display: none; }
+  .answer { grid-template-columns: 1fr 1fr; }
+  .answer > div:nth-child(3) { border-left: 0; padding-left: 0; }
+  .twocol { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<div class="shell">
+<nav class="toc" aria-label="Contents">
+  <div class="brand">Medicare drug price negotiation, year one</div>
+  <ol>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#background">How drug pricing works</a></li>
+    <li><a href="#data">Data and design</a></li>
+    <li><a href="#f1">1. Part D spending</a></li>
+    <li><a href="#f2">2. List-price cuts</a></li>
+    <li><a href="#f3">3. Pharmacy cost vs MFP</a></li>
+    <li><a href="#f4">4. Plan prices</a></li>
+    <li><a href="#context">What others found</a></li>
+    <li><a href="#prereg">2027 predictions</a></li>
+    <li><a href="#limits">Limits</a></li>
+    <li><a href="#verification">How it was checked</a></li>
+    <li><a href="#reproduce">Reproduce it</a></li>
+    <li><a href="#refs">Sources</a></li>
+  </ol>
+  <div class="theme"><button class="chip" id="themeBtn" type="button">Switch theme</button></div>
+</nav>
+
+<main>
+<header class="hero" id="summary">
+  <p class="kicker">US public data study · updated 2026-10-20</p>
+  <h1>Medicare's first negotiated drug prices: what moved in 2026, and what we expect in 2027</h1>
+  <p class="lede">On 2026-01-01 the first ten prices negotiated under the Inflation Reduction Act took effect in Medicare Part D. Free federal data show what changed: plans now price these drugs at the negotiated price, gross spending per prescription fell by about two thirds, several manufacturers cut list prices on the same day, and pharmacy invoice costs stay well above the new price for most of them.</p>
+  <div class="answer" role="list">
+    <div role="listitem"><div class="num">−64%</div><div class="lab">median change in gross Part D spending per claim, ten drugs, 2025 to 2026 Q1</div></div>
+    <div role="listitem"><div class="num">92.7%</div><div class="lab">of plan prices within 0.5% of the negotiated price in January 2026 (99.7% claim-weighted)</div></div>
+    <div role="listitem"><div class="num">4 of 10</div><div class="lab">drugs cut list prices by 20% or more on 2026-01-01 (6 of 10 since 2024)</div></div>
+    <div role="listitem"><div class="num">2.2–3.6x</div><div class="lab">pharmacy invoice cost (NADAC) over the negotiated price in October 2026 for Januvia, Xarelto, Entresto, Stelara and Enbrel</div></div>
+  </div>
+  <p class="small muted">All spending figures are <b>gross</b>, before manufacturer rebates. These data do not measure net savings. The project's data analyses were independently replicated from the raw files; cited research and policy claims were checked against their sources. The verification section describes the scope of each review.</p>
+
+  <figure class="viz" id="heroFig">
+    <p class="viz-title">Gross Part D spending per claim, 2025 full year to 2026 Q1</p>
+    <p class="viz-sub">The ten drugs with a negotiated price in 2026, against the fifteen whose price starts in 2027. Hover a bar for the dollar amounts.</p>
+    <div class="legend"><span><i class="sw" style="background:var(--s1)"></i>Negotiated price in effect 2026</span><span><i class="sw" style="background:var(--s2)"></i>Negotiated price starts 2027</span></div>
+    <div class="chart" id="chartF1"></div>
+    <figcaption>Source: CMS Medicare Quarterly Part D Spending by Drug (2026 Q1 is preliminary). Brand rows pooled by drug family: semaglutide pools Ozempic, Rybelsus and Wegovy; NovoLog/Fiasp pools those two brands. Linzess (2027 group) fell after a 50% list-price cut on 2026-01-01.</figcaption>
+  </figure>
+</header>
+
+<section id="background">
+  <p class="kicker">Background</p>
+  <h2>How Medicare drug pricing works</h2>
+  <div class="prose">
+    <p>A brand-name drug passes through several hands before it reaches a Medicare patient, and money flows back along a different route. There is no single "price": the list price (WAC) is published by the manufacturer; pharmacies buy at close to list; plans pay pharmacies a contracted amount at the counter; and manufacturers later pay plans confidential rebates in exchange for good formulary placement. In 2024, rebates cut the gross Part D cost of the first ten negotiated drugs by nearly 45% (MedPAC, March 2026).</p>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Player</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>Manufacturer</td><td>Makes the drug, publishes its list price (WAC), pays rebates and discounts afterwards.</td></tr>
+      <tr><td>Wholesaler</td><td>Buys from the manufacturer, sells to pharmacies.</td></tr>
+      <tr><td>Pharmacy</td><td>Buys the drug (NADAC measures its invoice cost), dispenses it, is paid by the plan and the patient.</td></tr>
+      <tr><td>Part D plan and its PBM</td><td>Private plans that Medicare pays to cover outpatient drugs. The pharmacy benefit manager builds the formulary, negotiates rebates and sets pharmacy payment.</td></tr>
+      <tr><td>Medicare</td><td>Pays most Part D costs through the plans and negotiates prices for selected drugs; the first negotiated prices took effect in 2026.</td></tr>
+      <tr><td>Patient</td><td>Pays a separate premium, plus any deductible and copayments or coinsurance. Qualifying out-of-pocket spending on covered Part D medicines is capped at $2,000 in 2025 and $2,100 in 2026; premiums do not count toward the cap.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>The negotiation program</h3>
+  <div class="prose">
+    <p>The Inflation Reduction Act of 2022 lets Medicare negotiate a <b>Maximum Fair Price (MFP)</b> for high-spending drugs without generic or biosimilar competition: small molecules at least 7 years past approval and biologics 11 years past licensure when selected. For the rounds taking effect in 2026 to 2028 the law sets a ceiling: at least 25% off the average non-federal price for most drugs, at least 60% for drugs 16 or more years past approval, or the Part D net price if lower. At the pharmacy, plan payment plus patient cost sharing cannot exceed the MFP plus dispensing fees. Manufacturers can provide access to the MFP prospectively or through retrospective refunds. The default refund uses WAC minus MFP, with permitted alternatives. CMS's Medicare Transaction Facilitator exchanges claim data and offers an optional payment service. CMS reports that refunds were being sent within 21 days of service on average; this does not establish that every pharmacy recovered its actual costs.</p>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Round</th><th>Drugs</th><th>Selected</th><th>Prices published</th><th>In effect</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>10 Part D drugs: Eliquis, Xarelto, Jardiance, Farxiga, Januvia, Entresto, Enbrel, Stelara, Imbruvica, NovoLog/Fiasp</td><td class="n">2023-08-29</td><td class="n">2024-08-15</td><td class="n"><b>2026-01-01</b></td></tr>
+      <tr><td>2</td><td>15 Part D drugs, including Ozempic/Rybelsus/Wegovy, Trelegy, Xtandi, Ibrance, Pomalyst</td><td class="n">2025-01-17</td><td class="n">2025-11-25</td><td class="n">2027-01-01</td></tr>
+      <tr><td>3</td><td>15 drugs, the first Part B drugs, plus Tradjenta renegotiated</td><td class="n">2026-01-27</td><td class="n">by 2026-11-30</td><td class="n">2028-01-01</td></tr>
+      <tr><td>4 onward</td><td>up to 20 a year</td><td class="n">each year</td><td></td><td class="n">from 2029</td></tr>
+    </tbody>
+  </table></div>
+  <div class="prose">
+    <p>Prices are adjusted for inflation each year (Eliquis: $231 per 30 days in 2026, $237.25 in 2027). A drug leaves once CMS finds a generic or biosimilar is really marketed: Entresto, Stelara, Xarelto and NovoLog/Fiasp leave on 2027-01-01. The Supreme Court declined to hear the manufacturers' challenges on 2026-05-18.</p>
+  </div>
+</section>
+
+<section id="data">
+  <p class="kicker">Data and design</p>
+  <h2>Four angles from free federal data, three comparison groups</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Angle</th><th>Source</th><th>Measure</th><th>Coverage used</th></tr></thead>
+    <tbody>
+      <tr><td>What Part D spends</td><td>CMS Quarterly Part D Spending by Drug</td><td>Gross spending per claim (before rebates)</td><td>2025 full year; 2026 Q1 (preliminary)</td></tr>
+      <tr><td>What manufacturers list</td><td>Medicaid NADAC Comparison file, rows whose reason is a WAC change</td><td>List-price cuts and increases by product (NDC)</td><td>Januaries 2024 to 2026</td></tr>
+      <tr><td>What pharmacies pay</td><td>Medicaid NADAC weekly rates, joined by NDC to the CMS MFP file</td><td>Invoice cost per unit divided by the MFP per unit</td><td>Weekly, 2025-01 to 2026-10-21</td></tr>
+      <tr><td>What plans report</td><td>CMS Part D plan pricing files (SPUF)</td><td>Each plan's unit price divided by the MFP per unit</td><td>Releases of Oct 2025, Jan 2026, Oct 2026 (1.5 million rows)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="prose">
+    <p>The design is a before/after comparison against drugs not yet affected: the 15 drugs negotiated for 2027 (no MFP in 2026), the 15 selected for 2028, and about 740 other brand-name products. This describes what happened; it does not by itself separate the MFP from list-price strategy, rebate changes, generic entry or the 2025 Part D redesign.</p>
+  </div>
+</section>
+
+<section id="f1">
+  <p class="kicker">Finding 1</p>
+  <h2>Gross Part D spending per claim fell at least 30% for every negotiated drug</h2>
+  <div class="prose">
+    <p>Between 2025 and 2026 Q1 the median change across the ten drugs was <b>−64%</b>, from −30% for the NovoLog entry to −71% for Enbrel. Holding each group's 2025 drug mix fixed, the ten fell −61%, while drugs negotiated for 2027 changed +1.5%, drugs selected for 2028 +1.2% and other brand-name products +1.1%. The NovoLog entry pools two brands: NovoLog itself (list price already cut in 2024) fell 9%, Fiasp 72%.</p>
+    <p>This is what the payment rule would produce: the law caps the Part D price of a selected drug at the MFP plus dispensing fees, and the spending file is built from claim amounts. It is consistent with MFP-based payment; it does not prove it for every claim.</p>
+  </div>
+  <div class="tablewrap"><table id="tblGroups">
+    <thead><tr><th>Group</th><th class="n">Drug families</th><th class="n">Median change</th><th class="n">Middle half</th><th class="n">Fixed 2025 mix</th><th class="n">Share falling 30%+</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <div class="callout">Gross, not net. These drugs carried rebates of about 45% in 2024, so part of the gross drop replaces rebates that were already paid. Jeon et al. (2026) project 2026 net spending on the ten drugs about 9% lower than without negotiation; these data cannot measure net savings.</div>
+</section>
+
+<section id="f2">
+  <p class="kicker">Finding 2</p>
+  <h2>On the day the MFPs began, four of the ten cut their list prices, and so did related brands</h2>
+  <div class="prose">
+    <p>NADAC records WAC-based cuts effective 2026-01-01 of 43% for Eliquis, 44% for Jardiance, 37% for Farxiga and 75% for Fiasp. Januvia, and Janumet in the 2027 group, had been cut 42% on 2025-01-01, and Imbruvica (no NADAC) on 2025-12-22 according to NCPA's notice: six of the ten have had list-price cuts since 2024. Most of the other-brand cuts are not independent: 30 of the 33 in January 2026 are Boehringer Ingelheim's empagliflozin combinations, cut by the same 44.4% on the same day as Jardiance.</p>
+  </div>
+  <figure class="viz">
+    <p class="viz-title">Share of brand products (NDCs) with a list-price cut of 20% or more</p>
+    <p class="viz-sub">WAC-based NADAC changes around each January. Choose the window.</p>
+    <div class="controls" id="f2win"></div>
+    <div class="legend" id="f2legend"></div>
+    <div class="chart" id="chartF2"></div>
+    <figcaption>Source: NADAC Comparison file, rows whose primary reason is a WAC adjustment. Universe: products priced as brands in that January.</figcaption>
+  </figure>
+  <h3>Large WAC-based cuts captured by NADAC in the selected-drug groups</h3>
+  <p class="small muted prose">This table uses the December 20 to February 28 windows labeled 2024, 2025 and 2026, independently of the chart's window selector. It includes products classified as brands in a January snapshot. It excludes cuts without NADAC coverage, including Imbruvica's 2025-12-22 cut.</p>
+  <div class="tablewrap"><table class="sortable" id="tblCuts">
+    <thead><tr><th class="sortable">January</th><th class="sortable">Group</th><th class="sortable">Drug</th><th class="sortable">Products</th><th class="sortable n">NDCs</th><th class="sortable n">Median cut</th><th class="sortable">Effective</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <div class="prose">
+    <p>Why cut list prices? Candidate explanations, not established: under the default refund (list minus MFP) a lower list price shrinks the refunds owed; Bristol Myers Squibb told Reuters a lower Eliquis list price helps avoid Medicare inflation penalties; the cuts also removed the inflation part of the 340B discount, ending "penny pricing" from 2026-07-01 (Eliquis $245 a package, Pennsylvania Office of Rural Health); and for insulin the Medicaid rebate cap ended on 2024-01-01. Their net effect on manufacturer revenue is not measured.</p>
+  </div>
+</section>
+
+<section id="f3">
+  <p class="kicker">Finding 3</p>
+  <h2>Pharmacy invoice cost stays well above the MFP for most of these drugs</h2>
+  <div class="prose">
+    <p>NADAC, the average invoice cost of retail community pharmacies, was 2.2 to 4.0 times the 2026 MFP per unit at the end of 2025 (NovoLog was already at 1.0). After the January cuts it fell to 0.99 for Fiasp, 1.33 for Eliquis, 1.65 for Jardiance and 2.00 for Farxiga. Januvia (2.70), Xarelto (2.84), Entresto (2.22), Stelara (3.32) and Enbrel (3.57) stayed high, some rising with 2026 list-price increases.</p>
+  </div>
+  <figure class="viz">
+    <p class="viz-title">NADAC per unit divided by the 2026 MFP per unit, weekly</p>
+    <p class="viz-sub">Median NADAC/MFP ratio across each drug's brand NDCs. A value of 1 means the median invoice benchmark equals the MFP; it does not establish any individual pharmacy's acquisition cost. Pick a drug to highlight.</p>
+    <div class="controls" id="f3pick"></div>
+    <div class="chart" id="chartF3"></div>
+    <figcaption>NADAC weekly files joined by NDC to the CMS MFP file. The 2025 observations use each NDC's earliest valid 2026 MFP as a future-price benchmark. From 2026, the denominator is the MFP effective on the snapshot date, including the Entresto Sprinkle correction from 2026-06-01. No NADAC observations match Imbruvica.</figcaption>
+  </figure>
+  <div class="callout">This is a gap between an invoice benchmark and the MFP, not a measured pharmacy loss or refund receivable. Manufacturers must provide MFP access for eligible transactions, but these data do not show actual refund amounts, receipt dates or acquisition costs for those transactions. Separately, 67% of over 500 surveyed independent pharmacies waited 22 days or more for refunds (NCPA, 2026-02-26).</div>
+</section>
+
+<section id="f4">
+  <p class="kicker">Finding 4</p>
+  <h2>Reported plan prices sit at the MFP from January 2026</h2>
+  <div class="prose">
+    <p>CMS's quarterly plan pricing files list each plan's reported unit price for the drugs it covers, in the same billing units as the MFP. For the ten drugs, plan prices were a median <b>2.77 times</b> the MFP in plan year 2025. In the January 2026 release the median was <b>1.000</b>: 92.7% of plan-product ratios were within 0.5% of the MFP (99.7% weighting drugs by their claims), 4.9% were below 0.995 (the MFP is a ceiling) and 2.3% exceeded 1.005, all of those unbranded ustekinumab products grouped with Stelara. By October, no ratio exceeded 1.005; the maximum was only about 0.003% above 1.000, consistent with rounding. The fifteen drugs negotiated for 2027 stayed above their future MFP.</p>
+  </div>
+  <figure class="viz">
+    <p class="viz-title">Median plan unit price divided by the MFP, by drug and release</p>
+    <p class="viz-sub">Log scale. Hollow: October 2025 release (plan year 2025). Filled: January 2026 release. Ringed: October 2026 release. For the 2027 drugs the MFP is the one starting 2027-01-01.</p>
+    <div class="legend"><span><i class="sw" style="background:var(--s1)"></i>MFP in effect 2026</span><span><i class="sw" style="background:var(--s2)"></i>MFP starts 2027</span></div>
+    <div class="chart" id="chartF4"></div>
+    <figcaption>Source: CMS Part D plan pricing files (SPUF), pricing table, 30-day supply rows. The January 2026 release is labeled "2025Q4" by CMS but holds plan-year 2026 prices.</figcaption>
+  </figure>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Release</th><th class="n">Plan-product rows</th><th class="n">Median ratio</th><th class="n">Within 0.5%</th><th class="n">Below 0.995</th><th class="n">Above 1.005</th><th class="n">Claim-weighted within</th></tr></thead>
+    <tbody id="tblF4"></tbody>
+  </table></div>
+  <p class="small muted prose">The plan price excludes dispensing fees and does not show rebates, final plan spending or what patients pay.</p>
+</section>
+
+<section id="context">
+  <p class="kicker">Context</p>
+  <h2>What others have found</h2>
+  <div class="prose">
+    <p>A scoping scan of about 180 papers and grey-literature items (2026-10-20) found no published measure of realized 2026 spending across the ten drugs, and no weekly product-level NADAC-to-MFP series through 2026. The closest work covers Stelara alone (Castle et al. 2026, JAMA Network Open) or compares price benchmarks at one point in time (PORTAL, 2024). The list-price cuts are documented by NCPA, 46brooklyn and Drug Channels but not yet in academic work.</p>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Question</th><th>What the evidence says</th></tr></thead>
+    <tbody>
+      <tr><td>How much does it save?</td><td>CMS: 22% (about $6 billion) against 2023 net spending for round one; 44% (about $12 billion, or 36% counting coverage-gap discounts) for round two against 2024. Jeon et al. 2026 project 2026 net spending on the ten drugs at $23.8 billion vs $26.1 billion without negotiation (−8.8%). Wouters et al. 2024 argue CMS's 22% overstates savings.</td></tr>
+      <tr><td>How deep are the discounts?</td><td>Round-one MFPs were 8% to 42% below estimated 2021 US net prices (Wouters et al. 2024). For the 14 round-two drugs with estimable net prices, MFPs were a median 38% below estimated 2022 US net prices (range 15% to 60%). Across the round-two drugs, MFPs were a median 108% above average purchasing-power-adjusted 2025 list prices in 19 reference countries (Gabriel et al. 2026). These are benchmark comparisons, not measured net savings.</td></tr>
+      <tr><td>Do patients save?</td><td>For beneficiaries without low-income subsidies, a model using 2026 plan designs estimated average annual out-of-pocket reductions across six drugs of $685 in stand-alone plans and $470 in Medicare Advantage plans. In the model, users of Stelara, Imbruvica and Enbrel reached the $2,100 cap with either price. Modeled comparisons, not observed patient savings (Castle et al. 2026, Annals).</td></tr>
+      <tr><td>Access and plan behavior</td><td>Every plan covers all ten drugs in 2026; step therapy on negotiated diabetes drugs rose to 5.0% (Jain and McCoy 2026). Across 59 non-selected brands in 16 competitive classes, enrollment-weighted formulary coverage fell 11.8 percentage points in stand-alone plans, from 47.4% in 2024 to 35.6% in 2026; this measures coverage, not realized treatment access or a causal effect (Zheng et al. 2026).</td></tr>
+      <tr><td>Launch prices</td><td>Among 643 new drugs approved 2008 to 2025, launch prices rose about 7.8% a year before the law, with no significant change in trend afterwards; the estimate is imprecise (Shanmugam et al. 2026).</td></tr>
+      <tr><td>Innovation</td><td>Industry-funded work reports a 68% peak-to-2024 fall in early-stage small-molecule investment in one cohort (Schulthess et al. 2025, descriptive); Kang et al. 2026 find overall trial activity stable. Unsettled.</td></tr>
+      <tr><td>Pharmacies and 340B</td><td>NCPA reports pharmacy owners' refund delays. Bhardwaj et al. 2026 project a reduction exceeding 85% in long-term-care pharmacies' revenue net of acquisition cost on selected drugs in 2027 under their reimbursement assumptions. Courtemanche 2026 projects lower net revenue for 340B covered entities. Survey reports and projections, not measured losses.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="prereg">
+  <p class="kicker">Looking ahead</p>
+  <h2>What we expect in 2027, written down before the data arrive</h2>
+  <div class="prose">
+    <p>The 2026 results were seen before any test was designed, so they cannot confirm a hypothesis. The fifteen drugs whose MFPs start on 2027-01-01 can. On 2026-10-20 we registered five predictions in git (commit <code>b24d4c8</code>, before examining any plan-year 2027 pricing or outcome data); clarifications added after review are dated amendments that never change a registered number.</p>
+    <p><b>The rule.</b> If the MFP binds, a drug's gross spending per claim should fall by about <b>1/r − 1</b>, where r is the plan price divided by the coming MFP in the last plan pricing file before it starts. It has no fitted parameter. Applied retrospectively to the 2026 drugs, the rule missed by at most 2.1 percentage points for eight of ten. The two large misses were identified after examining the results: Entresto's brand claims fell sharply after generic entry, and the NovoLog family pools differently priced NovoLog and Fiasp products. These are plausible explanations, not an identified decomposition of the errors. Across all ten, mean absolute error was 4.7 points; the fixed-2025-claim-mix prediction was −62.2%, compared with −61.4% observed.</p>
+  </div>
+  <figure class="viz">
+    <p class="viz-title">Calibration on the 2026 drugs: predicted vs measured change in spending per claim</p>
+    <p class="viz-sub">Points on the diagonal were predicted exactly. Prediction uses the October 2025 plan pricing file only.</p>
+    <div class="chart" id="chartCal"></div>
+    <figcaption>Hollow points mark the two cases flagged after examining the calibration errors. Both remain in the all-ten error summaries. All 15 drugs remain in the primary 2027 test.</figcaption>
+  </figure>
+  <figure class="viz">
+    <p class="viz-title">Registered prediction for each 2027 drug, with its pass band</p>
+    <p class="viz-sub">Predicted change in gross Part D spending per claim, 2026 to 2027 Q1, from the October 2026 plan pricing file. Bars show the ±5-point band used for scoring. Hover for benchmarks.</p>
+    <div class="chart" id="chartPred"></div>
+    <figcaption>Group prediction with each drug's weight fixed at its 2026 Q1 claims: −63.4% (pass between −68% and −58%). The roughly $8.1 billion gross reduction holds 2026 Q1 prices and volumes fixed; it is not a forecast of 2027 spending. Semaglutide spending pools Ozempic, Rybelsus and Wegovy and is 37% of the group's 2026 Q1 spending; its October 2026 plan-price ratio pools the Ozempic and Wegovy rows (Rybelsus has none). The pooled prediction is primary.</figcaption>
+  </figure>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Prediction</th><th>What we expect</th><th>Data and date</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag">P1</span> Plan prices</td><td>Each of the 15 drugs has a median plan-price/MFP ratio of 0.995 to 1.005. At least 90% of all plan-product rows, and at least 97% after weighting drug-specific shares by 2026 Q1 claims, are within 0.5% of their own MFP. No drug has more than 5% of rows above 1.005 times its MFP. Each of the six continuing drugs also has a median ratio of 0.995 to 1.005 against its inflation-adjusted 2027 MFP, about 2.7% above its 2026 MFP.</td><td>First quarterly plan pricing release with plan-year 2027 prices, expected January 2027</td></tr>
+      <tr><td><span class="tag">P2</span> Spending per claim</td><td>At least 12 of 15 drugs within ±5 points of the unrounded 1/r − 1; group −63% with weights fixed at 2026 Q1 claims and a full-year 2026 denominator (pass −68% to −58%); rank correlation at least 0.8; comparison groups between −3% and +5%.</td><td>Part D quarterly spending, 2027 Q1, about July 2027</td></tr>
+      <tr><td><span class="tag">P3</span> List prices</td><td>Of the seven NADAC-covered families without an earlier cut, 2 to 5 have a WAC-based NADAC reduction of at least 20%, effective 2026-12-20 through 2027-02-28 inclusive (a family counts once if at least one eligible brand NDC meets the rule). A Tradjenta cut must coincide with a Jentadueto cut; a Breo or Trelegy cut with a cut to Anoro, Incruse or Arnuity, WAC-based, at least 20%, on the same effective date (not evaluable without a triggering cut). In the last June 2027 NADAC snapshot, each family's median brand-NDC ratio to its 2027 MFP is at least 1.5 without a family cut and at least 1.00 with one (0.98 as a sensitivity only). The comparison of cut frequencies between high- and low-ratio drugs is exploratory.</td><td>NADAC weekly, January to June 2027</td></tr>
+      <tr><td><span class="tag">P4</span> Drugs leaving</td><td>This tests a return to higher prices; deselection does not require it. For brand Entresto, Xarelto and Stelara separately, the median plan-price ratio is at least 1.5 times the 2026 MFP, and gross spending per claim rises at least 50% from full-year 2026 to 2027 Q1. NovoLog and Fiasp are tested separately for plan-price ratios of 0.9 to 1.2 times the 2026 MFP; the spending-rise prediction does not apply to them. Unbranded products are excluded. A brand with no plan-price rows or fewer than 1,000 claims in 2027 Q1 is not evaluable. A failed threshold stays failed even if a possible mechanism is identified.</td><td>Plan pricing files and Part D spending, 2027</td></tr>
+      <tr><td><span class="tag">P5</span> Drugs continuing</td><td>Spending per claim changes between −3% and +6% for each of the six, full-year 2026 to 2027 Q1 (2026 Q1 to 2027 Q1 reported separately).</td><td>Part D spending, 2027 Q1</td></tr>
+    </tbody>
+  </table></div>
+  <div class="prose"><h3>Amendments after review</h3>
+<p><b>Amendment 1 (2026-10-20, after the Codex review).</b> Codex reproduced all 221 baseline numbers. The amendment fixes how each prediction is scored without changing any registered number: every clause is scored separately as pass, fail or not evaluable, with no overall verdict; the primary plan-price test uses the first CMS release containing plan-year 2027 unit prices, expected in January 2027, with later releases as replications; rows are contract x plan x segment x NDC with a 30-day supply, at full precision against the frozen 2026-10-20 MFP file after dropping superseded rows; missing products are listed, never counted as passes. P2 fixes each drug's weight at its 2026 Q1 claims: the observed index is the sum of 2026 Q1 claims times 2027 Q1 spending per claim over the sum of 2026 Q1 claims times full-year 2026 spending per claim, minus 1, scored against the registered −68% to −58%. The semaglutide exception is withdrawn: its median ratio must lie between 0.995 and 1.005, inclusive, like every other 2027 drug; compliance with the MFP ceiling is reported separately (Medicare's $50-copay GLP-1 Bridge operates outside Part D coverage and payment through 2027). It also corrects the registration's data note: the monthly 2027 release CMS posted on 2026-10-08 has no pricing table, so the plan-price test waits for the January 2027 quarterly release. The calibration is reported in full: across all ten drugs the mean absolute error is 4.7 points and the rank correlation 0.72, so P2's rank clause (0.8) is a harder test than the rule has passed so far.</p>
+<p><b>Amendment 2 (2026-10-20, after the Agy review).</b> Each Agy finding was checked against the data before use. Applied: the missing Fiasp row was restored to one baseline table and Farxiga's 2026 MFP corrected to $178.50. Five sensitivities were specified: a Q4-only 2026 baseline for all 15 drugs (Q4 year-to-date minus Q3 year-to-date spending and claims); separate Ozempic (r = 3.66) and Wegovy (r = 3.33) results, keeping the pooled semaglutide prediction primary; brand-only plan-price shares, keeping every listed NDC against its own MFP in P1; a 2026 Q1 baseline for P4 and P5; and a 2028 comparator excluding drugs with WAC-based cuts of at least 20% effective 2026-12-20 through 2027-02-28. Xifaxan's ratio rose from 2.80 to 3.25 during 2026, so its decline against the full-year baseline is expected to be smaller than the registered October-based −69%. Trulicity is 42% and Anoro Ellipta 13% of the 2028 comparator's 2026 Q1 claims. Not applied: Agy listed wrong values for Gabriel et al.'s discounts while calling them an exact match, described a scoring band that does not exist, and summarized a paper with figures not in its text. The rank-correlation threshold stays at 0.8.</p>
+</div>
+  <details><summary>All fifteen 2027 drugs: baseline and benchmarks</summary>
+    <div class="tablewrap"><table class="sortable" id="tblPred">
+      <thead><tr><th class="sortable">Drug</th><th class="sortable n">r (Oct 2026)</th><th class="sortable n">Predicted</th><th class="sortable n">2026 Q1 $/claim</th><th class="sortable n">NADAC / 2027 MFP</th><th class="sortable n">Gabriel: MFP vs net</th><th class="sortable n">CMS: MFP vs 2024 list</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </details>
+</section>
+
+<section id="limits">
+  <p class="kicker">Limits</p>
+  <h2>How to read this</h2>
+  <ul class="prose">
+    <li><b>Gross, not net.</b> Part D spending is before manufacturer rebates; drug-level net spending is not public. Nothing here estimates net savings.</li>
+    <li><b>Preliminary quarter.</b> 2026 Q1 Part D data were extracted three months after the quarter and can be revised.</li>
+    <li><b>Mix, not only price.</b> Spending per claim moves with days supplied, strength, form and substitution. Entresto (brand claims down 87% annualized after generic entry), Stelara (down 44% after biosimilars) and Farxiga may reflect mix as well as price.</li>
+    <li><b>Name-based groups.</b> Part D rows carry brand names, not NDCs; "other brands" is a name-based classification that still contains a few generic products.</li>
+    <li><b>NADAC is retail, per unit, unweighted.</b> It covers retail community pharmacies; medians across brand NDCs are not weighted by claims.</li>
+    <li><b>Plan prices are schedules.</b> SPUF lists one proxy product per drug concept and reports schedule prices, not realized claim payments.</li>
+    <li><b>Not causal.</b> The design does not separate the MFP from list-price strategy, the 2024 Medicaid rebate-cap change, generic and biosimilar entry, the 2025 Part D redesign or anticipation by later cohorts.</li>
+  </ul>
+</section>
+
+<section id="verification">
+  <p class="kicker">Verification</p>
+  <h2>How it was checked</h2>
+  <div class="prose">
+    <p>Codex (OpenAI GPT-6 Astra, high effort) independently recomputed the project's analysis outputs from raw files, in its own folder, before reviewing the analysis code and wording. Agy (Google Gemini 4 Argon, high) recomputed headline figures and reviewed methods; its findings were treated as leads and checked against the data or sources before any change. Literature findings were checked against publications, not re-created from their underlying study data. The table records the reviews completed for each component; those reviews do not by themselves certify every later summary sentence. A final Codex fact-check of this page compared 2,491 embedded values with the outputs and corrected its wording.</p>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Piece</th><th>Codex (GPT-6 Astra)</th><th>Agy (Gemini 4 Argon)</th></tr></thead>
+    <tbody><tr><td>Source catalog and NADAC starter numbers</td><td>PASS WITH FIXES</td><td>PASS WITH FIXES</td></tr><tr><td>Findings 1 to 3 (Part D, list prices, NADAC)</td><td>PASS WITH FIXES, follow-up confirmed 8,542 comparisons</td><td>PASS WITH FIXES</td></tr><tr><td>Finding 4 (1.5 million plan-price rows)</td><td>PASS WITH FIXES</td><td>PASS WITH FIXES</td></tr><tr><td>Literature review and full-text round</td><td>PASS WITH FIXES (two rounds)</td><td>not run</td></tr><tr><td>Plain-language explainer</td><td>fact-checked, fixes applied</td><td>not run</td></tr><tr><td>2027 pre-registration baseline</td><td>PASS WITH FIXES (221 numbers reproduced)</td><td>PASS WITH FIXES; 6 findings held up, 5 claims did not (wrong source values)</td></tr><tr><td>This page</td><td>PASS WITH FIXES; 2,491 embedded values matched; 14 wording fixes applied</td><td>not run</td></tr></tbody>
+  </table></div>
+</section>
+
+<section id="reproduce">
+  <p class="kicker">Reproduce</p>
+  <h2>Scripts and outputs</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Step</th><th>Script</th><th>Output</th></tr></thead>
+    <tbody>
+      <tr><td>Fetch NADAC weekly and comparison files</td><td><code>pharma/scripts/fetch_nadac.py</code></td><td><code>data/raw/pharma/nadac/</code></td></tr>
+      <tr><td>Fetch MFP file and Part D spending</td><td><code>pharma/scripts/fetch_ira_inputs.py</code></td><td><code>data/raw/pharma/ira/</code>, <code>partd/</code></td></tr>
+      <tr><td>Findings 1 to 3</td><td><code>pharma/scripts/ira_analysis.py</code></td><td><code>pharma/outputs/ira/</code></td></tr>
+      <tr><td>Fetch plan pricing files</td><td><code>pharma/scripts/fetch_spuf.py</code></td><td><code>data/raw/pharma/spuf/</code></td></tr>
+      <tr><td>Finding 4</td><td><code>pharma/scripts/spuf_mfp_check.py</code></td><td><code>pharma/outputs/spuf/</code></td></tr>
+      <tr><td>2027 baseline and calibration</td><td><code>pharma/scripts/prereg_2027.py</code></td><td><code>pharma/outputs/prereg_2027/</code></td></tr>
+      <tr><td>This page</td><td><code>pharma/scripts/build_report.py</code></td><td><code>pharma/report/index.html</code></td></tr>
+    </tbody>
+  </table></div>
+  <p class="small muted prose">Python 3.14, pandas. Raw data are not committed; the fetch scripts re-download them from CMS and Medicaid.gov.</p>
+</section>
+
+<section id="refs">
+  <p class="kicker">Sources</p>
+  <h2>Data and literature</h2>
+  <div class="twocol small">
+    <div>
+      <h3>Data</h3>
+      <ul>
+        <li><a href="https://data.cms.gov/summary-statistics-on-use-and-payments/medicare-medicaid-spending-by-drug/medicare-quarterly-part-d-spending-by-drug">CMS Medicare Quarterly Part D Spending by Drug</a></li>
+        <li><a href="https://data.medicaid.gov/dataset/fbb83258-11c7-47f5-8b18-5f8e79f7e704">Medicaid NADAC (National Average Drug Acquisition Cost)</a> and NADAC Comparison</li>
+        <li><a href="https://www.cms.gov/initiatives/medicare-prescription-drug-affordability/overview/medicare-drug-price-negotiation-program/selected-drugs-negotiated-prices">CMS selected drugs and negotiated prices</a> (MFP file)</li>
+        <li><a href="https://data.cms.gov/provider-summary-by-type-of-service/medicare-part-d-prescribers/quarterly-prescription-drug-plan-formulary-pharmacy-network-and-pricing-information">CMS Part D plan formulary, pharmacy network and pricing files</a></li>
+        <li><a href="https://www.cms.gov/files/document/fact-sheet-negotiated-prices-ipay-2027.pdf">CMS fact sheet, negotiated prices for 2027</a></li>
+        <li><a href="https://www.medpac.gov/wp-content/uploads/2026/03/Mar26_Ch13_MedPAC_Report_To_Congress_SEC.pdf">MedPAC, March 2026 report, chapter 13</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Literature</h3>
+      <ul>
+        <li>Jeon et al. 2026, Value in Health, <a href="https://doi.org/10.1016/j.jval.2026.03.010">10.1016/j.jval.2026.03.010</a></li>
+        <li>Gabriel et al. 2026, JMCP, <a href="https://doi.org/10.18553/jmcp.2026.32.5.530">10.18553/jmcp.2026.32.5.530</a></li>
+        <li>Li et al. 2026, Value in Health, <a href="https://doi.org/10.1016/j.jval.2025.09.3054">10.1016/j.jval.2025.09.3054</a></li>
+        <li>Wouters et al. 2024, JAMA, <a href="https://doi.org/10.1001/jama.2024.22582">10.1001/jama.2024.22582</a></li>
+        <li>Castle et al. 2026, Annals of Internal Medicine, <a href="https://doi.org/10.7326/annals-26-02703">10.7326/annals-26-02703</a></li>
+        <li>Castle et al. 2026, JAMA Network Open, <a href="https://doi.org/10.1001/jamanetworkopen.2026.31556">10.1001/jamanetworkopen.2026.31556</a></li>
+        <li>Shanmugam et al. 2026, JAMA, <a href="https://doi.org/10.1001/jama.2026.17742">10.1001/jama.2026.17742</a></li>
+        <li>Jain and McCoy 2026, Health Affairs Scholar, <a href="https://doi.org/10.1093/haschl/qxag290">10.1093/haschl/qxag290</a></li>
+        <li>Zheng et al. 2026, Health Affairs Scholar, <a href="https://doi.org/10.1093/haschl/qxag171">10.1093/haschl/qxag171</a></li>
+        <li>Bhardwaj et al. 2026, JMCP, <a href="https://doi.org/10.18553/jmcp.2026.25312">10.18553/jmcp.2026.25312</a></li>
+        <li>Courtemanche 2026, SSRN, <a href="https://doi.org/10.2139/ssrn.7615660">10.2139/ssrn.7615660</a></li>
+        <li>Schulthess et al. 2025, Ther Innov Regul Sci, <a href="https://doi.org/10.1007/s43441-025-00773-3">10.1007/s43441-025-00773-3</a></li>
+        <li>Kang et al. 2026, Health Affairs, <a href="https://doi.org/10.1377/hlthaff.2025.00720">10.1377/hlthaff.2025.00720</a></li>
+      </ul>
+      <p>Grey literature: NCPA WAC-decrease alert and refund survey, 46brooklyn, Drug Channels, KFF, Pennsylvania Office of Rural Health, Reuters.</p>
+    </div>
+  </div>
+</section>
+
+<footer>Johnattan García Ruiz · Built from public federal data with Claude (Anthropic), replicated by Codex (OpenAI) and Agy (Google). Generated 2026-10-20 by <code>pharma/scripts/build_report.py</code>.</footer>
+</main>
+</div>
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script>
+const D = {"f1":[{"drug":"ELIQUIS","group":"IPAY 2026","pc2025":912.3142023560586,"pc2026":399.0100858783617,"chg":-0.5626396203764942,"claims2025":26359023.0},{"drug":"ENBREL","group":"IPAY 2026","pc2025":8681.634822739497,"pc2026":2536.7400637608007,"chg":-0.7078038738606688,"claims2025":473766.0},{"drug":"ENTRESTO","group":"IPAY 2026","pc2025":1077.5610900254774,"pc2026":323.7402858999878,"chg":-0.6995620119390786,"claims2025":3645979.0},{"drug":"FARXIGA","group":"IPAY 2026","pc2025":997.7509328078038,"pc2026":328.96549926702056,"chg":-0.6702929674630642,"claims2025":6736318.0},{"drug":"IMBRUVICA","group":"IPAY 2026","pc2025":16055.461596976058,"pc2026":9646.303650947222,"chg":-0.3991886441456133,"claims2025":146696.0},{"drug":"JANUVIA","group":"IPAY 2026","pc2025":556.0754525117915,"pc2026":214.01207970022105,"chg":-0.6151384155989461,"claims2025":3868076.0},{"drug":"JARDIANCE","group":"IPAY 2026","pc2025":1091.193614945164,"pc2026":386.829228121217,"chg":-0.6454989996063564,"claims2025":13826680.0},{"drug":"NOVOLOG","group":"IPAY 2026","pc2025":293.8034702420284,"pc2026":204.41640541675568,"chg":-0.3042410110120135,"claims2025":1920477.0},{"drug":"STELARA","group":"IPAY 2026","pc2025":26682.003847902644,"pc2026":8424.819580662237,"chg":-0.6842508670380664,"claims2025":120962.0},{"drug":"XARELTO","group":"IPAY 2026","pc2025":1006.210844056784,"pc2026":374.0380388996067,"chg":-0.6282707137287635,"claims2025":6511197.0},{"drug":"AUSTEDO","group":"IPAY 2027","pc2025":7800.069929162319,"pc2026":8526.27916290571,"chg":0.0931029132223923,"claims2025":289394.0},{"drug":"BREO ELLIPTA","group":"IPAY 2027","pc2025":528.377485605078,"pc2026":535.262914996982,"chg":0.0130312694607321,"claims2025":2482820.0},{"drug":"CALQUENCE","group":"IPAY 2027","pc2025":14227.86563274226,"pc2026":14579.44609650995,"chg":0.0247106960975653,"claims2025":176628.0},{"drug":"IBRANCE","group":"IPAY 2027","pc2025":15880.574033119692,"pc2026":15771.604728452823,"chg":-0.0068617988518304,"claims2025":164917.0},{"drug":"JANUMET","group":"IPAY 2027","pc2025":559.6140060571374,"pc2026":563.374400752154,"chg":0.0067196221937171,"claims2025":1048350.0},{"drug":"LINZESS","group":"IPAY 2027","pc2025":843.426083792115,"pc2026":429.99011645648915,"chg":-0.4901863663935822,"claims2025":2784367.0},{"drug":"OFEV","group":"IPAY 2027","pc2025":13470.28368930936,"pc2026":13550.661811063204,"chg":0.0059670697074951,"claims2025":220071.0},{"drug":"OTEZLA","group":"IPAY 2027","pc2025":5358.331897209917,"pc2026":5485.214644175684,"chg":0.0236795236651605,"claims2025":258021.0},{"drug":"OZEMPIC","group":"IPAY 2027","pc2025":1337.4170786674958,"pc2026":1417.5089095740404,"chg":0.0598854554678951,"claims2025":14362552.0},{"drug":"POMALYST","group":"IPAY 2027","pc2025":22594.25782107035,"pc2026":23154.12255614823,"chg":0.024779071723072,"claims2025":102789.0},{"drug":"TRADJENTA","group":"IPAY 2027","pc2025":798.8993815672749,"pc2026":806.0406064677128,"chg":0.0089388289254002,"claims2025":1299721.0},{"drug":"TRELEGY ELLIPTA","group":"IPAY 2027","pc2025":897.435711266576,"pc2026":932.0863274836078,"chg":0.0386106946514623,"claims2025":7188901.0},{"drug":"VRAYLAR","group":"IPAY 2027","pc2025":1507.0308840764214,"pc2026":1559.8591057377164,"chg":0.0350545050001882,"claims2025":866407.0},{"drug":"XIFAXAN","group":"IPAY 2027","pc2025":2925.512708245234,"pc2026":3030.6940426485085,"chg":0.0359531285257563,"claims2025":468222.0},{"drug":"XTANDI","group":"IPAY 2027","pc2025":13687.183550088905,"pc2026":13812.70642664476,"chg":0.0091708331444888,"claims2025":375123.0}],"groups":[{"group":"IPAY 2026","n":10,"median":-0.63688485666756,"p25":-0.6807613921443159,"p75":-0.5757643191821071,"fixed":-0.613744502471577,"share30":1.0},{"group":"IPAY 2027","n":15,"median":0.0236795236651605,"p25":0.0078292255595586,"p75":0.0355038167629723,"fixed":0.0148246886839606,"share30":0.0666666666666666},{"group":"IPAY 2028","n":15,"median":0.0170827274454277,"p25":7.373832379431455e-05,"p75":0.0386695831249838,"fixed":0.0122523432819781,"share30":0.0},{"group":"Other brands","n":741,"median":0.0092190241683345,"p25":-0.0204759566397286,"p75":0.0356719122076008,"fixed":0.0108206043718259,"share30":0.0175438596491228}],"f2":[{"january":2024,"window":"Dec 20-Jan 31","group":"IPAY 2026","n":63,"cut":3,"share":0.0476190476190476,"inc":0.9206349206349206},{"january":2024,"window":"Dec 20-Jan 31","group":"IPAY 2027","n":63,"cut":0,"share":0.0,"inc":0.873015873015873},{"january":2024,"window":"Dec 20-Jan 31","group":"IPAY 2028","n":20,"cut":0,"share":0.0,"inc":1.0},{"january":2024,"window":"Dec 20-Jan 31","group":"Other brands","n":1572,"cut":57,"share":0.0362595419847328,"inc":0.5},{"january":2024,"window":"Dec 20-Feb 28","group":"IPAY 2026","n":63,"cut":3,"share":0.0476190476190476,"inc":0.9206349206349206},{"january":2024,"window":"Dec 20-Feb 28","group":"IPAY 2027","n":63,"cut":0,"share":0.0,"inc":0.873015873015873},{"january":2024,"window":"Dec 20-Feb 28","group":"IPAY 2028","n":20,"cut":0,"share":0.0,"inc":1.0},{"january":2024,"window":"Dec 20-Feb 28","group":"Other brands","n":1572,"cut":57,"share":0.0362595419847328,"inc":0.5120865139949109},{"january":2025,"window":"Dec 20-Jan 31","group":"IPAY 2026","n":67,"cut":13,"share":0.1940298507462686,"inc":0.7014925373134329},{"january":2025,"window":"Dec 20-Jan 31","group":"IPAY 2027","n":70,"cut":15,"share":0.2142857142857142,"inc":0.6},{"january":2025,"window":"Dec 20-Jan 31","group":"IPAY 2028","n":30,"cut":0,"share":0.0,"inc":1.0},{"january":2025,"window":"Dec 20-Jan 31","group":"Other brands","n":2327,"cut":5,"share":0.0021486892995272,"inc":0.3992264718521702},{"january":2025,"window":"Dec 20-Feb 28","group":"IPAY 2026","n":67,"cut":13,"share":0.1940298507462686,"inc":0.7014925373134329},{"january":2025,"window":"Dec 20-Feb 28","group":"IPAY 2027","n":70,"cut":15,"share":0.2142857142857142,"inc":0.6},{"january":2025,"window":"Dec 20-Feb 28","group":"IPAY 2028","n":30,"cut":0,"share":0.0,"inc":1.0},{"january":2025,"window":"Dec 20-Feb 28","group":"Other brands","n":2327,"cut":5,"share":0.0021486892995272,"inc":0.4095401804899011},{"january":2026,"window":"Dec 20-Jan 31","group":"IPAY 2026","n":69,"cut":21,"share":0.3043478260869565,"inc":0.1884057971014492},{"january":2026,"window":"Dec 20-Jan 31","group":"IPAY 2027","n":67,"cut":3,"share":0.044776119402985,"inc":0.5373134328358209},{"january":2026,"window":"Dec 20-Jan 31","group":"IPAY 2028","n":33,"cut":1,"share":0.0303030303030303,"inc":0.6363636363636364},{"january":2026,"window":"Dec 20-Jan 31","group":"Other brands","n":2198,"cut":33,"share":0.0150136487716105,"inc":0.3803457688808007},{"january":2026,"window":"Dec 20-Feb 28","group":"IPAY 2026","n":69,"cut":21,"share":0.3043478260869565,"inc":0.463768115942029},{"january":2026,"window":"Dec 20-Feb 28","group":"IPAY 2027","n":67,"cut":3,"share":0.044776119402985,"inc":0.5373134328358209},{"january":2026,"window":"Dec 20-Feb 28","group":"IPAY 2028","n":33,"cut":1,"share":0.0303030303030303,"inc":0.6363636363636364},{"january":2026,"window":"Dec 20-Feb 28","group":"Other brands","n":2198,"cut":38,"share":0.0172884440400363,"inc":0.3926296633303002}],"cuts":[{"january":2024,"group":"IPAY 2026","drug":"NOVOLOG","products":"NOVOLOG","ndcs":3,"median_pct":-75.0,"effective":"2024-01-01"},{"january":2025,"group":"IPAY 2026","drug":"JANUVIA","products":"JANUVIA","ndcs":13,"median_pct":-42.41,"effective":"2025-01-01"},{"january":2025,"group":"IPAY 2027","drug":"JANUMET","products":"JANUMET","ndcs":15,"median_pct":-42.41,"effective":"2025-01-01"},{"january":2026,"group":"IPAY 2026","drug":"NOVOLOG","products":"FIASP","ndcs":4,"median_pct":-75.0,"effective":"2026-01-01"},{"january":2026,"group":"IPAY 2026","drug":"JARDIANCE","products":"JARDIANCE","ndcs":6,"median_pct":-44.39,"effective":"2026-01-01"},{"january":2026,"group":"IPAY 2026","drug":"ELIQUIS","products":"ELIQUIS","ndcs":6,"median_pct":-43.0,"effective":"2026-01-01"},{"january":2026,"group":"IPAY 2026","drug":"FARXIGA","products":"FARXIGA","ndcs":5,"median_pct":-37.0,"effective":"2026-01-01"},{"january":2026,"group":"IPAY 2027","drug":"LINZESS","products":"LINZESS","ndcs":3,"median_pct":-50.27,"effective":"2026-01-01"},{"january":2026,"group":"IPAY 2028","drug":"XELJANZ","products":"XELJANZ","ndcs":1,"median_pct":-25.0,"effective":"2026-01-01"}],"f3":[{"drug":"ELIQUIS","date":"2025-01-01","ratio":2.2941,"ndcs":6},{"drug":"ELIQUIS","date":"2025-01-08","ratio":2.34,"ndcs":6},{"drug":"ELIQUIS","date":"2025-01-15","ratio":2.34,"ndcs":6},{"drug":"ELIQUIS","date":"2025-01-22","ratio":2.34,"ndcs":6},{"drug":"ELIQUIS","date":"2025-01-29","ratio":2.34,"ndcs":6},{"drug":"ELIQUIS","date":"2025-02-05","ratio":2.34,"ndcs":6},{"drug":"ELIQUIS","date":"2025-02-12","ratio":2.34,"ndcs":6},{"drug":"ELIQUIS","date":"2025-02-19","ratio":2.34,"ndcs":6},{"drug":"ELIQUIS","date":"2025-02-26","ratio":2.34,"ndcs":6},{"drug":"ELIQUIS","date":"2025-03-05","ratio":2.34,"ndcs":6},{"drug":"ELIQUIS","date":"2025-03-12","ratio":2.34,"ndcs":6},{"drug":"ELIQUIS","date":"2025-03-19","ratio":2.34,"ndcs":6},{"drug":"ELIQUIS","date":"2025-03-26","ratio":2.34,"ndcs":6},{"drug":"ELIQUIS","date":"2025-04-02","ratio":2.34,"ndcs":6},{"drug":"ELIQUIS","date":"2025-04-09","ratio":2.34,"ndcs":6},{"drug":"ELIQUIS","date":"2025-04-16","ratio":2.34,"ndcs":6},{"drug":"ELIQUIS","date":"2025-04-23","ratio":2.34,"ndcs":6},{"drug":"ELIQUIS","date":"2025-04-30","ratio":2.34,"ndcs":6},{"drug":"ELIQUIS","date":"2025-05-07","ratio":2.34,"ndcs":6},{"drug":"ELIQUIS","date":"2025-05-14","ratio":2.34,"ndcs":6},{"drug":"ELIQUIS","date":"2025-05-21","ratio":2.3372,"ndcs":6},{"drug":"ELIQUIS","date":"2025-05-28","ratio":2.3372,"ndcs":6},{"drug":"ELIQUIS","date":"2025-06-04","ratio":2.3372,"ndcs":6},{"drug":"ELIQUIS","date":"2025-06-11","ratio":2.3372,"ndcs":6},{"drug":"ELIQUIS","date":"2025-06-18","ratio":2.3371,"ndcs":6},{"drug":"ELIQUIS","date":"2025-06-25","ratio":2.3371,"ndcs":6},{"drug":"ELIQUIS","date":"2025-07-02","ratio":2.3371,"ndcs":6},{"drug":"ELIQUIS","date":"2025-07-09","ratio":2.3371,"ndcs":6},{"drug":"ELIQUIS","date":"2025-07-16","ratio":2.3371,"ndcs":6},{"drug":"ELIQUIS","date":"2025-07-23","ratio":2.3373,"ndcs":6},{"drug":"ELIQUIS","date":"2025-07-30","ratio":2.3373,"ndcs":6},{"drug":"ELIQUIS","date":"2025-08-06","ratio":2.3373,"ndcs":6},{"drug":"ELIQUIS","date":"2025-08-13","ratio":2.3373,"ndcs":6},{"drug":"ELIQUIS","date":"2025-08-20","ratio":2.3374,"ndcs":6},{"drug":"ELIQUIS","date":"2025-08-27","ratio":2.3374,"ndcs":6},{"drug":"ELIQUIS","date":"2025-09-03","ratio":2.3374,"ndcs":6},{"drug":"ELIQUIS","date":"2025-09-10","ratio":2.3374,"ndcs":6},{"drug":"ELIQUIS","date":"2025-09-17","ratio":2.3375,"ndcs":6},{"drug":"ELIQUIS","date":"2025-09-24","ratio":2.3375,"ndcs":6},{"drug":"ELIQUIS","date":"2025-10-01","ratio":2.3375,"ndcs":6},{"drug":"ELIQUIS","date":"2025-10-08","ratio":2.3375,"ndcs":6},{"drug":"ELIQUIS","date":"2025-10-15","ratio":2.3375,"ndcs":6},{"drug":"ELIQUIS","date":"2025-10-22","ratio":2.338,"ndcs":6},{"drug":"ELIQUIS","date":"2025-10-29","ratio":2.338,"ndcs":6},{"drug":"ELIQUIS","date":"2025-11-05","ratio":2.338,"ndcs":6},{"drug":"ELIQUIS","date":"2025-11-12","ratio":2.338,"ndcs":6},{"drug":"ELIQUIS","date":"2025-11-19","ratio":2.338,"ndcs":6},{"drug":"ELIQUIS","date":"2025-11-26","ratio":2.338,"ndcs":6},{"drug":"ELIQUIS","date":"2025-12-03","ratio":2.338,"ndcs":6},{"drug":"ELIQUIS","date":"2025-12-10","ratio":2.338,"ndcs":6},{"drug":"ELIQUIS","date":"2025-12-17","ratio":2.3383,"ndcs":6},{"drug":"ELIQUIS","date":"2025-12-24","ratio":2.3383,"ndcs":6},{"drug":"ELIQUIS","date":"2025-12-31","ratio":2.3383,"ndcs":6},{"drug":"ELIQUIS","date":"2026-01-07","ratio":2.3383,"ndcs":6},{"drug":"ELIQUIS","date":"2026-01-14","ratio":1.3329,"ndcs":6},{"drug":"ELIQUIS","date":"2026-01-21","ratio":1.3329,"ndcs":6},{"drug":"ELIQUIS","date":"2026-01-28","ratio":1.3329,"ndcs":6},{"drug":"ELIQUIS","date":"2026-02-04","ratio":1.3329,"ndcs":6},{"drug":"ELIQUIS","date":"2026-02-11","ratio":1.3329,"ndcs":6},{"drug":"ELIQUIS","date":"2026-02-18","ratio":1.3329,"ndcs":6},{"drug":"ELIQUIS","date":"2026-02-25","ratio":1.3329,"ndcs":6},{"drug":"ELIQUIS","date":"2026-03-04","ratio":1.3329,"ndcs":6},{"drug":"ELIQUIS","date":"2026-03-11","ratio":1.3329,"ndcs":6},{"drug":"ELIQUIS","date":"2026-03-18","ratio":1.3329,"ndcs":6},{"drug":"ELIQUIS","date":"2026-03-25","ratio":1.3329,"ndcs":6},{"drug":"ELIQUIS","date":"2026-04-01","ratio":1.3329,"ndcs":6},{"drug":"ELIQUIS","date":"2026-04-08","ratio":1.3329,"ndcs":6},{"drug":"ELIQUIS","date":"2026-04-15","ratio":1.3329,"ndcs":6},{"drug":"ELIQUIS","date":"2026-04-22","ratio":1.3329,"ndcs":6},{"drug":"ELIQUIS","date":"2026-04-29","ratio":1.3329,"ndcs":6},{"drug":"ELIQUIS","date":"2026-05-06","ratio":1.3329,"ndcs":6},{"drug":"ELIQUIS","date":"2026-05-13","ratio":1.3329,"ndcs":6},{"drug":"ELIQUIS","date":"2026-05-20","ratio":1.3317,"ndcs":6},{"drug":"ELIQUIS","date":"2026-05-27","ratio":1.3317,"ndcs":6},{"drug":"ELIQUIS","date":"2026-06-03","ratio":1.3317,"ndcs":6},{"drug":"ELIQUIS","date":"2026-06-10","ratio":1.3317,"ndcs":6},{"drug":"ELIQUIS","date":"2026-06-17","ratio":1.3316,"ndcs":6},{"drug":"ELIQUIS","date":"2026-06-24","ratio":1.3316,"ndcs":6},{"drug":"ELIQUIS","date":"2026-07-01","ratio":1.3316,"ndcs":6},{"drug":"ELIQUIS","date":"2026-07-08","ratio":1.3316,"ndcs":6},{"drug":"ELIQUIS","date":"2026-07-15","ratio":1.3316,"ndcs":6},{"drug":"ELIQUIS","date":"2026-07-22","ratio":1.3314,"ndcs":6},{"drug":"ELIQUIS","date":"2026-07-29","ratio":1.3314,"ndcs":6},{"drug":"ELIQUIS","date":"2026-08-05","ratio":1.3314,"ndcs":6},{"drug":"ELIQUIS","date":"2026-08-12","ratio":1.3314,"ndcs":6},{"drug":"ELIQUIS","date":"2026-08-19","ratio":1.3317,"ndcs":6},{"drug":"ELIQUIS","date":"2026-08-26","ratio":1.3317,"ndcs":6},{"drug":"ELIQUIS","date":"2026-09-02","ratio":1.3317,"ndcs":6},{"drug":"ELIQUIS","date":"2026-09-09","ratio":1.3317,"ndcs":6},{"drug":"ELIQUIS","date":"2026-09-16","ratio":1.3317,"ndcs":6},{"drug":"ELIQUIS","date":"2026-09-23","ratio":1.331,"ndcs":6},{"drug":"ELIQUIS","date":"2026-09-30","ratio":1.331,"ndcs":6},{"drug":"ELIQUIS","date":"2026-10-07","ratio":1.331,"ndcs":6},{"drug":"ELIQUIS","date":"2026-10-14","ratio":1.331,"ndcs":6},{"drug":"ELIQUIS","date":"2026-10-21","ratio":1.331,"ndcs":6},{"drug":"ENBREL","date":"2025-01-01","ratio":3.1734,"ndcs":4},{"drug":"ENBREL","date":"2025-01-08","ratio":3.1734,"ndcs":4},{"drug":"ENBREL","date":"2025-01-15","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-01-22","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-01-29","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-02-05","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-02-12","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-02-19","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-02-26","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-03-05","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-03-12","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-03-19","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-03-26","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-04-02","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-04-09","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-04-16","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-04-23","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-04-30","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-05-07","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-05-14","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-05-21","ratio":3.3977,"ndcs":4},{"drug":"ENBREL","date":"2025-05-28","ratio":3.3977,"ndcs":4},{"drug":"ENBREL","date":"2025-06-04","ratio":3.3977,"ndcs":4},{"drug":"ENBREL","date":"2025-06-11","ratio":3.3977,"ndcs":4},{"drug":"ENBREL","date":"2025-06-18","ratio":3.3956,"ndcs":4},{"drug":"ENBREL","date":"2025-06-25","ratio":3.3956,"ndcs":4},{"drug":"ENBREL","date":"2025-07-02","ratio":3.3956,"ndcs":4},{"drug":"ENBREL","date":"2025-07-09","ratio":3.3956,"ndcs":4},{"drug":"ENBREL","date":"2025-07-16","ratio":3.3956,"ndcs":4},{"drug":"ENBREL","date":"2025-07-23","ratio":3.3966,"ndcs":4},{"drug":"ENBREL","date":"2025-07-30","ratio":3.3966,"ndcs":4},{"drug":"ENBREL","date":"2025-08-06","ratio":3.3966,"ndcs":4},{"drug":"ENBREL","date":"2025-08-13","ratio":3.3966,"ndcs":4},{"drug":"ENBREL","date":"2025-08-20","ratio":3.3953,"ndcs":4},{"drug":"ENBREL","date":"2025-08-27","ratio":3.3953,"ndcs":4},{"drug":"ENBREL","date":"2025-09-03","ratio":3.3953,"ndcs":4},{"drug":"ENBREL","date":"2025-09-10","ratio":3.3953,"ndcs":4},{"drug":"ENBREL","date":"2025-09-17","ratio":3.3952,"ndcs":4},{"drug":"ENBREL","date":"2025-09-24","ratio":3.3952,"ndcs":4},{"drug":"ENBREL","date":"2025-10-01","ratio":3.3952,"ndcs":4},{"drug":"ENBREL","date":"2025-10-08","ratio":3.3952,"ndcs":4},{"drug":"ENBREL","date":"2025-10-15","ratio":3.3952,"ndcs":4},{"drug":"ENBREL","date":"2025-10-22","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-10-29","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-11-05","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-11-12","ratio":3.3955,"ndcs":4},{"drug":"ENBREL","date":"2025-11-19","ratio":3.396,"ndcs":4},{"drug":"ENBREL","date":"2025-11-26","ratio":3.396,"ndcs":4},{"drug":"ENBREL","date":"2025-12-03","ratio":3.396,"ndcs":4},{"drug":"ENBREL","date":"2025-12-10","ratio":3.396,"ndcs":4},{"drug":"ENBREL","date":"2025-12-17","ratio":3.3964,"ndcs":4},{"drug":"ENBREL","date":"2025-12-24","ratio":3.3964,"ndcs":4},{"drug":"ENBREL","date":"2025-12-31","ratio":3.3964,"ndcs":4},{"drug":"ENBREL","date":"2026-01-07","ratio":3.3964,"ndcs":4},{"drug":"ENBREL","date":"2026-01-14","ratio":3.5662,"ndcs":4},{"drug":"ENBREL","date":"2026-01-21","ratio":3.5662,"ndcs":4},{"drug":"ENBREL","date":"2026-01-28","ratio":3.5662,"ndcs":4},{"drug":"ENBREL","date":"2026-02-04","ratio":3.5662,"ndcs":4},{"drug":"ENBREL","date":"2026-02-11","ratio":3.5662,"ndcs":4},{"drug":"ENBREL","date":"2026-02-18","ratio":3.5662,"ndcs":4},{"drug":"ENBREL","date":"2026-02-25","ratio":3.5662,"ndcs":4},{"drug":"ENBREL","date":"2026-03-04","ratio":3.5662,"ndcs":4},{"drug":"ENBREL","date":"2026-03-11","ratio":3.5662,"ndcs":4},{"drug":"ENBREL","date":"2026-03-18","ratio":3.5662,"ndcs":4},{"drug":"ENBREL","date":"2026-03-25","ratio":3.5662,"ndcs":4},{"drug":"ENBREL","date":"2026-04-01","ratio":3.5662,"ndcs":4},{"drug":"ENBREL","date":"2026-04-08","ratio":3.5662,"ndcs":4},{"drug":"ENBREL","date":"2026-04-15","ratio":3.5662,"ndcs":4},{"drug":"ENBREL","date":"2026-04-22","ratio":3.5662,"ndcs":4},{"drug":"ENBREL","date":"2026-04-29","ratio":3.5662,"ndcs":4},{"drug":"ENBREL","date":"2026-05-06","ratio":3.5662,"ndcs":4},{"drug":"ENBREL","date":"2026-05-13","ratio":3.5662,"ndcs":4},{"drug":"ENBREL","date":"2026-05-20","ratio":3.5671,"ndcs":4},{"drug":"ENBREL","date":"2026-05-27","ratio":3.5671,"ndcs":4},{"drug":"ENBREL","date":"2026-06-03","ratio":3.5671,"ndcs":4},{"drug":"ENBREL","date":"2026-06-10","ratio":3.5671,"ndcs":4},{"drug":"ENBREL","date":"2026-06-17","ratio":3.5653,"ndcs":4},{"drug":"ENBREL","date":"2026-06-24","ratio":3.5653,"ndcs":4},{"drug":"ENBREL","date":"2026-07-01","ratio":3.5653,"ndcs":4},{"drug":"ENBREL","date":"2026-07-08","ratio":3.5653,"ndcs":4},{"drug":"ENBREL","date":"2026-07-15","ratio":3.5653,"ndcs":4},{"drug":"ENBREL","date":"2026-07-22","ratio":3.5673,"ndcs":4},{"drug":"ENBREL","date":"2026-07-29","ratio":3.5673,"ndcs":4},{"drug":"ENBREL","date":"2026-08-05","ratio":3.5673,"ndcs":4},{"drug":"ENBREL","date":"2026-08-12","ratio":3.5673,"ndcs":4},{"drug":"ENBREL","date":"2026-08-19","ratio":3.5677,"ndcs":4},{"drug":"ENBREL","date":"2026-08-26","ratio":3.5677,"ndcs":4},{"drug":"ENBREL","date":"2026-09-02","ratio":3.5677,"ndcs":4},{"drug":"ENBREL","date":"2026-09-09","ratio":3.5677,"ndcs":4},{"drug":"ENBREL","date":"2026-09-16","ratio":3.5677,"ndcs":4},{"drug":"ENBREL","date":"2026-09-23","ratio":3.5676,"ndcs":4},{"drug":"ENBREL","date":"2026-09-30","ratio":3.5676,"ndcs":4},{"drug":"ENBREL","date":"2026-10-07","ratio":3.5676,"ndcs":4},{"drug":"ENBREL","date":"2026-10-14","ratio":3.5676,"ndcs":4},{"drug":"ENBREL","date":"2026-10-21","ratio":3.5683,"ndcs":4},{"drug":"ENTRESTO","date":"2025-01-01","ratio":2.1054,"ndcs":6},{"drug":"ENTRESTO","date":"2025-01-08","ratio":2.1054,"ndcs":6},{"drug":"ENTRESTO","date":"2025-01-15","ratio":2.1054,"ndcs":6},{"drug":"ENTRESTO","date":"2025-01-22","ratio":2.1581,"ndcs":6},{"drug":"ENTRESTO","date":"2025-01-29","ratio":2.1581,"ndcs":6},{"drug":"ENTRESTO","date":"2025-02-05","ratio":2.1581,"ndcs":6},{"drug":"ENTRESTO","date":"2025-02-12","ratio":2.1581,"ndcs":6},{"drug":"ENTRESTO","date":"2025-02-19","ratio":2.1581,"ndcs":6},{"drug":"ENTRESTO","date":"2025-02-26","ratio":2.1581,"ndcs":6},{"drug":"ENTRESTO","date":"2025-03-05","ratio":2.1581,"ndcs":6},{"drug":"ENTRESTO","date":"2025-03-12","ratio":2.1581,"ndcs":6},{"drug":"ENTRESTO","date":"2025-03-19","ratio":2.1581,"ndcs":6},{"drug":"ENTRESTO","date":"2025-03-26","ratio":2.1581,"ndcs":6},{"drug":"ENTRESTO","date":"2025-04-02","ratio":2.1581,"ndcs":6},{"drug":"ENTRESTO","date":"2025-04-09","ratio":2.1581,"ndcs":6},{"drug":"ENTRESTO","date":"2025-04-16","ratio":2.1581,"ndcs":6},{"drug":"ENTRESTO","date":"2025-04-23","ratio":2.1581,"ndcs":6},{"drug":"ENTRESTO","date":"2025-04-30","ratio":2.1581,"ndcs":6},{"drug":"ENTRESTO","date":"2025-05-07","ratio":2.1581,"ndcs":6},{"drug":"ENTRESTO","date":"2025-05-14","ratio":2.1581,"ndcs":6},{"drug":"ENTRESTO","date":"2025-05-21","ratio":2.1548,"ndcs":6},{"drug":"ENTRESTO","date":"2025-05-28","ratio":2.1548,"ndcs":6},{"drug":"ENTRESTO","date":"2025-06-04","ratio":2.1548,"ndcs":6},{"drug":"ENTRESTO","date":"2025-06-11","ratio":2.1548,"ndcs":6},{"drug":"ENTRESTO","date":"2025-06-18","ratio":2.1547,"ndcs":6},{"drug":"ENTRESTO","date":"2025-06-25","ratio":2.1547,"ndcs":6},{"drug":"ENTRESTO","date":"2025-07-02","ratio":2.1547,"ndcs":6},{"drug":"ENTRESTO","date":"2025-07-09","ratio":2.1547,"ndcs":6},{"drug":"ENTRESTO","date":"2025-07-16","ratio":2.1547,"ndcs":6},{"drug":"ENTRESTO","date":"2025-07-23","ratio":2.1552,"ndcs":7},{"drug":"ENTRESTO","date":"2025-07-30","ratio":2.1552,"ndcs":7},{"drug":"ENTRESTO","date":"2025-08-06","ratio":2.1552,"ndcs":7},{"drug":"ENTRESTO","date":"2025-08-13","ratio":2.1552,"ndcs":7},{"drug":"ENTRESTO","date":"2025-08-20","ratio":2.1556,"ndcs":7},{"drug":"ENTRESTO","date":"2025-08-27","ratio":2.1556,"ndcs":7},{"drug":"ENTRESTO","date":"2025-09-03","ratio":2.1556,"ndcs":7},{"drug":"ENTRESTO","date":"2025-09-10","ratio":2.1556,"ndcs":7},{"drug":"ENTRESTO","date":"2025-09-17","ratio":2.1557,"ndcs":7},{"drug":"ENTRESTO","date":"2025-09-24","ratio":2.1557,"ndcs":7},{"drug":"ENTRESTO","date":"2025-10-01","ratio":2.1557,"ndcs":7},{"drug":"ENTRESTO","date":"2025-10-08","ratio":2.1557,"ndcs":7},{"drug":"ENTRESTO","date":"2025-10-15","ratio":2.1557,"ndcs":7},{"drug":"ENTRESTO","date":"2025-10-22","ratio":2.156,"ndcs":7},{"drug":"ENTRESTO","date":"2025-10-29","ratio":2.156,"ndcs":7},{"drug":"ENTRESTO","date":"2025-11-05","ratio":2.156,"ndcs":7},{"drug":"ENTRESTO","date":"2025-11-12","ratio":2.156,"ndcs":7},{"drug":"ENTRESTO","date":"2025-11-19","ratio":2.1559,"ndcs":7},{"drug":"ENTRESTO","date":"2025-11-26","ratio":2.1559,"ndcs":7},{"drug":"ENTRESTO","date":"2025-12-03","ratio":2.1559,"ndcs":7},{"drug":"ENTRESTO","date":"2025-12-10","ratio":2.1559,"ndcs":7},{"drug":"ENTRESTO","date":"2025-12-17","ratio":2.1561,"ndcs":7},{"drug":"ENTRESTO","date":"2025-12-24","ratio":2.1561,"ndcs":7},{"drug":"ENTRESTO","date":"2025-12-31","ratio":2.1561,"ndcs":7},{"drug":"ENTRESTO","date":"2026-01-07","ratio":2.1561,"ndcs":7},{"drug":"ENTRESTO","date":"2026-01-14","ratio":2.2208,"ndcs":7},{"drug":"ENTRESTO","date":"2026-01-21","ratio":2.2208,"ndcs":7},{"drug":"ENTRESTO","date":"2026-01-28","ratio":2.2208,"ndcs":7},{"drug":"ENTRESTO","date":"2026-02-04","ratio":2.2208,"ndcs":7},{"drug":"ENTRESTO","date":"2026-02-11","ratio":2.2208,"ndcs":7},{"drug":"ENTRESTO","date":"2026-02-18","ratio":2.2208,"ndcs":7},{"drug":"ENTRESTO","date":"2026-02-25","ratio":2.2208,"ndcs":7},{"drug":"ENTRESTO","date":"2026-03-04","ratio":2.2208,"ndcs":7},{"drug":"ENTRESTO","date":"2026-03-11","ratio":2.2208,"ndcs":7},{"drug":"ENTRESTO","date":"2026-03-18","ratio":2.2208,"ndcs":7},{"drug":"ENTRESTO","date":"2026-03-25","ratio":2.2208,"ndcs":7},{"drug":"ENTRESTO","date":"2026-04-01","ratio":2.2208,"ndcs":7},{"drug":"ENTRESTO","date":"2026-04-08","ratio":2.2208,"ndcs":7},{"drug":"ENTRESTO","date":"2026-04-15","ratio":2.2208,"ndcs":7},{"drug":"ENTRESTO","date":"2026-04-22","ratio":2.2208,"ndcs":7},{"drug":"ENTRESTO","date":"2026-04-29","ratio":2.2208,"ndcs":7},{"drug":"ENTRESTO","date":"2026-05-06","ratio":2.2208,"ndcs":7},{"drug":"ENTRESTO","date":"2026-05-13","ratio":2.2208,"ndcs":7},{"drug":"ENTRESTO","date":"2026-05-20","ratio":2.2176,"ndcs":7},{"drug":"ENTRESTO","date":"2026-05-27","ratio":2.2176,"ndcs":7},{"drug":"ENTRESTO","date":"2026-06-03","ratio":2.2176,"ndcs":7},{"drug":"ENTRESTO","date":"2026-06-10","ratio":2.2176,"ndcs":7},{"drug":"ENTRESTO","date":"2026-06-17","ratio":2.2177,"ndcs":7},{"drug":"ENTRESTO","date":"2026-06-24","ratio":2.2177,"ndcs":7},{"drug":"ENTRESTO","date":"2026-07-01","ratio":2.2177,"ndcs":7},{"drug":"ENTRESTO","date":"2026-07-08","ratio":2.2177,"ndcs":7},{"drug":"ENTRESTO","date":"2026-07-15","ratio":2.2177,"ndcs":7},{"drug":"ENTRESTO","date":"2026-07-22","ratio":2.2191,"ndcs":7},{"drug":"ENTRESTO","date":"2026-07-29","ratio":2.2191,"ndcs":7},{"drug":"ENTRESTO","date":"2026-08-05","ratio":2.2191,"ndcs":7},{"drug":"ENTRESTO","date":"2026-08-12","ratio":2.2191,"ndcs":7},{"drug":"ENTRESTO","date":"2026-08-19","ratio":2.2185,"ndcs":7},{"drug":"ENTRESTO","date":"2026-08-26","ratio":2.2185,"ndcs":7},{"drug":"ENTRESTO","date":"2026-09-02","ratio":2.2185,"ndcs":7},{"drug":"ENTRESTO","date":"2026-09-09","ratio":2.2185,"ndcs":7},{"drug":"ENTRESTO","date":"2026-09-16","ratio":2.2185,"ndcs":7},{"drug":"ENTRESTO","date":"2026-09-23","ratio":2.2151,"ndcs":8},{"drug":"ENTRESTO","date":"2026-09-30","ratio":2.2151,"ndcs":8},{"drug":"ENTRESTO","date":"2026-10-07","ratio":2.2151,"ndcs":8},{"drug":"ENTRESTO","date":"2026-10-14","ratio":2.2151,"ndcs":8},{"drug":"ENTRESTO","date":"2026-10-21","ratio":2.2152,"ndcs":8},{"drug":"FARXIGA","date":"2025-01-01","ratio":3.0777,"ndcs":5},{"drug":"FARXIGA","date":"2025-01-08","ratio":3.17,"ndcs":5},{"drug":"FARXIGA","date":"2025-01-15","ratio":3.17,"ndcs":5},{"drug":"FARXIGA","date":"2025-01-22","ratio":3.17,"ndcs":5},{"drug":"FARXIGA","date":"2025-01-29","ratio":3.17,"ndcs":5},{"drug":"FARXIGA","date":"2025-02-05","ratio":3.17,"ndcs":5},{"drug":"FARXIGA","date":"2025-02-12","ratio":3.17,"ndcs":5},{"drug":"FARXIGA","date":"2025-02-19","ratio":3.17,"ndcs":5},{"drug":"FARXIGA","date":"2025-02-26","ratio":3.17,"ndcs":5},{"drug":"FARXIGA","date":"2025-03-05","ratio":3.17,"ndcs":5},{"drug":"FARXIGA","date":"2025-03-12","ratio":3.17,"ndcs":5},{"drug":"FARXIGA","date":"2025-03-19","ratio":3.17,"ndcs":5},{"drug":"FARXIGA","date":"2025-03-26","ratio":3.17,"ndcs":5},{"drug":"FARXIGA","date":"2025-04-02","ratio":3.17,"ndcs":5},{"drug":"FARXIGA","date":"2025-04-09","ratio":3.17,"ndcs":5},{"drug":"FARXIGA","date":"2025-04-16","ratio":3.17,"ndcs":5},{"drug":"FARXIGA","date":"2025-04-23","ratio":3.17,"ndcs":5},{"drug":"FARXIGA","date":"2025-04-30","ratio":3.17,"ndcs":5},{"drug":"FARXIGA","date":"2025-05-07","ratio":3.17,"ndcs":5},{"drug":"FARXIGA","date":"2025-05-14","ratio":3.17,"ndcs":5},{"drug":"FARXIGA","date":"2025-05-21","ratio":3.1658,"ndcs":5},{"drug":"FARXIGA","date":"2025-05-28","ratio":3.1658,"ndcs":5},{"drug":"FARXIGA","date":"2025-06-04","ratio":3.1658,"ndcs":5},{"drug":"FARXIGA","date":"2025-06-11","ratio":3.1658,"ndcs":5},{"drug":"FARXIGA","date":"2025-06-18","ratio":3.166,"ndcs":5},{"drug":"FARXIGA","date":"2025-06-25","ratio":3.166,"ndcs":5},{"drug":"FARXIGA","date":"2025-07-02","ratio":3.166,"ndcs":5},{"drug":"FARXIGA","date":"2025-07-09","ratio":3.166,"ndcs":5},{"drug":"FARXIGA","date":"2025-07-16","ratio":3.166,"ndcs":5},{"drug":"FARXIGA","date":"2025-07-23","ratio":3.1665,"ndcs":5},{"drug":"FARXIGA","date":"2025-07-30","ratio":3.1665,"ndcs":5},{"drug":"FARXIGA","date":"2025-08-06","ratio":3.1665,"ndcs":5},{"drug":"FARXIGA","date":"2025-08-13","ratio":3.1665,"ndcs":5},{"drug":"FARXIGA","date":"2025-08-20","ratio":3.1661,"ndcs":5},{"drug":"FARXIGA","date":"2025-08-27","ratio":3.1661,"ndcs":5},{"drug":"FARXIGA","date":"2025-09-03","ratio":3.1661,"ndcs":5},{"drug":"FARXIGA","date":"2025-09-10","ratio":3.1661,"ndcs":5},{"drug":"FARXIGA","date":"2025-09-17","ratio":3.1656,"ndcs":5},{"drug":"FARXIGA","date":"2025-09-24","ratio":3.1656,"ndcs":5},{"drug":"FARXIGA","date":"2025-10-01","ratio":3.1656,"ndcs":5},{"drug":"FARXIGA","date":"2025-10-08","ratio":3.1656,"ndcs":5},{"drug":"FARXIGA","date":"2025-10-15","ratio":3.1656,"ndcs":5},{"drug":"FARXIGA","date":"2025-10-22","ratio":3.1667,"ndcs":5},{"drug":"FARXIGA","date":"2025-10-29","ratio":3.1667,"ndcs":5},{"drug":"FARXIGA","date":"2025-11-05","ratio":3.1667,"ndcs":5},{"drug":"FARXIGA","date":"2025-11-12","ratio":3.1667,"ndcs":5},{"drug":"FARXIGA","date":"2025-11-19","ratio":3.1668,"ndcs":5},{"drug":"FARXIGA","date":"2025-11-26","ratio":3.1668,"ndcs":5},{"drug":"FARXIGA","date":"2025-12-03","ratio":3.1668,"ndcs":5},{"drug":"FARXIGA","date":"2025-12-10","ratio":3.1668,"ndcs":5},{"drug":"FARXIGA","date":"2025-12-17","ratio":3.1672,"ndcs":5},{"drug":"FARXIGA","date":"2025-12-24","ratio":3.1672,"ndcs":5},{"drug":"FARXIGA","date":"2025-12-31","ratio":3.1672,"ndcs":5},{"drug":"FARXIGA","date":"2026-01-07","ratio":3.1672,"ndcs":5},{"drug":"FARXIGA","date":"2026-01-14","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-01-21","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-01-28","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-02-04","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-02-11","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-02-18","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-02-25","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-03-04","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-03-11","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-03-18","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-03-25","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-04-01","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-04-08","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-04-15","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-04-22","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-04-29","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-05-06","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-05-13","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-05-20","ratio":1.9964,"ndcs":5},{"drug":"FARXIGA","date":"2026-05-27","ratio":1.9964,"ndcs":5},{"drug":"FARXIGA","date":"2026-06-03","ratio":1.9964,"ndcs":5},{"drug":"FARXIGA","date":"2026-06-10","ratio":1.9964,"ndcs":5},{"drug":"FARXIGA","date":"2026-06-17","ratio":1.996,"ndcs":5},{"drug":"FARXIGA","date":"2026-06-24","ratio":1.996,"ndcs":5},{"drug":"FARXIGA","date":"2026-07-01","ratio":1.996,"ndcs":5},{"drug":"FARXIGA","date":"2026-07-08","ratio":1.996,"ndcs":5},{"drug":"FARXIGA","date":"2026-07-15","ratio":1.996,"ndcs":5},{"drug":"FARXIGA","date":"2026-07-22","ratio":1.996,"ndcs":5},{"drug":"FARXIGA","date":"2026-07-29","ratio":1.996,"ndcs":5},{"drug":"FARXIGA","date":"2026-08-05","ratio":1.996,"ndcs":5},{"drug":"FARXIGA","date":"2026-08-12","ratio":1.996,"ndcs":5},{"drug":"FARXIGA","date":"2026-08-19","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-08-26","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-09-02","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-09-09","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-09-16","ratio":1.9953,"ndcs":5},{"drug":"FARXIGA","date":"2026-09-23","ratio":1.9952,"ndcs":5},{"drug":"FARXIGA","date":"2026-09-30","ratio":1.9952,"ndcs":5},{"drug":"FARXIGA","date":"2026-10-07","ratio":1.9952,"ndcs":5},{"drug":"FARXIGA","date":"2026-10-14","ratio":1.9952,"ndcs":5},{"drug":"FARXIGA","date":"2026-10-21","ratio":1.9952,"ndcs":5},{"drug":"FIASP","date":"2025-01-01","ratio":3.9933,"ndcs":4},{"drug":"FIASP","date":"2025-01-08","ratio":3.9933,"ndcs":4},{"drug":"FIASP","date":"2025-01-15","ratio":3.9933,"ndcs":4},{"drug":"FIASP","date":"2025-01-22","ratio":3.9923,"ndcs":4},{"drug":"FIASP","date":"2025-01-29","ratio":3.9923,"ndcs":4},{"drug":"FIASP","date":"2025-02-05","ratio":3.9923,"ndcs":4},{"drug":"FIASP","date":"2025-02-12","ratio":3.9923,"ndcs":4},{"drug":"FIASP","date":"2025-02-19","ratio":3.9917,"ndcs":4},{"drug":"FIASP","date":"2025-02-26","ratio":3.9917,"ndcs":4},{"drug":"FIASP","date":"2025-03-05","ratio":3.9917,"ndcs":4},{"drug":"FIASP","date":"2025-03-12","ratio":3.9917,"ndcs":4},{"drug":"FIASP","date":"2025-03-19","ratio":3.9921,"ndcs":4},{"drug":"FIASP","date":"2025-03-26","ratio":3.9921,"ndcs":4},{"drug":"FIASP","date":"2025-04-02","ratio":3.9921,"ndcs":4},{"drug":"FIASP","date":"2025-04-09","ratio":3.9921,"ndcs":4},{"drug":"FIASP","date":"2025-04-16","ratio":3.9921,"ndcs":4},{"drug":"FIASP","date":"2025-04-23","ratio":3.992,"ndcs":4},{"drug":"FIASP","date":"2025-04-30","ratio":3.992,"ndcs":4},{"drug":"FIASP","date":"2025-05-07","ratio":3.992,"ndcs":4},{"drug":"FIASP","date":"2025-05-14","ratio":3.992,"ndcs":4},{"drug":"FIASP","date":"2025-05-21","ratio":3.9907,"ndcs":4},{"drug":"FIASP","date":"2025-05-28","ratio":3.9907,"ndcs":4},{"drug":"FIASP","date":"2025-06-04","ratio":3.9907,"ndcs":4},{"drug":"FIASP","date":"2025-06-11","ratio":3.9907,"ndcs":4},{"drug":"FIASP","date":"2025-06-18","ratio":3.9916,"ndcs":4},{"drug":"FIASP","date":"2025-06-25","ratio":3.9916,"ndcs":4},{"drug":"FIASP","date":"2025-07-02","ratio":3.9916,"ndcs":4},{"drug":"FIASP","date":"2025-07-09","ratio":3.9916,"ndcs":4},{"drug":"FIASP","date":"2025-07-16","ratio":3.9916,"ndcs":4},{"drug":"FIASP","date":"2025-07-23","ratio":3.9916,"ndcs":4},{"drug":"FIASP","date":"2025-07-30","ratio":3.9916,"ndcs":4},{"drug":"FIASP","date":"2025-08-06","ratio":3.9916,"ndcs":4},{"drug":"FIASP","date":"2025-08-13","ratio":3.9916,"ndcs":4},{"drug":"FIASP","date":"2025-08-20","ratio":3.9919,"ndcs":4},{"drug":"FIASP","date":"2025-08-27","ratio":3.9919,"ndcs":4},{"drug":"FIASP","date":"2025-09-03","ratio":3.9919,"ndcs":4},{"drug":"FIASP","date":"2025-09-10","ratio":3.9919,"ndcs":4},{"drug":"FIASP","date":"2025-09-17","ratio":3.9922,"ndcs":4},{"drug":"FIASP","date":"2025-09-24","ratio":3.9922,"ndcs":4},{"drug":"FIASP","date":"2025-10-01","ratio":3.9922,"ndcs":4},{"drug":"FIASP","date":"2025-10-08","ratio":3.9922,"ndcs":4},{"drug":"FIASP","date":"2025-10-15","ratio":3.9922,"ndcs":4},{"drug":"FIASP","date":"2025-10-22","ratio":3.9905,"ndcs":4},{"drug":"FIASP","date":"2025-10-29","ratio":3.9905,"ndcs":4},{"drug":"FIASP","date":"2025-11-05","ratio":3.9905,"ndcs":4},{"drug":"FIASP","date":"2025-11-12","ratio":3.9905,"ndcs":4},{"drug":"FIASP","date":"2025-11-19","ratio":3.9889,"ndcs":4},{"drug":"FIASP","date":"2025-11-26","ratio":3.9889,"ndcs":4},{"drug":"FIASP","date":"2025-12-03","ratio":3.9889,"ndcs":4},{"drug":"FIASP","date":"2025-12-10","ratio":3.9889,"ndcs":4},{"drug":"FIASP","date":"2025-12-17","ratio":3.991,"ndcs":4},{"drug":"FIASP","date":"2025-12-24","ratio":3.991,"ndcs":4},{"drug":"FIASP","date":"2025-12-31","ratio":3.991,"ndcs":4},{"drug":"FIASP","date":"2026-01-07","ratio":3.991,"ndcs":4},{"drug":"FIASP","date":"2026-01-14","ratio":0.9978,"ndcs":4},{"drug":"FIASP","date":"2026-01-21","ratio":0.9978,"ndcs":4},{"drug":"FIASP","date":"2026-01-28","ratio":0.9978,"ndcs":4},{"drug":"FIASP","date":"2026-02-04","ratio":0.9978,"ndcs":4},{"drug":"FIASP","date":"2026-02-11","ratio":0.9978,"ndcs":4},{"drug":"FIASP","date":"2026-02-18","ratio":0.9978,"ndcs":4},{"drug":"FIASP","date":"2026-02-25","ratio":0.9978,"ndcs":4},{"drug":"FIASP","date":"2026-03-04","ratio":0.9978,"ndcs":4},{"drug":"FIASP","date":"2026-03-11","ratio":0.9978,"ndcs":4},{"drug":"FIASP","date":"2026-03-18","ratio":0.9978,"ndcs":4},{"drug":"FIASP","date":"2026-03-25","ratio":0.9978,"ndcs":4},{"drug":"FIASP","date":"2026-04-01","ratio":0.9978,"ndcs":4},{"drug":"FIASP","date":"2026-04-08","ratio":0.9978,"ndcs":4},{"drug":"FIASP","date":"2026-04-15","ratio":0.9978,"ndcs":4},{"drug":"FIASP","date":"2026-04-22","ratio":0.9978,"ndcs":4},{"drug":"FIASP","date":"2026-04-29","ratio":0.9978,"ndcs":4},{"drug":"FIASP","date":"2026-05-06","ratio":0.9978,"ndcs":4},{"drug":"FIASP","date":"2026-05-13","ratio":0.9978,"ndcs":4},{"drug":"FIASP","date":"2026-05-20","ratio":0.9954,"ndcs":4},{"drug":"FIASP","date":"2026-05-27","ratio":0.9954,"ndcs":4},{"drug":"FIASP","date":"2026-06-03","ratio":0.9954,"ndcs":4},{"drug":"FIASP","date":"2026-06-10","ratio":0.9954,"ndcs":4},{"drug":"FIASP","date":"2026-06-17","ratio":0.9952,"ndcs":4},{"drug":"FIASP","date":"2026-06-24","ratio":0.9952,"ndcs":4},{"drug":"FIASP","date":"2026-07-01","ratio":0.9952,"ndcs":4},{"drug":"FIASP","date":"2026-07-08","ratio":0.9952,"ndcs":4},{"drug":"FIASP","date":"2026-07-15","ratio":0.9952,"ndcs":4},{"drug":"FIASP","date":"2026-07-22","ratio":0.9949,"ndcs":4},{"drug":"FIASP","date":"2026-07-29","ratio":0.9949,"ndcs":4},{"drug":"FIASP","date":"2026-08-05","ratio":0.9949,"ndcs":4},{"drug":"FIASP","date":"2026-08-12","ratio":0.9949,"ndcs":4},{"drug":"FIASP","date":"2026-08-19","ratio":0.9952,"ndcs":4},{"drug":"FIASP","date":"2026-08-26","ratio":0.9952,"ndcs":4},{"drug":"FIASP","date":"2026-09-02","ratio":0.9952,"ndcs":4},{"drug":"FIASP","date":"2026-09-09","ratio":0.9952,"ndcs":4},{"drug":"FIASP","date":"2026-09-16","ratio":0.9952,"ndcs":4},{"drug":"FIASP","date":"2026-09-23","ratio":0.9949,"ndcs":4},{"drug":"FIASP","date":"2026-09-30","ratio":0.9949,"ndcs":4},{"drug":"FIASP","date":"2026-10-07","ratio":0.9949,"ndcs":4},{"drug":"FIASP","date":"2026-10-14","ratio":0.9949,"ndcs":4},{"drug":"FIASP","date":"2026-10-21","ratio":0.9948,"ndcs":4},{"drug":"JANUVIA","date":"2025-01-01","ratio":2.7014,"ndcs":13},{"drug":"JANUVIA","date":"2025-01-08","ratio":2.7014,"ndcs":13},{"drug":"JANUVIA","date":"2025-01-15","ratio":2.7014,"ndcs":13},{"drug":"JANUVIA","date":"2025-01-22","ratio":2.7014,"ndcs":13},{"drug":"JANUVIA","date":"2025-01-29","ratio":2.7014,"ndcs":13},{"drug":"JANUVIA","date":"2025-02-05","ratio":2.7014,"ndcs":13},{"drug":"JANUVIA","date":"2025-02-12","ratio":2.7014,"ndcs":13},{"drug":"JANUVIA","date":"2025-02-19","ratio":2.7014,"ndcs":13},{"drug":"JANUVIA","date":"2025-02-26","ratio":2.7014,"ndcs":13},{"drug":"JANUVIA","date":"2025-03-05","ratio":2.7014,"ndcs":13},{"drug":"JANUVIA","date":"2025-03-12","ratio":2.7014,"ndcs":13},{"drug":"JANUVIA","date":"2025-03-19","ratio":2.7014,"ndcs":13},{"drug":"JANUVIA","date":"2025-03-26","ratio":2.7014,"ndcs":13},{"drug":"JANUVIA","date":"2025-04-02","ratio":2.7014,"ndcs":13},{"drug":"JANUVIA","date":"2025-04-09","ratio":2.7014,"ndcs":13},{"drug":"JANUVIA","date":"2025-04-16","ratio":2.7014,"ndcs":13},{"drug":"JANUVIA","date":"2025-04-23","ratio":2.7014,"ndcs":13},{"drug":"JANUVIA","date":"2025-04-30","ratio":2.7014,"ndcs":13},{"drug":"JANUVIA","date":"2025-05-07","ratio":2.7014,"ndcs":13},{"drug":"JANUVIA","date":"2025-05-14","ratio":2.7014,"ndcs":13},{"drug":"JANUVIA","date":"2025-05-21","ratio":2.7,"ndcs":13},{"drug":"JANUVIA","date":"2025-05-28","ratio":2.7,"ndcs":13},{"drug":"JANUVIA","date":"2025-06-04","ratio":2.7,"ndcs":13},{"drug":"JANUVIA","date":"2025-06-11","ratio":2.7,"ndcs":13},{"drug":"JANUVIA","date":"2025-06-18","ratio":2.6996,"ndcs":13},{"drug":"JANUVIA","date":"2025-06-25","ratio":2.6996,"ndcs":13},{"drug":"JANUVIA","date":"2025-07-02","ratio":2.6996,"ndcs":13},{"drug":"JANUVIA","date":"2025-07-09","ratio":2.6996,"ndcs":13},{"drug":"JANUVIA","date":"2025-07-16","ratio":2.6996,"ndcs":13},{"drug":"JANUVIA","date":"2025-07-23","ratio":2.6998,"ndcs":13},{"drug":"JANUVIA","date":"2025-07-30","ratio":2.6998,"ndcs":13},{"drug":"JANUVIA","date":"2025-08-06","ratio":2.6998,"ndcs":13},{"drug":"JANUVIA","date":"2025-08-13","ratio":2.6998,"ndcs":13},{"drug":"JANUVIA","date":"2025-08-20","ratio":2.6999,"ndcs":13},{"drug":"JANUVIA","date":"2025-08-27","ratio":2.6999,"ndcs":13},{"drug":"JANUVIA","date":"2025-09-03","ratio":2.6999,"ndcs":13},{"drug":"JANUVIA","date":"2025-09-10","ratio":2.6999,"ndcs":13},{"drug":"JANUVIA","date":"2025-09-17","ratio":2.6999,"ndcs":13},{"drug":"JANUVIA","date":"2025-09-24","ratio":2.6999,"ndcs":13},{"drug":"JANUVIA","date":"2025-10-01","ratio":2.6999,"ndcs":13},{"drug":"JANUVIA","date":"2025-10-08","ratio":2.6999,"ndcs":13},{"drug":"JANUVIA","date":"2025-10-15","ratio":2.6999,"ndcs":13},{"drug":"JANUVIA","date":"2025-10-22","ratio":2.7002,"ndcs":13},{"drug":"JANUVIA","date":"2025-10-29","ratio":2.7002,"ndcs":13},{"drug":"JANUVIA","date":"2025-11-05","ratio":2.7002,"ndcs":13},{"drug":"JANUVIA","date":"2025-11-12","ratio":2.7002,"ndcs":13},{"drug":"JANUVIA","date":"2025-11-19","ratio":2.7004,"ndcs":13},{"drug":"JANUVIA","date":"2025-11-26","ratio":2.7004,"ndcs":13},{"drug":"JANUVIA","date":"2025-12-03","ratio":2.7004,"ndcs":13},{"drug":"JANUVIA","date":"2025-12-10","ratio":2.7004,"ndcs":13},{"drug":"JANUVIA","date":"2025-12-17","ratio":2.7008,"ndcs":13},{"drug":"JANUVIA","date":"2025-12-24","ratio":2.7008,"ndcs":13},{"drug":"JANUVIA","date":"2025-12-31","ratio":2.7008,"ndcs":13},{"drug":"JANUVIA","date":"2026-01-07","ratio":2.7008,"ndcs":13},{"drug":"JANUVIA","date":"2026-01-14","ratio":2.7008,"ndcs":13},{"drug":"JANUVIA","date":"2026-01-21","ratio":2.7008,"ndcs":13},{"drug":"JANUVIA","date":"2026-01-28","ratio":2.7008,"ndcs":13},{"drug":"JANUVIA","date":"2026-02-04","ratio":2.7008,"ndcs":13},{"drug":"JANUVIA","date":"2026-02-11","ratio":2.7008,"ndcs":13},{"drug":"JANUVIA","date":"2026-02-18","ratio":2.6996,"ndcs":13},{"drug":"JANUVIA","date":"2026-02-25","ratio":2.6996,"ndcs":13},{"drug":"JANUVIA","date":"2026-03-04","ratio":2.6996,"ndcs":13},{"drug":"JANUVIA","date":"2026-03-11","ratio":2.6996,"ndcs":13},{"drug":"JANUVIA","date":"2026-03-18","ratio":2.6996,"ndcs":13},{"drug":"JANUVIA","date":"2026-03-25","ratio":2.6996,"ndcs":13},{"drug":"JANUVIA","date":"2026-04-01","ratio":2.6996,"ndcs":13},{"drug":"JANUVIA","date":"2026-04-08","ratio":2.6996,"ndcs":13},{"drug":"JANUVIA","date":"2026-04-15","ratio":2.6996,"ndcs":13},{"drug":"JANUVIA","date":"2026-04-22","ratio":2.6994,"ndcs":13},{"drug":"JANUVIA","date":"2026-04-29","ratio":2.6994,"ndcs":13},{"drug":"JANUVIA","date":"2026-05-06","ratio":2.6994,"ndcs":13},{"drug":"JANUVIA","date":"2026-05-13","ratio":2.6994,"ndcs":13},{"drug":"JANUVIA","date":"2026-05-20","ratio":2.6993,"ndcs":13},{"drug":"JANUVIA","date":"2026-05-27","ratio":2.6993,"ndcs":13},{"drug":"JANUVIA","date":"2026-06-03","ratio":2.6993,"ndcs":13},{"drug":"JANUVIA","date":"2026-06-10","ratio":2.6993,"ndcs":13},{"drug":"JANUVIA","date":"2026-06-17","ratio":2.6993,"ndcs":13},{"drug":"JANUVIA","date":"2026-06-24","ratio":2.6993,"ndcs":13},{"drug":"JANUVIA","date":"2026-07-01","ratio":2.6993,"ndcs":13},{"drug":"JANUVIA","date":"2026-07-08","ratio":2.6993,"ndcs":13},{"drug":"JANUVIA","date":"2026-07-15","ratio":2.6993,"ndcs":13},{"drug":"JANUVIA","date":"2026-07-22","ratio":2.6991,"ndcs":13},{"drug":"JANUVIA","date":"2026-07-29","ratio":2.6991,"ndcs":13},{"drug":"JANUVIA","date":"2026-08-05","ratio":2.6991,"ndcs":13},{"drug":"JANUVIA","date":"2026-08-12","ratio":2.6991,"ndcs":13},{"drug":"JANUVIA","date":"2026-08-19","ratio":2.7002,"ndcs":13},{"drug":"JANUVIA","date":"2026-08-26","ratio":2.7002,"ndcs":13},{"drug":"JANUVIA","date":"2026-09-02","ratio":2.7002,"ndcs":13},{"drug":"JANUVIA","date":"2026-09-09","ratio":2.7002,"ndcs":13},{"drug":"JANUVIA","date":"2026-09-16","ratio":2.7002,"ndcs":13},{"drug":"JANUVIA","date":"2026-09-23","ratio":2.7001,"ndcs":13},{"drug":"JANUVIA","date":"2026-09-30","ratio":2.7001,"ndcs":13},{"drug":"JANUVIA","date":"2026-10-07","ratio":2.7001,"ndcs":13},{"drug":"JANUVIA","date":"2026-10-14","ratio":2.7001,"ndcs":13},{"drug":"JANUVIA","date":"2026-10-21","ratio":2.6986,"ndcs":13},{"drug":"JARDIANCE","date":"2025-01-01","ratio":2.8769,"ndcs":6},{"drug":"JARDIANCE","date":"2025-01-08","ratio":2.9633,"ndcs":6},{"drug":"JARDIANCE","date":"2025-01-15","ratio":2.9633,"ndcs":6},{"drug":"JARDIANCE","date":"2025-01-22","ratio":2.9633,"ndcs":6},{"drug":"JARDIANCE","date":"2025-01-29","ratio":2.9633,"ndcs":6},{"drug":"JARDIANCE","date":"2025-02-05","ratio":2.9633,"ndcs":6},{"drug":"JARDIANCE","date":"2025-02-12","ratio":2.9633,"ndcs":6},{"drug":"JARDIANCE","date":"2025-02-19","ratio":2.9633,"ndcs":6},{"drug":"JARDIANCE","date":"2025-02-26","ratio":2.9633,"ndcs":6},{"drug":"JARDIANCE","date":"2025-03-05","ratio":2.9633,"ndcs":6},{"drug":"JARDIANCE","date":"2025-03-12","ratio":2.9633,"ndcs":6},{"drug":"JARDIANCE","date":"2025-03-19","ratio":2.9633,"ndcs":6},{"drug":"JARDIANCE","date":"2025-03-26","ratio":2.9633,"ndcs":6},{"drug":"JARDIANCE","date":"2025-04-02","ratio":2.9633,"ndcs":6},{"drug":"JARDIANCE","date":"2025-04-09","ratio":2.9633,"ndcs":6},{"drug":"JARDIANCE","date":"2025-04-16","ratio":2.9633,"ndcs":6},{"drug":"JARDIANCE","date":"2025-04-23","ratio":2.9633,"ndcs":6},{"drug":"JARDIANCE","date":"2025-04-30","ratio":2.9633,"ndcs":6},{"drug":"JARDIANCE","date":"2025-05-07","ratio":2.9633,"ndcs":6},{"drug":"JARDIANCE","date":"2025-05-14","ratio":2.9633,"ndcs":6},{"drug":"JARDIANCE","date":"2025-05-21","ratio":2.9618,"ndcs":6},{"drug":"JARDIANCE","date":"2025-05-28","ratio":2.9618,"ndcs":6},{"drug":"JARDIANCE","date":"2025-06-04","ratio":2.9618,"ndcs":6},{"drug":"JARDIANCE","date":"2025-06-11","ratio":2.9618,"ndcs":6},{"drug":"JARDIANCE","date":"2025-06-18","ratio":2.9615,"ndcs":6},{"drug":"JARDIANCE","date":"2025-06-25","ratio":2.9615,"ndcs":6},{"drug":"JARDIANCE","date":"2025-07-02","ratio":2.9615,"ndcs":6},{"drug":"JARDIANCE","date":"2025-07-09","ratio":2.9615,"ndcs":6},{"drug":"JARDIANCE","date":"2025-07-16","ratio":2.9615,"ndcs":6},{"drug":"JARDIANCE","date":"2025-07-23","ratio":2.962,"ndcs":6},{"drug":"JARDIANCE","date":"2025-07-30","ratio":2.962,"ndcs":6},{"drug":"JARDIANCE","date":"2025-08-06","ratio":2.962,"ndcs":6},{"drug":"JARDIANCE","date":"2025-08-13","ratio":2.962,"ndcs":6},{"drug":"JARDIANCE","date":"2025-08-20","ratio":2.9623,"ndcs":6},{"drug":"JARDIANCE","date":"2025-08-27","ratio":2.9623,"ndcs":6},{"drug":"JARDIANCE","date":"2025-09-03","ratio":2.9623,"ndcs":6},{"drug":"JARDIANCE","date":"2025-09-10","ratio":2.9623,"ndcs":6},{"drug":"JARDIANCE","date":"2025-09-17","ratio":2.9627,"ndcs":6},{"drug":"JARDIANCE","date":"2025-09-24","ratio":2.9627,"ndcs":6},{"drug":"JARDIANCE","date":"2025-10-01","ratio":2.9627,"ndcs":6},{"drug":"JARDIANCE","date":"2025-10-08","ratio":2.9627,"ndcs":6},{"drug":"JARDIANCE","date":"2025-10-15","ratio":2.9627,"ndcs":6},{"drug":"JARDIANCE","date":"2025-10-22","ratio":2.963,"ndcs":6},{"drug":"JARDIANCE","date":"2025-10-29","ratio":2.963,"ndcs":6},{"drug":"JARDIANCE","date":"2025-11-05","ratio":2.963,"ndcs":6},{"drug":"JARDIANCE","date":"2025-11-12","ratio":2.963,"ndcs":6},{"drug":"JARDIANCE","date":"2025-11-19","ratio":2.9632,"ndcs":6},{"drug":"JARDIANCE","date":"2025-11-26","ratio":2.9632,"ndcs":6},{"drug":"JARDIANCE","date":"2025-12-03","ratio":2.9632,"ndcs":6},{"drug":"JARDIANCE","date":"2025-12-10","ratio":2.9632,"ndcs":6},{"drug":"JARDIANCE","date":"2025-12-17","ratio":2.9637,"ndcs":6},{"drug":"JARDIANCE","date":"2025-12-24","ratio":2.9637,"ndcs":6},{"drug":"JARDIANCE","date":"2025-12-31","ratio":2.9637,"ndcs":6},{"drug":"JARDIANCE","date":"2026-01-07","ratio":1.648,"ndcs":6},{"drug":"JARDIANCE","date":"2026-01-14","ratio":1.648,"ndcs":6},{"drug":"JARDIANCE","date":"2026-01-21","ratio":1.648,"ndcs":6},{"drug":"JARDIANCE","date":"2026-01-28","ratio":1.648,"ndcs":6},{"drug":"JARDIANCE","date":"2026-02-04","ratio":1.648,"ndcs":6},{"drug":"JARDIANCE","date":"2026-02-11","ratio":1.648,"ndcs":6},{"drug":"JARDIANCE","date":"2026-02-18","ratio":1.648,"ndcs":6},{"drug":"JARDIANCE","date":"2026-02-25","ratio":1.648,"ndcs":6},{"drug":"JARDIANCE","date":"2026-03-04","ratio":1.648,"ndcs":6},{"drug":"JARDIANCE","date":"2026-03-11","ratio":1.648,"ndcs":6},{"drug":"JARDIANCE","date":"2026-03-18","ratio":1.648,"ndcs":6},{"drug":"JARDIANCE","date":"2026-03-25","ratio":1.648,"ndcs":6},{"drug":"JARDIANCE","date":"2026-04-01","ratio":1.648,"ndcs":6},{"drug":"JARDIANCE","date":"2026-04-08","ratio":1.648,"ndcs":6},{"drug":"JARDIANCE","date":"2026-04-15","ratio":1.648,"ndcs":6},{"drug":"JARDIANCE","date":"2026-04-22","ratio":1.648,"ndcs":6},{"drug":"JARDIANCE","date":"2026-04-29","ratio":1.648,"ndcs":6},{"drug":"JARDIANCE","date":"2026-05-06","ratio":1.648,"ndcs":6},{"drug":"JARDIANCE","date":"2026-05-13","ratio":1.648,"ndcs":6},{"drug":"JARDIANCE","date":"2026-05-20","ratio":1.6479,"ndcs":6},{"drug":"JARDIANCE","date":"2026-05-27","ratio":1.6479,"ndcs":6},{"drug":"JARDIANCE","date":"2026-06-03","ratio":1.6479,"ndcs":6},{"drug":"JARDIANCE","date":"2026-06-10","ratio":1.6479,"ndcs":6},{"drug":"JARDIANCE","date":"2026-06-17","ratio":1.6476,"ndcs":6},{"drug":"JARDIANCE","date":"2026-06-24","ratio":1.6476,"ndcs":6},{"drug":"JARDIANCE","date":"2026-07-01","ratio":1.6476,"ndcs":6},{"drug":"JARDIANCE","date":"2026-07-08","ratio":1.6476,"ndcs":6},{"drug":"JARDIANCE","date":"2026-07-15","ratio":1.6476,"ndcs":6},{"drug":"JARDIANCE","date":"2026-07-22","ratio":1.6476,"ndcs":6},{"drug":"JARDIANCE","date":"2026-07-29","ratio":1.6476,"ndcs":6},{"drug":"JARDIANCE","date":"2026-08-05","ratio":1.6476,"ndcs":6},{"drug":"JARDIANCE","date":"2026-08-12","ratio":1.6476,"ndcs":6},{"drug":"JARDIANCE","date":"2026-08-19","ratio":1.6466,"ndcs":6},{"drug":"JARDIANCE","date":"2026-08-26","ratio":1.6466,"ndcs":6},{"drug":"JARDIANCE","date":"2026-09-02","ratio":1.6466,"ndcs":6},{"drug":"JARDIANCE","date":"2026-09-09","ratio":1.6466,"ndcs":6},{"drug":"JARDIANCE","date":"2026-09-16","ratio":1.6466,"ndcs":6},{"drug":"JARDIANCE","date":"2026-09-23","ratio":1.647,"ndcs":6},{"drug":"JARDIANCE","date":"2026-09-30","ratio":1.647,"ndcs":6},{"drug":"JARDIANCE","date":"2026-10-07","ratio":1.647,"ndcs":6},{"drug":"JARDIANCE","date":"2026-10-14","ratio":1.647,"ndcs":6},{"drug":"JARDIANCE","date":"2026-10-21","ratio":1.6469,"ndcs":6},{"drug":"NOVOLOG","date":"2025-01-01","ratio":0.9983,"ndcs":3},{"drug":"NOVOLOG","date":"2025-01-08","ratio":0.9983,"ndcs":3},{"drug":"NOVOLOG","date":"2025-01-15","ratio":0.9983,"ndcs":3},{"drug":"NOVOLOG","date":"2025-01-22","ratio":0.9982,"ndcs":3},{"drug":"NOVOLOG","date":"2025-01-29","ratio":0.9982,"ndcs":3},{"drug":"NOVOLOG","date":"2025-02-05","ratio":0.9982,"ndcs":3},{"drug":"NOVOLOG","date":"2025-02-12","ratio":0.9982,"ndcs":3},{"drug":"NOVOLOG","date":"2025-02-19","ratio":0.9982,"ndcs":3},{"drug":"NOVOLOG","date":"2025-02-26","ratio":0.9982,"ndcs":3},{"drug":"NOVOLOG","date":"2025-03-05","ratio":0.9982,"ndcs":3},{"drug":"NOVOLOG","date":"2025-03-12","ratio":0.9982,"ndcs":3},{"drug":"NOVOLOG","date":"2025-03-19","ratio":0.9982,"ndcs":3},{"drug":"NOVOLOG","date":"2025-03-26","ratio":0.9982,"ndcs":3},{"drug":"NOVOLOG","date":"2025-04-02","ratio":0.9982,"ndcs":3},{"drug":"NOVOLOG","date":"2025-04-09","ratio":0.9982,"ndcs":3},{"drug":"NOVOLOG","date":"2025-04-16","ratio":0.9982,"ndcs":3},{"drug":"NOVOLOG","date":"2025-04-23","ratio":0.998,"ndcs":3},{"drug":"NOVOLOG","date":"2025-04-30","ratio":0.998,"ndcs":3},{"drug":"NOVOLOG","date":"2025-05-07","ratio":0.998,"ndcs":3},{"drug":"NOVOLOG","date":"2025-05-14","ratio":0.998,"ndcs":3},{"drug":"NOVOLOG","date":"2025-05-21","ratio":0.9978,"ndcs":3},{"drug":"NOVOLOG","date":"2025-05-28","ratio":0.9978,"ndcs":3},{"drug":"NOVOLOG","date":"2025-06-04","ratio":0.9978,"ndcs":3},{"drug":"NOVOLOG","date":"2025-06-11","ratio":0.9978,"ndcs":3},{"drug":"NOVOLOG","date":"2025-06-18","ratio":0.9978,"ndcs":3},{"drug":"NOVOLOG","date":"2025-06-25","ratio":0.9978,"ndcs":3},{"drug":"NOVOLOG","date":"2025-07-02","ratio":0.9978,"ndcs":3},{"drug":"NOVOLOG","date":"2025-07-09","ratio":0.9978,"ndcs":3},{"drug":"NOVOLOG","date":"2025-07-16","ratio":0.9978,"ndcs":3},{"drug":"NOVOLOG","date":"2025-07-23","ratio":0.9976,"ndcs":3},{"drug":"NOVOLOG","date":"2025-07-30","ratio":0.9976,"ndcs":3},{"drug":"NOVOLOG","date":"2025-08-06","ratio":0.9976,"ndcs":3},{"drug":"NOVOLOG","date":"2025-08-13","ratio":0.9976,"ndcs":3},{"drug":"NOVOLOG","date":"2025-08-20","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2025-08-27","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2025-09-03","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2025-09-10","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2025-09-17","ratio":0.9975,"ndcs":3},{"drug":"NOVOLOG","date":"2025-09-24","ratio":0.9975,"ndcs":3},{"drug":"NOVOLOG","date":"2025-10-01","ratio":0.9975,"ndcs":3},{"drug":"NOVOLOG","date":"2025-10-08","ratio":0.9975,"ndcs":3},{"drug":"NOVOLOG","date":"2025-10-15","ratio":0.9975,"ndcs":3},{"drug":"NOVOLOG","date":"2025-10-22","ratio":0.9976,"ndcs":3},{"drug":"NOVOLOG","date":"2025-10-29","ratio":0.9976,"ndcs":3},{"drug":"NOVOLOG","date":"2025-11-05","ratio":0.9976,"ndcs":3},{"drug":"NOVOLOG","date":"2025-11-12","ratio":0.9976,"ndcs":3},{"drug":"NOVOLOG","date":"2025-11-19","ratio":0.9975,"ndcs":3},{"drug":"NOVOLOG","date":"2025-11-26","ratio":0.9975,"ndcs":3},{"drug":"NOVOLOG","date":"2025-12-03","ratio":0.9975,"ndcs":3},{"drug":"NOVOLOG","date":"2025-12-10","ratio":0.9975,"ndcs":3},{"drug":"NOVOLOG","date":"2025-12-17","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2025-12-24","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2025-12-31","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-01-07","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-01-14","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-01-21","ratio":0.9975,"ndcs":3},{"drug":"NOVOLOG","date":"2026-01-28","ratio":0.9975,"ndcs":3},{"drug":"NOVOLOG","date":"2026-02-04","ratio":0.9975,"ndcs":3},{"drug":"NOVOLOG","date":"2026-02-11","ratio":0.9975,"ndcs":3},{"drug":"NOVOLOG","date":"2026-02-18","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-02-25","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-03-04","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-03-11","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-03-18","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-03-25","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-04-01","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-04-08","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-04-15","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-04-22","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-04-29","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-05-06","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-05-13","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-05-20","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-05-27","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-06-03","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-06-10","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-06-17","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-06-24","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-07-01","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-07-08","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-07-15","ratio":0.9974,"ndcs":3},{"drug":"NOVOLOG","date":"2026-07-22","ratio":0.9973,"ndcs":3},{"drug":"NOVOLOG","date":"2026-07-29","ratio":0.9973,"ndcs":3},{"drug":"NOVOLOG","date":"2026-08-05","ratio":0.9973,"ndcs":3},{"drug":"NOVOLOG","date":"2026-08-12","ratio":0.9973,"ndcs":3},{"drug":"NOVOLOG","date":"2026-08-19","ratio":0.997,"ndcs":3},{"drug":"NOVOLOG","date":"2026-08-26","ratio":0.997,"ndcs":3},{"drug":"NOVOLOG","date":"2026-09-02","ratio":0.997,"ndcs":3},{"drug":"NOVOLOG","date":"2026-09-09","ratio":0.997,"ndcs":3},{"drug":"NOVOLOG","date":"2026-09-16","ratio":0.997,"ndcs":3},{"drug":"NOVOLOG","date":"2026-09-23","ratio":0.9969,"ndcs":3},{"drug":"NOVOLOG","date":"2026-09-30","ratio":0.9969,"ndcs":3},{"drug":"NOVOLOG","date":"2026-10-07","ratio":0.9969,"ndcs":3},{"drug":"NOVOLOG","date":"2026-10-14","ratio":0.9969,"ndcs":3},{"drug":"NOVOLOG","date":"2026-10-21","ratio":0.9965,"ndcs":3},{"drug":"STELARA","date":"2025-01-01","ratio":2.9935,"ndcs":2},{"drug":"STELARA","date":"2025-01-08","ratio":2.9935,"ndcs":2},{"drug":"STELARA","date":"2025-01-15","ratio":3.1342,"ndcs":2},{"drug":"STELARA","date":"2025-01-22","ratio":3.1342,"ndcs":2},{"drug":"STELARA","date":"2025-01-29","ratio":3.1342,"ndcs":2},{"drug":"STELARA","date":"2025-02-05","ratio":3.1342,"ndcs":2},{"drug":"STELARA","date":"2025-02-12","ratio":3.1342,"ndcs":2},{"drug":"STELARA","date":"2025-02-19","ratio":3.1342,"ndcs":2},{"drug":"STELARA","date":"2025-02-26","ratio":3.1342,"ndcs":2},{"drug":"STELARA","date":"2025-03-05","ratio":3.1342,"ndcs":2},{"drug":"STELARA","date":"2025-03-12","ratio":3.1342,"ndcs":2},{"drug":"STELARA","date":"2025-03-19","ratio":3.1342,"ndcs":2},{"drug":"STELARA","date":"2025-03-26","ratio":3.1342,"ndcs":2},{"drug":"STELARA","date":"2025-04-02","ratio":3.1342,"ndcs":2},{"drug":"STELARA","date":"2025-04-09","ratio":3.1342,"ndcs":2},{"drug":"STELARA","date":"2025-04-16","ratio":3.1342,"ndcs":2},{"drug":"STELARA","date":"2025-04-23","ratio":3.1342,"ndcs":2},{"drug":"STELARA","date":"2025-04-30","ratio":3.1342,"ndcs":2},{"drug":"STELARA","date":"2025-05-07","ratio":3.1342,"ndcs":2},{"drug":"STELARA","date":"2025-05-14","ratio":3.1342,"ndcs":2},{"drug":"STELARA","date":"2025-05-21","ratio":3.1422,"ndcs":2},{"drug":"STELARA","date":"2025-05-28","ratio":3.1422,"ndcs":2},{"drug":"STELARA","date":"2025-06-04","ratio":3.1422,"ndcs":2},{"drug":"STELARA","date":"2025-06-11","ratio":3.1422,"ndcs":2},{"drug":"STELARA","date":"2025-06-18","ratio":3.1625,"ndcs":2},{"drug":"STELARA","date":"2025-06-25","ratio":3.1625,"ndcs":2},{"drug":"STELARA","date":"2025-07-02","ratio":3.1625,"ndcs":2},{"drug":"STELARA","date":"2025-07-09","ratio":3.1625,"ndcs":2},{"drug":"STELARA","date":"2025-07-16","ratio":3.1625,"ndcs":2},{"drug":"STELARA","date":"2025-07-23","ratio":3.1621,"ndcs":2},{"drug":"STELARA","date":"2025-07-30","ratio":3.1621,"ndcs":2},{"drug":"STELARA","date":"2025-08-06","ratio":3.1621,"ndcs":2},{"drug":"STELARA","date":"2025-08-13","ratio":3.1621,"ndcs":2},{"drug":"STELARA","date":"2025-08-20","ratio":3.1617,"ndcs":2},{"drug":"STELARA","date":"2025-08-27","ratio":3.1617,"ndcs":2},{"drug":"STELARA","date":"2025-09-03","ratio":3.1617,"ndcs":2},{"drug":"STELARA","date":"2025-09-10","ratio":3.1617,"ndcs":2},{"drug":"STELARA","date":"2025-09-17","ratio":3.1624,"ndcs":2},{"drug":"STELARA","date":"2025-09-24","ratio":3.1624,"ndcs":2},{"drug":"STELARA","date":"2025-10-01","ratio":3.1624,"ndcs":2},{"drug":"STELARA","date":"2025-10-08","ratio":3.1624,"ndcs":2},{"drug":"STELARA","date":"2025-10-15","ratio":3.1624,"ndcs":2},{"drug":"STELARA","date":"2025-10-22","ratio":3.1619,"ndcs":2},{"drug":"STELARA","date":"2025-10-29","ratio":3.1619,"ndcs":2},{"drug":"STELARA","date":"2025-11-05","ratio":3.1619,"ndcs":2},{"drug":"STELARA","date":"2025-11-12","ratio":3.1619,"ndcs":2},{"drug":"STELARA","date":"2025-11-19","ratio":3.1622,"ndcs":2},{"drug":"STELARA","date":"2025-11-26","ratio":3.1622,"ndcs":2},{"drug":"STELARA","date":"2025-12-03","ratio":3.1622,"ndcs":2},{"drug":"STELARA","date":"2025-12-10","ratio":3.1622,"ndcs":2},{"drug":"STELARA","date":"2025-12-17","ratio":3.1624,"ndcs":2},{"drug":"STELARA","date":"2025-12-24","ratio":3.1624,"ndcs":2},{"drug":"STELARA","date":"2025-12-31","ratio":3.1624,"ndcs":2},{"drug":"STELARA","date":"2026-01-07","ratio":3.1624,"ndcs":2},{"drug":"STELARA","date":"2026-01-14","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-01-21","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-01-28","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-02-04","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-02-11","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-02-18","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-02-25","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-03-04","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-03-11","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-03-18","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-03-25","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-04-01","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-04-08","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-04-15","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-04-22","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-04-29","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-05-06","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-05-13","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-05-20","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-05-27","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-06-03","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-06-10","ratio":3.3205,"ndcs":2},{"drug":"STELARA","date":"2026-06-17","ratio":3.3207,"ndcs":2},{"drug":"STELARA","date":"2026-06-24","ratio":3.3207,"ndcs":2},{"drug":"STELARA","date":"2026-07-01","ratio":3.3207,"ndcs":2},{"drug":"STELARA","date":"2026-07-08","ratio":3.3207,"ndcs":2},{"drug":"STELARA","date":"2026-07-15","ratio":3.3207,"ndcs":2},{"drug":"STELARA","date":"2026-07-22","ratio":3.3251,"ndcs":2},{"drug":"STELARA","date":"2026-07-29","ratio":3.3251,"ndcs":2},{"drug":"STELARA","date":"2026-08-05","ratio":3.3251,"ndcs":2},{"drug":"STELARA","date":"2026-08-12","ratio":3.3251,"ndcs":2},{"drug":"STELARA","date":"2026-08-19","ratio":3.3223,"ndcs":2},{"drug":"STELARA","date":"2026-08-26","ratio":3.3223,"ndcs":2},{"drug":"STELARA","date":"2026-09-02","ratio":3.3223,"ndcs":2},{"drug":"STELARA","date":"2026-09-09","ratio":3.3223,"ndcs":2},{"drug":"STELARA","date":"2026-09-16","ratio":3.3223,"ndcs":2},{"drug":"STELARA","date":"2026-09-23","ratio":3.3223,"ndcs":2},{"drug":"STELARA","date":"2026-09-30","ratio":3.3223,"ndcs":2},{"drug":"STELARA","date":"2026-10-07","ratio":3.3223,"ndcs":2},{"drug":"STELARA","date":"2026-10-14","ratio":3.3223,"ndcs":2},{"drug":"STELARA","date":"2026-10-21","ratio":3.3223,"ndcs":2},{"drug":"XARELTO","date":"2025-01-01","ratio":2.6482,"ndcs":18},{"drug":"XARELTO","date":"2025-01-08","ratio":2.6482,"ndcs":18},{"drug":"XARELTO","date":"2025-01-15","ratio":2.6482,"ndcs":18},{"drug":"XARELTO","date":"2025-01-22","ratio":2.648,"ndcs":18},{"drug":"XARELTO","date":"2025-01-29","ratio":2.648,"ndcs":18},{"drug":"XARELTO","date":"2025-02-05","ratio":2.7804,"ndcs":18},{"drug":"XARELTO","date":"2025-02-12","ratio":2.7804,"ndcs":18},{"drug":"XARELTO","date":"2025-02-19","ratio":2.7814,"ndcs":19},{"drug":"XARELTO","date":"2025-02-26","ratio":2.7814,"ndcs":19},{"drug":"XARELTO","date":"2025-03-05","ratio":2.7814,"ndcs":19},{"drug":"XARELTO","date":"2025-03-12","ratio":2.7814,"ndcs":19},{"drug":"XARELTO","date":"2025-03-19","ratio":2.7814,"ndcs":19},{"drug":"XARELTO","date":"2025-03-26","ratio":2.7814,"ndcs":19},{"drug":"XARELTO","date":"2025-04-02","ratio":2.7814,"ndcs":19},{"drug":"XARELTO","date":"2025-04-09","ratio":2.7814,"ndcs":19},{"drug":"XARELTO","date":"2025-04-16","ratio":2.7814,"ndcs":19},{"drug":"XARELTO","date":"2025-04-23","ratio":2.7814,"ndcs":19},{"drug":"XARELTO","date":"2025-04-30","ratio":2.7814,"ndcs":19},{"drug":"XARELTO","date":"2025-05-07","ratio":2.7814,"ndcs":19},{"drug":"XARELTO","date":"2025-05-14","ratio":2.7814,"ndcs":19},{"drug":"XARELTO","date":"2025-05-21","ratio":2.7814,"ndcs":19},{"drug":"XARELTO","date":"2025-05-28","ratio":2.7814,"ndcs":19},{"drug":"XARELTO","date":"2025-06-04","ratio":2.7814,"ndcs":19},{"drug":"XARELTO","date":"2025-06-11","ratio":2.7814,"ndcs":19},{"drug":"XARELTO","date":"2025-06-18","ratio":2.7788,"ndcs":19},{"drug":"XARELTO","date":"2025-06-25","ratio":2.7788,"ndcs":19},{"drug":"XARELTO","date":"2025-07-02","ratio":2.7788,"ndcs":19},{"drug":"XARELTO","date":"2025-07-09","ratio":2.7788,"ndcs":19},{"drug":"XARELTO","date":"2025-07-16","ratio":2.7788,"ndcs":19},{"drug":"XARELTO","date":"2025-07-23","ratio":2.7793,"ndcs":19},{"drug":"XARELTO","date":"2025-07-30","ratio":2.7793,"ndcs":19},{"drug":"XARELTO","date":"2025-08-06","ratio":2.7793,"ndcs":19},{"drug":"XARELTO","date":"2025-08-13","ratio":2.7793,"ndcs":19},{"drug":"XARELTO","date":"2025-08-20","ratio":2.7793,"ndcs":19},{"drug":"XARELTO","date":"2025-08-27","ratio":2.7793,"ndcs":19},{"drug":"XARELTO","date":"2025-09-03","ratio":2.7793,"ndcs":19},{"drug":"XARELTO","date":"2025-09-10","ratio":2.7793,"ndcs":19},{"drug":"XARELTO","date":"2025-09-17","ratio":2.7788,"ndcs":19},{"drug":"XARELTO","date":"2025-09-24","ratio":2.7788,"ndcs":19},{"drug":"XARELTO","date":"2025-10-01","ratio":2.7788,"ndcs":19},{"drug":"XARELTO","date":"2025-10-08","ratio":2.7788,"ndcs":19},{"drug":"XARELTO","date":"2025-10-15","ratio":2.7788,"ndcs":19},{"drug":"XARELTO","date":"2025-10-22","ratio":2.7794,"ndcs":19},{"drug":"XARELTO","date":"2025-10-29","ratio":2.7794,"ndcs":19},{"drug":"XARELTO","date":"2025-11-05","ratio":2.7794,"ndcs":19},{"drug":"XARELTO","date":"2025-11-12","ratio":2.7794,"ndcs":19},{"drug":"XARELTO","date":"2025-11-19","ratio":2.7783,"ndcs":19},{"drug":"XARELTO","date":"2025-11-26","ratio":2.7783,"ndcs":19},{"drug":"XARELTO","date":"2025-12-03","ratio":2.7783,"ndcs":19},{"drug":"XARELTO","date":"2025-12-10","ratio":2.7783,"ndcs":19},{"drug":"XARELTO","date":"2025-12-17","ratio":2.7793,"ndcs":19},{"drug":"XARELTO","date":"2025-12-24","ratio":2.7793,"ndcs":19},{"drug":"XARELTO","date":"2025-12-31","ratio":2.7793,"ndcs":19},{"drug":"XARELTO","date":"2026-01-07","ratio":2.7793,"ndcs":19},{"drug":"XARELTO","date":"2026-01-14","ratio":2.7793,"ndcs":19},{"drug":"XARELTO","date":"2026-01-21","ratio":2.7793,"ndcs":19},{"drug":"XARELTO","date":"2026-01-28","ratio":2.7793,"ndcs":19},{"drug":"XARELTO","date":"2026-02-04","ratio":2.7793,"ndcs":19},{"drug":"XARELTO","date":"2026-02-11","ratio":2.8433,"ndcs":19},{"drug":"XARELTO","date":"2026-02-18","ratio":2.8433,"ndcs":19},{"drug":"XARELTO","date":"2026-02-25","ratio":2.8433,"ndcs":19},{"drug":"XARELTO","date":"2026-03-04","ratio":2.8433,"ndcs":19},{"drug":"XARELTO","date":"2026-03-11","ratio":2.8433,"ndcs":19},{"drug":"XARELTO","date":"2026-03-18","ratio":2.8433,"ndcs":19},{"drug":"XARELTO","date":"2026-03-25","ratio":2.8433,"ndcs":19},{"drug":"XARELTO","date":"2026-04-01","ratio":2.8433,"ndcs":19},{"drug":"XARELTO","date":"2026-04-08","ratio":2.8433,"ndcs":19},{"drug":"XARELTO","date":"2026-04-15","ratio":2.8433,"ndcs":19},{"drug":"XARELTO","date":"2026-04-22","ratio":2.8433,"ndcs":19},{"drug":"XARELTO","date":"2026-04-29","ratio":2.8433,"ndcs":19},{"drug":"XARELTO","date":"2026-05-06","ratio":2.8433,"ndcs":19},{"drug":"XARELTO","date":"2026-05-13","ratio":2.8433,"ndcs":19},{"drug":"XARELTO","date":"2026-05-20","ratio":2.8433,"ndcs":19},{"drug":"XARELTO","date":"2026-05-27","ratio":2.8433,"ndcs":19},{"drug":"XARELTO","date":"2026-06-03","ratio":2.8433,"ndcs":19},{"drug":"XARELTO","date":"2026-06-10","ratio":2.8433,"ndcs":19},{"drug":"XARELTO","date":"2026-06-17","ratio":2.8429,"ndcs":19},{"drug":"XARELTO","date":"2026-06-24","ratio":2.8429,"ndcs":19},{"drug":"XARELTO","date":"2026-07-01","ratio":2.8429,"ndcs":19},{"drug":"XARELTO","date":"2026-07-08","ratio":2.8429,"ndcs":19},{"drug":"XARELTO","date":"2026-07-15","ratio":2.8429,"ndcs":19},{"drug":"XARELTO","date":"2026-07-22","ratio":2.8414,"ndcs":19},{"drug":"XARELTO","date":"2026-07-29","ratio":2.8414,"ndcs":19},{"drug":"XARELTO","date":"2026-08-05","ratio":2.8414,"ndcs":19},{"drug":"XARELTO","date":"2026-08-12","ratio":2.8414,"ndcs":19},{"drug":"XARELTO","date":"2026-08-19","ratio":2.8411,"ndcs":19},{"drug":"XARELTO","date":"2026-08-26","ratio":2.8411,"ndcs":19},{"drug":"XARELTO","date":"2026-09-02","ratio":2.8411,"ndcs":19},{"drug":"XARELTO","date":"2026-09-09","ratio":2.8411,"ndcs":19},{"drug":"XARELTO","date":"2026-09-16","ratio":2.8411,"ndcs":19},{"drug":"XARELTO","date":"2026-09-23","ratio":2.8409,"ndcs":19},{"drug":"XARELTO","date":"2026-09-30","ratio":2.8409,"ndcs":19},{"drug":"XARELTO","date":"2026-10-07","ratio":2.8409,"ndcs":19},{"drug":"XARELTO","date":"2026-10-14","ratio":2.8409,"ndcs":19},{"drug":"XARELTO","date":"2026-10-21","ratio":2.8405,"ndcs":19}],"f4":[{"IPAY":"2026","drug":"ELIQUIS","snapshot":"2025 (Oct 2025 release)","ratio":2.4031186913037943,"at":0.0},{"IPAY":"2026","drug":"ELIQUIS","snapshot":"2026 (Jan 2026 release)","ratio":1.000006755009322,"at":0.9998186434530286},{"IPAY":"2026","drug":"ELIQUIS","snapshot":"2026 (Oct 2026 release)","ratio":1.000006755009322,"at":0.9998180494905384},{"IPAY":"2026","drug":"ENBREL","snapshot":"2025 (Oct 2025 release)","ratio":3.4384804001600577,"at":0.0},{"IPAY":"2026","drug":"ENBREL","snapshot":"2026 (Jan 2026 release)","ratio":1.000000003426025,"at":0.9998186434530286},{"IPAY":"2026","drug":"ENBREL","snapshot":"2026 (Oct 2026 release)","ratio":1.000000003426025,"at":0.9998180494905384},{"IPAY":"2026","drug":"ENTRESTO","snapshot":"2025 (Oct 2025 release)","ratio":2.1802823911330367,"at":0.0},{"IPAY":"2026","drug":"ENTRESTO","snapshot":"2026 (Jan 2026 release)","ratio":1.0000268474503466,"at":0.9964903689193602},{"IPAY":"2026","drug":"ENTRESTO","snapshot":"2026 (Oct 2026 release)","ratio":0.999991125357227,"at":0.9995891874127024},{"IPAY":"2026","drug":"FARXIGA","snapshot":"2025 (Oct 2025 release)","ratio":3.1732176377118115,"at":0.0},{"IPAY":"2026","drug":"FARXIGA","snapshot":"2026 (Jan 2026 release)","ratio":1.00000099126137,"at":0.999183895538629},{"IPAY":"2026","drug":"FARXIGA","snapshot":"2026 (Oct 2026 release)","ratio":1.00000099126137,"at":0.999683744465528},{"IPAY":"2026","drug":"IMBRUVICA","snapshot":"2025 (Oct 2025 release)","ratio":1.7226686354355565,"at":0.0},{"IPAY":"2026","drug":"IMBRUVICA","snapshot":"2026 (Jan 2026 release)","ratio":1.0000000028250406,"at":0.9998186434530286},{"IPAY":"2026","drug":"IMBRUVICA","snapshot":"2026 (Oct 2026 release)","ratio":0.9999997287675848,"at":0.6564471130519165},{"IPAY":"2026","drug":"JANUVIA","snapshot":"2025 (Oct 2025 release)","ratio":2.7079609558623146,"at":0.0},{"IPAY":"2026","drug":"JANUVIA","snapshot":"2026 (Jan 2026 release)","ratio":1.0000038383934022,"at":0.9998186434530286},{"IPAY":"2026","drug":"JANUVIA","snapshot":"2026 (Oct 2026 release)","ratio":1.0000038383934022,"at":1.0},{"IPAY":"2026","drug":"JARDIANCE","snapshot":"2025 (Oct 2025 release)","ratio":2.966899510124996,"at":0.0},{"IPAY":"2026","drug":"JARDIANCE","snapshot":"2026 (Jan 2026 release)","ratio":1.0000032381617956,"at":0.9998186434530286},{"IPAY":"2026","drug":"JARDIANCE","snapshot":"2026 (Oct 2026 release)","ratio":1.0000032381617956,"at":0.9998180494905384},{"IPAY":"2026","drug":"NOVOLOG","snapshot":"2025 (Oct 2025 release)","ratio":1.989687600201139,"at":0.1146209859081146},{"IPAY":"2026","drug":"NOVOLOG","snapshot":"2026 (Jan 2026 release)","ratio":0.999996118976094,"at":0.9322028775238786},{"IPAY":"2026","drug":"NOVOLOG","snapshot":"2026 (Oct 2026 release)","ratio":0.999996118976094,"at":0.8722324723247232},{"IPAY":"2026","drug":"STELARA","snapshot":"2025 (Oct 2025 release)","ratio":3.1204357988393383,"at":0.0},{"IPAY":"2026","drug":"STELARA","snapshot":"2026 (Jan 2026 release)","ratio":0.9999999971045628,"at":0.4998965089002345},{"IPAY":"2026","drug":"STELARA","snapshot":"2026 (Oct 2026 release)","ratio":0.9999999971045628,"at":0.8860806889450529},{"IPAY":"2026","drug":"XARELTO","snapshot":"2025 (Oct 2025 release)","ratio":2.837116804880296,"at":0.0},{"IPAY":"2026","drug":"XARELTO","snapshot":"2026 (Jan 2026 release)","ratio":1.0000008719797169,"at":0.9991966839111852},{"IPAY":"2026","drug":"XARELTO","snapshot":"2026 (Oct 2026 release)","ratio":1.0000032014538094,"at":0.9993203443588582},{"IPAY":"2027","drug":"AUSTEDO","snapshot":"2025 (Oct 2025 release)","ratio":1.632129047068037,"at":0.0},{"IPAY":"2027","drug":"AUSTEDO","snapshot":"2026 (Jan 2026 release)","ratio":1.599021673144564,"at":0.0},{"IPAY":"2027","drug":"AUSTEDO","snapshot":"2026 (Oct 2026 release)","ratio":1.6838882754141815,"at":0.0},{"IPAY":"2027","drug":"BREO ELLIPTA","snapshot":"2025 (Oct 2025 release)","ratio":5.72769183556752,"at":0.0},{"IPAY":"2027","drug":"BREO ELLIPTA","snapshot":"2026 (Jan 2026 release)","ratio":5.683731874230905,"at":0.0},{"IPAY":"2027","drug":"BREO ELLIPTA","snapshot":"2026 (Oct 2026 release)","ratio":5.685311861399972,"at":0.0},{"IPAY":"2027","drug":"CALQUENCE","snapshot":"2025 (Oct 2025 release)","ratio":1.6102688174543258,"at":0.0},{"IPAY":"2027","drug":"CALQUENCE","snapshot":"2026 (Jan 2026 release)","ratio":1.627662842435582,"at":0.0},{"IPAY":"2027","drug":"CALQUENCE","snapshot":"2026 (Oct 2026 release)","ratio":1.674387727737069,"at":0.0},{"IPAY":"2027","drug":"IBRANCE","snapshot":"2025 (Oct 2025 release)","ratio":2.020858595918314,"at":0.0},{"IPAY":"2027","drug":"IBRANCE","snapshot":"2026 (Jan 2026 release)","ratio":2.001730222412072,"at":0.0},{"IPAY":"2027","drug":"IBRANCE","snapshot":"2026 (Oct 2026 release)","ratio":2.0151654117657456,"at":0.0},{"IPAY":"2027","drug":"JANUMET","snapshot":"2025 (Oct 2025 release)","ratio":3.6408238374583513,"at":0.0},{"IPAY":"2027","drug":"JANUMET","snapshot":"2026 (Jan 2026 release)","ratio":3.6342900903407434,"at":0.0},{"IPAY":"2027","drug":"JANUMET","snapshot":"2026 (Oct 2026 release)","ratio":3.626331179852063,"at":0.0},{"IPAY":"2027","drug":"LINZESS","snapshot":"2025 (Oct 2025 release)","ratio":4.002202934579612,"at":0.0},{"IPAY":"2027","drug":"LINZESS","snapshot":"2026 (Jan 2026 release)","ratio":3.991983814672195,"at":0.0},{"IPAY":"2027","drug":"LINZESS","snapshot":"2026 (Oct 2026 release)","ratio":1.986036506652098,"at":0.0},{"IPAY":"2027","drug":"OFEV","snapshot":"2025 (Oct 2025 release)","ratio":2.0835680258995612,"at":0.0},{"IPAY":"2027","drug":"OFEV","snapshot":"2026 (Jan 2026 release)","ratio":2.0478222603774676,"at":0.0},{"IPAY":"2027","drug":"OFEV","snapshot":"2026 (Oct 2026 release)","ratio":2.125467646159189,"at":0.0},{"IPAY":"2027","drug":"OTEZLA","snapshot":"2025 (Oct 2025 release)","ratio":3.1290663636880707,"at":0.0},{"IPAY":"2027","drug":"OTEZLA","snapshot":"2026 (Jan 2026 release)","ratio":3.0670929491956,"at":0.0},{"IPAY":"2027","drug":"OTEZLA","snapshot":"2026 (Oct 2026 release)","ratio":3.2390547380262187,"at":0.0},{"IPAY":"2027","drug":"OZEMPIC","snapshot":"2025 (Oct 2025 release)","ratio":3.473563579012286,"at":0.0},{"IPAY":"2027","drug":"OZEMPIC","snapshot":"2026 (Jan 2026 release)","ratio":3.459382566362876,"at":0.0},{"IPAY":"2027","drug":"OZEMPIC","snapshot":"2026 (Oct 2026 release)","ratio":3.62888287052824,"at":0.0},{"IPAY":"2027","drug":"POMALYST","snapshot":"2025 (Oct 2025 release)","ratio":2.6378418290109753,"at":0.0},{"IPAY":"2027","drug":"POMALYST","snapshot":"2026 (Jan 2026 release)","ratio":2.622647349709452,"at":0.0},{"IPAY":"2027","drug":"POMALYST","snapshot":"2026 (Oct 2026 release)","ratio":2.7011325027541138,"at":0.0},{"IPAY":"2027","drug":"TRADJENTA","snapshot":"2025 (Oct 2025 release)","ratio":6.0159767683504555,"at":0.0},{"IPAY":"2027","drug":"TRADJENTA","snapshot":"2026 (Jan 2026 release)","ratio":6.014080394789194,"at":0.0},{"IPAY":"2027","drug":"TRADJENTA","snapshot":"2026 (Oct 2026 release)","ratio":6.015457949168601,"at":0.0},{"IPAY":"2027","drug":"TRELEGY ELLIPTA","snapshot":"2025 (Oct 2025 release)","ratio":3.709252472095735,"at":0.0},{"IPAY":"2027","drug":"TRELEGY ELLIPTA","snapshot":"2026 (Jan 2026 release)","ratio":3.6983684952885008,"at":0.0},{"IPAY":"2027","drug":"TRELEGY ELLIPTA","snapshot":"2026 (Oct 2026 release)","ratio":3.8102448587710183,"at":0.0},{"IPAY":"2027","drug":"VRAYLAR","snapshot":"2025 (Oct 2025 release)","ratio":1.8460321720556463,"at":0.0},{"IPAY":"2027","drug":"VRAYLAR","snapshot":"2026 (Jan 2026 release)","ratio":1.827611740888603,"at":0.0},{"IPAY":"2027","drug":"VRAYLAR","snapshot":"2026 (Oct 2026 release)","ratio":1.9384418909137693,"at":0.0},{"IPAY":"2027","drug":"XIFAXAN","snapshot":"2025 (Oct 2025 release)","ratio":2.8256510324559887,"at":0.0},{"IPAY":"2027","drug":"XIFAXAN","snapshot":"2026 (Jan 2026 release)","ratio":2.8034992589579746,"at":0.0},{"IPAY":"2027","drug":"XIFAXAN","snapshot":"2026 (Oct 2026 release)","ratio":3.2534264715914416,"at":0.0},{"IPAY":"2027","drug":"XTANDI","snapshot":"2025 (Oct 2025 release)","ratio":1.9384568974186325,"at":0.0},{"IPAY":"2027","drug":"XTANDI","snapshot":"2026 (Jan 2026 release)","ratio":1.9207234571662504,"at":0.0},{"IPAY":"2027","drug":"XTANDI","snapshot":"2026 (Oct 2026 release)","ratio":1.9772296199650092,"at":0.0}],"f4g":[{"snapshot":"2025 (Oct 2025 release)","rows":199719.0,"median":2.767328107147472,"at":0.0109553923262183,"below":0.0149459991287759,"above":0.9740986085450056,"weighted":0.0034606166581232},{"snapshot":"2026 (Jan 2026 release)","rows":232267.0,"median":1.0000000028250406,"at":0.9274757068373898,"below":0.0494904571032475,"above":0.0230338360593627,"weighted":0.9965048684855328},{"snapshot":"2026 (Oct 2026 release)","rows":206059.0,"median":0.9999999971045628,"at":0.9128599090551736,"below":0.0871400909448264,"above":0.0,"weighted":0.9948906122402864}],"cal":[{"drug":"ELIQUIS","r":2.4031186913037943,"pred":-0.5838740701328167,"real":-0.5626396203764942,"err":2.1234449756322493,"structural":false},{"drug":"ENBREL","r":3.4384804001600577,"pred":-0.7091738548361506,"real":-0.7078038738606688,"err":0.1369980975481799,"structural":false},{"drug":"ENTRESTO","r":2.1802823911330367,"pred":-0.5413438167152624,"real":-0.6995620119390786,"err":-15.82181952238162,"structural":true},{"drug":"FARXIGA","r":3.1732176377118115,"pred":-0.6848624600734622,"real":-0.6702929674630642,"err":1.4569492610397972,"structural":false},{"drug":"IMBRUVICA","r":1.7226686354355565,"pred":-0.4195053073877079,"real":-0.3991886441456133,"err":2.031666324209469,"structural":false},{"drug":"JANUVIA","r":2.7079609558623146,"pred":-0.6307184570607802,"real":-0.6151384155989461,"err":1.5580041461834115,"structural":false},{"drug":"JARDIANCE","r":2.966899510124996,"pred":-0.662947802381797,"real":-0.6454989996063564,"err":1.7448802775440586,"structural":false},{"drug":"NOVOLOG","r":1.989687600201139,"pred":-0.4974085379539434,"real":-0.3042410110120135,"err":19.316752694192996,"structural":true},{"drug":"STELARA","r":3.1204357988393383,"pred":-0.6795319421819366,"real":-0.6842508670380664,"err":-0.4718924856129791,"structural":false},{"drug":"XARELTO","r":2.837116804880296,"pred":-0.6475294925186585,"real":-0.6282707137287635,"err":1.9258778789895017,"structural":false}],"pred":[{"drug":"TRADJENTA","r":6.015457949168601,"pred":-0.833761617411321,"pc":806.0406064677128,"nadac":6.009500473735584,"gab":0.6,"cms":0.84},{"drug":"BREO ELLIPTA","r":5.685311861399972,"pred":-0.8241081537163457,"pc":535.262914996982,"nadac":5.650073581721045,"gab":0.58,"cms":0.83},{"drug":"TRELEGY ELLIPTA","r":3.8102448587710183,"pred":-0.7375496753973584,"pc":932.0863274836078,"nadac":3.804923992993312,"gab":0.43,"cms":0.73},{"drug":"OZEMPIC","r":3.62888287052824,"pred":-0.7244331008527607,"pc":1417.5089095740404,"nadac":3.595389858752968,"gab":0.36,"cms":0.71},{"drug":"JANUMET","r":3.626331179852063,"pred":-0.7242391964760386,"pc":563.374400752154,"nadac":3.635445175526193,"gab":0.43,"cms":0.85},{"drug":"XIFAXAN","r":3.2534264715914416,"pred":-0.6926317503309545,"pc":3030.6940426485085,"nadac":null,"gab":0.54,"cms":0.63},{"drug":"OTEZLA","r":3.2390547380262187,"pred":-0.6912679528814109,"pc":5485.214644175684,"nadac":3.1706883188149937,"gab":0.26,"cms":0.65},{"drug":"POMALYST","r":2.7011325027541138,"pred":-0.6297849146680566,"pc":23154.12255614823,"nadac":null,"gab":null,"cms":0.6},{"drug":"OFEV","r":2.125467646159189,"pred":-0.5295153036993798,"pc":13550.661811063204,"nadac":null,"gab":0.4,"cms":0.5},{"drug":"IBRANCE","r":2.0151654117657456,"pred":-0.5037628205796906,"pc":15771.604728452823,"nadac":null,"gab":0.35,"cms":0.5},{"drug":"LINZESS","r":1.986036506652098,"pred":-0.496484582911459,"pc":429.99011645648915,"nadac":1.9809665045819016,"gab":0.44,"cms":0.75},{"drug":"XTANDI","r":1.9772296199650092,"pred":-0.4942418473289426,"pc":13812.70642664476,"nadac":null,"gab":0.26,"cms":0.48},{"drug":"VRAYLAR","r":1.9384418909137693,"pred":-0.484121755370956,"pc":1559.8591057377164,"nadac":1.8836326780005248,"gab":0.23,"cms":0.44},{"drug":"AUSTEDO","r":1.6838882754141815,"pred":-0.4061363722281202,"pc":8526.27916290571,"nadac":1.6575432776567005,"gab":0.15,"cms":0.38},{"drug":"CALQUENCE","r":1.674387727737069,"pred":-0.4027667645704155,"pc":14579.44609650995,"nadac":null,"gab":0.36,"cms":0.4}]};
+const NS = "http://www.w3.org/2000/svg";
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const pct = (v, d = 0) => (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v * 100).toFixed(d) + "%";
+const money = v => "$" + Math.round(v).toLocaleString("en-US");
+const POOLED = { OZEMPIC: "Semaglutide (pooled)", NOVOLOG: "NovoLog/Fiasp" };
+const plabel = s => POOLED[s] || title(s);
+const title = s => s.split(" ").map(w => w === "NOVOLOG" ? "NovoLog" : w.charAt(0) + w.slice(1).toLowerCase()).join(" ");
+const GROUPC = { "IPAY 2026": "--s1", "IPAY 2027": "--s2", "IPAY 2028": "--s3", "Other brands": "--s4" };
+const GROUPL = { "IPAY 2026": "Negotiated 2026", "IPAY 2027": "Negotiated 2027", "IPAY 2028": "Selected 2028", "Other brands": "Other brands" };
+
+function el(tag, attrs = {}, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function svgIn(id, w, h) {
+  const box = document.getElementById(id); box.innerHTML = "";
+  return el("svg", { viewBox: `0 0 ${w} ${h}`, role: "img" }, box);
+}
+const tip = document.getElementById("tip");
+function showTip(evt, html) {
+  tip.innerHTML = html; tip.style.opacity = 1;
+  const pad = 14, r = tip.getBoundingClientRect();
+  let x = evt.pageX + pad, y = evt.pageY + pad;
+  if (x + r.width > window.scrollX + window.innerWidth - 8) x = evt.pageX - r.width - pad;
+  tip.style.left = x + "px"; tip.style.top = y + "px";
+}
+function hideTip() { tip.style.opacity = 0; }
+function lin(d0, d1, r0, r1) { return v => r0 + (v - d0) / (d1 - d0) * (r1 - r0); }
+function logs(d0, d1, r0, r1) { const a = Math.log(d0), b = Math.log(d1); return v => r0 + (Math.log(v) - a) / (b - a) * (r1 - r0); }
+
+/* Finding 1: diverging horizontal bars */
+function chartF1() {
+  const rows = D.f1.slice().sort((a, b) => a.group === b.group ? a.chg - b.chg : a.group < b.group ? -1 : 1);
+  const W = 900, rowH = 19, top = 24, left = 150, right = 70;
+  const H = top + rows.length * rowH + 16 + 10;
+  const s = svgIn("chartF1", W, H);
+  const x = lin(-0.8, 0.2, left, W - right);
+  for (const t of [-0.8, -0.6, -0.4, -0.2, 0, 0.2]) {
+    const g = el("g", { class: "tick" }, s);
+    el("line", { x1: x(t), x2: x(t), y1: top - 6, y2: H - 18 }, g);
+    const tx = el("text", { x: x(t), y: top - 10, "text-anchor": "middle" }, g); tx.textContent = pct(t);
+  }
+  el("line", { x1: x(0), x2: x(0), y1: top - 6, y2: H - 18, class: "axis-line" }, s);
+  let y = top, prev = null;
+  rows.forEach(r => {
+    if (prev && prev !== r.group) y += 16;
+    prev = r.group;
+    const c = css(GROUPC[r.group]);
+    const x0 = x(Math.min(0, r.chg)), w = Math.abs(x(r.chg) - x(0));
+    const lt0 = el("text", { x: left - 8, y: y + rowH / 2 + 4, "text-anchor": "end" }, s); lt0.textContent = plabel(r.drug);
+    const bar = el("rect", { x: x0, y: y + 3, width: Math.max(w, 1.5), height: rowH - 6, rx: 3, fill: c }, s);
+    const v = el("text", { x: r.chg < 0 ? x(r.chg) - 5 : x(r.chg) + 5, y: y + rowH / 2 + 4, "text-anchor": r.chg < 0 ? "end" : "start" }, s);
+    v.textContent = pct(r.chg);
+    const hit = el("rect", { x: left, y, width: W - left - right, height: rowH, fill: "transparent" }, s);
+    hit.addEventListener("mousemove", e => showTip(e, `<b>${plabel(r.drug)}</b> (${GROUPL[r.group]})<br>${money(r.pc2025)} per claim in 2025<br>${money(r.pc2026)} in 2026 Q1 (${pct(r.chg)})<br>${Math.round(r.claims2025).toLocaleString("en-US")} claims in 2025`));
+    hit.addEventListener("mouseleave", hideTip);
+    y += rowH;
+  });
+}
+
+/* Finding 1 group table */
+function tableGroups() {
+  const tb = document.querySelector("#tblGroups tbody");
+  tb.innerHTML = D.groups.map(g => `<tr><td>${GROUPL[g.group]}</td><td class="n">${g.n}</td><td class="n">${pct(g.median, 1)}</td><td class="n">${pct(g.p25, 1)} to ${pct(g.p75, 1)}</td><td class="n">${pct(g.fixed, 1)}</td><td class="n">${(g.share30 * 100).toFixed(0)}%</td></tr>`).join("");
+}
+
+/* Finding 2: grouped bars */
+let f2window = "Dec 20-Jan 31";
+function chartF2() {
+  const groups = ["IPAY 2026", "IPAY 2027", "IPAY 2028", "Other brands"];
+  document.getElementById("f2legend").innerHTML = groups.map(g => `<span><i class="sw" style="background:var(${GROUPC[g]})"></i>${GROUPL[g]}</span>`).join("");
+  const rows = D.f2.filter(r => r.window === f2window);
+  const years = [2024, 2025, 2026];
+  const W = 900, H = 300, top = 16, bottom = 34, left = 46, right = 10;
+  const s = svgIn("chartF2", W, H);
+  const y = lin(0, 0.35, H - bottom, top);
+  for (const t of [0, 0.1, 0.2, 0.3]) {
+    const g = el("g", { class: "tick" }, s);
+    el("line", { x1: left, x2: W - right, y1: y(t), y2: y(t) }, g);
+    const tx = el("text", { x: left - 6, y: y(t) + 4, "text-anchor": "end" }, g); tx.textContent = (t * 100) + "%";
+  }
+  const band = (W - left - right) / years.length, bw = 34, gap = 2;
+  years.forEach((yr, i) => {
+    const cx = left + band * i + band / 2;
+    const lab = el("text", { x: cx, y: H - 12, "text-anchor": "middle" }, s); lab.textContent = "January " + yr;
+    groups.forEach((g, j) => {
+      const r = rows.find(q => q.january === yr && q.group === g); if (!r) return;
+      const x0 = cx - (groups.length * (bw + gap)) / 2 + j * (bw + gap);
+      const h = Math.max(H - bottom - y(r.share), r.share > 0 ? 1.5 : 0);
+      el("rect", { x: x0, y: H - bottom - h, width: bw, height: h, rx: 3, fill: css(GROUPC[g]) }, s);
+      if (r.share >= 0.04) { const v = el("text", { x: x0 + bw / 2, y: H - bottom - h - 5, "text-anchor": "middle" }, s); v.textContent = Math.round(r.share * 100) + "%"; }
+      const hit = el("rect", { x: x0 - 1, y: top, width: bw + 2, height: H - bottom - top, fill: "transparent" }, s);
+      hit.addEventListener("mousemove", e => showTip(e, `<b>${GROUPL[g]}, January ${yr}</b><br>${r.cut} of ${r.n} brand NDCs cut 20% or more (${(r.share * 100).toFixed(1)}%)<br>${(r.inc * 100).toFixed(0)}% had a list-price increase`));
+      hit.addEventListener("mouseleave", hideTip);
+    });
+  });
+  el("line", { x1: left, x2: W - right, y1: H - bottom, y2: H - bottom, class: "axis-line" }, s);
+}
+function controlsF2() {
+  const box = document.getElementById("f2win");
+  box.innerHTML = ["Dec 20-Jan 31", "Dec 20-Feb 28"].map(w => `<button class="chip" type="button" aria-pressed="${w === f2window}" data-w="${w}">${w.replace("-", " to ")}</button>`).join("");
+  box.querySelectorAll("button").forEach(b => b.onclick = () => { f2window = b.dataset.w; controlsF2(); chartF2(); });
+}
+
+/* Finding 3: weekly lines with a highlighted drug */
+let f3pick = "ELIQUIS";
+function chartF3() {
+  const drugs = [...new Set(D.f3.map(r => r.drug))];
+  const box = document.getElementById("f3pick");
+  box.innerHTML = drugs.map(d => `<button class="chip" type="button" aria-pressed="${d === f3pick}" data-d="${d}">${title(d)}</button>`).join("");
+  box.querySelectorAll("button").forEach(b => b.onclick = () => { f3pick = b.dataset.d; chartF3(); });
+  const dates = [...new Set(D.f3.map(r => r.date))].sort();
+  const t0 = Date.parse(dates[0]), t1 = Date.parse(dates[dates.length - 1]);
+  const W = 900, H = 340, top = 14, bottom = 30, left = 40, right = 90;
+  const s = svgIn("chartF3", W, H);
+  const x = lin(t0, t1, left, W - right), y = lin(0.5, 4.2, H - bottom, top);
+  for (const t of [1, 2, 3, 4]) {
+    const g = el("g", { class: "tick" }, s);
+    el("line", { x1: left, x2: W - right, y1: y(t), y2: y(t) }, g);
+    const tx = el("text", { x: left - 6, y: y(t) + 4, "text-anchor": "end" }, g); tx.textContent = t + "x";
+  }
+  for (const m of ["2025-01-01", "2025-07-01", "2026-01-01", "2026-07-01"]) {
+    const tx = el("text", { x: x(Date.parse(m)), y: H - 10, "text-anchor": "middle" }, s); tx.textContent = m.slice(0, 7);
+  }
+  el("line", { x1: x(Date.parse("2026-01-01")), x2: x(Date.parse("2026-01-01")), y1: top, y2: H - bottom, class: "ref" }, s);
+  const mt = el("text", { x: x(Date.parse("2026-01-01")) + 5, y: top + 10 }, s); mt.textContent = "MFP starts";
+  el("line", { x1: left, x2: W - right, y1: y(1), y2: y(1), stroke: css("--ink-2"), "stroke-width": 1 }, s);
+  const one = el("text", { x: W - right + 6, y: y(1) + 4 }, s); one.textContent = "= MFP";
+  const path = rs => rs.map((r, i) => (i ? "L" : "M") + x(Date.parse(r.date)).toFixed(1) + "," + y(r.ratio).toFixed(1)).join("");
+  drugs.filter(d => d !== f3pick).forEach(d => {
+    const rs = D.f3.filter(r => r.drug === d);
+    el("path", { d: path(rs), fill: "none", stroke: css("--muted"), "stroke-width": 1.2, opacity: 0.45 }, s);
+  });
+  const rs = D.f3.filter(r => r.drug === f3pick);
+  el("path", { d: path(rs), fill: "none", stroke: css("--s1"), "stroke-width": 2.4 }, s);
+  const last = rs[rs.length - 1];
+  const lt = el("text", { x: W - right + 6, y: y(last.ratio) + 4, style: "fill:var(--ink);font-weight:600" }, s); lt.textContent = title(f3pick) + " " + last.ratio.toFixed(2);
+  const dot = el("circle", { r: 4.5, fill: css("--s1"), stroke: css("--surface"), "stroke-width": 2, opacity: 0 }, s);
+  const cross = el("line", { y1: top, y2: H - bottom, stroke: css("--axis"), opacity: 0 }, s);
+  const hit = el("rect", { x: left, y: top, width: W - left - right, height: H - top - bottom, fill: "transparent" }, s);
+  hit.addEventListener("mousemove", e => {
+    const pt = s.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;
+    const p = pt.matrixTransform(s.getScreenCTM().inverse());
+    let best = rs[0]; for (const r of rs) if (Math.abs(x(Date.parse(r.date)) - p.x) < Math.abs(x(Date.parse(best.date)) - p.x)) best = r;
+    const bx = x(Date.parse(best.date));
+    dot.setAttribute("cx", bx); dot.setAttribute("cy", y(best.ratio)); dot.setAttribute("opacity", 1);
+    cross.setAttribute("x1", bx); cross.setAttribute("x2", bx); cross.setAttribute("opacity", 1);
+    showTip(e, `<b>${title(f3pick)}</b>, week of ${best.date}<br>NADAC = ${best.ratio.toFixed(2)} times the MFP<br>${best.ndcs} brand NDCs`);
+  });
+  hit.addEventListener("mouseleave", () => { hideTip(); dot.setAttribute("opacity", 0); cross.setAttribute("opacity", 0); });
+}
+
+/* Finding 4: dot plot on a log scale */
+function chartF4() {
+  const snaps = ["2025 (Oct 2025 release)", "2026 (Jan 2026 release)", "2026 (Oct 2026 release)"];
+  const drugs = [...new Set(D.f4.map(r => r.IPAY + "|" + r.drug))];
+  const order = drugs.sort((a, b) => {
+    const [ga, da] = a.split("|"), [gb, db] = b.split("|");
+    if (ga !== gb) return ga < gb ? -1 : 1;
+    const ra = D.f4.find(r => r.drug === da && r.snapshot === snaps[0]).ratio, rb = D.f4.find(r => r.drug === db && r.snapshot === snaps[0]).ratio;
+    return rb - ra;
+  });
+  const W = 900, rowH = 21, top = 26, left = 150, right = 30;
+  const H = top + order.length * rowH + 16 + 8;
+  const s = svgIn("chartF4", W, H);
+  const x = logs(0.8, 7, left, W - right);
+  for (const t of [1, 1.5, 2, 3, 4, 5, 6]) {
+    const g = el("g", { class: "tick" }, s);
+    el("line", { x1: x(t), x2: x(t), y1: top - 6, y2: H - 8 }, g);
+    const tx = el("text", { x: x(t), y: top - 12, "text-anchor": "middle" }, g); tx.textContent = t + "x";
+  }
+  el("line", { x1: x(1), x2: x(1), y1: top - 6, y2: H - 8, stroke: css("--ink-2"), "stroke-width": 1.2 }, s);
+  let y = top, prev = null;
+  order.forEach(k => {
+    const [g, d] = k.split("|");
+    if (prev && prev !== g) y += 16; prev = g;
+    const c = css(g === "2026" ? "--s1" : "--s2");
+    const pts = snaps.map(sn => D.f4.find(r => r.drug === d && r.IPAY == g && r.snapshot === sn)).filter(Boolean);
+    const cy = y + rowH / 2;
+    const lab = el("text", { x: left - 8, y: cy + 4, "text-anchor": "end" }, s); lab.textContent = plabel(d);
+    const xs = pts.map(p => x(p.ratio));
+    el("line", { x1: Math.min(...xs), x2: Math.max(...xs), y1: cy, y2: cy, stroke: c, "stroke-width": 2, opacity: 0.45 }, s);
+    pts.forEach((p, i) => {
+      const a = i === 0 ? { fill: css("--surface"), stroke: c, "stroke-width": 2 } : i === 1 ? { fill: c, stroke: css("--surface"), "stroke-width": 2 } : { fill: css("--surface"), stroke: c, "stroke-width": 3.5 };
+      el("circle", Object.assign({ cx: x(p.ratio), cy, r: i === 2 ? 3.2 : 5 }, a), s);
+    });
+    const hit = el("rect", { x: left, y, width: W - left - right, height: rowH, fill: "transparent" }, s);
+    hit.addEventListener("mousemove", e => showTip(e, `<b>${plabel(d)}</b> (MFP from ${g})<br>` + pts.map(p => `${p.snapshot.replace(/^\d+ \((.*)\)$/, "$1")}: ${p.ratio.toFixed(3)} (${(p.at * 100).toFixed(1)}% within 0.5%)`).join("<br>")));
+    hit.addEventListener("mouseleave", hideTip);
+    y += rowH;
+  });
+}
+function tableF4() {
+  document.getElementById("tblF4").innerHTML = D.f4g.map(r => `<tr><td>${r.snapshot}</td><td class="n">${Math.round(r.rows).toLocaleString("en-US")}</td><td class="n">${r.median.toFixed(3)}</td><td class="n">${(r.at * 100).toFixed(1)}%</td><td class="n">${(r.below * 100).toFixed(1)}%</td><td class="n">${(r.above * 100).toFixed(1)}%</td><td class="n">${r.weighted == null ? "" : (r.weighted * 100).toFixed(1) + "%"}</td></tr>`).join("");
+}
+
+/* Calibration scatter */
+function chartCal() {
+  const W = 900, H = 460, top = 14, bottom = 40, left = 60, right = 160;
+  const s = svgIn("chartCal", W, H);
+  const W2 = W; const x = lin(-0.8, -0.2, left, W - right), y = lin(-0.8, -0.2, H - bottom, top);
+  for (const t of [-0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2]) {
+    const g = el("g", { class: "tick" }, s);
+    el("line", { x1: x(t), x2: x(t), y1: top, y2: H - bottom }, g);
+    el("line", { x1: left, x2: W - right, y1: y(t), y2: y(t) }, g);
+    const a = el("text", { x: x(t), y: H - bottom + 16, "text-anchor": "middle" }, g); a.textContent = pct(t);
+    const b = el("text", { x: left - 6, y: y(t) + 4, "text-anchor": "end" }, g); b.textContent = pct(t);
+  }
+  const xl = el("text", { x: (left + W - right) / 2, y: H - 4, "text-anchor": "middle" }, s); xl.textContent = "Predicted from the October 2025 plan prices (1/r − 1)";
+  const yl = el("text", { x: 14, y: (top + H - bottom) / 2, transform: `rotate(-90 14 ${(top + H - bottom) / 2})`, "text-anchor": "middle" }, s); yl.textContent = "Measured, 2025 to 2026 Q1";
+  el("line", { x1: x(-0.8), y1: y(-0.8), x2: x(-0.2), y2: y(-0.2), class: "ref" }, s);
+  D.cal.forEach(r => {
+    const c = css("--s1");
+    el("circle", { cx: x(r.pred), cy: y(r.real), r: 6, fill: r.structural ? css("--surface") : c, stroke: r.structural ? c : css("--surface"), "stroke-width": 2 }, s);
+    const off = { JANUVIA: [9, -6, "start"], XARELTO: [9, 9, "start"], JARDIANCE: [-9, -4, "end"], FARXIGA: [-9, 2, "end"], STELARA: [9, 12, "start"], ENBREL: [9, 10, "start"] }[r.drug] || [9, 4, "start"];
+    const lab = el("text", { x: x(r.pred) + off[0], y: y(r.real) + off[1], "text-anchor": off[2] }, s); lab.textContent = plabel(r.drug);
+    const hit = el("circle", { cx: x(r.pred), cy: y(r.real), r: 12, fill: "transparent" }, s);
+    hit.addEventListener("mousemove", e => showTip(e, `<b>${plabel(r.drug)}</b><br>r = ${r.r.toFixed(2)}<br>predicted ${pct(r.pred, 1)}, measured ${pct(r.real, 1)}<br>error ${r.err > 0 ? "+" : ""}${r.err.toFixed(1)} points${r.structural ? "<br>known structural case" : ""}`));
+    hit.addEventListener("mouseleave", hideTip);
+  });
+}
+
+/* Predictions: point with band */
+function chartPred() {
+  const rows = D.pred.slice().sort((a, b) => a.pred - b.pred);
+  const W = 900, rowH = 21, top = 24, left = 150, right = 70;
+  const H = top + rows.length * rowH + 10;
+  const s = svgIn("chartPred", W, H);
+  const x = lin(-0.9, 0, left, W - right);
+  for (const t of [-0.9, -0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.1, 0]) {
+    const g = el("g", { class: "tick" }, s);
+    el("line", { x1: x(t), x2: x(t), y1: top - 6, y2: H - 6 }, g);
+    const tx = el("text", { x: x(t), y: top - 10, "text-anchor": "middle" }, g); tx.textContent = pct(t);
+  }
+  let y = top;
+  rows.forEach(r => {
+    const cy = y + rowH / 2, c = css("--s2");
+    const lab = el("text", { x: left - 8, y: cy + 4, "text-anchor": "end" }, s); lab.textContent = plabel(r.drug);
+    el("rect", { x: x(r.pred - 0.05), y: cy - 6, width: x(r.pred + 0.05) - x(r.pred - 0.05), height: 12, rx: 3, fill: c, opacity: 0.25 }, s);
+    el("circle", { cx: x(r.pred), cy, r: 5, fill: c, stroke: css("--surface"), "stroke-width": 2 }, s);
+    const v = el("text", { x: x(r.pred + 0.05) + 6, y: cy + 4 }, s); v.textContent = pct(r.pred);
+    const hit = el("rect", { x: left, y, width: W - left - right, height: rowH, fill: "transparent" }, s);
+    hit.addEventListener("mousemove", e => showTip(e, `<b>${plabel(r.drug)}</b><br>plan price = ${r.r.toFixed(2)} times the 2027 MFP<br>predicted ${pct(r.pred, 1)}; scoring tolerance ±5 points around the unrounded prediction (about ${pct(r.pred - 0.05, 1)} to ${pct(r.pred + 0.05, 1)})<br>${money(r.pc)} per claim in 2026 Q1` + (r.gab != null ? `<br>Gabriel et al.: MFP ${Math.round(r.gab * 100)}% below estimated net` : "") + `<br>CMS: MFP ${Math.round(r.cms * 100)}% below 2024 list`));
+    hit.addEventListener("mouseleave", hideTip);
+    y += rowH;
+  });
+}
+function tablePred() {
+  document.querySelector("#tblPred tbody").innerHTML = D.pred.slice().sort((a, b) => a.pred - b.pred).map(r =>
+    `<tr><td>${plabel(r.drug)}</td><td class="n" data-v="${r.r}">${r.r.toFixed(2)}</td><td class="n" data-v="${r.pred}">${pct(r.pred)}</td><td class="n" data-v="${r.pc}">${money(r.pc)}</td><td class="n" data-v="${r.nadac ?? -1}">${r.nadac == null ? "no NADAC" : r.nadac.toFixed(2)}</td><td class="n" data-v="${r.gab ?? -1}">${r.gab == null ? "not estimable" : "−" + Math.round(r.gab * 100) + "%"}</td><td class="n" data-v="${r.cms}">−${Math.round(r.cms * 100)}%</td></tr>`).join("");
+}
+function tableCuts() {
+  document.querySelector("#tblCuts tbody").innerHTML = D.cuts.map(r =>
+    `<tr><td>${r.january}</td><td>${GROUPL[r.group]}</td><td>${plabel(r.drug)}</td><td>${r.products.split("/").map(title).join(", ")}</td><td class="n">${r.ndcs}</td><td class="n" data-v="${r.median_pct}">${r.median_pct.toFixed(1)}%</td><td>${r.effective}</td></tr>`).join("");
+}
+
+/* sortable tables */
+function sortable() {
+  document.querySelectorAll("table.sortable").forEach(t => {
+    t.querySelectorAll("th.sortable").forEach((th, i) => {
+      let asc = true;
+      th.onclick = () => {
+        const rows = [...t.tBodies[0].rows];
+        const val = r => { const c = r.cells[i]; return c.dataset.v != null ? parseFloat(c.dataset.v) : (isNaN(parseFloat(c.textContent)) ? c.textContent : parseFloat(c.textContent)); };
+        rows.sort((a, b) => { const A = val(a), B = val(b); return (A > B ? 1 : A < B ? -1 : 0) * (asc ? 1 : -1); });
+        asc = !asc; rows.forEach(r => t.tBodies[0].appendChild(r));
+      };
+    });
+  });
+}
+
+/* active section in the contents */
+function tocSpy() {
+  const links = [...document.querySelectorAll("nav.toc a")];
+  const obs = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) links.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+  }), { rootMargin: "-40% 0px -55% 0px" });
+  document.querySelectorAll("main section, header.hero").forEach(s => obs.observe(s));
+}
+
+function drawAll() { chartF1(); chartF2(); chartF3(); chartF4(); chartCal(); chartPred(); }
+document.getElementById("themeBtn").onclick = () => {
+  const dark = getComputedStyle(document.documentElement).colorScheme.includes("dark");
+  document.documentElement.setAttribute("data-theme", dark ? "light" : "dark");
+  drawAll();
+};
+tableGroups(); controlsF2(); tableF4(); tablePred(); tableCuts(); drawAll(); sortable(); tocSpy();
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", drawAll);
+</script>
+</body>
+</html>
