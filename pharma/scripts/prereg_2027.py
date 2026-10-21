@@ -95,7 +95,9 @@ def leaving_and_continuing(ira, r, pc):
     t = t.merge(pc[pc.group == "IPAY 2026"][["drug", "per_claim_2025", "per_claim_2026Q1"]], on="drug", how="left")
     nd = pd.read_csv(OUTS / "ira" / "nadac_to_mfp_by_drug.csv")[["drug", "ratio_dec2025", "ratio_latest"]]
     nd = nd.rename(columns={"ratio_dec2025": "nadac_to_mfp_dec2025", "ratio_latest": "nadac_to_mfp_latest"})
-    t = t.merge(nd, on="drug", how="left")
+    # The NADAC table splits the CMS NovoLog entry into NovoLog and Fiasp; keep both rows (Agy review fix).
+    fiasp = t[t.drug == "NOVOLOG"].assign(drug="FIASP")
+    t = pd.concat([t, fiasp], ignore_index=True).merge(nd, on="drug", how="left")
     # Leaving drugs: if plan prices return to the list-based level, the brand's plan price moves from the
     # 2026 MFP to roughly NADAC (which tracks WAC for brands): expected per-unit factor = NADAC / 2026 MFP.
     t["factor_if_list_returns"] = np.where(t.status_2027.str.startswith("leaves"), t.nadac_to_mfp_latest, np.nan)
@@ -110,7 +112,7 @@ def md(df, pct=(), ratio=(), money=()):
     for c in ratio:
         df[c] = df[c].map(lambda v: "" if pd.isna(v) else f"{v:.2f}")
     for c in money:
-        df[c] = df[c].map(lambda v: "" if pd.isna(v) else f"{v:,.0f}")
+        df[c] = df[c].map(lambda v: "" if pd.isna(v) else f"{v:,.2f}" if c.startswith("mfp30") else f"{v:,.0f}")
     df = df.fillna("")
     head = "| " + " | ".join(df.columns) + " |\n|" + "---|" * len(df.columns) + "\n"
     return head + "\n".join("| " + " | ".join(str(v) for v in row) + " |" for row in df.values)

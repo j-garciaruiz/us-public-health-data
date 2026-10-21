@@ -115,3 +115,24 @@ Codex (GPT-6 Astra, high) replicated every baseline number from the raw files (2
 **P4, a hypothesis, not a consequence.** Deselection does not force plans back to list-based prices; P4 tests the hypothesis that they return. The 1.5x plan-price clause and the 50% spending clause are separate tests, scored on brand products only (NovoLog and Fiasp split; unbranded ustekinumab and other unbranded NDCs excluded). A brand with no plan-price rows or fewer than 1,000 claims in 2027 Q1 is not evaluable. A WAC cut, continued plan discounting, coverage loss or a change in mix are reported as possible mechanisms; none turns a failed threshold into a pass.
 
 **P2 wording.** "The gross fall exceeds the net discount Gabriel et al. estimate for every drug" applies to the 14 drugs with an estimable net price, and the two are different estimands (Gabriel: 2022 estimated net prices). CMS's net benchmark is 44% (about $12 billion) excluding Coverage Gap Discount Program discounts and 36% (about $8.5 billion) including them.
+
+### Amendment 2 (2026-10-20, after the Agy review; no 2027 outcome data opened)
+
+Agy (Gemini 4 Argon, high) also replicated the baseline (PASS WITH FIXES, `reviews/pharma_prereg_agy_argon/report.md`). Each of its findings was checked against the data or the source before use.
+
+**Held up and applied.**
+- Code: `prereg_2027.py` dropped the Fiasp row from the table of the ten 2026 drugs (NADAC / MFP 3.99 in December 2025, 0.99 now) and rounded Farxiga's 2026 MFP of $178.50 to 178. Both fixed; the baseline table is regenerated and no prediction changes.
+- P2 wording: the wider band is not explained by January 2026 list-price changes, which apply to all of 2026. What separates a full-year 2026 baseline from the October 2026 plan prices is change during 2026. Xifaxan's plan-price ratio rose from 2.80 (January 2026 file) to 3.25 (October 2026), so against the full-year baseline its fall should come out smaller than the registered −69%. Pre-specified sensitivity for all 15 drugs: a 2026 Q4 baseline (Q4 spending and claims as the year-to-date Q4 figures minus the year-to-date Q3 figures). The full-year baseline stays primary.
+- Semaglutide by brand (verified on the October 2026 plan file): Ozempic r = 3.66 (31,959 rows; predicted −72.7%), Wegovy r = 3.33 (1,071 rows; −69.9%); Rybelsus has no rows in the plan file. Sensitivity: Ozempic and Wegovy scored on their own Part D rows; the pooled prediction (−72.4%) stays primary.
+- P1 roster: P1 is scored on every listed NDC against its own MFP, as registered. Breo Ellipta includes two unbranded fluticasone/vilanterol NDCs with a 2027 MFP of $0.70 per unit against $1.15 for brand Breo (in 2026, unbranded ustekinumab was the only source of above-MFP prices). Brand-only shares are reported as a sensitivity.
+- P4 and P5 baselines: full-year 2026 vs 2027 Q1, as in P2; 2026 Q1 vs 2027 Q1 as a sensitivity.
+- P2 comparator: the 2028 group is scored as registered. Trulicity is 42% of its 2026 Q1 claims and Anoro Ellipta (a named P3 sibling) 13%, so one list-price cut could move it; a sensitivity excludes any 2028 drug with a WAC-based cut of 20% or more effective 2026-12-20 to 2027-02-28.
+
+**Did not hold up (not applied).**
+- Its source check lists Gabriel et al.'s per-drug discounts with wrong values (for example Janumet 60% and Tradjenta 47%; Table 1 gives 43% and 60%) while calling them an exact match. Codex's check of the same table, and ours, confirm the registered values.
+- It describes a "±4 pp" P2 band with drug exclusions; the registered band is ±5 points with all 15 drugs in.
+- It cites an output file that does not exist (`spuf_summary_by_drug.csv`); its Xifaxan numbers match `ratio_by_drug.csv`.
+- It asks to exclude Tradjenta from the 2028 comparator; Tradjenta is already in the 2027 group and not in the 2028 comparator.
+- Its summary of Li et al. (a 46% discount across 13 drugs) does not match the paper's text and is not used.
+
+**Considered and not adopted.** Lowering the rank-correlation threshold to 0.70, or applying it to non-structural drugs only (where the calibration gives 0.98), would weaken a registered test; the 0.8 threshold on all 15 drugs stays.

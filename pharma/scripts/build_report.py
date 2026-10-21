@@ -32,7 +32,7 @@ def pct(v, d=0):
 
 
 CODEX_PREREG = "PASS WITH FIXES (221 numbers reproduced)"
-AGY_PREREG = "pending"
+AGY_PREREG = "PASS WITH FIXES; 6 findings held up, 5 claims did not (wrong source values)"
 
 
 def main():
