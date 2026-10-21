@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>County atlas | Expected vs Observed</title>
+<meta name="description" content="Interactive US county atlas comparing measured health outcomes with what county demographics predict.">
+<link rel="preload" href="fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">Expected vs Observed</a>
+  <nav aria-label="Site">
+    <a href="index.html">Project</a>
+    <a href="atlas.html" aria-current="page">Atlas</a>
+    <a href="index.html#method">Method</a>
+  </nav>
+</header>
+
+<main class="atlas">
+  <aside class="panel" aria-label="Map controls">
+    <h1 class="atlas-title">County atlas</h1>
+    <p class="lede">Each county's measured value compared with what its demographics predict.</p>
+
+    <label class="field">Outcome
+      <select id="outcome"></select>
+    </label>
+
+    <div class="field" role="group" aria-labelledby="view-label">
+      <span id="view-label">Show</span>
+      <div class="segmented" id="view">
+        <button type="button" data-v="obs" aria-pressed="false">Measured</button>
+        <button type="button" data-v="exp" aria-pressed="false">Expected</button>
+        <button type="button" data-v="diff" aria-pressed="true">Difference</button>
+      </div>
+    </div>
+
+    <div class="field" role="group" aria-labelledby="mode-label">
+      <span id="mode-label">Compare with similar counties in</span>
+      <div class="segmented" id="mode">
+        <button type="button" data-m="nat" aria-pressed="true">All states</button>
+        <button type="button" data-m="ws" aria-pressed="false">Same state</button>
+      </div>
+    </div>
+
+    <label class="check"><input type="checkbox" id="smooth" checked> Smooth small-county noise</label>
+    <label class="check"><input type="checkbox" id="fade" checked> Fade low-reliability counties</label>
+
+    <label class="field">Find a county
+      <input type="search" id="search" list="county-list" placeholder="County name, state" autocomplete="off">
+      <datalist id="county-list"></datalist>
+    </label>
+
+    <div class="legend" id="legend" aria-live="polite"></div>
+
+    <section class="about" id="about" aria-label="About this outcome"></section>
+  </aside>
+
+  <section class="stage" aria-label="Map">
+    <div class="map-head">
+      <h2 id="map-title"></h2>
+      <p id="map-sub"></p>
+    </div>
+    <div class="map-wrap">
+      <svg id="map" role="img" aria-labelledby="map-title map-sub"></svg>
+      <div class="map-status" id="status" role="status">Loading map</div>
+    </div>
+
+    <div class="below">
+      <section class="details" id="details" aria-live="polite">
+        <p class="hint">Hover a county for values; click to keep it here.</p>
+      </section>
+      <section class="extremes" aria-label="Largest differences">
+        <h3>Largest differences, reliable counties</h3>
+        <div class="ext-cols">
+          <div><h4>Above expected</h4><ol id="top-high"></ol></div>
+          <div><h4>Below expected</h4><ol id="top-low"></ol></div>
+        </div>
+      </section>
+    </div>
+
+    <details class="table-wrap" id="table-details">
+      <summary>All counties as a table</summary>
+      <div class="table-scroll"><table id="county-table"><thead></thead><tbody></tbody></table></div>
+    </details>
+  </section>
+</main>
+<div class="tooltip" id="tooltip" role="tooltip"></div>
+
+<script src="vendor/d3.min.js"></script>
+<script src="vendor/topojson-client.min.js"></script>
+<script src="data/geo.js"></script>
+<script src="data/atlas_index.js"></script>
+<script src="assets/common.js"></script>
+<script src="assets/atlas.js"></script>
+</body>
+</html>

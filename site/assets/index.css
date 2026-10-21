@@ -1,0 +1,100 @@
+/* Project page layout. */
+main { display: block; }
+section { padding: clamp(56px, 8vw, 104px) clamp(16px, 5vw, 64px); }
+section + section { border-top: 1px solid var(--ring); }
+h2 { font-size: clamp(28px, 3.2vw, 40px); font-weight: 650; max-width: 22ch; }
+h3 { font-size: 17px; font-weight: 600; }
+.section-sub { color: var(--ink-2); font-size: 17px; max-width: 65ch; margin-top: 14px; }
+
+/* hero: narrow text column, the real map as the visual anchor */
+.hero {
+  display: grid; grid-template-columns: minmax(380px, 0.42fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px);
+  align-items: center; min-height: calc(100dvh - 60px); padding-top: 24px; padding-bottom: 24px;
+}
+.hero h1 { font-size: clamp(40px, 4.2vw, 60px); font-weight: 650; letter-spacing: -0.035em; line-height: 1.02; }
+.hero-sub { font-size: 19px; color: var(--ink-2); margin-top: 20px; max-width: 34ch; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.hero-map { margin: 0; min-width: 0; }
+.hero-map a { display: block; }
+#hero-map { display: block; width: 100%; height: auto; max-height: calc(100dvh - 160px); }
+#hero-map path.county { stroke: var(--county-line); stroke-width: 0.2; }
+.hero-map figcaption {
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px 20px;
+  font-size: 13px; color: var(--ink-2); margin-top: 8px;
+}
+.mini-legend { display: inline-flex; align-items: center; gap: 8px; font-variant-numeric: tabular-nums; }
+.mini-legend i { display: inline-block; width: 120px; height: 8px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-text > * { animation: rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .hero-text > :nth-child(2) { animation-delay: 0.08s; }
+  .hero-text > :nth-child(3) { animation-delay: 0.16s; }
+  .hero-map { animation: fade 0.9s ease 0.1s both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+}
+
+/* finding 1: big figure beside the chart */
+.f1 { display: grid; grid-template-columns: minmax(220px, 0.28fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 72px); align-items: start; }
+.big-number { font-size: clamp(72px, 9vw, 128px); font-weight: 650; letter-spacing: -0.05em; line-height: 0.95; color: var(--accent-ink); }
+.big-caption { color: var(--ink-2); margin-top: 12px; max-width: 30ch; }
+.f1-body > p { color: var(--ink-2); font-size: 17px; max-width: 65ch; margin-top: 14px; }
+.chart { margin-top: 28px; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { font-family: var(--font); fill: var(--ink-2); font-size: 12px; }
+.chart .axis text { fill: var(--muted); font-variant-numeric: tabular-nums; }
+.chart .axis line, .chart .axis path { stroke: var(--grid); }
+.chart .label-strong { fill: var(--ink); font-weight: 550; }
+
+.chart-legend { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; color: var(--ink-2); margin-bottom: 10px; }
+.chart-legend span { display: inline-flex; align-items: center; gap: 7px; }
+.chart-legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.chart-legend i.ring { width: 14px; height: 14px; border: 1.5px solid var(--ink); background: transparent; }
+.data-table { margin-top: 12px; font-size: 13px; }
+.data-table summary { cursor: pointer; color: var(--ink-2); }
+.data-table .table-scroll { max-height: 320px; overflow: auto; border: 1px solid var(--ring); margin-top: 8px; }
+.data-table table { border-collapse: collapse; width: 100%; }
+.data-table th, .data-table td { padding: 4px 10px; text-align: left; }
+.data-table th { position: sticky; top: 0; background: var(--surface-2); }
+.data-table td { border-top: 1px solid var(--grid); }
+.data-table td.num, .data-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* examples: three linked observations */
+.ex-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: clamp(20px, 3vw, 40px); margin-top: 32px; }
+.ex { display: grid; gap: 10px; align-content: start; padding-top: 16px; border-top: 3px solid var(--ink); }
+.ex .ex-num { font-size: 34px; font-weight: 650; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.ex p { color: var(--ink-2); }
+.ex a { font-weight: 550; }
+
+/* uses: two plain lists */
+.uses-cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 5vw, 72px); margin-top: 28px; max-width: 1100px; }
+.uses ul, .method ul { margin: 10px 0 0; padding-left: 18px; display: grid; gap: 8px; color: var(--ink-2); }
+.uses-note { margin-top: 28px; color: var(--ink-2); max-width: 70ch; }
+
+/* checks: a four-step process, then what was caught */
+.process { list-style: none; padding: 0; margin: 36px 0 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; counter-reset: step; }
+.process li { padding: 18px 24px 0 0; border-top: 2px solid var(--ink); }
+.process p { color: var(--ink-2); font-size: 15px; margin-top: 6px; max-width: 30ch; }
+.caught { margin-top: 48px; background: var(--surface-2); padding: clamp(20px, 3vw, 36px); border-radius: var(--radius); }
+.caught-list { margin: 14px 0 0; padding-left: 18px; columns: 2; column-gap: 48px; color: var(--ink-2); }
+.caught-list li { break-inside: avoid; margin-bottom: 8px; }
+
+/* method: three columns */
+.method-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 4vw, 56px); margin-top: 28px; font-size: 15px; }
+.lit { margin-top: 32px; color: var(--ink-2); font-size: 15px; max-width: 75ch; }
+
+.footer { padding: 32px clamp(16px, 5vw, 64px); border-top: 1px solid var(--ring); color: var(--muted); font-size: 14px; }
+
+@media (max-width: 1000px) {
+  .ex-grid { grid-template-columns: 1fr 1fr; }
+  .ex-grid .ex:first-child { grid-column: 1 / -1; }
+  .process { grid-template-columns: 1fr 1fr; row-gap: 28px; }
+  .method-cols { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; min-height: 0; padding-top: 40px; }
+  .f1 { grid-template-columns: 1fr; }
+  .ex-grid, .uses-cols, .method-cols, .process { grid-template-columns: 1fr; }
+  .caught-list { columns: 1; }
+  .topbar nav { gap: 14px; }
+}

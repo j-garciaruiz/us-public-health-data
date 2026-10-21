@@ -1,0 +1,155 @@
+/* Expected vs Observed: shared styles for the project page and the atlas.
+   One typeface (Geist, self-hosted, OFL), one accent (the data blue),
+   light and dark themes from the same tokens. Corner radius system: 8px on
+   controls and panels, 0 on charts and maps. */
+
+@font-face {
+  font-family: "Geist";
+  src: url("../fonts/Geist-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist Mono";
+  src: url("../fonts/GeistMono-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+  --page: #f9f9f7;
+  --surface: #fcfcfb;
+  --surface-2: #f2f1ed;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #6f6d68;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --ring: rgba(11, 11, 11, 0.10);
+  --accent: #2a78d6;
+  --accent-ink: #1c5cab;
+  --missing: #dcdbd5;
+  --missing-hatch: #c3c2b7;
+  --state-line: #ffffff;
+  --county-line: rgba(255, 255, 255, 0.55);
+  --mid: #f0efec;
+  --focus: #1c5cab;
+  --radius: 8px;
+  --font: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --page: #0f0f0e;
+    --surface: #1a1a19;
+    --surface-2: #232321;
+    --ink: #f0efec;
+    --ink-2: #c3c2b7;
+    --muted: #9b9991;
+    --grid: #2c2c2a;
+    --axis: #45453f;
+    --ring: rgba(255, 255, 255, 0.10);
+    --accent: #5598e7;
+    --accent-ink: #86b6ef;
+    --missing: #2e2e2b;
+    --missing-hatch: #45453f;
+    --state-line: #0f0f0e;
+    --county-line: rgba(15, 15, 14, 0.5);
+    --mid: #383835;
+    --focus: #86b6ef;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.55;
+  font-feature-settings: "ss01";
+}
+img, svg { max-width: 100%; }
+a { color: var(--accent-ink); text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+h1, h2, h3 { text-wrap: balance; letter-spacing: -0.02em; line-height: 1.12; margin: 0; }
+p { text-wrap: pretty; margin: 0; }
+.num, td.num, .tabular { font-variant-numeric: tabular-nums; }
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* top bar */
+.topbar {
+  height: 60px; display: flex; align-items: center; gap: 24px;
+  padding: 0 clamp(16px, 4vw, 40px); border-bottom: 1px solid var(--ring);
+  background: var(--page); position: sticky; top: 0; z-index: 20;
+}
+.topbar .brand { font-weight: 650; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; white-space: nowrap; }
+.topbar nav { display: flex; gap: 20px; margin-left: auto; }
+.topbar nav a { color: var(--ink-2); text-decoration: none; font-size: 14px; white-space: nowrap; }
+.topbar nav a[aria-current="page"], .topbar nav a:hover { color: var(--ink); }
+
+/* buttons and controls */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 18px;
+  border-radius: var(--radius); border: 1px solid transparent; font: inherit; font-weight: 550;
+  text-decoration: none; cursor: pointer; white-space: nowrap; transition: transform 0.15s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--accent-ink); color: #ffffff; }
+@media (prefers-color-scheme: dark) { .btn-primary { background: #2a78d6; color: #ffffff; } }
+.btn-secondary { background: transparent; color: var(--ink); border-color: var(--axis); }
+
+.segmented { display: inline-grid; grid-auto-flow: column; border: 1px solid var(--axis); border-radius: var(--radius); overflow: hidden; }
+.segmented button {
+  font: inherit; font-size: 14px; padding: 7px 12px; border: 0; background: transparent; color: var(--ink-2); cursor: pointer;
+}
+.segmented button + button { border-left: 1px solid var(--axis); }
+.segmented button[aria-pressed="true"] { background: var(--ink); color: var(--page); }
+
+select, input[type="search"] {
+  font: inherit; font-size: 15px; color: var(--ink); background: var(--surface);
+  border: 1px solid var(--axis); border-radius: var(--radius); height: 40px; padding: 0 10px; width: 100%;
+}
+label.field { display: grid; gap: 6px; font-size: 13px; color: var(--ink-2); font-weight: 550; }
+.check { display: flex; gap: 8px; align-items: center; font-size: 14px; color: var(--ink-2); }
+
+/* tooltip */
+.tooltip {
+  position: fixed; pointer-events: none; z-index: 40; min-width: 220px; max-width: 300px;
+  background: var(--surface); color: var(--ink); border: 1px solid var(--ring); border-radius: var(--radius);
+  box-shadow: 0 6px 24px rgba(11, 11, 11, 0.12); padding: 10px 12px; font-size: 13px; line-height: 1.45;
+  opacity: 0; transition: opacity 0.1s ease;
+}
+.tooltip.on { opacity: 1; }
+.tooltip .t-name { font-weight: 650; font-size: 14px; margin-bottom: 4px; }
+.tooltip dl { display: grid; grid-template-columns: auto auto; gap: 2px 12px; margin: 0; }
+.tooltip dt { color: var(--ink-2); }
+.tooltip dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+
+/* legend */
+.legend { font-size: 12px; color: var(--ink-2); }
+.legend .ramp { height: 10px; border-radius: 0; }
+.legend .ticks { display: flex; justify-content: space-between; margin-top: 4px; font-variant-numeric: tabular-nums; }
+.legend .swatches { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 8px; }
+.legend .sw { display: inline-flex; align-items: center; gap: 6px; }
+.legend .sw i { width: 14px; height: 10px; display: inline-block; }
+
+@media (max-width: 480px) {
+  .topbar { gap: 12px; padding: 0 14px; }
+  .topbar .brand { font-size: 15px; }
+  .topbar nav { gap: 12px; }
+  .topbar nav a { font-size: 13px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

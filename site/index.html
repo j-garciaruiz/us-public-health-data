@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Expected vs Observed | US county health</title>
+<meta name="description" content="A US county health atlas that sets measured outcomes against what each county's demographics predict, and tests what CDC PLACES adds.">
+<link rel="preload" href="fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/index.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">Expected vs Observed</a>
+  <nav aria-label="Site">
+    <a href="index.html" aria-current="page">Project</a>
+    <a href="atlas.html">Atlas</a>
+    <a href="#method">Method</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-text">
+      <h1 id="hero-title">Expected vs Observed</h1>
+      <p class="hero-sub">A US county health atlas that sets measured outcomes against what each county's demographics&nbsp;predict.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="atlas.html">Open the atlas</a>
+        <a class="btn btn-secondary" href="#checks">How it was checked</a>
+      </div>
+    </div>
+    <figure class="hero-map">
+      <a href="atlas.html#o=mortality_diabetes_deaths&amp;v=diff&amp;m=nat&amp;s=1&amp;f=1" aria-label="Open this map in the atlas">
+        <svg id="hero-map" role="img" aria-labelledby="hero-cap"></svg>
+      </a>
+      <figcaption id="hero-cap">
+        <span>Diabetes deaths 2018-2024, measured minus expected</span>
+        <span class="mini-legend" id="hero-legend"></span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="finding f1" aria-labelledby="f1-title">
+    <div class="f1-figure">
+      <p class="big-number"><span data-bind="r2_median_pct">97%</span></p>
+      <p class="big-caption">median share of county-to-county variation in PLACES reproduced by demographics and state, on counties the model did not&nbsp;see</p>
+    </div>
+    <div class="f1-body">
+      <h2 id="f1-title">CDC's county estimates can be rebuilt from&nbsp;demographics</h2>
+      <p>CDC PLACES models every county from age, sex, race and ethnicity, education, poverty and state. Feeding those same inputs back in recovers almost every map. A rate the Census measures directly is far less&nbsp;predictable.</p>
+      <div class="chart" id="chart-r2" role="img" aria-label="Dot plot of how much of each PLACES measure demographics and state reproduce"></div>
+      <details class="data-table"><summary>Chart data</summary><div class="table-scroll" id="table-r2"></div></details>
+    </div>
+  </section>
+
+  <section class="finding f2" aria-labelledby="f2-title">
+    <h2 id="f2-title">Against measured outcomes, PLACES adds&nbsp;little</h2>
+    <p class="section-sub">Deaths, Medicare diagnoses and Census disability: demographics and state predict each one better than PLACES does, and adding PLACES lifts accuracy by at most <span data-bind="max_gain_pts">2.3</span>&nbsp;points.</p>
+    <div class="chart wide" id="chart-pvo" role="img" aria-label="Dot plot comparing prediction accuracy for 21 measured outcomes"></div>
+    <details class="data-table"><summary>Chart data</summary><div class="table-scroll" id="table-pvo"></div></details>
+  </section>
+
+  <section class="examples" aria-labelledby="ex-title">
+    <h2 id="ex-title">What the atlas shows</h2>
+    <div class="ex-grid" id="examples"></div>
+  </section>
+
+  <section class="uses" aria-labelledby="uses-title">
+    <h2 id="uses-title">What PLACES is good&nbsp;for</h2>
+    <div class="uses-cols">
+      <div>
+        <h3>Use it for</h3>
+        <ul>
+          <li>Estimating likely burden where no local data exist</li>
+          <li>Planning and needs assessments</li>
+          <li>Broad geographic patterns and state comparisons</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Avoid it for</h3>
+        <ul>
+          <li>Finding counties that do better or worse than expected</li>
+          <li>Evaluating a local program or policy</li>
+          <li>Regressing PLACES on demographics or on other PLACES measures</li>
+          <li>Ranking similar counties against each other</li>
+        </ul>
+      </div>
+    </div>
+    <p class="uses-note">Where a measured source exists for the same quantity, use it instead: death certificates, Medicare claims for older adults, or Census survey data.</p>
+  </section>
+
+  <section class="checks" id="checks" aria-labelledby="checks-title">
+    <h2 id="checks-title">How it was checked</h2>
+    <p class="section-sub">Each analysis was rebuilt from raw data by an independent reviewer before any number reached this page. The reviews found real problems, and every one was&nbsp;fixed.</p>
+    <ol class="process">
+      <li><h3>Build</h3><p>Analysis written by Claude (Opus 5.5) under the author's direction, from public raw files.</p></li>
+      <li><h3>Replicate</h3><p>Codex (GPT-6 Astra) rebuilt every number from the raw data before reading the original code, then audited the code.</p></li>
+      <li><h3>Challenge</h3><p>Agy (Gemini 4 Argon) reviewed the method and recomputed the headline numbers. Its findings were verified before use.</p></li>
+      <li><h3>Fix</h3><p>Every finding was fixed or answered, and the fixes were verified again.</p></li>
+    </ol>
+    <div class="caught">
+      <h3>Problems the reviews caught</h3>
+      <ul class="caught-list">
+        <li>Pairwise correlations mixed different sets of counties</li>
+        <li>A headline covariance figure that was capped near 1.9% by construction</li>
+        <li>Zero-death counties kept in the data, against the CDC rule on counts of 9 or fewer</li>
+        <li>A renamed Alaska county dropped from the mortality data</li>
+        <li>Kentucky and Pennsylvania missing from every atlas layer</li>
+        <li>Negative expected death rates in four counties</li>
+        <li>A smoothing estimator missing its centering step</li>
+        <li>Chart wording that claimed more than the analysis showed</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="method" id="method" aria-labelledby="method-title">
+    <h2 id="method-title">Method, data and limits</h2>
+    <div class="method-cols">
+      <div>
+        <h3>Data</h3>
+        <ul>
+          <li><a href="https://data.cdc.gov/d/i46a-9kgh">CDC PLACES</a>, 2025 county release (BRFSS 2022-2023)</li>
+          <li><a href="https://wonder.cdc.gov/mcd-icd10-expanded.html">CDC WONDER</a> deaths 2018-2024, under the NCHS data use rules</li>
+          <li><a href="https://data.cms.gov/tools/mapping-medicare-disparities-by-population">CMS Mapping Medicare Disparities</a>, 2023 claims</li>
+          <li><a href="https://www.census.gov/programs-surveys/acs">Census American Community Survey</a>, 2019-2023</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Method</h3>
+        <ul>
+          <li>Expected values: cross-fitted regression on county demographics, with an optional state term; Poisson regression for deaths</li>
+          <li>Deaths: standardized mortality ratios against national age-specific rates</li>
+          <li>Smoothing: empirical Bayes shrinkage using each county's sampling error</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Limits</h3>
+        <ul>
+          <li>Measured is not the same as true disease: claims reflect diagnosis and coding, deaths reflect certificates</li>
+          <li>Connecticut has no mortality match; Medicare smoothing uses an approximate denominator</li>
+          <li>No test yet on other regions or years</li>
+        </ul>
+      </div>
+    </div>
+    <p class="lit">Builds on Kong and Zhang, <a href="https://doi.org/10.2105/AJPH.2020.305611">"The Use of Small Area Estimates in Place-Based Health Research"</a>, American Journal of Public Health, 2020.</p>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>Johnattan García Ruiz, October 2026. Public data from CDC, CMS and the US Census Bureau.</p>
+</footer>
+<div class="tooltip" id="tooltip" role="tooltip"></div>
+
+<script src="vendor/d3.min.js"></script>
+<script src="vendor/topojson-client.min.js"></script>
+<script src="data/geo.js"></script>
+<script src="data/atlas_index.js"></script>
+<script src="data/findings.js"></script>
+<script src="assets/common.js"></script>
+<script src="assets/index.js"></script>
+</body>
+</html>
